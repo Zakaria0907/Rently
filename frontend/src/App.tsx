@@ -1,10 +1,39 @@
-function App() {
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  Navigate,
+  useParams,
+  useNavigate
+} from 'react-router-dom';
 
+
+function Home() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <div style={{ padding: 20 }}>
+      <h2>Home View</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
+    </div>
+  );
+};
+
+
+function AppLayout() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+    </Routes>
+  );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <AppLayout />
+    </Router>
+  );
+}
+
+export default App;
