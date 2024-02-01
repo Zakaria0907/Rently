@@ -4,6 +4,8 @@ import Landing from './components/Landing.tsx'
 import Login from './components/Login.tsx'
 import Welcome from './components/Welcome.tsx'
 import RequireAuth from './components/RequireAuth.tsx'
+import PersistLogin from './components/PersistLogin.tsx'
+import Missing from './components/Missing.tsx'
 import { Roles } from './types/enums.ts'
 
 function App() {
@@ -15,15 +17,18 @@ function App() {
         <Route path="login" element={<Login />} />
 
         {/* protected routes */}
-        <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
-          <Route path="welcome" element={<Welcome />} />
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+            <Route path="welcome" element={<Welcome />} />
+          </Route>
+
+          <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
+            <Route path="welcome" element={<Welcome />} />
+          </Route>
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
-          <Route path="welcome" element={<Welcome />} />
-        </Route>
-
-
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
   )

@@ -21,7 +21,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [auth, setAuth] = useState({});
     const [persist, setPersist] = useState(
-        JSON.parse(localStorage.getItem("persist") ?? "false")
+        JSON.parse(localStorage.getItem("persist") || false as any)
     );
 
     return (
