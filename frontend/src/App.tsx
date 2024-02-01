@@ -1,39 +1,32 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Outlet,
-  Navigate,
-  useParams,
-  useNavigate
-} from 'react-router-dom';
-
-
-function Home() {
-  return (
-    <div style={{ padding: 20 }}>
-      <h2>Home View</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
-    </div>
-  );
-};
-
-
-function AppLayout() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
-  );
-}
+import { Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout.tsx'
+import Landing from './components/Landing.tsx'
+import Login from './components/Login.tsx'
+import Welcome from './components/Welcome.tsx'
+import RequireAuth from './components/RequireAuth.tsx'
+import { Roles } from './types/enums.ts'
 
 function App() {
   return (
-    <Router>
-      <AppLayout />
-    </Router>
-  );
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes */}
+        <Route index element={<Landing />} />
+        <Route path="login" element={<Login />} />
+
+        {/* protected routes */}
+        <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+          <Route path="welcome" element={<Welcome />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
+          <Route path="welcome" element={<Welcome />} />
+        </Route>
+
+
+      </Route>
+    </Routes>
+  )
 }
 
 export default App;
