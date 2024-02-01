@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout.tsx'
 import Landing from './components/Landing.tsx'
 import Login from './components/Login.tsx'
+import Register from './components/Register.tsx'
 import Welcome from './components/Welcome.tsx'
 import RequireAuth from './components/RequireAuth.tsx'
 import PersistLogin from './components/PersistLogin.tsx'
@@ -15,6 +16,7 @@ function App() {
         {/* public routes */}
         <Route index element={<Landing />} />
         <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
 
         {/* protected routes */}
         <Route element={<PersistLogin />}>

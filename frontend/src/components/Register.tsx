@@ -14,7 +14,7 @@ const COMPANY_REGEX = /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/register";
 
-const RegisterUser = (): JSX.Element => {
+const Register = (): JSX.Element => {
     const userNameRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -307,4 +307,4 @@ const RegisterUser = (): JSX.Element => {
     );
 };
 
-export default RegisterUser;
+export default Register;
