@@ -75,7 +75,7 @@ const Login = () => {
     }, [persist]);
 
     return (
-        <section>
+        <section className="h-full">
             <p
                 ref={errRef}
                 className={errMsg ? "errmsg" : "offscreen"}
