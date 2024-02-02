@@ -8,11 +8,11 @@
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.restly</groupId>
-	<artifactId>restly-API</artifactId>
+	<groupId>com.rently</groupId>
+	<artifactId>rently-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>restly-API</name>
-	<description>API backend for Restly - Condo management system</description>
+	<name>rently-API</name>
+	<description>API backend for rently - Condo management system</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

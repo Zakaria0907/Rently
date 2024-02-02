@@ -1,3 +1,4 @@
+##DEV DATABASE CONFIGURATION, PLEASE KEEP IT AS IT IS
 spring:
   datasource:
     url: jdbc:postgresql://ep-billowing-bread-a54fw5to.us-east-2.aws.neon.tech:5432/soen390-v1
