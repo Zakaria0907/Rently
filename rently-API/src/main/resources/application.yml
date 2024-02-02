@@ -1,0 +1,16 @@
+##DEV DATABASE CONFIGURATION, PLEASE KEEP IT AS IT IS
+spring:
+  datasource:
+    url: jdbc:postgresql://ep-billowing-bread-a54fw5to.us-east-2.aws.neon.tech:5432/soen390-v1
+    username: KA-devl
+    password: v0PJRz3hgBfD
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
