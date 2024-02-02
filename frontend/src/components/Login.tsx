@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-
 import axios from "../api/axios";
 import tw from "tailwind-styled-components";
 const LOGIN_URL = "/auth";
+import RentlyLogo from '../assets/icons/rently-logo.svg?react';
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -134,7 +134,8 @@ const Login = () => {
         <MainContainer>
         <Container>
             <LogoContainer>
-                <Logo src="https://merakiui.com/images/logo.svg" alt="" />
+                {/* <Logo src="https://merakiui.com/images/logo.svg" alt="" /> */}
+                <RentlyLogo className="w-auto h-12"/>
             </LogoContainer>
 
             <Form>

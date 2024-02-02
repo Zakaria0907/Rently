@@ -1,19 +1,21 @@
 import tw from "tailwind-styled-components"
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Hero from "./Hero";
 
 const Landing: React.FC = () => {
     return (
-        <Container >
-            <TitleContainer >Welcome to our Landing Page</TitleContainer>
-            <StyledDescription >Start exploring our amazing features!</StyledDescription>
-            <StyledButton >
-                Get Started
-            </StyledButton>
-            <Link to="/login" className="px-4 py-2 mt-4 bg-gray-500 text-white rounded hover:bg-gray-600">
-                Login
-            </Link>
-        </Container>
+        <Hero/>
+        // <Container >
+        //     <TitleContainer >Welcome to our Landing Page</TitleContainer>
+        //     <StyledDescription >Start exploring our amazing features!</StyledDescription>
+        //     <StyledButton >
+        //         Get Started
+        //     </StyledButton>
+        //     <Link to="/login" className="px-4 py-2 mt-4 bg-gray-500 text-white rounded hover:bg-gray-600">
+        //         Login
+        //     </Link>
+        // </Container>
     );
 };
 

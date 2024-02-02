@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RentlyLogo from '../assets/icons/rently-logo.svg?react';
 
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,7 +14,8 @@ const Navbar: React.FC = () => {
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
                         <a href="#">
-                            <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" />
+                            {/* <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" /> */}
+                            <RentlyLogo className="w-auto h-9 sm:h-10"/>
                         </a>
 
                         {/* Mobile menu button */}
