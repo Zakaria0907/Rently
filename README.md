@@ -67,8 +67,8 @@ TO-DO
 <table>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Anes khadiri</b></sub></a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/abdelhabel/"><img src="https://media.licdn.com/dms/image/D5603AQECzfpFLSVplA/profile-displayphoto-shrink_200_200/0/1696535448928?e=1701907200&v=beta&t=tevxmJD0kDvN5f3ONIWgbAAGj_OLkCj0vnZWI5sZqsE" width="100px;" alt=""/><br /><sub><b>Abdelkader Habel</b></sub></a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/zakaria-el-manar-el-bouanani/"><img src="https://media.licdn.com/dms/image/D4E03AQEgpmxK_ETNwA/profile-displayphoto-shrink_200_200/0/1693871416631?e=1701907200&v=beta&t=LrLf2NfXb97qr43VaPEu6Nq9pBztRB9eQLB8IceD5HQ" width="100px;" alt=""/><br /><sub><b>Zakaria El Manar El
+    <td align="center"><a href="https://www.linkedin.com/in/abdelhabel/"><img src="https://media.licdn.com/dms/image/D4E35AQG6LCZEvDm9-g/profile-framedphoto-shrink_400_400/0/1706071144402?e=1707458400&v=beta&t=FqtpY0GANMkFhRugw_KdZfy67TmI86qA9iYzzvCh__U" width="100px;" alt=""/><br /><sub><b>Abdelkader Habel</b></sub></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/chems-eddine-saidi/"><img src="https://media.licdn.com/dms/image/C4E03AQFeTbz1p9ugDA/profile-displayphoto-shrink_400_400/0/1642203726998?e=1712188800&v=beta&t=C3kpz6QxEVh9VNsR5vHF99uuJXWxMKpfJV4bQ3zhPFE" width="100px;" alt=""/><br /><sub><b>Chems-Eddine Saidi
 Bouanani
  </b></sub></a></td>
   </tr>
@@ -76,18 +76,18 @@ Bouanani
 
   <!--SECOND ROW -->
  <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Anes khadiri</b></sub></a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/abdelhabel/"><img src="https://media.licdn.com/dms/image/D5603AQECzfpFLSVplA/profile-displayphoto-shrink_200_200/0/1696535448928?e=1701907200&v=beta&t=tevxmJD0kDvN5f3ONIWgbAAGj_OLkCj0vnZWI5sZqsE" width="100px;" alt=""/><br /><sub><b>Abdelkader Habel</b></sub></a></td>
-    <td align="center"><a href="https://www.linkedin.com/in/zakaria-el-manar-el-bouanani/"><img src="https://media.licdn.com/dms/image/D4E03AQEgpmxK_ETNwA/profile-displayphoto-shrink_200_200/0/1693871416631?e=1701907200&v=beta&t=LrLf2NfXb97qr43VaPEu6Nq9pBztRB9eQLB8IceD5HQ" width="100px;" alt=""/><br /><sub><b>Zakaria El Manar El
+    <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4D03AQHt1ydKDiFf1Q/profile-displayphoto-shrink_800_800/0/1697311544490?e=1712188800&v=beta&t=IKSOJvincAhhjGxpIQGIFg1rK8OY5I3dH4TItyh74DI" width="100px;" alt=""/><br /><sub><b>Adel Bouchatta</b></sub></a></td>
+    <td align="center"><a href="https://linkedin.com/in/adel-bouchatta"><img src="https://media.licdn.com/dms/image/D5603AQECzfpFLSVplA/profile-displayphoto-shrink_200_200/0/1696535448928?e=1701907200&v=beta&t=tevxmJD0kDvN5f3ONIWgbAAGj_OLkCj0vnZWI5sZqsE" width="100px;" alt=""/><br /><sub><b>Francesco</b></sub></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/zakaria-el-manar-el-bouanani/"><img src="https://media.licdn.com/dms/image/D4E03AQH50XC7pvakpA/profile-displayphoto-shrink_400_400/0/1704930561109?e=1712188800&v=beta&t=jTeIkeLVx-b7plNdEJ2haifG07k7G6k9jJCq1qOto0c" width="100px;" alt=""/><br /><sub><b>Zakaria El Manar El
 Bouanani
  </b></sub></a></td>
   </tr>
 
   <!-- THIRD ROW -->
    <tr>
-    <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Anes khadiri</b></sub></a></td>
-     <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Anes khadiri</b></sub></a></td>
-     <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Anes khadiri</b></sub></a></td>
+    <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Oussama</b></sub></a></td>
+     <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://media.licdn.com/dms/image/D4E03AQHOLXNtmL9nLg/profile-displayphoto-shrink_400_400/0/1703918311009?e=1712188800&v=beta&t=acuZQrGVo3bPOVP3vF7dtEm266Ls-3F9pUV4jBx-_2U" width="100px;" alt=""/><br /><sub><b>Adam Boucher</b></sub></a></td>
+     <td align="center"><a href="https://www.linkedin.com/in/omar-fares02/"><img src="https://media.licdn.com/dms/image/D5603AQHepChpLu59cw/profile-displayphoto-shrink_400_400/0/1697227903728?e=1712188800&v=beta&t=8jSPZEZPdvomqKeA_euYpRYhcAWZabdTjh1LU7GyxTg" width="100px;" alt=""/><br /><sub><b>Omar Fares</b></sub></a></td>
   </tr>
  
 
