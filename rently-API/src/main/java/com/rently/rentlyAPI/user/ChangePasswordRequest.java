@@ -1,4 +1,4 @@
-package com.restly.restlyAPI.user;
+package com.rently.rentlyAPI.user;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,6 +1,5 @@
-package com.restly.restlyAPI.user;
+package com.rently.rentlyAPI.user;
 
-import com.alibou.security.auth.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
