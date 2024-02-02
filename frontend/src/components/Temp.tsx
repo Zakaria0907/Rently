@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Navbar: React.FC = () => {
+const Temp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleMenu = () => {
@@ -63,4 +63,4 @@ const Navbar: React.FC = () => {
     );
 };
 
-export default Navbar;
+export default Temp;

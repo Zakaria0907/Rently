@@ -7,7 +7,9 @@ import Welcome from './components/Welcome.tsx'
 import RequireAuth from './components/RequireAuth.tsx'
 import PersistLogin from './components/PersistLogin.tsx'
 import Missing from './components/Missing.tsx'
+import Temp from './components/Temp.tsx'
 import { Roles } from './types/enums.ts'
+
 
 function App() {
   return (
@@ -31,6 +33,9 @@ function App() {
 
         {/* catch all */}
         <Route path="*" element={<Missing />} />
+
+        {/* for testing/dev purposes */}
+        <Route path="/temp" element={<Temp/>} />
       </Route>
     </Routes>
   )
