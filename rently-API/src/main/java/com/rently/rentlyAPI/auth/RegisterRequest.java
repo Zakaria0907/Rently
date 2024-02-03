@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.auth;
 
 
+import com.rently.rentlyAPI.user.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

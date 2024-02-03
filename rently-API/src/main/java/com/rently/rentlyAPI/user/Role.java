@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.rently.rentlyAPI.user.Permission.*;
+
 
 @Getter
 @RequiredArgsConstructor
