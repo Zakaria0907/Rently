@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import { Link } from 'react-router-dom';
+import tw from 'tailwind-styled-components';
 
 const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,10 +15,10 @@ const Navbar: React.FC = () => {
             <div className="container px-6 py-4 mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
-                        <a href="#">
-                            {/* <img className="w-auto h-6 sm:h-7" src="https://merakiui.com/images/full-logo.svg" alt="" /> */}
+                        <Link className="flex flex-row justify-items-center content-center items-center" to="/">
                             <RentlyLogo className="w-auto h-9 sm:h-10"/>
-                        </a>
+                            <div className='justify-self-center align-self-center text-2xl font-bold'>Rently</div>
+                        </Link>
 
                         {/* Mobile menu button */}
                         <div className="flex lg:hidden">

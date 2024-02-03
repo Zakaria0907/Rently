@@ -12,7 +12,7 @@ const NAME_REGEX =
     /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 const COMPANY_REGEX = /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+const REGISTER_URL = "/auth/register";
 
 const Register = (): JSX.Element => {
     const userNameRef = useRef<HTMLInputElement>(null);
@@ -89,7 +89,7 @@ const Register = (): JSX.Element => {
                 }
             );
             console.log(response?.data);
-            console.log(response?.accessToken);
+            console.log(response?.access_token);
             console.log(JSON.stringify(response));
             setSuccess(true);
             //clear state and controlled inputs

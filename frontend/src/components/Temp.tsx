@@ -1,38 +1,50 @@
-"use client";
-import { TypewriterEffectSmooth } from "../other/typewriter-effect";
-export default function Temp() {
-  const words = [
-    {
-      text: "Build",
-    },
-    {
-      text: "awesome",
-    },
-    {
-      text: "apps",
-    },
-    {
-      text: "with",
-    },
-    {
-      text: "Aceternity.",
-      className: "text-blue-500 dark:text-blue-500",
-    },
-  ];
-  return (
-    <div className="flex flex-col items-center justify-center h-[40rem]  ">
-      <p className="text-neutral-600 dark:text-neutral-200 text-xs sm:text-base  ">
-        The road to freedom starts from here
-      </p>
-      <TypewriterEffectSmooth words={words} />
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-        <button className="w-40 h-10 rounded-xl bg-black border dark:border-white border-transparent text-white text-sm">
-          Join now
-        </button>
-        <button className="w-40 h-10 rounded-xl bg-white text-black border border-black  text-sm">
-          Signup
-        </button>
-      </div>
-    </div>
-  );
-}
+import React, { useState } from 'react';
+
+const Header: React.FC = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    return (
+        <header className="bg-white dark:bg-gray-900">
+            <div className="lg:flex">
+                <div className="flex items-center justify-center w-full px-6 py-8 lg:h-[32rem] lg:w-1/2">
+                    <div className="max-w-xl">
+                        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
+                            Build Your New <span className="text-blue-600 dark:text-blue-400">Idea</span>
+                        </h2>
+
+                        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 lg:text-base">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id necessitatibus odio quam quasi, quibusdam rem tempora voluptates.
+                        </p>
+
+                        <div className="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row">
+                            <a
+                                href="#"
+                                className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700"
+                            >
+                                Get Started
+                            </a>
+                            <a
+                                href="#"
+                                className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md lg:mx-4 hover:bg-gray-300"
+                            >
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="w-full h-64 lg:w-1/2 lg:h-auto">
+                    <div className="w-full h-full bg-cover" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1508394522741-82ac9c15ba69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=748&q=80)' }}>
+                        <div className="w-full h-full bg-black opacity-25"></div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    );
+};
+
+export default Header;

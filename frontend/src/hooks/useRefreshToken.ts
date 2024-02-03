@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import useAuth from './useAuth';
 
 interface Auth {
-    accessToken: string;
+    access_token: string;
     // Add other properties if needed
 }
 
@@ -10,17 +10,17 @@ const useRefreshToken = (): (() => Promise<string>) => {
     const { setAuth } = useAuth();
 
     const refresh = async (): Promise<string> => {
-        const response: AxiosResponse<{ roles: any; accessToken: string }> = await axios.get('/refresh', {withCredentials: true });
+        const response: AxiosResponse<{ user: any; access_token: string }> = await axios.get('/auth/refresh-token', {withCredentials: true });
         setAuth((prev: Auth) => {
             console.log(JSON.stringify(prev));
-            console.log(response.data.accessToken);
+            console.log(response.data.access_token);
             return {
                 ...prev,
-                roles: response.data.roles,
-                accessToken: response.data.accessToken
+                roles: response.data.user.role,
+                access_token: response.data.access_token
             }
         });
-        return response.data.accessToken;
+        return response.data.access_token;
     };
 
     return refresh;

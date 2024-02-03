@@ -3,7 +3,7 @@ import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 import tw from "tailwind-styled-components";
-const LOGIN_URL = "/auth";
+const LOGIN_URL = "/auth/authenticate";
 import RentlyLogo from '../assets/icons/rently-logo.svg?react';
 
 const Login = () => {
@@ -36,7 +36,7 @@ const Login = () => {
         try {
             const response = await axios.post(
                 LOGIN_URL,
-                JSON.stringify({ user: userName, pwd: pwd }),
+                JSON.stringify({ email: userName, password: pwd }),
                 {
                     headers: { "Content-Type": "application/json" },
                     withCredentials: true,
@@ -44,10 +44,10 @@ const Login = () => {
             );
             console.log("marker");
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
+            const access_token = response?.data?.access_token;
+            const roles = response?.data?.user?.role;
             const company = response?.data?.companyname;
-            setAuth({ user: userName, pwd, roles, accessToken, company });
+            setAuth({ user: userName, pwd, roles, access_token, company });
             setUserName("");
             setPwd("");
             navigate(from, { replace: true });
@@ -75,121 +75,94 @@ const Login = () => {
         localStorage.setItem("persist", String(persist));
     }, [persist]);
 
-    // return (
-    //     <section className="h-full">
-    //         <p
-    //             ref={errRef}
-    //             className={errMsg ? "errmsg" : "offscreen"}
-    //             aria-live="assertive"
-    //         >
-    //             {errMsg}
-    //         </p>
-    //         <h1>Sign In</h1>
-    //         <form onSubmit={handleSubmit}>
-    //             <label htmlFor="username">Username:</label>
-    //             <input
-    //                 type="text"
-    //                 id="username"
-    //                 ref={userRef}
-    //                 autoComplete="off"
-    //                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-    //                     setUserName(e.target.value)
-    //                 }
-    //                 value={userName}
-    //                 required
-    //             />
-
-    //             <label htmlFor="password">Password:</label>
-    //             <input
-    //                 type="password"
-    //                 id="password"
-    //                 onChange={(e: ChangeEvent<HTMLInputElement>) =>
-    //                     setPwd(e.target.value)
-    //                 }
-    //                 value={pwd}
-    //                 required
-    //             />
-    //             <button>Sign In</button>
-    //             <div className="persistCheck">
-    //                 <input
-    //                     type="checkbox"
-    //                     id="persist"
-    //                     onChange={togglePersist}
-    //                     checked={persist}
-    //                 />
-    //                 <label htmlFor="persist">Trust This Device</label>
-    //             </div>
-    //         </form>
-    //         <p>
-    //             Need an Account?
-    //             <br />
-    //             <span className="line">
-    //                 {/*put router link here*/}
-    //                 <Link to="/register">Sign Up</Link>
-    //             </span>
-    //         </p>
-    //     </section>
-    // );
     return (
         <MainContainer>
-        <Container>
-            <LogoContainer>
-                {/* <Logo src="https://merakiui.com/images/logo.svg" alt="" /> */}
-                <RentlyLogo className="w-auto h-12"/>
-            </LogoContainer>
+            <div>
+                { errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p> }
+            </div>
+            <Container>
+                <LogoContainer>
+                    <RentlyLogo className="w-auto h-12" />
+                </LogoContainer>
 
-            <Form>
-                <div>
-                    <Label htmlFor="username">Username</Label>
-                    <Input type="text" id="username" />
-                </div>
-
-                <PasswordContainer >
-                    <div className="flex items-center justify-between">
-                        <PasswordLabel htmlFor="password">Password</PasswordLabel>
-                        <ForgetPasswordLink href="#">Forget Password?</ForgetPasswordLink>
+                <Form>
+                    <div>
+                        <Label htmlFor="username">Username</Label>
+                        <Input
+                            type="text"
+                            id="username"
+                            ref={userRef}
+                            autoComplete="off"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setUserName(e.target.value)
+                            }
+                            value={userName}
+                            required />
                     </div>
 
-                    <PasswordInput type="password" id="password" />
-                </PasswordContainer>
+                    <PasswordContainer >
+                        <div className="flex items-center justify-between">
+                            <PasswordLabel htmlFor="password">Password</PasswordLabel>
+                            <ForgetPasswordLink href="#">Forget Password?</ForgetPasswordLink>
+                        </div>
 
-                <div className="mt-6">
-                    <Button>Sign In</Button>
-                </div>
-            </Form>
+                        <PasswordInput
+                            type="password"
+                            id="password"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                setPwd(e.target.value)
+                            }
+                            value={pwd}
+                            required />
+                    </PasswordContainer>
 
-            <LoginSocialsContainer >
-                <Divider></Divider>
+                    <div className="mt-4 flex flex-row gap-2">
+                        <input
+                            type="checkbox"
+                            id="persist"
+                            onChange={togglePersist}
+                            checked={persist}
+                        />
+                        <label className={'text-sm text-gray-600 dark:text-gray-400'} htmlFor="persist">Trust this device?</label>
+                    </div>
 
-                <SocialMediaLink href="#">
-                    or login with Social Media
-                </SocialMediaLink>
+                    <div className="mt-6">
+                        <Button onClick={handleSubmit}>Sign In</Button>
+                    </div>
+                </Form>
 
-                <SocialMediaDivider></SocialMediaDivider>
-            </LoginSocialsContainer>
+                {/* <LoginSocialsContainer >
+                    <Divider></Divider>
 
-            <SocialsContainer >
-                <GoogleButton type="button">
-                    <GoogleIcon viewBox="0 0 24 24">
-                        <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z">
-                        </path>
-                    </GoogleIcon>
+                    <SocialMediaLink href="#">
+                        or login with Social Media
+                    </SocialMediaLink>
 
-                    <GoogleText>Sign in with Google</GoogleText>
-                </GoogleButton>
+                    <SocialMediaDivider></SocialMediaDivider>
+                </LoginSocialsContainer>
 
-                <SocialMediaButton href="#">
-                    <SocialMediaIcon viewBox="0 0 24 24">
-                        <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z">
-                        </path>
-                    </SocialMediaIcon>
-                </SocialMediaButton>
-            </SocialsContainer>
+                <SocialsContainer >
+                    <GoogleButton type="button">
+                        <GoogleIcon viewBox="0 0 24 24">
+                            <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z">
+                            </path>
+                        </GoogleIcon>
 
-            <AccountMessage>
-                Don't have an account? <AccountLink href="#">Create One</AccountLink>
-            </AccountMessage>
-        </Container>
+                        <GoogleText>Sign in with Google</GoogleText>
+                    </GoogleButton>
+
+                    <SocialMediaButton href="#">
+                        <SocialMediaIcon viewBox="0 0 24 24">
+                            <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z">
+                            </path>
+                        </SocialMediaIcon>
+                    </SocialMediaButton>
+                </SocialsContainer> */}
+
+                <AccountMessage>
+                    Don't have an account? <AccountLink to="/register">Create One</AccountLink>
+                </AccountMessage>
+            </Container>
         </MainContainer>
     );
 };
@@ -278,7 +251,7 @@ const AccountMessage = tw.p`
     mt-8 text-xs font-light text-center text-gray-400
 `;
 
-const AccountLink = tw.a`
+const AccountLink = tw(Link)`
     font-medium text-gray-700 dark:text-gray-200 hover:underline
 `;
 
