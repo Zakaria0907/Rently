@@ -1,10 +1,10 @@
-package com.restly.restlyAPI;
+package com.rently.rentlyAPI;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RestlyApiApplicationTests {
+class RentlyApiApplicationTests {
 
 	@Test
 	void contextLoads() {
