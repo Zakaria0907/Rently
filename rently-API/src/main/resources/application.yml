@@ -1,9 +1,9 @@
 ##DEV DATABASE CONFIGURATION, PLEASE KEEP IT AS IT IS
 spring:
   datasource:
-    url: jdbc:postgresql://ep-billowing-bread-a54fw5to.us-east-2.aws.neon.tech:5432/soen390-v1
-    username: KA-devl
-    password: v0PJRz3hgBfD
+    url: jdbc:postgresql://ep-summer-haze-a59ibblm.us-east-2.aws.neon.tech:5432/neondb
+    username: ChemsCode
+    password: igV4PuWrKq7J
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

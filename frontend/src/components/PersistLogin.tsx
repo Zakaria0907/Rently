@@ -13,12 +13,14 @@ const PersistLogin = () => {
 
         const verifyRefreshToken = async () => {
             try {
+                console.log("verifyRefreshToken: refreshing token...")
                 await refresh();
             }
             catch (err) {
                 console.error(err);
             }
             finally {
+                console.log("verifyRefreshToken: done refreshing token")
                 isMounted && setIsLoading(false);
             }
         }
@@ -26,6 +28,7 @@ const PersistLogin = () => {
         // persists avoids unwanted call to verifyRefreshToken
         !auth?.access_token && persist ? verifyRefreshToken() : setIsLoading(false);
 
+        //check this
         return () => {
             isMounted = false;
         };

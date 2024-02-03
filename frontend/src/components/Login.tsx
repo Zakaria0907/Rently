@@ -85,7 +85,7 @@ const Login = () => {
                     <RentlyLogo className="w-auto h-12" />
                 </LogoContainer>
 
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <div>
                         <Label htmlFor="username">Username</Label>
                         <Input
@@ -127,7 +127,7 @@ const Login = () => {
                     </div>
 
                     <div className="mt-6">
-                        <Button onClick={handleSubmit}>Sign In</Button>
+                        <Button>Sign In</Button>
                     </div>
                 </Form>
 
