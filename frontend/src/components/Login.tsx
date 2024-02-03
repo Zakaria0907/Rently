@@ -5,6 +5,7 @@ import axios from "../api/axios";
 import tw from "tailwind-styled-components";
 const LOGIN_URL = "/auth/authenticate";
 import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import ApiManager from "../api/ApiManager/ApiManager";
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -34,16 +35,16 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
-                LOGIN_URL,
-                JSON.stringify({ email: userName, password: pwd }),
-                {
-                    headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
-                }
-            );
-            console.log("marker");
-            console.log(JSON.stringify(response?.data));
+            // const response = await axios.post(
+            //     LOGIN_URL,
+            //     JSON.stringify({ email: userName, password: pwd }),
+            //     {
+            //         headers: { "Content-Type": "application/json" },
+            //         withCredentials: true,
+            //     }
+            // );
+            const response: any = await ApiManager.login({ email: userName, password: pwd });
+            console.log("marker: ", JSON.stringify(response?.data));
             const access_token = response?.data?.access_token;
             const roles = response?.data?.user?.role;
             const company = response?.data?.companyname;
