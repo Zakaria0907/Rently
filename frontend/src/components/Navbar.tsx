@@ -60,13 +60,15 @@ const Navbar: React.FC = () => {
                                             <NavbarProfileImage src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar" />
                                         </NavbarProfileDropdown>
 
-                                        <NavbarProfileName>Khatab wedaa</NavbarProfileName>
+                                        <NavbarProfileName>User Name</NavbarProfileName>
                                     </button>
                                 </>
                             ) : (
-                                <NavbarProfileButton aria-label="show notifications">
-                                    Login
-                                </NavbarProfileButton>
+                                <>
+                                    <button type="button" className="flex items-center focus:outline-none">
+                                        <NavbarMenuLink to="/login">Login</NavbarMenuLink>
+                                    </button>
+                                </>
                             )}
                         </NavbarProfile>
                     </NavbarMenu>
@@ -120,6 +122,10 @@ const NavbarMenuItems = tw.div`
 
 const NavbarMenuItem = tw.a`
     px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700
+`;
+
+const NavbarMenuLink = tw(Link)`
+    block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-700
 `;
 
 const NavbarProfile = tw.div`

@@ -1,63 +1,48 @@
-"use client";
-import { TypewriterEffectSmooth } from "../other/typewriter-effect";
-import { Link } from "react-router-dom";
+import React from 'react';
 import CondoImage from "../assets/images/condo-image-hero.jpg";
+import { Link } from 'react-router-dom';
+import { FaGoogle } from "react-icons/fa";
 
-export default function Hero() {
-    const words = [
-        {
-            text: "Manage",
-        },
-        {
-            text: "your",
-        },
-        {
-            text: "properties",
-        },
-        {
-            text: "with",
-        },
-        {
-            text: "Rently.",
-            className: "text-blue-500 dark:text-blue-500",
-        },
-    ];
+const Hero: React.FC = () => {
     return (
-        <header className="bg-white dark:bg-gray-900">
-            <div className="lg:flex">
-                <div className="flex items-center justify-center w-full px-6 py-8 lg:h-[32rem] lg:w-1/2">
-                    <div className="max-w-xl">
-                        <h2 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
-                        Easily Manage your <span className="text-blue-600 dark:text-blue-400">Properties</span>
-                        </h2>
+        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 my-4">
+            <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
+                <div className="lg:col-span-3">
+                    <h1 className="block text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl lg:text-6xl dark:text-white">Manage Your Properties</h1>
+                    <p className="mt-3 text-lg text-gray-800 dark:text-gray-400">Introducing a new way for you to easily manage all of your properties.</p>
 
-                        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400 lg:text-base">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id necessitatibus odio quam quasi, quibusdam rem tempora voluptates.
-                        </p>
+                    <div className="mt-5 lg:mt-8 flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+                        <Link
+                            to="/login"
+                            className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            to="/register"
+                            className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md lg:mx-4 hover:bg-gray-300"
+                        >
+                            Signup
+                        </Link>
+                    </div>
 
-                        <div className="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row">
-                            <Link
-                                to="/login"
-                                className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700"
-                            >
-                                Sign in
-                            </Link>
-                            <Link
-                                to="/register"
-                                className="block px-5 py-2 text-sm font-medium tracking-wider text-center text-gray-700 transition-colors duration-300 transform bg-gray-200 rounded-md lg:mx-4 hover:bg-gray-300"
-                            >
-                                Sign up
-                            </Link>
+                    <div className="mt-6 lg:mt-12">
+                        <span className="text-xs font-medium text-gray-800 uppercase dark:text-gray-200">Trusted by:</span>
+
+                        <div className="mt-4 flex gap-x-8">
+                            <FaGoogle className="text-6xl text-gray-800 dark:text-gray-200" />
+                            <FaGoogle className="text-6xl text-gray-800 dark:text-gray-200" />
+                            <FaGoogle className="text-6xl text-gray-800 dark:text-gray-200" />
                         </div>
                     </div>
                 </div>
 
-                <div className="w-full h-64 lg:w-1/2 lg:h-auto">
-                    <div className="w-full h-full bg-cover" style={{ backgroundImage: `url(${CondoImage})` }}>
-                        <div className="w-full h-full bg-black opacity-25"></div>
-                    </div>
+                <div className="lg:col-span-4 mt-10 lg:mt-0">
+                    <img className="w-full rounded-xl" src={CondoImage} alt="Condo" />
                 </div>
             </div>
-        </header>
+        </div>
     );
-};
+}
+
+export default Hero;

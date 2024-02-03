@@ -1,6 +1,8 @@
 import React from 'react';
+import CondoImage from "../assets/images/condo-image-hero.jpg";
 
-const Temp: React.FC = () => {
+
+const Features: React.FC = () => {
     return (
         <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <div className="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
@@ -66,4 +68,4 @@ const Temp: React.FC = () => {
     );
 };
 
-export default Temp;
+export default Features;
