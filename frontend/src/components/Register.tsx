@@ -354,201 +354,6 @@ const Register = (): JSX.Element => {
             )}
         </>
     );
-
-    return (
-        <>
-            {success ? (
-                <section>
-                    <h1>Success!</h1>
-                    <p>
-                        <Link to="/login">Sign in</Link>
-                    </p>
-                </section>
-            ) : (
-                <>
-                    <p
-                        ref={errRef}
-                        className={errMsg ? "errmsg" : "offscreen"}
-                        aria-live="assertive"
-                    >
-                        {errMsg}
-                    </p>
-                    <h1>Register User Account</h1>
-
-                    <form onSubmit={handleSubmit}>
-                        <label htmlFor="firstName">
-                            Full Name:
-                            <FontAwesomeIcon
-                                icon={faCheck}
-                                className={validfirstName ? "valid" : "hide"}
-                            />
-                            <FontAwesomeIcon
-                                icon={faTimes}
-                                className={validfirstName || !firstName ? "hide" : "invalid"}
-                            />
-                        </label>
-                        <input
-                            type="text"
-                            id="firstName" /* firstName -> lastName*/
-                            ref={firstNameRef}
-                            autoComplete="off"
-                            onChange={(e) => setfirstName(e.target.value)}
-                            value={firstName}
-                            required
-                            aria-invalid={validfirstName ? "false" : "true"}
-                            aria-describedby="uidnote"
-                            onFocus={() => setfirstNameFocus(true)}
-                            onBlur={() => setfirstNameFocus(false)}
-                        />
-                        <p
-                            id="cnidnote" /*uidnote -> cnidnote*/
-                            className={
-                                firstNameFocus && firstName && !validfirstName
-                                    ? "instructions"
-                                    : "offscreen"
-                            }
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.
-                            <br />
-                            Must begin with a letter.
-                            <br />
-                            Letters, numbers, underscores, hyphens allowed.
-                        </p>
-
-                        <label htmlFor="companyemail">
-                            Company Name:
-                            <FontAwesomeIcon
-                                icon={faCheck}
-                                className={validlastName ? "valid" : "hide"}
-                            />
-                            <FontAwesomeIcon
-                                icon={faTimes}
-                                className={
-                                    validlastName || !lastName ? "hide" : "invalid"
-                                }
-                            />
-                        </label>
-                        <input
-                            type="text"
-                            id="companyemail" /* firstName -> companyemail*/
-                            ref={firstNameRef}
-                            autoComplete="off"
-                            onChange={(e) => setlastName(e.target.value)}
-                            value={lastName}
-                            required
-                            aria-invalid={validlastName ? "false" : "true"}
-                            aria-describedby="uidnote"
-                            onFocus={() => setlastNameFocus(true)}
-                            onBlur={() => setlastNameFocus(false)}
-                        />
-                        <p
-                            id="emailnote" /*uidnote -> emailnote*/
-                            className={
-                                lastNameFocus && lastName && !validlastName
-                                    ? "instructions"
-                                    : "offscreen"
-                            }
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.
-                            <br />
-                            Must begin with a letter.
-                            <br />
-                            Letters, numbers, underscores, hyphens allowed.
-                        </p>
-
-                        <label htmlFor="password">
-                            Password:
-                            <FontAwesomeIcon
-                                icon={faCheck}
-                                className={validPwd ? "valid" : "hide"}
-                            />
-                            <FontAwesomeIcon
-                                icon={faTimes}
-                                className={validPwd || !pwd ? "hide" : "invalid"}
-                            />
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            aria-invalid={validPwd ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                        />
-                        <p
-                            id="pwdnote"
-                            className={pwdFocus && !validPwd ? "instructions" : "offscreen"}
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.
-                            <br />
-                            Must include uppercase and lowercase letters, a number and a
-                            special character.
-                            <br />
-                            Allowed special characters:{" "}
-                            <span aria-label="exclamation mark">!</span>{" "}
-                            <span aria-label="at symbol">@</span>{" "}
-                            <span aria-label="hashtag">#</span>{" "}
-                            <span aria-label="dollar sign">$</span>{" "}
-                            <span aria-label="percent">%</span>
-                        </p>
-
-                        <label htmlFor="confirm_pwd">
-                            Confirm Password:
-                            <FontAwesomeIcon
-                                icon={faCheck}
-                                className={validMatch && matchPwd ? "valid" : "hide"}
-                            />
-                            <FontAwesomeIcon
-                                icon={faTimes}
-                                className={validMatch || !matchPwd ? "hide" : "invalid"}
-                            />
-                        </label>
-                        <input
-                            type="password"
-                            id="confirm_pwd"
-                            onChange={(e) => setMatchPwd(e.target.value)}
-                            value={matchPwd}
-                            required
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="confirmnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                        />
-                        <p
-                            id="confirmnote"
-                            className={
-                                matchFocus && !validMatch ? "instructions" : "offscreen"
-                            }
-                        >
-                            <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
-                        </p>
-
-                        <button
-                            disabled={
-                                !validfirstName || !validlastName || !validPwd || !validMatch
-                            }
-                        >
-                            Sign Up
-                        </button>
-                    </form>
-                    <p>
-                        Already registered?
-                        <br />
-                        <span className="line">
-                            <Link to="/login">Sign in</Link>
-                        </span>
-                    </p>
-                </>
-            )}
-        </>
-    );
 };
 
 export default Register;
@@ -556,10 +361,6 @@ export default Register;
 const MainContainer = tw.div`h-screen flex items-center justify-center bg-gray-100`;
 
 const FormContainer = tw.div`mt-4`
-
-const SocialsContainer = tw.div`flex items-center mt-6 -mx-2`
-
-const LoginSocialsContainer = tw.div`flex items-center justify-between mt-4`
 
 const Container = tw.div`
     w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md
@@ -589,48 +390,12 @@ const PasswordLabel = tw.label`
     block text-sm text-gray-800
 `;
 
-const ForgetPasswordLink = tw.a`
-    text-xs text-gray-600 hover:underline
-`;
-
 const PasswordInput = tw.input`
     block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
 `;
 
 const Button = tw.button`
     w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50
-`;
-
-const Divider = tw.span`
-    w-1/5 border-b lg:w-1/5
-`;
-
-const SocialMediaLink = tw.a`
-    text-xs text-center text-gray-500 uppercase hover:underline
-`;
-
-const SocialMediaDivider = tw.span`
-    w-1/5 border-b lg:w-1/5
-`;
-
-const GoogleButton = tw.button`
-    flex items-center justify-center w-full px-6 py-2 mx-2 text-sm font-medium text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:bg-blue-400 focus:outline-none
-`;
-
-const GoogleIcon = tw.svg`
-    w-4 h-4 mx-2 fill-current
-`;
-
-const GoogleText = tw.span`
-    hidden mx-2 sm:inline
-`;
-
-const SocialMediaButton = tw.a`
-    p-2 mx-2 text-sm font-medium text-gray-500 transition-colors duration-300 transform bg-gray-300 rounded-lg hover:bg-gray-200
-`;
-
-const SocialMediaIcon = tw.svg`
-    w-5 h-5 fill-current
 `;
 
 const AccountMessage = tw.p`
