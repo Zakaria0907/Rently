@@ -3,7 +3,7 @@ package com.rently.rentlyAPI.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rently.rentlyAPI.auth.token.*;
-import com.rently.rentlyAPI.config.JwtService;
+import com.rently.rentlyAPI.config.JwtUtils;
 import com.rently.rentlyAPI.user.Role;
 import com.rently.rentlyAPI.user.User;
 import com.rently.rentlyAPI.user.UserDto;
@@ -26,7 +26,7 @@ public class AuthenticationService {
   private final UserRepository repository;
   private final TokenRepository tokenRepository;
   private final PasswordEncoder passwordEncoder;
-  private final JwtService jwtService;
+  private final JwtUtils jwtUtils;
   private final AuthenticationManager authenticationManager;
   private final RefreshTokenRepository refreshTokenRepository;
 
@@ -39,8 +39,8 @@ public class AuthenticationService {
         .role(Role.USER) //set default role to USER
         .build();
     var savedUser = repository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+    var jwtToken = jwtUtils.generateToken(user);
+    var refreshToken = jwtUtils.generateRefreshToken(user);
     saveUserToken(savedUser, jwtToken, refreshToken);
     return AuthenticationResponse.builder()
         .accessToken(jwtToken)
@@ -57,8 +57,8 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
-    var jwtToken = jwtService.generateToken(user);
-    var refreshToken = jwtService.generateRefreshToken(user);
+    var jwtToken = jwtUtils.generateToken(user);
+    var refreshToken = jwtUtils.generateRefreshToken(user);
     revokeAllUserRefreshTokens(user);
     revokeAllUserTokens(user);
     saveUserToken(user, jwtToken, refreshToken);
@@ -98,7 +98,6 @@ public class AuthenticationService {
             .build();
 
     refreshTokenRepository.save(refreshTokenEntity);
-
   }
 
 
@@ -131,17 +130,29 @@ public class AuthenticationService {
     final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
     final String refreshToken;
     final String userEmail;
+    
     if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
       return;
     }
+    
     refreshToken = authHeader.substring(7);
-    userEmail = jwtService.extractUsername(refreshToken);
+    userEmail = jwtUtils.extractUsername(refreshToken);
+    
     if (userEmail != null) {
       var user = this.repository.findByEmail(userEmail)
               .orElseThrow();
-      if (jwtService.isTokenValid(refreshToken, user)) {
-        var accessToken = jwtService.generateToken(user);
-        var newRefreshToken = jwtService.generateRefreshToken(user);
+      var refreshTokenEntity = refreshTokenRepository.findByRefreshToken(refreshToken)
+              .orElseThrow();
+      
+      // Check if the refresh token is revoked
+      if (refreshTokenEntity.isRevoked()) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        return;
+      }
+      
+      if (jwtUtils.isTokenValid(refreshToken, user)) {
+        var accessToken = jwtUtils.generateToken(user);
+        var newRefreshToken = jwtUtils.generateRefreshToken(user);
         revokeAllUserRefreshTokens(user);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken, newRefreshToken);
@@ -150,7 +161,15 @@ public class AuthenticationService {
                 .refreshToken(newRefreshToken)
                 .build();
         new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+      
+      } else {
+        // Handle case where the refresh token is expired
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
       }
+    
+    } else {
+      // Handle case where userEmail could not be extracted
+      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
     }
   }
 }
