@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
 export default Navbar;
 
 const NavbarContainer = tw.nav`
-    relative bg-white shadow dark:bg-gray-800
+    relative bg-white shadow
 `;
 
 const NavbarContent = tw.div`
@@ -109,11 +109,11 @@ const NavbarMenuButton = tw.div`
 `;
 
 const NavbarToggleButton = tw.button`
-    text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400
+    text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600 
 `;
 
 const NavbarMenu = tw.div`
-    absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center
+    absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center
 `;
 
 const NavbarMenuItems = tw.div`
@@ -121,11 +121,11 @@ const NavbarMenuItems = tw.div`
 `;
 
 const NavbarMenuItem = tw.a`
-    px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700
+    px-3 py-2 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-md lg:mt-0  hover:bg-gray-100 
 `;
 
 const NavbarMenuLink = tw(Link)`
-    block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-700
+    block px-5 py-2 text-sm font-medium tracking-wider text-center text-white transition-colors duration-300 transform bg-gray-900 rounded-md hover:bg-gray-700  
 `;
 
 const NavbarProfile = tw.div`
@@ -133,7 +133,7 @@ const NavbarProfile = tw.div`
 `;
 
 const NavbarProfileButton = tw.button`
-    hidden mx-4 text-gray-600 transition-colors duration-300 transform lg:block dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 focus:text-gray-700 dark:focus:text-gray-400 focus:outline-none
+    hidden mx-4 text-gray-600 transition-colors duration-300 transform lg:block  hover:text-gray-700  focus:text-gray-700  focus:outline-none
 `;
 
 const NavbarProfileDropdown = tw.div`
@@ -145,5 +145,5 @@ const NavbarProfileImage = tw.img`
 `;
 
 const NavbarProfileName = tw.h3`
-    mx-2 text-gray-700 dark:text-gray-200 lg:hidden
+    mx-2 text-gray-700  lg:hidden
 `;

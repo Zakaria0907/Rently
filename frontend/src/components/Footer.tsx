@@ -59,7 +59,6 @@ export default Footer;
 
 const FooterContainer = tw.footer`
         bg-white
-        dark:bg-gray-900
     `;
 
 const Container = tw.div`
@@ -99,21 +98,17 @@ const NavLink = tw.a`
         transition-colors
         duration-300
         hover:text-blue-500
-        dark:text-gray-300
-        dark:hover:text-blue-400
     `;
 
 const Divider = tw.hr`
         my-6
         border-gray-200
         md:my-10
-        dark:border-gray-700
     `;
 
 const RightsText = tw.p`
         text-sm
         text-gray-500
-        dark:text-gray-300
     `;
 
 const SocialLinksContainer = tw.div`
@@ -126,9 +121,7 @@ const SocialLink = tw.a`
         text-gray-600
         transition-colors
         duration-300
-        dark:text-gray-300
         hover:text-blue-500
-        dark:hover:text-blue-400
     `;
 
 const SocialIcon = tw.svg`

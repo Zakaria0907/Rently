@@ -124,7 +124,7 @@ const Login = () => {
                             onChange={togglePersist}
                             checked={persist}
                         />
-                        <label className={'text-sm text-gray-600 dark:text-gray-400'} htmlFor="persist">Trust this device?</label>
+                        <label className={'text-sm text-gray-600'} htmlFor="persist">Trust this device?</label>
                     </div>
 
                     <div className="mt-6">
@@ -168,7 +168,7 @@ const Login = () => {
     );
 };
 
-const MainContainer = tw.div`h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900`;
+const MainContainer = tw.div`h-screen flex items-center justify-center bg-gray-100`;
 
 const PasswordContainer = tw.div`mt-4`
 
@@ -177,7 +177,7 @@ const SocialsContainer = tw.div`flex items-center mt-6 -mx-2`
 const LoginSocialsContainer = tw.div`flex items-center justify-between mt-4`
 
 const Container = tw.div`
-    w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800
+    w-full max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md
 `;
 
 const LogoContainer = tw.div`
@@ -193,23 +193,23 @@ const Form = tw.form`
 `;
 
 const Label = tw.label`
-    block text-sm text-gray-800 dark:text-gray-200
+    block text-sm text-gray-800
 `;
 
 const Input = tw.input`
-    block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
+    block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
 `;
 
 const PasswordLabel = tw.label`
-    block text-sm text-gray-800 dark:text-gray-200
+    block text-sm text-gray-800
 `;
 
 const ForgetPasswordLink = tw.a`
-    text-xs text-gray-600 dark:text-gray-400 hover:underline
+    text-xs text-gray-600 hover:underline
 `;
 
 const PasswordInput = tw.input`
-    block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
+    block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40
 `;
 
 const Button = tw.button`
@@ -217,15 +217,15 @@ const Button = tw.button`
 `;
 
 const Divider = tw.span`
-    w-1/5 border-b dark:border-gray-600 lg:w-1/5
+    w-1/5 border-b lg:w-1/5
 `;
 
 const SocialMediaLink = tw.a`
-    text-xs text-center text-gray-500 uppercase dark:text-gray-400 hover:underline
+    text-xs text-center text-gray-500 uppercase hover:underline
 `;
 
 const SocialMediaDivider = tw.span`
-    w-1/5 border-b dark:border-gray-400 lg:w-1/5
+    w-1/5 border-b lg:w-1/5
 `;
 
 const GoogleButton = tw.button`
@@ -253,7 +253,7 @@ const AccountMessage = tw.p`
 `;
 
 const AccountLink = tw(Link)`
-    font-medium text-gray-700 dark:text-gray-200 hover:underline
+    font-medium text-gray-700 hover:underline
 `;
 
 export default Login;
