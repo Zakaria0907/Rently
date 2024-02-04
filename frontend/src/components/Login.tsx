@@ -78,13 +78,14 @@ const Login = () => {
 
     return (
         <MainContainer>
-            <div>
-                { errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p> }
-            </div>
             <Container>
                 <LogoContainer>
                     <RentlyLogo className="w-auto h-12" />
                 </LogoContainer>
+                
+                <div>
+                    {errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p>}
+                </div>
 
                 <Form onSubmit={handleSubmit}>
                     <div>
