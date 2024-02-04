@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.config;
 
+import com.rently.rentlyAPI.auth.token.Token;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,7 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class JwtService {
+public class JwtUtils {
 
   @Value("${application.security.jwt.secret-key}")
   private String secretKey;
@@ -79,6 +80,8 @@ public class JwtService {
     final String username = extractUsername(token);
     return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
   }
+  
+  
 
   private boolean isTokenExpired(String token) {
     return extractExpiration(token).before(new Date());
