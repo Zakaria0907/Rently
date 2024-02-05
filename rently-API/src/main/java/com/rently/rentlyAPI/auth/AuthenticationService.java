@@ -17,6 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
 
@@ -156,6 +157,17 @@ public class AuthenticationService {
         revokeAllUserRefreshTokens(user);
         revokeAllUserTokens(user);
         saveUserToken(user, accessToken, newRefreshToken);
+
+        // Set the refresh token as an HTTP cookie
+        Cookie refreshTokenCookie = new Cookie("refreshToken", newRefreshToken);
+        refreshTokenCookie.setMaxAge(60 * 60 * 24 * 30); // 30 days
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true); // Use 'false' if not using HTTPS
+        refreshTokenCookie.setPath("/"); // Set the cookie path
+
+        response.addCookie(refreshTokenCookie);
+
+
         var authResponse = AuthenticationResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(newRefreshToken)
