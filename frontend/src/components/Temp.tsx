@@ -2,17 +2,7 @@ import React from 'react';
 import tw from 'tailwind-styled-components';
 import ReceiptIcon from '../assets/icons/receipt.svg?react';
 import ServicesModal from './ServicesModal';
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button,
-} from '@chakra-ui/react'
+import { useDisclosure } from '@chakra-ui/react'
 
 const TableSection: React.FC = () => {
     const [properties, setProperties] = React.useState<any[]>([]);
