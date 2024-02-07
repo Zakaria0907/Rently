@@ -11,11 +11,14 @@ import Temp from './components/Temp.tsx'
 import { Roles } from './types/enums.ts'
 import { ChakraProvider } from '@chakra-ui/react'
 import CondoFees from './components/EnterFees.tsx'
+import { CartProvider } from './context/CartContext.tsx'
+import Fees from './components/Fees.tsx'
 
 
 function App() {
   return (
     <ChakraProvider>
+      <CartProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
           {/* public routes */}
@@ -40,8 +43,14 @@ function App() {
           {/* for testing/dev purposes */}
           <Route path="/temp" element={<Temp />} />
           <Route path="/condo-fees" element={<CondoFees/>} />
+          <Route path="/fees" element={<Fees fees={[
+            { name: 'Monthly Service Fee', amount: 249.99 },
+            { name: 'Monthly Cleaning Fee', amount: 174.99 },
+            { name: 'Rent', amount: 1199.99 }
+          ]}/>} />
         </Route>
       </Routes>
+      </CartProvider>
     </ChakraProvider>
   )
 }
