@@ -12,13 +12,12 @@ import {
 
 interface ServicesModalProps {
     isOpen: boolean;
-    onOpen?: () => void;
     onClose?: () => void | undefined;
     title?: string;
     children?: React.ReactNode;
 };
 
-export default function ServicesModal({ isOpen, onOpen, onClose, title, children }: ServicesModalProps): JSX.Element {
+export default function ServicesModal({ isOpen, onClose, title, children }: ServicesModalProps): JSX.Element {
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose!}>

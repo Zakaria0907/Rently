@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ReceiptIcon from '../assets/icons/receipt.svg?react';
 import ServicesModal from './ServicesModal';
 import { useDisclosure } from '@chakra-ui/react'
+import AddPropertyPopup from './AddPropertyPopup';
+
 
 const TableSection: React.FC = () => {
-    const [properties, setProperties] = React.useState<any[]>([]);
+    const [properties, setProperties] = useState<any[]>([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [addPropertyPopup, setaddPropertyPopup] = useState<Boolean>(false);
+    const [selectedProperty, setSelectedProperty] = useState<any>({
+        id: 0,
+        name: "",
+        address: "",
+    });
+
+    const togglePropertyPopup = () => {
+        setaddPropertyPopup(!addPropertyPopup);
+    };
+
+    const addProperty = (property: any) => {
+        setProperties([...properties, property]);
+        togglePropertyPopup();
+        console.log(property);
+    };
+
+    const openServicesModal = (property: any) => {
+        setSelectedProperty(property);
+        onOpen();
+    };
 
     React.useEffect(() => {
         // Fetch properties from API
@@ -29,12 +52,16 @@ const TableSection: React.FC = () => {
                         <InnerContainer>
                             <CardContainer>
                                 <CardHeader>
-                                    <CardTitle>
-                                        Properties
-                                    </CardTitle>
-                                    <CardSubtitle>
-                                        Add property, edit, access services and more.
-                                    </CardSubtitle>
+                                    <LeftSideContainer>
+                                        <CardTitle>
+                                            Properties
+                                        </CardTitle>
+                                        <CardSubtitle>
+                                            Add property, edit, access services and more.
+                                        </CardSubtitle>
+                                    </LeftSideContainer>
+                                    <Button onClick={togglePropertyPopup} >+</Button>
+                                    {addPropertyPopup && <AddPropertyPopup addProperty={addProperty} closeModal={togglePropertyPopup} />}
                                 </CardHeader>
                                 {
                                     properties.length > 0 ? (
@@ -58,9 +85,8 @@ const TableSection: React.FC = () => {
                                                                     <div className="text-sm text-gray-900">{property.address}</div>
                                                                 </td>
                                                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                                    <button onClick={onOpen} className="text-indigo-600 hover:text-indigo-900">Services</button>
+                                                                    <button onClick={() => openServicesModal(property)} className="text-indigo-600 hover:text-indigo-900">Services</button>
                                                                 </td>
-                                                                <ServicesModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} title={`Services for ${property.name}`} children={<div className="text-sm text-gray-900">{property.address}</div>} />
                                                             </tr>
                                                         ))
                                                     }
@@ -125,6 +151,9 @@ const TableSection: React.FC = () => {
                         </InnerContainer>
                     </OverflowContainer>
                 </FlexContainer>
+                <ServicesModal isOpen={isOpen} onClose={onClose} title={`Services for ${selectedProperty.name || ""}`}>
+                    <div className="text-sm text-gray-900">{selectedProperty.address}</div>
+                </ServicesModal>
             </Container>
         </>
     );
@@ -148,7 +177,7 @@ const CardContainer = tw.div`
         bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden
     `;
 const CardHeader = tw.div`
-        px-6 py-4 border-b border-gray-200 
+        flex flex-direction-col justify-between items-center px-6 py-4 border-b border-gray-200 sm:flex-row
     `;
 const CardTitle = tw.h2`
         text-xl font-semibold text-gray-800 
@@ -204,3 +233,10 @@ const PrevButton = tw.button`
 const NextButton = tw.button`
         py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none
     `;
+const LeftSideContainer = tw.div`
+    
+`;
+
+const Button = tw.button`
+       px-5 py-1.5 text-sm font-medium tracking-wide text-white text-lg capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50
+`;
