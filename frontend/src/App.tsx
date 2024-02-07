@@ -14,6 +14,7 @@ import CondoFees from "./components/EnterFees.tsx";
 import { CartProvider } from "./context/CartContext.tsx";
 import Fees from "./components/Fees.tsx";
 import CreatePropertyTest from "./components/CreatePropertyTest.tsx";
+import PropertyTable from "./components/PropertyTable.tsx";
 
 function App() {
 	return (
@@ -59,10 +60,8 @@ function App() {
 								/>
 							}
 						/>
-						<Route
-							path="/createPropertyTest"
-							element={<CreatePropertyTest />}
-						/>
+						<Route path="/createPropertyTest" element={<CreatePropertyTest />} />  
+            <Route path="/propertyTable" element={<PropertyTable />} />
 					</Route>
 				</Routes>
 			</CartProvider>

@@ -6,7 +6,7 @@ import { useDisclosure } from '@chakra-ui/react'
 import AddPropertyPopup from './AddPropertyPopup';
 
 
-const TableSection: React.FC = () => {
+const PropertyTable: React.FC = () => {
     const [properties, setProperties] = useState<any[]>([]);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [addPropertyPopup, setaddPropertyPopup] = useState<Boolean>(false);
@@ -159,7 +159,7 @@ const TableSection: React.FC = () => {
     );
 };
 
-export default TableSection;
+export default PropertyTable;
 
 const Container = tw.div`
         max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto
