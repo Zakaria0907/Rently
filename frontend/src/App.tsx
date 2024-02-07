@@ -10,6 +10,7 @@ import Missing from './components/Missing.tsx'
 import Temp from './components/Temp.tsx'
 import { Roles } from './types/enums.ts'
 import { ChakraProvider } from '@chakra-ui/react'
+import CondoFees from './components/EnterFees.tsx'
 import { CartProvider } from './context/CartContext.tsx'
 import Fees from './components/Fees.tsx'
 
@@ -41,6 +42,7 @@ function App() {
 
           {/* for testing/dev purposes */}
           <Route path="/temp" element={<Temp />} />
+          <Route path="/condo-fees" element={<CondoFees/>} />
           <Route path="/fees" element={<Fees fees={[
             { name: 'Monthly Service Fee', amount: 249.99 },
             { name: 'Monthly Cleaning Fee', amount: 174.99 },
