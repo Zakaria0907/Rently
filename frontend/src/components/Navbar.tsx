@@ -40,10 +40,10 @@ const Navbar: React.FC = () => {
 
                     <NavbarMenu className={`${isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'}`}>
                         <NavbarMenuItems>
-                            <NavbarMenuItem href="#">Join Slack</NavbarMenuItem>
-                            <NavbarMenuItem href="#">Browse Topics</NavbarMenuItem>
-                            <NavbarMenuItem href="#">Random Item</NavbarMenuItem>
-                            <NavbarMenuItem href="#">Experts</NavbarMenuItem>
+                            <NavbarMenuItem href="#">Landing</NavbarMenuItem>
+                            <NavbarMenuItem href="#">Account</NavbarMenuItem>
+                            <NavbarMenuItem href="#">About</NavbarMenuItem>
+                            <NavbarMenuItem href="#">Contact Us</NavbarMenuItem>
                         </NavbarMenuItems>
 
                         <NavbarProfile>

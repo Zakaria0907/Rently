@@ -17,6 +17,7 @@ import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
 import PropertyTable from "./components/PropertyTable";
 import Reservations from "./components/Reservations";
+import OwnerDashboard from "./components/OwnerDashboard";
 
 function App() {
   return (
@@ -50,8 +51,7 @@ function App() {
             {/* for testing/dev purposes */}
             <Route path="/temp" element={<Temp />} />
             <Route path="/condo-fees" element={<CondoFees />} />
-            <Route
-              path="/fees"
+            <Route path="/fees"
               element={
                 <Fees
                   fees={[
@@ -62,16 +62,10 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/createPropertyTest"
-              element={<CreatePropertyTest />}
-            />
+            <Route path="/createPropertyTest" element={<CreatePropertyTest />} />
             <Route path="/propertyTable" element={<PropertyTable />} />
-            {/* need to add it under login route but for testing purposes will keep it here */}
-            <Route
-              path="/reservations"
-              element={<Reservations reservations={[]} />}
-            />
+            <Route path="/reservations" element={<Reservations reservations={[]} />} />
+            <Route path="/ownerDashboard" element={<OwnerDashboard />} />
           </Route>
         </Routes>
       </CartProvider>
