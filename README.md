@@ -56,12 +56,6 @@
 
 </p>
 
-
-## Introduction 📖
-
-TO-DO
-
-
 ## Team Members 💪 🎉
 
 <table>
@@ -89,26 +83,22 @@ Bouanani
      <td align="center"><a href="https://www.linkedin.com/in/anes-khadiri/"><img src="https://www.sunsetlearning.com/wp-content/uploads/2019/09/User-Icon-Grey-300x300.png" width="100px;" alt=""/><br /><sub><b>Adam Boucher</b></sub></a></td>
      <td align="center"><a href="https://www.linkedin.com/in/omar-fares02/"><img src="https://media.licdn.com/dms/image/D5603AQHepChpLu59cw/profile-displayphoto-shrink_400_400/0/1697227903728?e=1712188800&v=beta&t=8jSPZEZPdvomqKeA_euYpRYhcAWZabdTjh1LU7GyxTg" width="100px;" alt=""/><br /><sub><b>Omar Fares</b></sub></a></td>
   </tr>
- 
-
-
-
-  
-
-  
+   
 
 </table>
 
 
 ## Running & Building the project 🔨
 ### Front-end setup
-TO-DO
 ```
 npm install
 npm run dev
 ```
 ### Back-end setup
-TO-DO
-```
-maven clean install
-```
+
+1. Install JDK 17 and set it in the ENV variables
+2. Clone the Repository, and ```cd``` to ```rently-API folder```
+3. Under ``` src > main > resources > application.yml``` change the database credentials to the one given. If you wish to create your own database create an account in NeonDB, generate a POSTGRESQL database and get your credentials.
+4. Always under the ```rently-API folder```, run the command ```mvn clean install```
+5. Run the application
+6. For further documentation about the architecture, please visit the Confluence page
