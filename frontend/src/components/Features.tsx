@@ -23,10 +23,10 @@ const Features: React.FC = () => {
                     <div className="space-y-6 sm:space-y-8">
                         <div className="space-y-2 md:space-y-4">
                             <h2 className="font-bold text-3xl lg:text-4xl text-gray-800">
-                                Collaborative tools to design user experience
+                                Empowering Property Management with Smart Tools
                             </h2>
                             <p className="text-gray-500">
-                                Use our tools to explore your ideas and make your vision come true. Then share your work easily.
+                                Leverage our suite of tools to manage your properties more effectively and share updates effortlessly with residents.
                             </p>
                         </div>
                         <ul role="list" className="space-y-2 sm:space-y-4">
@@ -37,7 +37,7 @@ const Features: React.FC = () => {
                                     </svg>
                                 </span>
                                 <span className="text-sm sm:text-base text-gray-500">
-                                    <span className="font-bold">Less routine</span> – more creativity
+                                    <span className="font-bold">Reduce operational overhead</span> – more creativity
                                 </span>
                             </li>
                             <li className="flex space-x-3">
@@ -47,7 +47,7 @@ const Features: React.FC = () => {
                                     </svg>
                                 </span>
                                 <span className="text-sm sm:text-base text-gray-500">
-                                    Hundreds of thousands saved
+                                    Streamline communication and save time
                                 </span>
                             </li>
                             <li className="flex space-x-3">
@@ -57,7 +57,7 @@ const Features: React.FC = () => {
                                     </svg>
                                 </span>
                                 <span className="text-sm sm:text-base text-gray-500">
-                                    Scale budgets <span className="font-bold">efficiently</span>
+                                     Optimize expenses and <span className="font-bold">manage budgets effectively</span>
                                 </span>
                             </li>
                         </ul>

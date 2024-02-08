@@ -51,7 +51,8 @@ const Login = () => {
             setAuth({ user: userName, pwd, roles, access_token, company });
             setUserName("");
             setPwd("");
-            navigate(from, { replace: true });
+            // navigate(from, { replace: true }); // PUT IT BACK AFTER
+            navigate("/welcome");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg("No Server Response");

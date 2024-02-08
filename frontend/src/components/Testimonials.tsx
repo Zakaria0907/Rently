@@ -8,10 +8,10 @@ const Testimonials: React.FC = () => {
                 <div className="lg:col-span-5 lg:col-start-1">
                     <div className="mb-8">
                         <h2 className="mb-2 text-3xl text-gray-800 font-bold lg:text-4xl ">
-                            It's all about simplicity
+                            Streamlining Condo Management
                         </h2>
                         <p className="text-gray-600 ">
-                            We provide you with a test account that can be set up in seconds. Our main focus is getting responses to you as soon as we can.
+                            Experience hassle-free condo management with instant setup and rapid response to your needs. Simplify your property management today.
                         </p>
                     </div>
                     <blockquote className="relative">
@@ -20,7 +20,7 @@ const Testimonials: React.FC = () => {
                         </svg>
                         <div className="relative z-10">
                             <p className="text-xl italic text-gray-800 ">
-                                Amazing people to work with. Very fast and professional partner.
+                                The efficiency and ease of use have transformed our condo management experience. Highly recommend!
                             </p>
                         </div>
                         <footer className="mt-6">
@@ -41,36 +41,36 @@ const Testimonials: React.FC = () => {
                         <ul className="grid grid-cols-2 divide-y divide-y-2 divide-x divide-x-2 divide-gray-200 overflow-hidden ">
                             <li className="flex flex-col -m-0.5 p-4 sm:p-8">
                                 <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 ">
-                                    45k+
+                                    300+
                                 </div>
                                 <p className="text-sm sm:text-base text-gray-600 ">
-                                    users - from new startups to public companies
+                                    condo communities managed
                                 </p>
                             </li>
                             <li className="flex flex-col -m-0.5 p-4 sm:p-8">
                                 <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 ">
                                     <svg className="flex-shrink-0 w-5 h-5 text-blue-600 " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
-                                    23%
+                                    40%
                                 </div>
                                 <p className="text-sm sm:text-base text-gray-600 ">
-                                    increase in traffic on webpages with Looms
+                                    reduction in maintenance request processing time
                                 </p>
                             </li>
                             <li className="flex flex-col -m-0.5 p-4 sm:p-8">
                                 <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 ">
                                     <svg className="flex-shrink-0 w-5 h-5 text-blue-600 " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
-                                    9.3%
+                                    95%
                                 </div>
                                 <p className="text-sm sm:text-base text-gray-600 ">
-                                    boost in reply rates across sales outreach
+                                    satisfaction rate from residents and property managers
                                 </p>
                             </li>
                             <li className="flex flex-col -m-0.5 p-4 sm:p-8">
                                 <div className="flex items-end gap-x-2 text-3xl sm:text-5xl font-bold text-gray-800 mb-2 ">
-                                    2x
+                                    24/7
                                 </div>
                                 <p className="text-sm sm:text-base text-gray-600 ">
-                                    faster than previous Preline versions
+                                    support availability for emergency and non-emergency issues
                                 </p>
                             </li>
                         </ul>

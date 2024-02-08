@@ -1,5 +1,4 @@
 import { Button } from '@chakra-ui/react';
-import { useDisclosure } from '@chakra-ui/hooks';
 import {
     Modal,
     ModalOverlay,
@@ -17,7 +16,7 @@ interface ServicesModalProps {
     children?: React.ReactNode;
 };
 
-export default function ServicesModal({ isOpen, onClose, title, children }: ServicesModalProps): JSX.Element {
+export default function CustomModal({ isOpen, onClose, title, children }: ServicesModalProps): JSX.Element {
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose!}>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
 import ReceiptIcon from '../assets/icons/receipt.svg?react';
-import ServicesModal from './ServicesModal';
+import CustomModal from './SharedComponents/CustomModal';
 import { useDisclosure } from '@chakra-ui/react'
 import AddPropertyPopup from './AddPropertyPopup';
 
@@ -151,9 +151,9 @@ const PropertyTable: React.FC = () => {
                         </InnerContainer>
                     </OverflowContainer>
                 </FlexContainer>
-                <ServicesModal isOpen={isOpen} onClose={onClose} title={`Services for ${selectedProperty.name || ""}`}>
+                <CustomModal isOpen={isOpen} onClose={onClose} title={`Services for ${selectedProperty.name || ""}`}>
                     <div className="text-sm text-gray-900">{selectedProperty.address}</div>
-                </ServicesModal>
+                </CustomModal>
             </Container>
         </>
     );
