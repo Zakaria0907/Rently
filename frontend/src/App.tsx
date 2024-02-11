@@ -20,6 +20,7 @@ import Reservations from "./components/Reservations";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import PageTitle from "./components/PageTitle";
 import Profile from "./pages/Profile";
+import Calendar from "./pages/Calendar";
 
 function App() {
   return (
@@ -38,6 +39,15 @@ function App() {
             <>
               <PageTitle title="Profile | Rently Condo Management SAAS" />
               <Profile />
+            </>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <>
+              <PageTitle title="Calendar | Rently Condo Management SAAS" />
+              <Calendar />
             </>
           }
         />
