@@ -1,5 +1,5 @@
 import React from 'react';
-import CondoImg from '../../assets/images/condo-image-hero.jpg'; // Add image import
+import CondoImg from '../../images/cover/condo-image-hero.jpg'; // Add image import
 
 interface CardProps {
     title: string;

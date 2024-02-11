@@ -1,6 +1,6 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import RentlyLogo from '../images/icon/rently-logo.svg?react';
 // import Logo from '../assets/icons/rently-logo.svg';
 
 const Footer: React.FC = () => {

@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 import tw from "tailwind-styled-components";
 const LOGIN_URL = "/auth/authenticate";
-import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import ApiManager from "../api/ApiManager/ApiManager";
 
 const Login = () => {

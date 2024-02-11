@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import tw from "tailwind-styled-components";
-import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import RentlyLogo from '../images/icon/rently-logo.svg?react';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const NAME_REGEX =

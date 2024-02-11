@@ -1,7 +1,6 @@
 import React from 'react';
 import Card from './SharedComponents/Card';
-import CondoImg from '../assets/images/condo-image-hero.jpg'; // Add image import
-import { Avatar, AvatarBadge, Stack } from '@chakra-ui/react';
+import CondoImg from '../images/cover/condo-image-hero.jpg'; // Add image import
 import CustomModal from './SharedComponents/CustomModal';
 
 const OwnerDashboard: React.FC = () => {

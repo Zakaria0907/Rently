@@ -1,5 +1,5 @@
 import React from 'react';
-import CondoImage from "../assets/images/condo-image-hero.jpg";
+import CondoImage from "../images/cover/condo-image-hero.jpg";
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaAmazon, FaAirbnb  } from "react-icons/fa";
 import { FaMeta } from "react-icons/fa6";

@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components"
 import React, { useRef } from 'react';
-import Hero from "./Hero";
+import Hero from "../components/Hero";
 import Testimonials from "../components/Testimonials";
 import Features from "../components/Features";
 import { useIsVisible } from "../hooks/useIsVisible";

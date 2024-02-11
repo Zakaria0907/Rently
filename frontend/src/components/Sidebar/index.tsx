@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
 // import Logo from '../../images/logo/logo.svg';
-import RentlyLogo from '../../assets/icons/rently-logo.svg?react';
+import RentlyLogo from '../../images/icon/rently-logo.svg?react';
 
 interface SidebarProps {
   sidebarOpen: boolean;
