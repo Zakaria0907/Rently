@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from './DefaultLayout';
 
@@ -265,7 +266,9 @@ const Calendar = () => {
             {/* <!-- Line 5 --> */}
           </tbody>
         </table>
+       
       </div>
+      <Button className="mt-4"> Create reservation </Button>
       {/* <!-- ====== Calendar Section End ====== --> */}
     </DefaultLayout>
   );

@@ -32,25 +32,31 @@ function App() {
             <Route index element={<Landing />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
-            
+
+            {/* NEW OFFICIAL ROUTES, WORK INSIDE THESE! */}
             <Route
-          path="/profile"
-          element={
-            <>
-              <PageTitle title="Profile | Rently Condo Management SAAS" />
-              <Profile />
-            </>
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <>
-              <PageTitle title="Calendar | Rently Condo Management SAAS" />
-              <Calendar />
-            </>
-          }
-        />
+              path="/profile"
+              element={
+                <>
+                  <PageTitle title="Profile | Rently Condo Management SAAS" />
+                  <Profile />
+                </>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                  <Calendar />
+                </>
+              }
+            />
+
+
+
+
+            
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
@@ -73,7 +79,8 @@ function App() {
             {/* for testing/dev purposes */}
             <Route path="/temp" element={<Temp />} />
             <Route path="/condo-fees" element={<CondoFees />} />
-            <Route path="/fees"
+            <Route
+              path="/fees"
               element={
                 <Fees
                   fees={[
@@ -84,14 +91,20 @@ function App() {
                 />
               }
             />
-    
-            <Route path="/createPropertyTest" element={<CreatePropertyTest />} />
+
+            <Route
+              path="/createPropertyTest"
+              element={<CreatePropertyTest />}
+            />
             <Route path="/propertyTable" element={<PropertyTable />} />
-            <Route path="/reservations" element={<Reservations reservations={[]} />} />
+            <Route
+              path="/reservations"
+              element={<Reservations reservations={[]} />}
+            />
             <Route path="/ownerDashboard" element={<OwnerDashboard />} />
           </Route>
         </Routes>
-        </CartProvider>
+      </CartProvider>
     </ChakraProvider>
   );
 }
