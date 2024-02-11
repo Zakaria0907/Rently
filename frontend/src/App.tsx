@@ -2,9 +2,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Landing from "./components/Landing";
-import Login from "./layouts/Login";
-import Register from "./layouts/Register";
-import Welcome from "./layouts/Welcome";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Welcome from "./pages/Welcome";
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import Missing from "./components/Missing";
@@ -17,9 +17,9 @@ import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
 import PropertyTable from "./components/PropertyTable";
 import Reservations from "./components/Reservations";
-import OwnerDashboard from "./layouts/OwnerDashboard";
+import OwnerDashboard from "./pages/OwnerDashboard";
 import PageTitle from "./components/PageTitle";
-
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -81,7 +81,7 @@ function App() {
             <Route path="/ownerDashboard" element={<OwnerDashboard />} />
           </Route>
         </Routes>
-      </CartProvider>
+        </CartProvider>
     </ChakraProvider>
   );
 }
