@@ -15,7 +15,6 @@ import { CartProvider } from "./context/CartContext";
 import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
 import Reservations from "./components/Reservations";
-import OwnerDashboard from "./components/OwnerProperties";
 import PageTitle from "./components/PageTitle";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/Calendar";
