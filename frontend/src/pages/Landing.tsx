@@ -1,11 +1,11 @@
 import tw from "tailwind-styled-components"
 import React, { useRef } from 'react';
-import Hero from "../pages/Hero";
-import Testimonials from "./Testimonials";
-import Features from "./Features";
+import Hero from "./Hero";
+import Testimonials from "../components/Testimonials";
+import Features from "../components/Features";
 import { useIsVisible } from "../hooks/useIsVisible";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const Landing: React.FC = () => {
 

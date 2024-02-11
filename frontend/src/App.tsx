@@ -1,7 +1,6 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
-import Landing from "./components/Landing";
+import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Welcome from "./pages/Welcome";
@@ -15,7 +14,6 @@ import CondoFees from "./components/EnterFees";
 import { CartProvider } from "./context/CartContext";
 import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
-import PropertyTable from "./components/PropertyTable";
 import Reservations from "./components/Reservations";
 import OwnerDashboard from "./pages/OwnerDashboard";
 import PageTitle from "./components/PageTitle";
@@ -24,6 +22,7 @@ import Calendar from "./pages/Calendar";
 import FormElements from "./pages/Form/FormElements";
 import FormLayout from "./pages/Form/FormLayout";
 import Chart from "./pages/Chart";
+import PropertyAndRentals from "./pages/PropertyAndRentals";
 
 function App() {
   return (
@@ -37,6 +36,15 @@ function App() {
             <Route path="register" element={<Register />} />
 
             {/* NEW OFFICIAL ROUTES, WORK INSIDE THESE! */}
+            <Route
+              path="/my-properties-and-rentals"
+              element={
+                <>
+                  <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
+                  <PropertyAndRentals />
+                </>
+              }
+            />
             <Route
               path="/profile"
               element={
@@ -132,7 +140,6 @@ function App() {
               path="/createPropertyTest"
               element={<CreatePropertyTest />}
             />
-            <Route path="/propertyTable" element={<PropertyTable />} />
             <Route
               path="/reservations"
               element={<Reservations reservations={[]} />}
