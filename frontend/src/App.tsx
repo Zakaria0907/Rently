@@ -21,6 +21,9 @@ import OwnerDashboard from "./pages/OwnerDashboard";
 import PageTitle from "./components/PageTitle";
 import Profile from "./pages/Profile";
 import Calendar from "./pages/Calendar";
+import FormElements from "./pages/Form/FormElements";
+import FormLayout from "./pages/Form/FormLayout";
+import Chart from "./pages/Chart";
 
 function App() {
   return (
@@ -53,10 +56,15 @@ function App() {
               }
             />
 
-
-
-
-            
+            <Route
+              path="/chart"
+              element={
+                <>
+                  <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                  <Chart />
+                </>
+              }
+            />
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
@@ -89,6 +97,34 @@ function App() {
                     { name: "Rent", amount: 1199.99 },
                   ]}
                 />
+              }
+            />
+            <Route
+              path="/forms/form-elements"
+              element={
+                <>
+                  <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                  <FormElements />
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-layout"
+              element={
+                <>
+                  <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                  <FormLayout />
+                </>
+              }
+            />
+
+            <Route
+              path="/chart"
+              element={
+                <>
+                  <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                  <Chart />
+                </>
               }
             />
 
