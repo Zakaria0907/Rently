@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom"
-import Navbar from "./Navbar"
-import Footer from "./Footer"
+// import Navbar from "./Navbar"
+// import Footer from "./Footer"
 import { useCart } from "../context/CartContext";
-import SideBar from "./Sidebar v2/SideBar";
+// import SideBar from "./Sidebar v2/SideBar";
 
 const Layout = () => {
     const { isCartVisible } = useCart(); // Use the useCart hook to get the cart visibility state
@@ -10,14 +10,14 @@ const Layout = () => {
     return (
         <>
             <div className="flex flex-col min-h-screen">
-                <Navbar />
+                {/* <Navbar /> */}
                 <div className="flex flex-1">
                     <div className={`flex-1 ${isCartVisible ? 'lg:w-11/12' : 'w-full'}`}>
                         <Outlet/>
                     </div>
-                    <SideBar/>
+                    {/* <SideBar/> */}
                 </div>
-                <Footer />
+                {/* <Footer /> */}
             </div>
         </>
     )
