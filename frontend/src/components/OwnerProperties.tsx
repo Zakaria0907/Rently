@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from '../components/SharedComponents/Card';
+import Card from './SharedComponents/Card';
 import CondoImg from '../assets/images/condo-image-hero.jpg'; // Add image import
 import { Avatar, AvatarBadge, Stack } from '@chakra-ui/react';
-import CustomModal from '../components/SharedComponents/CustomModal';
+import CustomModal from './SharedComponents/CustomModal';
 
 const OwnerDashboard: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -36,15 +36,7 @@ const OwnerDashboard: React.FC = () => {
     
     return (
         <>
-            <div className='px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto'>
-                <div className='flex items-center space-x-4 mb-4'>
-                    <Stack direction='row' spacing={4}>
-                        <Avatar>
-                            <AvatarBadge boxSize='1.25em' bg='green.500' />
-                        </Avatar>
-                    </Stack>
-                    <h1 className='text-3xl font-semibold text-gray-800'>Owner Dashboard</h1>
-                </div>
+            
                 <div className="max-w-[85rem] py-10  lg:py-14 mx-auto">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {
@@ -60,7 +52,7 @@ const OwnerDashboard: React.FC = () => {
                         }
                     </div>
                 </div>
-            </div>
+       
             { isOpen && <CustomModal isOpen={isOpen} onClose={closeModal} title={selectedProperty.title}>
                 <div>
                     <p className="text-gray-600">Address: 123 Main St</p>

@@ -2,6 +2,7 @@ import React from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from './DefaultLayout';
 import PropertyTable from '../components/PropertyTable';
+import OwnerProperties from '../components/OwnerProperties';
 
 
 //DEV ONLY COMPONENT!
@@ -13,6 +14,7 @@ const PropertyAndRentals: React.FC = () => {
 
       <div >
        <PropertyTable />
+         <OwnerProperties />
       </div>
     </DefaultLayout>
   );
