@@ -68,7 +68,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <NavLink to="/">
         <span className="flex items-center">
         <RentlyLogo fill='white' className="w-auto  sm:h-15" /> 
-  
           <h1 className="text-white text-3xl">Rently</h1>
         </span>
         </NavLink>
