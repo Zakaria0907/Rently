@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components";
 import React, { useState } from "react";
-import RentlyLogo from "../assets/icons/rently-logo.svg?react";
+import RentlyLogo from "../images/icon/rently-logo.svg?react";
 import FileUploadBtn from "./FileUploadBtn";
 
 const createPropertyForm: React.FC<{ onFormSubmit: () => void }> = ({

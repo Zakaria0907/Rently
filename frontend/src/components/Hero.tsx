@@ -1,12 +1,12 @@
 import React from 'react';
-import CondoImage from "../assets/images/condo-image-hero.jpg";
+import CondoImage from "../images/cover/condo-image-hero.jpg";
 import { Link } from 'react-router-dom';
 import { FaGoogle, FaAmazon, FaAirbnb  } from "react-icons/fa";
 import { FaMeta } from "react-icons/fa6";
 
-
 const Hero: React.FC = () => {
     return (
+
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 my-4">
             <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
                 <div className="lg:col-span-3">
@@ -44,7 +44,8 @@ const Hero: React.FC = () => {
                     <img className="w-full rounded-xl" src={CondoImage} alt="Condo" />
                 </div>
             </div>
-        </div>
+    </div>
+
     );
 }
 
