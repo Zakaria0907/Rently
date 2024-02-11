@@ -218,7 +218,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       fill=""
                     />
                   </svg>
-                  Calendar
+                  Reservations
                 </NavLink>
               </li>
               {/* <!-- Menu Item Calendar --> */}
@@ -395,7 +395,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Tables
+                  Requests
                 </NavLink>
               </li>
               {/* <!-- Menu Item Tables --> */}
