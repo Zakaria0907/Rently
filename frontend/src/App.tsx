@@ -68,8 +68,27 @@ function App() {
               path="/chart"
               element={
                 <>
-                  <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                  <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
                   <Chart />
+                </>
+              }
+            />
+
+            <Route
+              path="/forms/form-elements"
+              element={
+                <>
+                  <PageTitle title="Form Elements | Rently Condo Management SAAS" />
+                  <FormElements />
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-layout"
+              element={
+                <>
+                  <PageTitle title="Form Layout | Rently Condo Management SAAS" />
+                  <FormLayout />
                 </>
               }
             />
@@ -107,34 +126,6 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/forms/form-elements"
-              element={
-                <>
-                  <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                  <FormElements />
-                </>
-              }
-            />
-            <Route
-              path="/forms/form-layout"
-              element={
-                <>
-                  <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                  <FormLayout />
-                </>
-              }
-            />
-
-            <Route
-              path="/chart"
-              element={
-                <>
-                  <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                  <Chart />
-                </>
-              }
-            />
 
             <Route
               path="/createPropertyTest"
@@ -144,7 +135,6 @@ function App() {
               path="/reservations"
               element={<Reservations reservations={[]} />}
             />
-
           </Route>
         </Routes>
       </CartProvider>
