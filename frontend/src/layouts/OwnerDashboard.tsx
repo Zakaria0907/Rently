@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from './SharedComponents/Card';
+import Card from '../components/SharedComponents/Card';
 import CondoImg from '../assets/images/condo-image-hero.jpg'; // Add image import
 import { Avatar, AvatarBadge, Stack } from '@chakra-ui/react';
-import CustomModal from './SharedComponents/CustomModal';
+import CustomModal from '../components/SharedComponents/CustomModal';
 
 const OwnerDashboard: React.FC = () => {
     const [isOpen, setIsOpen] = React.useState(false);

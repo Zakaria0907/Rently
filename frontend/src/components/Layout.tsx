@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
 import { useCart } from "../context/CartContext";
-import SideBar from "./Sidebar/SideBar";
+import SideBar from "./Sidebar v2/SideBar";
 
 const Layout = () => {
     const { isCartVisible } = useCart(); // Use the useCart hook to get the cart visibility state
