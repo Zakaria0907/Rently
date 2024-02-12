@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RentlyLogo from '../assets/icons/rently-logo.svg?react';
+import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import tw from 'tailwind-styled-components';

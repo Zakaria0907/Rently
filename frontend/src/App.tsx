@@ -1,10 +1,9 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Landing from "./components/Landing";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Welcome from "./components/Welcome";
+import Layout from "./pages/Layout";
+import Landing from "./pages/Landing";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Welcome from "./pages/Welcome";
 import RequireAuth from "./components/RequireAuth";
 import PersistLogin from "./components/PersistLogin";
 import Missing from "./components/Missing";
@@ -15,9 +14,14 @@ import CondoFees from "./components/EnterFees";
 import { CartProvider } from "./context/CartContext";
 import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
-import PropertyTable from "./components/PropertyTable";
 import Reservations from "./components/Reservations";
-import OwnerDashboard from "./components/OwnerDashboard";
+import PageTitle from "./components/PageTitle";
+import Profile from "./pages/Profile";
+import Calendar from "./pages/Calendar";
+import FormElements from "./pages/Form/FormElements";
+import FormLayout from "./pages/Form/FormLayout";
+import Chart from "./pages/Chart";
+import PropertyAndRentals from "./pages/PropertyAndRentals";
 
 function App() {
   return (
@@ -29,6 +33,64 @@ function App() {
             <Route index element={<Landing />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+
+            {/* NEW OFFICIAL ROUTES, WORK INSIDE THESE! */}
+            <Route
+              path="/my-properties-and-rentals"
+              element={
+                <>
+                  <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
+                  <PropertyAndRentals />
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <PageTitle title="Profile | Rently Condo Management SAAS" />
+                  <Profile />
+                </>
+              }
+            />
+            <Route
+              path="/calendar"
+              element={
+                <>
+                  <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                  <Calendar />
+                </>
+              }
+            />
+
+            <Route
+              path="/chart"
+              element={
+                <>
+                  <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
+                  <Chart />
+                </>
+              }
+            />
+
+            <Route
+              path="/forms/form-elements"
+              element={
+                <>
+                  <PageTitle title="Form Elements | Rently Condo Management SAAS" />
+                  <FormElements />
+                </>
+              }
+            />
+            <Route
+              path="/forms/form-layout"
+              element={
+                <>
+                  <PageTitle title="Form Layout | Rently Condo Management SAAS" />
+                  <FormLayout />
+                </>
+              }
+            />
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
@@ -51,7 +113,8 @@ function App() {
             {/* for testing/dev purposes */}
             <Route path="/temp" element={<Temp />} />
             <Route path="/condo-fees" element={<CondoFees />} />
-            <Route path="/fees"
+            <Route
+              path="/fees"
               element={
                 <Fees
                   fees={[
@@ -62,10 +125,15 @@ function App() {
                 />
               }
             />
-            <Route path="/createPropertyTest" element={<CreatePropertyTest />} />
-            <Route path="/propertyTable" element={<PropertyTable />} />
-            <Route path="/reservations" element={<Reservations reservations={[]} />} />
-            <Route path="/ownerDashboard" element={<OwnerDashboard />} />
+
+            <Route
+              path="/createPropertyTest"
+              element={<CreatePropertyTest />}
+            />
+            <Route
+              path="/reservations"
+              element={<Reservations reservations={[]} />}
+            />
           </Route>
         </Routes>
       </CartProvider>

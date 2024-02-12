@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import tw from 'tailwind-styled-components';
-import ReceiptIcon from '../assets/icons/receipt.svg?react';
+import ReceiptIcon from '../images/icon/receipt.svg?react';
 import CustomModal from './SharedComponents/CustomModal';
 import { useDisclosure } from '@chakra-ui/react'
 import AddPropertyPopup from './AddPropertyPopup';
