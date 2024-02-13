@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.auth.domain.entity;
+package com.rently.rentlyAPI.auth.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class AuthenticationRequestDto {
 
   private String email;
+  
   String password;
 }

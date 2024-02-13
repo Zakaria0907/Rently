@@ -1,10 +1,12 @@
-package com.rently.rentlyAPI.auth.util;
+package com.rently.rentlyAPI.auth.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +25,12 @@ public class JwtUtils {
 
   @Value("${application.security.jwt.secret-key}")
   private String secretKey;
+  
   @Value("${application.security.jwt.expiration}")
   private long jwtExpiration;
+  
   @Value("${application.security.jwt.refresh-token.expiration}")
   private long refreshExpiration;
-
-  public String extractUsername(String token) {
-    return extractClaim(token, Claims::getSubject);
-  }
-
-  public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-    final Claims claims = extractAllClaims(token);
-    return claimsResolver.apply(claims);
-  }
 
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
@@ -74,22 +69,20 @@ public class JwtUtils {
             .signWith(getSignInKey(), SignatureAlgorithm.HS256)
             .compact();
   }
-
-  public boolean isTokenValid(String token, UserDetails userDetails) {
-    final String username = extractUsername(token);
-    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  
+  public String extractUsername(String token) {
+    return extractClaim(token, Claims::getSubject);
   }
   
-  
-
-  private boolean isTokenExpired(String token) {
-    return extractExpiration(token).before(new Date());
+  public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+    final Claims claims = extractAllClaims(token);
+    return claimsResolver.apply(claims);
   }
-
+  
   private Date extractExpiration(String token) {
     return extractClaim(token, Claims::getExpiration);
   }
-
+  
   private Claims extractAllClaims(String token) {
     return Jwts
         .parserBuilder()
@@ -99,8 +92,46 @@ public class JwtUtils {
         .getBody();
   }
 
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    final String username = extractUsername(token);
+    return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
+  }
+
+  private boolean isTokenExpired(String token) {
+    return extractExpiration(token).before(new Date());
+  }
+  
   private Key getSignInKey() {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
     return Keys.hmacShaKeyFor(keyBytes);
   }
+  
+  
+  /**
+   * Adds JWT and Refresh tokens as cookies to the HTTP response.
+   *
+   * @param response The HttpServletResponse to which the cookies will be added.
+   * @param jwtToken The JWT token string.
+   * @param refreshToken The Refresh token string.
+   */
+  public void addTokensAsCookies(HttpServletResponse response, String jwtToken, String refreshToken) {
+    // Create and configure the JWT token cookie
+    Cookie jwtTokenCookie = new Cookie("accessToken", jwtToken);
+    jwtTokenCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days in seconds
+    jwtTokenCookie.setHttpOnly(true);
+    jwtTokenCookie.setSecure(true);
+    jwtTokenCookie.setPath("/");
+    
+    // Create and configure the refresh token cookie
+    Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
+    refreshTokenCookie.setMaxAge(30 * 24 * 60 * 60); // 30 days in seconds
+    refreshTokenCookie.setHttpOnly(true);
+    refreshTokenCookie.setSecure(true);
+    refreshTokenCookie.setPath("/");
+    
+    // Add cookies to the response
+    response.addCookie(jwtTokenCookie);
+    response.addCookie(refreshTokenCookie);
+  }
+  
 }

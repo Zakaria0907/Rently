@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI;
 
-import com.rently.rentlyAPI.auth.domain.entity.ChangePasswordRequest;
+import com.rently.rentlyAPI.auth.domain.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.auth.domain.entity.User;
 import com.rently.rentlyAPI.auth.repository.UserRepository;
 import com.rently.rentlyAPI.auth.service.UserService;
@@ -32,7 +32,7 @@ public class UserServiceTests {
     @Test
     void changePassword_SuccessfulChange() {
         // Arrange
-        ChangePasswordRequest request = new ChangePasswordRequest("oldPassword", "newPassword", "newPassword");
+        ChangePasswordRequestDto request = new ChangePasswordRequestDto("oldPassword", "newPassword", "newPassword");
 
         User user = User.builder()
                 .id(1)
@@ -55,7 +55,7 @@ public class UserServiceTests {
     @Test
     void changePassword_WrongCurrentPassword() {
         // Arrange
-        ChangePasswordRequest request = new ChangePasswordRequest("oldPassword", "newPassword", "newPassword");
+        ChangePasswordRequestDto request = new ChangePasswordRequestDto("oldPassword", "newPassword", "newPassword");
 
         User user = User.builder()
                 .id(1)

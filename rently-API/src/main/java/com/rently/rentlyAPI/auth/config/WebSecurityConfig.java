@@ -1,7 +1,10 @@
 package com.rently.rentlyAPI.auth.config;
 
 import com.rently.rentlyAPI.auth.filter.JwtAuthenticationFilter;
+import com.rently.rentlyAPI.auth.service.RentlyOAuth2UserService;
+import com.rently.rentlyAPI.auth.utils.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -30,10 +33,17 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 //@EnableMethodSecurity //Enables @PreAuthroize annotation
 public class WebSecurityConfig {
+    
+    @Autowired
+    private RentlyOAuth2UserService oAuth2UserService;
+    
+    @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     private static final String[] WHITE_LIST_URL = {
             "http://localhost:8080/api/v1/auth/**",
             "/api/v1/auth/**",
+//            "/login/oauth2/code/google",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -71,6 +81,15 @@ public class WebSecurityConfig {
 
                                 .anyRequest()
                                 .authenticated()
+                )
+                .oauth2Login(oauth2Login -> oauth2Login
+//                    TODO: Do we need this (below)?
+//                    .loginPage("http://localhost:5173/login")
+//                    TODO: change sucess redirect endpoint
+//                    .defaultSuccessUrl("http://localhost:5173/register")
+                    .failureUrl("/api/v1/auth/login-failure")
+                    .successHandler(oAuth2LoginSuccessHandler)
+                    .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)

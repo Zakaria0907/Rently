@@ -33,7 +33,7 @@ public class UserDto {
             .build();
     }
 
-    public User toEntity(UserDto userDTO) {
+    public static User toEntity(UserDto userDTO) {
         return User.builder()
             .id(userDTO.getId())
             .firstname(userDTO.getFirstname())

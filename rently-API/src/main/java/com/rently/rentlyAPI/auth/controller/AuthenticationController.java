@@ -1,10 +1,10 @@
 package com.rently.rentlyAPI.auth.controller;
 
 
-import com.rently.rentlyAPI.auth.domain.entity.AuthenticationRequest;
-import com.rently.rentlyAPI.auth.domain.entity.AuthenticationResponse;
+import com.rently.rentlyAPI.auth.domain.dto.AuthenticationRequestDto;
+import com.rently.rentlyAPI.auth.domain.dto.AuthenticationResponseDto;
 import com.rently.rentlyAPI.auth.service.AuthenticationService;
-import com.rently.rentlyAPI.auth.domain.entity.RegisterRequest;
+import com.rently.rentlyAPI.auth.domain.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.auth.service.LogoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,17 +26,19 @@ public class AuthenticationController {
   private final LogoutService logoutService;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request
+  public ResponseEntity<AuthenticationResponseDto> register(
+      @RequestBody RegisterRequestDto request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
+  
   @PostMapping("/authenticate")
-  public ResponseEntity<AuthenticationResponse> authenticate(
-      @RequestBody AuthenticationRequest request
+  public ResponseEntity<AuthenticationResponseDto> authenticate(
+      @RequestBody AuthenticationRequestDto request
   ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
+  
   @PostMapping("/refresh-token")
   public void refreshToken(
       HttpServletRequest request,

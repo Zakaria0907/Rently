@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.auth.domain.entity;
+package com.rently.rentlyAPI.auth.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-public class ChangePasswordRequest {
+public class ChangePasswordRequestDto {
 
     private String currentPassword;
+    
     private String newPassword;
+    
     private String confirmationPassword;
 }

@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.auth.domain.entity;
 
 import com.rently.rentlyAPI.auth.domain.entity.token.AccessToken;
+import com.rently.rentlyAPI.auth.domain.enums.Provider;
 import com.rently.rentlyAPI.auth.domain.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,7 +28,12 @@ public class User implements UserDetails {
 
   @Column(unique = true)
   private String email;
+  
   private String password;
+  
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, columnDefinition = "varchar(255) default 'RENTLY'")
+  private Provider provider;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, columnDefinition = "varchar(255) default 'USER'")
