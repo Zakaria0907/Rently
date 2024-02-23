@@ -1,13 +1,12 @@
 package com.rently.rentlyAPI.auth.service;
 
-import com.rently.rentlyAPI.auth.domain.entity.User;
+import com.rently.rentlyAPI.domain.entity.User;
 import com.rently.rentlyAPI.auth.domain.entity.token.AccessToken;
 import com.rently.rentlyAPI.auth.domain.entity.token.RefreshToken;
 import com.rently.rentlyAPI.auth.domain.enums.TokenType;
 import com.rently.rentlyAPI.auth.repository.RefreshTokenRepository;
 import com.rently.rentlyAPI.auth.repository.TokenRepository;
 import com.rently.rentlyAPI.auth.utils.JwtUtils;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

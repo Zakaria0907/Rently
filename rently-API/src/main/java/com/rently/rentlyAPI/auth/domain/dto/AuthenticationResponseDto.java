@@ -2,7 +2,7 @@ package com.rently.rentlyAPI.auth.domain.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rently.rentlyAPI.auth.domain.dto.UserDto;
+import com.rently.rentlyAPI.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

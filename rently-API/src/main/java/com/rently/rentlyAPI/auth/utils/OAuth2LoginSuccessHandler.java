@@ -2,7 +2,7 @@ package com.rently.rentlyAPI.auth.utils;
 
 import com.rently.rentlyAPI.auth.domain.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.auth.domain.entity.RentlyOAuth2User;
-import com.rently.rentlyAPI.auth.domain.entity.User;
+import com.rently.rentlyAPI.domain.entity.User;
 import com.rently.rentlyAPI.auth.domain.enums.Provider;
 import com.rently.rentlyAPI.auth.domain.enums.Role;
 import com.rently.rentlyAPI.auth.service.TokenService;

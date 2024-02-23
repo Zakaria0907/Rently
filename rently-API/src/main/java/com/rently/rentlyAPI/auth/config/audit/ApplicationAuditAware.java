@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.auth.config.audit;
 
-import com.rently.rentlyAPI.auth.domain.entity.User;
+import com.rently.rentlyAPI.domain.entity.User;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;

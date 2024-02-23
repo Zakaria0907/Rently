@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.auth.domain.entity;
+package com.rently.rentlyAPI.domain.entity;
 
 import com.rently.rentlyAPI.auth.domain.entity.token.AccessToken;
 import com.rently.rentlyAPI.auth.domain.enums.Provider;

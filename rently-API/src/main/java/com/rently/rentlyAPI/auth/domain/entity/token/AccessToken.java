@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.auth.domain.entity.token;
 
-import com.rently.rentlyAPI.auth.domain.entity.User;
+import com.rently.rentlyAPI.domain.entity.User;
 import com.rently.rentlyAPI.auth.domain.enums.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

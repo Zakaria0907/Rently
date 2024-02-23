@@ -1,6 +1,6 @@
-package com.rently.rentlyAPI.auth.domain.dto;
+package com.rently.rentlyAPI.domain.dto;
 
-import com.rently.rentlyAPI.auth.domain.entity.User;
+import com.rently.rentlyAPI.domain.entity.User;
 import com.rently.rentlyAPI.auth.domain.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

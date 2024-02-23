@@ -43,7 +43,8 @@ public class WebSecurityConfig {
     private static final String[] WHITE_LIST_URL = {
             "http://localhost:8080/api/v1/auth/**",
             "/api/v1/auth/**",
-//            "/login/oauth2/code/google",
+            "/api/v1/users/image-upload",
+//            "/api/v1/demo-controller",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -82,6 +83,14 @@ public class WebSecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout ->
+                        logout.logoutUrl("/api/v1/auth/logout")
+                                .addLogoutHandler(logoutHandler)
+                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                )
                 .oauth2Login(oauth2Login -> oauth2Login
 //                    TODO: Do we need this (below)?
 //                    .loginPage("http://localhost:5173/login")
@@ -91,14 +100,7 @@ public class WebSecurityConfig {
                     .successHandler(oAuth2LoginSuccessHandler)
                     .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-                .logout(logout ->
-                        logout.logoutUrl("/api/v1/auth/logout")
-                                .addLogoutHandler(logoutHandler)
-                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-                )
+            
         ;
 
         return http.build();

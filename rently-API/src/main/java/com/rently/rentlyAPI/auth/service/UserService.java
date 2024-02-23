@@ -1,13 +1,10 @@
 package com.rently.rentlyAPI.auth.service;
 
 import com.rently.rentlyAPI.auth.domain.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.auth.domain.entity.User;
-import com.rently.rentlyAPI.auth.domain.enums.Provider;
-import com.rently.rentlyAPI.auth.domain.enums.Role;
+import com.rently.rentlyAPI.domain.entity.User;
 import com.rently.rentlyAPI.auth.repository.UserRepository;
 import com.rently.rentlyAPI.auth.domain.dto.ChangePasswordRequestDto;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
