@@ -8,6 +8,7 @@ import com.rently.rentlyAPI.auth.service.AuthenticationService;
 import com.rently.rentlyAPI.auth.domain.dto.RegisterRequestDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +27,7 @@ public class AuthenticationController {
 
   @PostMapping("/register")
   public ResponseEntity<UserDto> register(
-      @RequestBody RegisterRequestDto request
+     @Valid @RequestBody RegisterRequestDto request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
