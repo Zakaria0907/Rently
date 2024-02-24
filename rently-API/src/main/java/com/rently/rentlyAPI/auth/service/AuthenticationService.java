@@ -35,20 +35,21 @@ public class AuthenticationService {
   
   
   // Main service methods
-  public AuthenticationResponseDto register(RegisterRequestDto request) {
+  public UserDto register(RegisterRequestDto request) {
     User user = userService.getUserByEmail(request.getEmail()).orElse(null);
     if (user != null) {
       throw new AuthenticationException("This email is already associated with an account", HttpStatus.FORBIDDEN);
       
     }
     User savedUser = userService.createUser(request);
-    String jwtToken = jwtUtils.generateToken(savedUser);
-    String refreshToken = jwtUtils.generateRefreshToken(savedUser);
-    tokenService.saveUserTokens(savedUser, jwtToken, refreshToken);
-    return buildAuthenticationResponse(jwtToken, refreshToken, UserDto.fromEntity(savedUser));
+    //We are not storing the tokens upon registration, the user must login to acquire the tokens
+//    String jwtToken = jwtUtils.generateToken(savedUser);
+//    String refreshToken = jwtUtils.generateRefreshToken(savedUser);
+//    tokenService.saveUserTokens(savedUser, jwtToken, refreshToken);
+    return UserDto.fromEntity(savedUser);
   }
   
-  public AuthenticationResponseDto authenticate(AuthenticationRequestDto request) {
+  public AuthenticationResponseDto authenticate(AuthenticationRequestDto request, HttpServletResponse response) {
     User user = userService.getUserByEmail(request.getEmail())
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     
@@ -73,6 +74,8 @@ public class AuthenticationService {
     tokenService.revokeAllUserTokens(user);
     tokenService.revokeAllUserRefreshTokens(user);
     tokenService.saveUserTokens(user, jwtToken, refreshToken);
+
+    jwtUtils.addTokensAsCookies(response, jwtToken, refreshToken);
     UserDto userDto = UserDto.fromEntity(user);
     return buildAuthenticationResponse(jwtToken, refreshToken, userDto);
   }
@@ -97,11 +100,13 @@ public class AuthenticationService {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         return;
       }
-      
-      String accessToken = jwtUtils.generateToken(user);
-      String newRefreshToken = jwtUtils.generateRefreshToken(user);
+
       tokenService.revokeAllUserTokens(user);
       tokenService.revokeAllUserRefreshTokens(user);
+
+      String accessToken = jwtUtils.generateToken(user);
+      String newRefreshToken = jwtUtils.generateRefreshToken(user);
+
       tokenService.saveUserTokens(user, accessToken, newRefreshToken);
       
       jwtUtils.addTokensAsCookies(response, accessToken, newRefreshToken);

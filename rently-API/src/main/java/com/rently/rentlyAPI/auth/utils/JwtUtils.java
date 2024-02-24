@@ -36,10 +36,7 @@ public class JwtUtils {
     return generateToken(new HashMap<>(), userDetails);
   }
 
-  public String generateToken(
-      Map<String, Object> extraClaims,
-      UserDetails userDetails
-  ) {
+  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
     Set<String> roles = userDetails.getAuthorities()
         .stream()
         .map(GrantedAuthority::getAuthority)
@@ -49,17 +46,11 @@ public class JwtUtils {
     return buildToken(extraClaims, userDetails, jwtExpiration);
   }
 
-  public String generateRefreshToken(
-      UserDetails userDetails
-  ) {
+  public String generateRefreshToken (UserDetails userDetails) {
     return buildToken(new HashMap<>(), userDetails, refreshExpiration);
   }
 
-  private String buildToken(
-          Map<String, Object> extraClaims,
-          UserDetails userDetails,
-          long expiration
-  ) {
+  private String buildToken( Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
     return Jwts
             .builder()
             .setClaims(extraClaims)
@@ -117,14 +108,14 @@ public class JwtUtils {
   public void addTokensAsCookies(HttpServletResponse response, String jwtToken, String refreshToken) {
     // Create and configure the JWT token cookie
     Cookie jwtTokenCookie = new Cookie("accessToken", jwtToken);
-    jwtTokenCookie.setMaxAge(7 * 24 * 60 * 60); // 7 days in seconds
+    jwtTokenCookie.setMaxAge(24 * 60 * 60); // 7 days in seconds
     jwtTokenCookie.setHttpOnly(true);
     jwtTokenCookie.setSecure(true);
     jwtTokenCookie.setPath("/");
     
     // Create and configure the refresh token cookie
     Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
-    refreshTokenCookie.setMaxAge(30 * 24 * 60 * 60); // 30 days in seconds
+    refreshTokenCookie.setMaxAge(24 * 60 * 60); // 30 days in seconds
     refreshTokenCookie.setHttpOnly(true);
     refreshTokenCookie.setSecure(true);
     refreshTokenCookie.setPath("/");
