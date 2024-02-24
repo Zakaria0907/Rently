@@ -1,9 +1,9 @@
 package com.rently.rentlyAPI;
 
-import com.rently.rentlyAPI.auth.domain.dto.ChangePasswordRequestDto;
-import com.rently.rentlyAPI.auth.domain.entity.User;
-import com.rently.rentlyAPI.auth.repository.UserRepository;
-import com.rently.rentlyAPI.auth.service.UserService;
+import com.rently.rentlyAPI.dto.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

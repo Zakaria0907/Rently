@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.validators;
 
 
-import com.rently.rentlyAPI.exception.ObjectValidationException;
+import com.rently.rentlyAPI.exceptions.ObjectValidationException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.handlers;
 
-import com.rently.rentlyAPI.exception.ObjectValidationException;
+import com.rently.rentlyAPI.exceptions.ObjectValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
