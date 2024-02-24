@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.controller;
 
-import com.rently.rentlyAPI.auth.domain.dto.ChangePasswordRequestDto;
-import com.rently.rentlyAPI.auth.service.UserService;
+import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,7 +16,7 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService service;
+    private final UserServiceImpl service;
 
     @PatchMapping
     public ResponseEntity<?> changePassword(
