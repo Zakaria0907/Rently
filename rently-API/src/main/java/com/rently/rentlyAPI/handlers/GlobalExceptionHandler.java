@@ -76,14 +76,6 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(representation);
 	}
 
-	@ExceptionHandler(PasswordMismatchException.class)
-	public ResponseEntity<ExceptionRepresentation> handlePasswordMismatchException(PasswordMismatchException e) {
-		ExceptionRepresentation representation = ExceptionRepresentation.builder()
-				.errorMessage(e.getMessage())
-				.build();
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(representation);
-	}
-
 
 
 }
