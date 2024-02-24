@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.auth.repository;
+package com.rently.rentlyAPI.repository;
 
 import com.rently.rentlyAPI.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

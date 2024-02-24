@@ -21,6 +21,7 @@ import java.security.Principal;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
+    //TODO: fix update-profile
 
     private final UserService userService;
     private final S3Service s3Service;
@@ -34,11 +35,6 @@ public class UserController {
         userService.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
     }
-    
-//    @GetMapping("/image-upload")
-//    public String imageUpload() {
-//        return "form";
-//    }
     
     @PostMapping("/image-upload")
     public ResponseEntity<?> imageUpload(

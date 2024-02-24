@@ -20,6 +20,7 @@ import java.nio.file.Path;
 
 @Service
 public class S3Service {
+	//TODO: Update service to fetch api data, create object, put to amazon, return response and stored url.
 	
 	private String bucketName = "rently-bucket-0";
 	Regions region = Regions.CA_CENTRAL_1;

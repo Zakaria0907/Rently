@@ -2,7 +2,7 @@ package com.rently.rentlyAPI.domain.entity;
 import com.rently.rentlyAPI.domain.enums.FIleType;
 
 public class S3File {
-	
+	//TODO: Create proper springboot entity
 	private String description;
 	private String filename;
 	private FIleType fileType;

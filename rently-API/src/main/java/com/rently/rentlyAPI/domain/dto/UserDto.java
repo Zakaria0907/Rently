@@ -19,9 +19,15 @@ public class UserDto {
 
     private String lastname;
 
+    private String phoneNumber;
+
+    private String bio;
+
     private String email;
 
     private String role;
+
+
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
@@ -30,6 +36,8 @@ public class UserDto {
             .lastname(user.getLastname())
             .email(user.getEmail())
             .role(user.getRole().name())
+            .phoneNumber(user.getPhoneNumber())
+            .bio(user.getBio())
             .build();
     }
 
@@ -38,6 +46,8 @@ public class UserDto {
             .id(userDTO.getId())
             .firstname(userDTO.getFirstname())
             .lastname(userDTO.getLastname())
+            .phoneNumber(userDTO.getPhoneNumber())
+            .bio(userDTO.getBio())
             .email(userDTO.getEmail())
             .role(Role.valueOf(userDTO.getRole()))
             .build();
