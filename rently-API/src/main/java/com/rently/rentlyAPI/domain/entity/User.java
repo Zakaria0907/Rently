@@ -23,7 +23,7 @@ public class User implements UserDetails {
   @Id
   @GeneratedValue
   private Integer id;
-
+  //comment
   private String firstname;
 
   private String lastname;
