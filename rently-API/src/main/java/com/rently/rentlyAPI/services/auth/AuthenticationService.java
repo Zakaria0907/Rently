@@ -1,16 +1,18 @@
-package com.rently.rentlyAPI.services;
+package com.rently.rentlyAPI.services.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rently.rentlyAPI.dto.AuthenticationRequestDto;
-import com.rently.rentlyAPI.dto.AuthenticationResponseDto;
-import com.rently.rentlyAPI.dto.RegisterRequestDto;
+import com.rently.rentlyAPI.dto.auth.AuthenticationRequestDto;
+import com.rently.rentlyAPI.dto.auth.AuthenticationResponseDto;
+import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.entity.RefreshToken;
+import com.rently.rentlyAPI.entity.auth.RefreshToken;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.Provider;
-import com.rently.rentlyAPI.repository.RefreshTokenRepository;
+import com.rently.rentlyAPI.entity.auth.enums.Provider;
+import com.rently.rentlyAPI.repository.auth.RefreshTokenRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
+import com.rently.rentlyAPI.services.UserService;
+import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import com.rently.rentlyAPI.validators.ObjectsValidator;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,24 +37,26 @@ public class AuthenticationService {
   private final UserService userService;
   private final TokenService tokenService;
   private final ObjectsValidator<Object> validator;
+  private final UserServiceImpl userServiceImpl;
+
   
   
   // Main service methods
   public UserDto register(RegisterRequestDto registerRequestDto) {
     validator.validate(registerRequestDto);
-    User user = userService.getUserByEmail(registerRequestDto.getEmail()).orElseThrow(() -> new EntityNotFoundException("User not found or doesn't exist"));
+    User user = userService.findByEmail(registerRequestDto.getEmail()).orElse(null);
 
     if (user != null) {
-      throw new AuthenticationException("This email is already associated with an account", HttpStatus.FORBIDDEN);
+     throw new AuthenticationException("This email is already associated with an account", HttpStatus.FORBIDDEN);
       
     }
-    User savedUser = userService.createUser(registerRequestDto);
+    User savedUser = userServiceImpl.createUser(registerRequestDto);
     return UserDto.fromEntity(savedUser);
   }
   
   public AuthenticationResponseDto authenticate(AuthenticationRequestDto request, HttpServletResponse response) {
-    User user = userService.getUserByEmail(request.getEmail())
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    User user = userService.findByEmail(request.getEmail())
+        .orElseThrow(() -> new EntityNotFoundException("User " +request.getEmail() + " not found"));
     
     // Check if the user's email is associated with a third party provider
     if (!user.getProvider().equals(Provider.RENTLY) && (request.getPassword() != null)) {

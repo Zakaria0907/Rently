@@ -1,11 +1,11 @@
-package com.rently.rentlyAPI.controller;
+package com.rently.rentlyAPI.controller.auth;
 
 
-import com.rently.rentlyAPI.dto.AuthenticationRequestDto;
-import com.rently.rentlyAPI.dto.AuthenticationResponseDto;
+import com.rently.rentlyAPI.dto.auth.AuthenticationRequestDto;
+import com.rently.rentlyAPI.dto.auth.AuthenticationResponseDto;
 import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.services.AuthenticationService;
-import com.rently.rentlyAPI.dto.RegisterRequestDto;
+import com.rently.rentlyAPI.services.auth.AuthenticationService;
+import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -27,7 +27,7 @@ public class AuthenticationController {
 
   @PostMapping("/register")
   public ResponseEntity<UserDto> register(
-     @Valid @RequestBody RegisterRequestDto request
+     @RequestBody RegisterRequestDto request
   ) {
     return ResponseEntity.ok(service.register(request));
   }

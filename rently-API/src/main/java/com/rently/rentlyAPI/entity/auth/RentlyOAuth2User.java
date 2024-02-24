@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.entity;
+package com.rently.rentlyAPI.entity.auth;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

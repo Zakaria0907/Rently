@@ -1,12 +1,13 @@
 package com.rently.rentlyAPI.security.utils;
 
-import com.rently.rentlyAPI.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.entity.RentlyOAuth2User;
+import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
+import com.rently.rentlyAPI.entity.auth.RentlyOAuth2User;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.Provider;
+import com.rently.rentlyAPI.entity.auth.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
-import com.rently.rentlyAPI.services.TokenService;
 import com.rently.rentlyAPI.services.UserService;
+import com.rently.rentlyAPI.services.auth.TokenService;
+import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	private final UserService userService;
 	private final JwtUtils jwtUtils;
 	private final TokenService tokenService;
+	private final UserServiceImpl userServiceImpl;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request,
@@ -35,7 +37,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 			throws ServletException, IOException
 	{
 		RentlyOAuth2User oAuth2User = (RentlyOAuth2User) authentication.getPrincipal();
-		Optional<User> existingUser = userService.getUserByEmail(oAuth2User.getEmail());
+		Optional<User> existingUser = userService.findByEmail(oAuth2User.getEmail());
 		
 		if (existingUser.isPresent()) {
 			Provider provider = existingUser.get().getProvider();
@@ -60,7 +62,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 					.provider(Provider.valueOf(oAuth2User.getProvider().toUpperCase()))
 					.build();
 			
-			User newSavedUser = userService.createUser(requestDto);
+			User newSavedUser = userServiceImpl.createUser(requestDto);
 			handleUserWithThirdPartyProvider(newSavedUser, response);
 		}
 		

@@ -1,9 +1,9 @@
 package com.rently.rentlyAPI;
 
-import com.rently.rentlyAPI.dto.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.repository.UserRepository;
-import com.rently.rentlyAPI.services.UserService;
+import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,7 +27,7 @@ public class UserServiceTests {
     public UserRepository userRepository;
 
     @InjectMocks
-    public UserService userService;
+    public UserServiceImpl userService;
 
     @Test
     void changePassword_SuccessfulChange() {

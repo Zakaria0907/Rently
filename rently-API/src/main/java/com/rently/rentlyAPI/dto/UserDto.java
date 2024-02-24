@@ -36,6 +36,7 @@ public class UserDto {
     @Builder.Default
     private String role = Role.USER.name();
 
+
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
             .id(user.getId())

@@ -1,7 +1,7 @@
-package com.rently.rentlyAPI.services;
+package com.rently.rentlyAPI.services.auth;
 
 
-import com.rently.rentlyAPI.repository.TokenRepository;
+import com.rently.rentlyAPI.repository.auth.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

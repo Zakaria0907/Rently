@@ -1,6 +1,6 @@
-package com.rently.rentlyAPI.repository;
+package com.rently.rentlyAPI.repository.auth;
 
-import com.rently.rentlyAPI.entity.AccessToken;
+import com.rently.rentlyAPI.entity.auth.AccessToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

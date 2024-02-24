@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.security.filter;
 
-import com.rently.rentlyAPI.repository.TokenRepository;
+import com.rently.rentlyAPI.repository.auth.TokenRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

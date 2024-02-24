@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.dto;
+package com.rently.rentlyAPI.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
