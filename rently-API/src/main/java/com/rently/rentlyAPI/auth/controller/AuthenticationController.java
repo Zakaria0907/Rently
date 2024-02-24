@@ -3,9 +3,9 @@ package com.rently.rentlyAPI.auth.controller;
 
 import com.rently.rentlyAPI.auth.domain.dto.AuthenticationRequestDto;
 import com.rently.rentlyAPI.auth.domain.dto.AuthenticationResponseDto;
+import com.rently.rentlyAPI.auth.domain.dto.UserDto;
 import com.rently.rentlyAPI.auth.service.AuthenticationService;
 import com.rently.rentlyAPI.auth.domain.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.auth.service.LogoutService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,27 +23,23 @@ import java.io.IOException;
 public class AuthenticationController {
 
   private final AuthenticationService service;
-  private final LogoutService logoutService;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponseDto> register(
+  public ResponseEntity<UserDto> register(
       @RequestBody RegisterRequestDto request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
-  
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponseDto> authenticate(
-      @RequestBody AuthenticationRequestDto request
+      @RequestBody AuthenticationRequestDto request,
+       HttpServletResponse response
   ) {
-    return ResponseEntity.ok(service.authenticate(request));
+    return ResponseEntity.ok(service.authenticate(request, response));
   }
-  
+
   @PostMapping("/refresh-token")
-  public void refreshToken(
-      HttpServletRequest request,
-      HttpServletResponse response
-  ) throws IOException {
+  public void refreshToken( HttpServletRequest request, HttpServletResponse response, String yry , String sdfds) throws IOException {
     service.refreshToken(request, response);
   }
 
