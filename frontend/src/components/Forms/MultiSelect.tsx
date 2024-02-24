@@ -116,7 +116,7 @@ const MultiSelect: React.FC<DropdownProps> = ({ id }) => {
                     {selected.map((index) => (
                       <div
                         key={index}
-                        className="my-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-gray px-2.5 py-1.5 text-sm font-medium dark:border-strokedark dark:bg-white/30"
+                        className="my-1.5 flex items-center justify-center rounded border-[.5px] border-stroke bg-customGray px-2.5 py-1.5 text-sm font-medium dark:border-strokedark dark:bg-white/30"
                       >
                         <div className="max-w-full flex-initial">
                           {options[index].text}

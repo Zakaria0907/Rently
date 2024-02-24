@@ -78,7 +78,7 @@ const FormLayout = () => {
                   ></textarea>
                 </div>
 
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-customGray hover:bg-opacity-90">
                   Send Message
                 </button>
               </div>
@@ -154,7 +154,7 @@ const FormLayout = () => {
                   </Link>
                 </div>
 
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-customGray hover:bg-opacity-90">
                   Sign In
                 </button>
               </div>
@@ -214,7 +214,7 @@ const FormLayout = () => {
                   />
                 </div>
 
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-customGray hover:bg-opacity-90">
                   Sign Up
                 </button>
               </div>
