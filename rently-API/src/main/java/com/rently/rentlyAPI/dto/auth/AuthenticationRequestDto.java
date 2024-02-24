@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationRequestDto {
 
-  @NotNull(message = "The email is required")
-  @NotEmpty(message = "The email is required")
-  @NotBlank(message = "The email is required")
-  private String email;
-  
-  String password;
+    @NotNull(message = "The email is required")
+    @NotEmpty(message = "The email is required")
+    @NotBlank(message = "The email is required")
+    private String email;
+
+    String password;
 }

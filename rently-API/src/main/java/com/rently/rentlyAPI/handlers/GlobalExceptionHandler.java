@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.handlers;
 
 import com.rently.rentlyAPI.exceptions.ObjectValidationException;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
+import com.rently.rentlyAPI.exceptions.PasswordMismatchException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -74,6 +75,14 @@ public class GlobalExceptionHandler {
 				.errorMessage("Your e-mail and or password is incorrect")
 				.build();
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(representation);
+	}
+
+	@ExceptionHandler(PasswordMismatchException.class)
+	public ResponseEntity<ExceptionRepresentation> handlePasswordMismatchException(PasswordMismatchException e) {
+		ExceptionRepresentation representation = ExceptionRepresentation.builder()
+				.errorMessage(e.getMessage())
+				.build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(representation);
 	}
 
 

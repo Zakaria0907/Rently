@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.exceptions.PasswordMismatchException;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new IllegalStateException("Password are not the same");
+            throw new PasswordMismatchException("The two passwords do not match");
         }
 
         // update the password

@@ -19,55 +19,55 @@ import lombok.NoArgsConstructor;
 public class RegisterRequestDto {
 
 
-  private Integer id;
+    private Integer id;
 
-  @NotBlank(message = "The first name is required")
-  @NotNull(message = "The first name is required")
-  @NotEmpty(message = "The first name is required")
-  private String firstname;
+    @NotBlank(message = "The first name is required")
+    @NotNull(message = "The first name is required")
+    @NotEmpty(message = "The first name is required")
+    private String firstname;
 
-  @NotNull(message = "The last name is required")
+    @NotNull(message = "The last name is required")
     @NotBlank(message = "The last name is required")
     @NotEmpty(message = "The last name is required")
-  private String lastname;
+    private String lastname;
 
     @NotNull(message = "The email is required")
-        @NotBlank(message = "The email is required")
-        @NotEmpty(message = "The email is required")
-  private String email;
+    @NotBlank(message = "The email is required")
+    @NotEmpty(message = "The email is required")
+    private String email;
 
     @NotNull(message = "The password is required")
-        @NotBlank(message = "The password is required")
-        @NotEmpty(message = "The password is required")
-  private String password;
-  
-  @Builder.Default
-  private Role role = Role.USER;
-  
-  @Builder.Default
-  private Provider provider = Provider.RENTLY;
+    @NotBlank(message = "The password is required")
+    @NotEmpty(message = "The password is required")
+    private String password;
+
+    @Builder.Default
+    private Role role = Role.USER;
+
+    @Builder.Default
+    private Provider provider = Provider.RENTLY;
 
     public static RegisterRequestDto fromEntity(User user) {
         return RegisterRequestDto.builder()
-            .id(user.getId())
-            .firstname(user.getFirstname())
-            .lastname(user.getLastname())
-            .email(user.getEmail())
-            .password(user.getPassword())
-            .role(user.getRole())
-            .provider(user.getProvider())
-            .build();
+                .id(user.getId())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .role(user.getRole())
+                .provider(user.getProvider())
+                .build();
     }
 
     public static User toEntity(RegisterRequestDto registerRequestDto) {
         return User.builder()
-            .id(registerRequestDto.getId())
-            .firstname(registerRequestDto.getFirstname())
-            .lastname(registerRequestDto.getLastname())
-            .email(registerRequestDto.getEmail())
-            .password(registerRequestDto.getPassword())
-            .role(registerRequestDto.getRole())
-            .provider(registerRequestDto.getProvider())
-            .build();
+                .id(registerRequestDto.getId())
+                .firstname(registerRequestDto.getFirstname())
+                .lastname(registerRequestDto.getLastname())
+                .email(registerRequestDto.getEmail())
+                .password(registerRequestDto.getPassword())
+                .role(registerRequestDto.getRole())
+                .provider(registerRequestDto.getProvider())
+                .build();
     }
 }

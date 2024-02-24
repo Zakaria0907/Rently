@@ -1,14 +1,13 @@
 package com.rently.rentlyAPI.controller.auth;
 
 
+import com.rently.rentlyAPI.dto.UserDto;
 import com.rently.rentlyAPI.dto.auth.AuthenticationRequestDto;
 import com.rently.rentlyAPI.dto.auth.AuthenticationResponseDto;
-import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.services.auth.AuthenticationService;
 import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
+import com.rently.rentlyAPI.services.auth.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
