@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -15,17 +16,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @ToString
 @Table(name = "_user")
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue
-    private Integer id;
+public class User extends AbstractEntity implements UserDetails {
 
     @NotNull(message = "The first name is required")
     @NotBlank(message = "The first name is required")
