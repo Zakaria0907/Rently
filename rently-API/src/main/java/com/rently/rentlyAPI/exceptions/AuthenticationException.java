@@ -5,12 +5,9 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class AuthenticationException extends org.springframework.security.core.AuthenticationException {
-	
-	private final HttpStatus httpStatus;
-	
-	public AuthenticationException(String message, HttpStatus httpStatus) {
+
+	public AuthenticationException(String message) {
 		super(message);
-		this.httpStatus = httpStatus;
 	}
 	
 }

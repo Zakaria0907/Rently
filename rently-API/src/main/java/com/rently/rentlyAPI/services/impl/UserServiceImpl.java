@@ -3,17 +3,15 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.exceptions.PasswordMismatchException;
+import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,11 +46,11 @@ public class UserServiceImpl implements UserService {
 
         // check if the current password is correct
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new IllegalStateException("Wrong password");
+            throw new AuthenticationException("The current password is incorrect");
         }
         // check if the two new passwords are the same
         if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new PasswordMismatchException("The two passwords do not match");
+            throw new AuthenticationException("The two passwords do not match");
         }
 
         // update the password

@@ -6,7 +6,7 @@ import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import com.rently.rentlyAPI.dto.UserDto;
 import com.rently.rentlyAPI.entity.auth.RefreshToken;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.auth.enums.Provider;
+import com.rently.rentlyAPI.entity.auth.Provider;
 import com.rently.rentlyAPI.repository.auth.RefreshTokenRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
@@ -47,7 +47,7 @@ public class AuthenticationService {
     User user = userService.findByEmail(registerRequestDto.getEmail()).orElse(null);
 
     if (user != null) {
-     throw new AuthenticationException("This email is already associated with an account", HttpStatus.FORBIDDEN);
+     throw new AuthenticationException("This email is already associated with an account");
       
     }
     User savedUser = userServiceImpl.createUser(registerRequestDto);
@@ -61,7 +61,7 @@ public class AuthenticationService {
     // Check if the user's email is associated with a third party provider
     if (!user.getProvider().equals(Provider.RENTLY) && (request.getPassword() != null)) {
       // Return a forbidden response with the appropriate message
-      throw new AuthenticationException("This email is already associated with an account using a third-party provider: Google", HttpStatus.FORBIDDEN);
+      throw new AuthenticationException("This email is already associated with an account using a third-party provider: Google");
     }
     // TODO: handle these cases
     // 1. User does not exist

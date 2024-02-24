@@ -3,7 +3,7 @@ package com.rently.rentlyAPI.security.utils;
 import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
 import com.rently.rentlyAPI.entity.auth.RentlyOAuth2User;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.auth.enums.Provider;
+import com.rently.rentlyAPI.entity.auth.Provider;
 import com.rently.rentlyAPI.security.Role;
 import com.rently.rentlyAPI.services.UserService;
 import com.rently.rentlyAPI.services.auth.TokenService;
@@ -48,7 +48,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 				handleUserWithThirdPartyProvider(user, response);
 			} else {
 				// User already exists with Rently
-				throw new AuthenticationException("This email is already associated with an account with Rently", HttpStatus.FORBIDDEN);
+				throw new AuthenticationException("This email is already associated with an account with Rently");
 			}
 			
 		} else {

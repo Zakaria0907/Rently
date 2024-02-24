@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.entity;
 
 import com.rently.rentlyAPI.entity.auth.AccessToken;
-import com.rently.rentlyAPI.entity.auth.enums.Provider;
+import com.rently.rentlyAPI.entity.auth.Provider;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
