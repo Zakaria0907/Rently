@@ -17,14 +17,11 @@ import lombok.Setter;
 public class UserDto {
 
     private Integer id;
-
-    @NotEmpty(message = "The first name is required")
-    @NotNull(message = "The first name is required")
+    
     @NotBlank(message = "The first name is required")
     private String firstname;
 
-    @NotEmpty(message = "The last name is required")
-    @NotNull(message = "The last name is required")
+    
     @NotBlank(message = "The last name is required")
     private String lastname;
 
