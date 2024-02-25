@@ -21,7 +21,12 @@ class ApiManager {
 
     static refresh = (data: any) => {
         const url = BASE_URL + ENDPOINTS.REFRESH();
-        return ApiMethods.post(url, data);
+        return ApiMethods.post(url, data, true);
+    }
+
+    static logout = () => {
+        const url = BASE_URL + ENDPOINTS.LOGOUT();
+        return ApiMethods.post(url, {}, true);
     }
 
 }
