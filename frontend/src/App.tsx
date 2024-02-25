@@ -22,6 +22,7 @@ import FormElements from "./pages/Form/FormElements";
 import FormLayout from "./pages/Form/FormLayout";
 import Chart from "./pages/Chart";
 import PropertyAndRentals from "./pages/PropertyAndRentals";
+import ManagementDashboard from "./pages/ManagementDashboard";
 
 function App() {
   return (
@@ -37,74 +38,90 @@ function App() {
             {/* protected routes */}
             <Route element={<PersistLogin />}>
 
-              <Route
-                element={
-                  <RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />
-                }
-              >
-                <Route path="welcome" element={<Welcome />} />
-              </Route>
-
+              {/* admin routes */}
               <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
                 <Route path="welcomeAdmin" element={<Welcome />} />
               </Route>
 
-              <Route
-                path="/my-properties-and-rentals"
-                element={
-                  <>
-                    <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
-                    <PropertyAndRentals />
-                  </>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <>
-                    <PageTitle title="Profile | Rently Condo Management SAAS" />
-                    <Profile />
-                  </>
-                }
-              />
-              <Route
-                path="/calendar"
-                element={
-                  <>
-                    <PageTitle title="Calendar | Rently Condo Management SAAS" />
-                    <Calendar />
-                  </>
-                }
-              />
+              {/* user routes */}
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+                <Route path="welcome" element={<Welcome />} />
+              </Route>
 
-              <Route
-                path="/chart"
-                element={
-                  <>
-                    <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
-                    <Chart />
-                  </>
-                }
-              />
+              {/*management company routes, once it is in the backend, we can enforce the role*/}
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+                <Route path="welcome" element={<Welcome />} />
 
-              <Route
-                path="/forms/form-elements"
-                element={
-                  <>
-                    <PageTitle title="Form Elements | Rently Condo Management SAAS" />
-                    <FormElements />
-                  </>
-                }
-              />
-              <Route
-                path="/forms/form-layout"
-                element={
-                  <>
-                    <PageTitle title="Form Layout | Rently Condo Management SAAS" />
-                    <FormLayout />
-                  </>
-                }
-              />
+                <Route
+                  path="/management-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="Management Dashboard | Rently Condo Management SAAS" />
+                      <ManagementDashboard />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/my-properties-and-rentals"
+                  element={
+                    <>
+                      <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
+                      <PropertyAndRentals />
+                    </>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
+                <Route
+                  path="/calendar"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <Calendar />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/chart"
+                  element={
+                    <>
+                      <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
+                      <Chart />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/forms/form-elements"
+                  element={
+                    <>
+                      <PageTitle title="Form Elements | Rently Condo Management SAAS" />
+                      <FormElements />
+                    </>
+                  }
+                />
+                <Route
+                  path="/forms/form-layout"
+                  element={
+                    <>
+                      <PageTitle title="Form Layout | Rently Condo Management SAAS" />
+                      <FormLayout />
+                    </>
+                  }
+                />
+              </Route>
+
+
+
             </Route>
 
             {/* catch all */}
