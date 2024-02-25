@@ -13,6 +13,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.rently.rentlyAPI.entity.FileType;
 import com.rently.rentlyAPI.entity.S3File;
 import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.exceptions.FileUploadException;
 import com.rently.rentlyAPI.repository.S3FileRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.services.S3Service;
@@ -63,50 +64,60 @@ public class S3ServiceImpl implements S3Service {
 	//TODO: Make proper custom exception handling
 	//uploadImage method is used to upload the image to the S3 bucket and save the file to the database.
 	@Override
-	public void uploadImage(MultipartFile imageFile, Principal connectedUser) throws IOException, AmazonServiceException, SdkClientException {
+	public void uploadImage(MultipartFile imageFile, Principal connectedUser) {
 		
-		User user = userRepository.findByEmail(connectedUser.getName())
-				.orElseThrow(() -> new IllegalStateException("User not found"));
-		
-		// If profile picture existe delete from db and s3
-		Optional<S3File> profilePicture = Optional.ofNullable(user.getProfilePicture());
-		if(profilePicture.isPresent()){
-			String key = profilePicture.get().getFilename();
-			user.setProfilePicture(null);
+		try {
+			User user = userRepository.findByEmail(connectedUser.getName())
+					.orElseThrow(() -> new IllegalStateException("User not found"));
+			
+			// If profile picture existe delete from db and s3
+			Optional<S3File> profilePicture = Optional.ofNullable(user.getProfilePicture());
+			if (profilePicture.isPresent()) {
+				String key = profilePicture.get().getFilename();
+				user.setProfilePicture(null);
+				userRepository.save(user);
+				getS3Client().deleteObject(bucketName, key);
+				s3FileRepository.delete(profilePicture.get());
+			}
+			
+			String fileName = imageFile.getOriginalFilename();
+			String description = user.getFirstname() + " " + user.getLastname() + " has " + fileName + " as a picture";
+			assert fileName != null;
+			FileType fileType = determineFileType(fileName);
+			String storedUrl = uploadFileToS3(imageFile);
+			
+			// Save file to database
+			S3File s3File = new S3File(description, fileName, fileType, storedUrl);
+			s3FileRepository.save(s3File);
+			
+			// Update user profile picture
+			user.setProfilePicture(s3File);
 			userRepository.save(user);
-			getS3Client().deleteObject(bucketName, key);
-			s3FileRepository.delete(profilePicture.get());
+		
+		} catch (SdkClientException e) {
+			throw FileUploadException.wrap(e);
 		}
-		
-		String fileName = imageFile.getOriginalFilename();
-		String description = user.getFirstname() + " " + user.getLastname() + " has " + fileName + " as a picture";
-		assert fileName != null;
-		FileType fileType = determineFileType(fileName);
-		String storedUrl = uploadFileToS3(imageFile);
-		
-		// Save file to database
-		S3File s3File = new S3File(description, fileName, fileType, storedUrl);
-		s3FileRepository.save(s3File);
-		
-		// Update user profile picture
-		user.setProfilePicture(s3File);
-		userRepository.save(user);
 	}
 	
 	//uploadFileToS3 method is used to upload the file to the S3 bucket and return the URL of the file.
-	private String uploadFileToS3(MultipartFile file) throws IOException, AmazonServiceException, SdkClientException {
+	private String uploadFileToS3(MultipartFile file)  {
 		
-		InputStream inputStream = file.getInputStream();
-		String filename = file.getOriginalFilename();
+		try {
+			InputStream inputStream = file.getInputStream();
+			String filename = file.getOriginalFilename();
+			
+			ObjectMetadata objectMetadata = new ObjectMetadata();
+			objectMetadata.setContentType(file.getContentType());
+			objectMetadata.setContentLength(inputStream.available());
+			
+			PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, filename, inputStream, objectMetadata);
+			getS3Client().putObject(putObjectRequest);
+			
+			return getS3Client().getUrl(bucketName, filename).toExternalForm();
 		
-		ObjectMetadata objectMetadata = new ObjectMetadata();
-		objectMetadata.setContentType(file.getContentType());
-		objectMetadata.setContentLength(inputStream.available());
-
-		PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, filename, inputStream, objectMetadata);
-		getS3Client().putObject(putObjectRequest);
-
-		return getS3Client().getUrl(bucketName, filename).toExternalForm();
+		} catch (SdkClientException | IOException e) {
+			throw new FileUploadException("Failed to upload file", e);
+		}
 	}
 	//determineFileType method is used to determine the file type based on the file extension.
 	private FileType determineFileType(String fileName) {

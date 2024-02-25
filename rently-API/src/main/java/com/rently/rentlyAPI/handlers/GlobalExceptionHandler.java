@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.handlers;
 
+import com.rently.rentlyAPI.exceptions.FileUploadException;
 import com.rently.rentlyAPI.exceptions.ObjectValidationException;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import jakarta.persistence.EntityNotFoundException;
@@ -51,6 +52,7 @@ public class GlobalExceptionHandler {
 				.build();
 		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(representation);
 	}
+	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<ExceptionRepresentation> handleException(DataIntegrityViolationException e) {
 		ExceptionRepresentation representation = ExceptionRepresentation.builder()
@@ -75,6 +77,17 @@ public class GlobalExceptionHandler {
 				.build();
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(representation);
 	}
+	
+	@ExceptionHandler(FileUploadException.class)
+	public ResponseEntity<ExceptionRepresentation> handleFileUploadException(FileUploadException e) {
+		ExceptionRepresentation representation = ExceptionRepresentation.builder()
+				.errorMessage("Failed to upload file")
+				.errorSource("File Upload")
+				.build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(representation);
+	}
+	
+	
 
 
 

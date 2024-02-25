@@ -39,11 +39,7 @@ public class UserController {
         @RequestParam("imageFile") MultipartFile multipartFile,
         Principal connectedUser
     ) {
-        try {
-            s3ServiceImpl.uploadImage(multipartFile, connectedUser);
-            return ResponseEntity.ok().body("Image uploaded successfully.");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body("Error uploading image");
-        }
+        s3ServiceImpl.uploadImage(multipartFile, connectedUser);
+        return ResponseEntity.ok().body("Image uploaded successfully.");
     }
 }
