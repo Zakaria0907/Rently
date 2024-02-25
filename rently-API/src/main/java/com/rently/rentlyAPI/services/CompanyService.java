@@ -4,5 +4,5 @@ import com.rently.rentlyAPI.dto.CondoDto;
 
 public interface CompanyService {
 
-    public CondoDto createCondo(CondoDto condoDto);
+    public CondoDto createCondoForCompanyById(Integer companyId, CondoDto condoDto);
 }

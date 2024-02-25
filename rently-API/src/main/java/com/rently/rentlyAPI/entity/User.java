@@ -54,16 +54,11 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(nullable = false, columnDefinition = "varchar(255) default 'COMPANY'")
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<AccessToken> accessTokens;
 
-    @OneToMany(mappedBy = "ownerId", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Nullable
-    private List<Condo> ownedCondos;
-
-    @OneToMany(mappedBy = "tenantId", orphanRemoval = true, cascade = CascadeType.ALL)
-    @Nullable
-    private List<Condo> rentedCondos;
+    @OneToMany(mappedBy = "user")
+    private List<Condo> condos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

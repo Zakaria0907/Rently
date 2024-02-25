@@ -3,6 +3,10 @@ package com.rently.rentlyAPI.dto;
 import com.rently.rentlyAPI.entity.Condo;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +18,12 @@ import lombok.Setter;
 @Builder
 public class CondoDto {
 
+    @Nullable
     private Integer id;
 
+    @NotEmpty(message = "Condo name is required")
+    @NotBlank(message = "Condo name is required")
+    @NotNull(message = "Condo name is required")
     private String name;
 
     private String address;
@@ -26,11 +34,10 @@ public class CondoDto {
 
     private String description;
 
+    @NotNull(message = "Condo status is required")
     private CondoStatus status;
 
-    private Integer ownerId;
-
-    private Integer tenantId;
+    private Integer userId;
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()
@@ -41,8 +48,7 @@ public class CondoDto {
                 .condoType(condo.getCondoType())
                 .description(condo.getDescription())
                 .status(condo.getStatus())
-                .ownerId(condo.getOwnerId().getId())
-                .tenantId(condo.getTenantId().getId())
+                .userId(condo.getUser().getId())
                 .build();
     }
 
@@ -55,8 +61,7 @@ public class CondoDto {
                 .condoType(condoDto.getCondoType())
                 .description(condoDto.getDescription())
                 .status(condoDto.getStatus())
-                .ownerId(User.builder().id(condoDto.getOwnerId()).build())
-                .tenantId(User.builder().id(condoDto.getTenantId()).build())
+                .user(User.builder().id(condoDto.getUserId()).build())
                 .build();
     }
 

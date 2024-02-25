@@ -31,14 +31,9 @@ public class Condo extends AbstractEntity {
     private CondoStatus status;
 
 
-    @JoinColumn(name = "owned_by_id")
-    @ManyToOne
-    @Nullable
-    private User ownerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User user;
 
-    @JoinColumn(name = "rented_by_id")
-    @ManyToOne
-    @Nullable
-    private User tenantId;
 
 }

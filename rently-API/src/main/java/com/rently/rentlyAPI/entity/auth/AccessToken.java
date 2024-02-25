@@ -28,7 +28,7 @@ public class AccessToken {
 
   public boolean expired;
 
-  @OneToOne(mappedBy= "accessToken", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy= "accessToken", cascade = CascadeType.REMOVE, orphanRemoval = true)
   public RefreshToken refreshToken;
 
   @ManyToOne(fetch = FetchType.LAZY)
