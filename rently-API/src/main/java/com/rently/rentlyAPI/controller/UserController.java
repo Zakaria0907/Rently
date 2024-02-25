@@ -2,15 +2,14 @@ package com.rently.rentlyAPI.controller;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
-import com.rently.rentlyAPI.auth.domain.dto.ChangePasswordRequestDto;
-import com.rently.rentlyAPI.auth.service.UserService;
-import com.rently.rentlyAPI.domain.entity.S3File;
-import com.rently.rentlyAPI.domain.enums.ImageType;
-import com.rently.rentlyAPI.service.S3Service;
+import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.entity.S3File;
+import com.rently.rentlyAPI.entity.s3_enums.ImageType;
+import com.rently.rentlyAPI.services.S3Service;
+import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,18 +20,16 @@ import java.security.Principal;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
-    //TODO: fix update-profile
 
-    private final UserService userService;
+    private final UserServiceImpl service;
     private final S3Service s3Service;
-    
-    
+
     @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(
           @RequestBody ChangePasswordRequestDto request,
           Principal connectedUser
     ) {
-        userService.changePassword(request, connectedUser);
+        service.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
     }
     
