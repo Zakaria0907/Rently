@@ -2,12 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
 import UserOne from '../../images/user/user-01.png';
+import useAuth from '../../hooks/useAuth';
+import { RoleText } from '../../types/enums';
+import { Avatar, AvatarBadge } from '@chakra-ui/react'
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+  const { auth } = useAuth();
 
   const logout = useLogout();
 
@@ -29,6 +33,7 @@ const DropdownUser = () => {
       setDropdownOpen(false);
     };
     document.addEventListener('click', clickHandler);
+    console.log("auth", auth);
     return () => document.removeEventListener('click', clickHandler);
   });
 
@@ -52,14 +57,16 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            John Nelson
+            {auth.firstname} {auth.lastname}
           </span>
-          <span className="block text-xs">Condo Owner</span>
+          <span className="block text-xs">{RoleText[auth.roles as keyof typeof RoleText]}</span>
         </span>
 
-        <span className="h-12 w-12 rounded-full">
-          <img src={UserOne} alt="User" />
-        </span>
+        <Avatar>
+          {/* Add Image Here when S3 is ready */}
+          {/* <img src={UserOne} alt="User" /> */}
+          <AvatarBadge boxSize='1.25em' bg='green.500' />
+        </Avatar>
 
         <svg
           className="hidden fill-current sm:block"

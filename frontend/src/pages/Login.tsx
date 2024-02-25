@@ -38,7 +38,10 @@ const Login = () => {
             const access_token = response?.data?.access_token;
             const roles = response?.data?.user?.role;
             const company = response?.data?.companyname;
-            setAuth({ user: userName, pwd, roles, access_token, company });
+            const firstname = response?.data?.user?.firstname;
+            const lastname = response?.data?.user?.lastname;
+            const email = response?.data?.user?.email;
+            setAuth({ email, pwd, roles, access_token, company, firstname, lastname});
             setUserName("");
             setPwd("");
             // navigate(from, { replace: true }); // PUT IT BACK AFTER

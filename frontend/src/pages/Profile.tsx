@@ -1,13 +1,17 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../pages/DefaultLayout';
 import userThree from '../images/user/user-03.png';
+import { Avatar } from '@chakra-ui/react'
+import useAuth from '../hooks/useAuth';
 const Profile = () => {
+  const { auth } = useAuth();
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName="Profile" />
 
       <div className="mx-auto max-w-270">
-  
+
 
         <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
@@ -25,7 +29,7 @@ const Profile = () => {
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="fullName"
                       >
-                        Full Name
+                        First Name
                       </label>
                       <div className="relative">
                         <span className="absolute left-4.5 top-4">
@@ -56,10 +60,10 @@ const Profile = () => {
                         <input
                           className="w-full rounded border border-stroke bg-customGray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                           type="text"
-                          name="fullName"
-                          id="fullName"
-                          placeholder="Devid Jhon"
-                          defaultValue="Devid Jhon"
+                          name="firstName"
+                          id="firstName"
+                          placeholder="First Name"
+                          defaultValue={auth?.firstname}
                         />
                       </div>
                     </div>
@@ -69,15 +73,15 @@ const Profile = () => {
                         className="mb-3 block text-sm font-medium text-black dark:text-white"
                         htmlFor="phoneNumber"
                       >
-                        Phone Number
+                        Last Name
                       </label>
                       <input
                         className="w-full rounded border border-stroke bg-customGray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="text"
-                        name="phoneNumber"
-                        id="phoneNumber"
-                        placeholder="+990 3343 7865"
-                        defaultValue="+990 3343 7865"
+                        name="lastName"
+                        id="lastName"
+                        placeholder="Last Name"
+                        defaultValue={auth?.lastname}
                       />
                     </div>
                   </div>
@@ -120,27 +124,10 @@ const Profile = () => {
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
-                        placeholder="devidjond45@gmail.com"
-                        defaultValue="devidjond45@gmail.com"
+                        placeholder="Email Address"
+                        defaultValue={auth?.email}
                       />
                     </div>
-                  </div>
-
-                  <div className="mb-5.5">
-                    <label
-                      className="mb-3 block text-sm font-medium text-black dark:text-white"
-                      htmlFor="Username"
-                    >
-                      Username
-                    </label>
-                    <input
-                      className="w-full rounded border border-stroke bg-customGray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
-                      type="text"
-                      name="Username"
-                      id="Username"
-                      placeholder="devidjhon24"
-                      defaultValue="devidjhon24"
-                    />
                   </div>
 
                   <div className="mb-5.5">
@@ -222,7 +209,10 @@ const Profile = () => {
                 <form action="#">
                   <div className="mb-4 flex items-center gap-3">
                     <div className="h-14 w-14 rounded-full">
-                      <img src={userThree} alt="User" />
+                      <Avatar>
+                        {/* Add Image Here when S3 is ready */}
+                        {/* <img src={UserOne} alt="User" /> */}
+                      </Avatar>
                     </div>
                     <div>
                       <span className="mb-1.5 text-black dark:text-white">
