@@ -43,7 +43,7 @@ public class WebSecurityConfig {
     private static final String[] WHITE_LIST_URL = {
             "http://localhost:8080/api/v1/auth/**",
             "/api/v1/auth/**",
-            "/api/v1/users/image-upload",
+//            "/api/v1/users/image-upload",
             "/api/v1/demo-controller",
             "/v2/api-docs",
             "/v3/api-docs",
