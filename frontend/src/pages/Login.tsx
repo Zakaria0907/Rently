@@ -1,11 +1,9 @@
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from "../api/axios";
 import tw from "tailwind-styled-components";
-const LOGIN_URL = "/auth/authenticate";
 import RentlyLogo from '../images/icon/rently-logo.svg?react';
-import ApiManager from "../api/ApiManager/ApiManager";
+import ApiManager from "../api/ApiManager";
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -35,14 +33,6 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            // const response = await axios.post(
-            //     LOGIN_URL,
-            //     JSON.stringify({ email: userName, password: pwd }),
-            //     {
-            //         headers: { "Content-Type": "application/json" },
-            //         withCredentials: true,
-            //     }
-            // );
             const response: any = await ApiManager.login({ email: userName, password: pwd });
             console.log("marker: ", JSON.stringify(response?.data));
             const access_token = response?.data?.access_token;
@@ -52,7 +42,7 @@ const Login = () => {
             setUserName("");
             setPwd("");
             // navigate(from, { replace: true }); // PUT IT BACK AFTER
-            navigate("/welcome");
+            navigate("/profile");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg("No Server Response");

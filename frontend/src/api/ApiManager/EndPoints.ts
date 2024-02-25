@@ -4,6 +4,7 @@ const ENDPOINTS = {
     REGISTER: () => '/auth/register',
     LOGIN: () => '/auth/authenticate',
     REFRESH: () => '/auth/refresh-token',
+    LOGOUT: () => '/auth/logout',
     
 }
 

@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import RentlyLogo from '../images/icon/rently-logo.svg?react';
 
@@ -44,6 +44,8 @@ const Register = (): JSX.Element => {
 
     const [errMsg, setErrMsg] = useState<string>("");
     const [success, setSuccess] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (firstNameRef.current) {
@@ -113,6 +115,7 @@ const Register = (): JSX.Element => {
             setfirstName("");
             setPwd("");
             setMatchPwd("");
+            navigate("/login");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg("No Server Response");
@@ -128,231 +131,220 @@ const Register = (): JSX.Element => {
     };
 
     return (
-        <>
-            {success ? (
-                <section>
-                    <h1>Success!</h1>
-                    <p>
-                        <Link to="/login">Sign in</Link>
-                    </p>
-                </section>
-            ) : (
-                <MainContainer>
-                    <Container>
-                        <LogoContainer>
-                            <RentlyLogo className="w-auto h-12" />
-                        </LogoContainer>
+        <MainContainer>
+            <Container>
+                <LogoContainer>
+                    <RentlyLogo className="w-auto h-12" />
+                </LogoContainer>
 
-                        <div>
-                            {errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p>}
+                <div>
+                    {errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p>}
+                </div>
+
+                <Form onSubmit={handleSubmit}>
+                    <FormContainer>
+                        <Label htmlFor="firstName">First name
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={`ml-2  ${validfirstName ? "text-green-500" : "hidden"}`}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={`ml-2  ${validfirstName || !firstName ? "hidden" : "text-red-500"}`}
+                            />
+                        </Label>
+                        <Input
+                            type="text"
+                            id="firstName" /* firstName -> lastName*/
+                            ref={firstNameRef}
+                            autoComplete="off"
+                            onChange={(e) => setfirstName(e.target.value)}
+                            value={firstName}
+                            required
+                            aria-invalid={validfirstName ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setfirstNameFocus(true)}
+                            onBlur={() => setfirstNameFocus(false)} />
+
+                        <p
+                            id="cnidnote" /*uidnote -> cnidnote*/
+                            className={
+                                `text-gray-500 ${firstNameFocus && firstName && !validfirstName ? "block" : "hidden"}`
+                            }
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                            <span className="whitespace-pre-line">
+                                4 to 24 characters.
+                                <br />
+                                Must begin with a letter.
+                                <br />
+                                Letters, numbers, underscores, hyphens allowed.
+                            </span>
+                        </p>
+                    </FormContainer>
+
+                    <FormContainer>
+                        <Label htmlFor="lastName">
+                            Last Name
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={`ml-2  ${validlastName ? "text-green-500" : "hidden"}`}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={`ml-2  ${validlastName || !lastName ? "hidden" : "text-red-500"}`}
+                            />
+                        </Label>
+                        <Input
+                            type="text"
+                            id="lastName"
+                            ref={lastNameRef}
+                            autoComplete="off"
+                            onChange={(e) => setlastName(e.target.value)}
+                            value={lastName}
+                            required
+                            aria-invalid={validlastName ? "false" : "true"}
+                            aria-describedby="cnidnote"
+                            onFocus={() => setlastNameFocus(true)}
+                            onBlur={() => setlastNameFocus(false)}
+                            className="mb-2"
+                        />
+
+                        <p
+                            id="cnidnote"
+                            className={`mb-2 ${lastNameFocus && lastName && !validlastName ? "block" : "hidden"}`}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                            4 to 24 characters.
+                            <br />
+                            Must begin with a letter.
+                            <br />
+                            Letters, numbers, underscores, hyphens allowed.
+                        </p>
+                    </FormContainer>
+
+                    <FormContainer>
+                        <Label htmlFor="email">
+                            Email
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={`ml-2 ${validEmail ? "text-green-500" : "hidden"}`}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={`ml-2 ${validEmail || !email ? "hidden" : "text-red-500"}`}
+                            />
+                        </Label>
+                        <Input
+                            type="text"
+                            id="email"
+                            ref={emailRef}
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="emailnote"
+                            onFocus={() => setEmailFocus(true)}
+                            onBlur={() => setEmailFocus(false)}
+                            className="mb-2"
+                        />
+
+                        <p
+                            id="emailnote"
+                            className={`mb-2 ${emailFocus && email && !validEmail ? "block" : "hidden"}`}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                            Please enter a valid email address.
+                        </p>
+                    </FormContainer>
+
+                    <FormContainer>
+                        <div className="flex items-center justify-between">
+                            <PasswordLabel htmlFor="password">
+                                Password
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={`ml-2 ${validPwd ? "text-green-500" : "hidden"}`}
+                                />
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={`ml-2 ${validPwd || !pwd ? "hidden" : "text-red-500"}`}
+                                />
+                            </PasswordLabel>
                         </div>
 
-                        <Form onSubmit={handleSubmit}>
-                            <FormContainer>
-                                <Label htmlFor="firstName">First name
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className={`ml-2  ${validfirstName ? "text-green-500" : "hidden"}`}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faTimes}
-                                        className={`ml-2  ${validfirstName || !firstName ? "hidden" : "text-red-500"}`}
-                                    />
-                                </Label>
-                                <Input
-                                    type="text"
-                                    id="firstName" /* firstName -> lastName*/
-                                    ref={firstNameRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setfirstName(e.target.value)}
-                                    value={firstName}
-                                    required
-                                    aria-invalid={validfirstName ? "false" : "true"}
-                                    aria-describedby="uidnote"
-                                    onFocus={() => setfirstNameFocus(true)}
-                                    onBlur={() => setfirstNameFocus(false)} />
+                        <PasswordInput
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
+                            className="mb-2"
+                        />
 
-                                <p
-                                    id="cnidnote" /*uidnote -> cnidnote*/
-                                    className={
-                                        `text-gray-500 ${firstNameFocus && firstName && !validfirstName ? "block" : "hidden"}`
-                                    }
-                                >
-                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
-                                    <span className="whitespace-pre-line">
-                                        4 to 24 characters.
-                                        <br />
-                                        Must begin with a letter.
-                                        <br />
-                                        Letters, numbers, underscores, hyphens allowed.
-                                    </span>
-                                </p>
-                            </FormContainer>
+                        <p
+                            id="pwdnote"
+                            className={`mb-2 ${pwdFocus && !validPwd ? "block" : "hidden"}`}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                            8 to 24 characters.
+                            <br />
+                            Must include uppercase and lowercase letters, a number and a special character.
+                            <br />
+                            Allowed special characters: ! @ # $ %
+                        </p>
+                    </FormContainer>
 
-                            <FormContainer>
-                                <Label htmlFor="lastName">
-                                    Last Name
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className={`ml-2  ${validlastName ? "text-green-500" : "hidden"}`}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faTimes}
-                                        className={`ml-2  ${validlastName || !lastName ? "hidden" : "text-red-500"}`}
-                                    />
-                                </Label>
-                                <Input
-                                    type="text"
-                                    id="lastName"
-                                    ref={lastNameRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setlastName(e.target.value)}
-                                    value={lastName}
-                                    required
-                                    aria-invalid={validlastName ? "false" : "true"}
-                                    aria-describedby="cnidnote"
-                                    onFocus={() => setlastNameFocus(true)}
-                                    onBlur={() => setlastNameFocus(false)}
-                                    className="mb-2"
+                    <FormContainer>
+                        <div className="flex items-center justify-between">
+                            <PasswordLabel htmlFor="confirm_pwd" >
+                                Confirm Password
+                                <FontAwesomeIcon
+                                    icon={faCheck}
+                                    className={`ml-2 ${validMatch && matchPwd ? "text-green-500" : "hidden"}`}
                                 />
-
-                                <p
-                                    id="cnidnote"
-                                    className={`mb-2 ${lastNameFocus && lastName && !validlastName ? "block" : "hidden"}`}
-                                >
-                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
-                                    4 to 24 characters.
-                                    <br />
-                                    Must begin with a letter.
-                                    <br />
-                                    Letters, numbers, underscores, hyphens allowed.
-                                </p>
-                            </FormContainer>
-
-                            <FormContainer>
-                                <Label htmlFor="email">
-                                    Email
-                                    <FontAwesomeIcon
-                                        icon={faCheck}
-                                        className={`ml-2 ${validEmail ? "text-green-500" : "hidden"}`}
-                                    />
-                                    <FontAwesomeIcon
-                                        icon={faTimes}
-                                        className={`ml-2 ${validEmail || !email ? "hidden" : "text-red-500"}`}
-                                    />
-                                </Label>
-                                <Input
-                                    type="text"
-                                    id="email"
-                                    ref={emailRef}
-                                    autoComplete="off"
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    value={email}
-                                    required
-                                    aria-invalid={validEmail ? "false" : "true"}
-                                    aria-describedby="emailnote"
-                                    onFocus={() => setEmailFocus(true)}
-                                    onBlur={() => setEmailFocus(false)}
-                                    className="mb-2"
+                                <FontAwesomeIcon
+                                    icon={faTimes}
+                                    className={`ml-2 ${validMatch || !matchPwd ? "hidden" : "text-red-500"}`}
                                 />
+                            </PasswordLabel>
+                        </div>
 
-                                <p
-                                    id="emailnote"
-                                    className={`mb-2 ${emailFocus && email && !validEmail ? "block" : "hidden"}`}
-                                >
-                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
-                                    Please enter a valid email address.
-                                </p>
-                            </FormContainer>
+                        <PasswordInput
+                            type="password"
+                            id="confirm_pwd"
+                            onChange={(e) => setMatchPwd(e.target.value)}
+                            value={matchPwd}
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                            className="mb-2"
+                        />
+                        <p
+                            id="confirmnote"
+                            className={`mb-2 ${matchFocus && !validMatch ? "block" : "hidden"}`}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                            Must match the first password input field.
+                        </p>
+                    </FormContainer>
 
-                            <FormContainer>
-                                <div className="flex items-center justify-between">
-                                    <PasswordLabel htmlFor="password">
-                                        Password
-                                        <FontAwesomeIcon
-                                            icon={faCheck}
-                                            className={`ml-2 ${validPwd ? "text-green-500" : "hidden"}`}
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faTimes}
-                                            className={`ml-2 ${validPwd || !pwd ? "hidden" : "text-red-500"}`}
-                                        />
-                                    </PasswordLabel>
-                                </div>
-
-                                <PasswordInput
-                                    type="password"
-                                    id="password"
-                                    onChange={(e) => setPwd(e.target.value)}
-                                    value={pwd}
-                                    required
-                                    aria-invalid={validPwd ? "false" : "true"}
-                                    aria-describedby="pwdnote"
-                                    onFocus={() => setPwdFocus(true)}
-                                    onBlur={() => setPwdFocus(false)}
-                                    className="mb-2"
-                                />
-
-                                <p
-                                    id="pwdnote"
-                                    className={`mb-2 ${pwdFocus && !validPwd ? "block" : "hidden"}`}
-                                >
-                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
-                                    8 to 24 characters.
-                                    <br />
-                                    Must include uppercase and lowercase letters, a number and a special character.
-                                    <br />
-                                    Allowed special characters: ! @ # $ %
-                                </p>
-                            </FormContainer>
-
-                            <FormContainer>
-                                <div className="flex items-center justify-between">
-                                    <PasswordLabel htmlFor="confirm_pwd" >
-                                        Confirm Password
-                                        <FontAwesomeIcon
-                                            icon={faCheck}
-                                            className={`ml-2 ${validMatch && matchPwd ? "text-green-500" : "hidden"}`}
-                                        />
-                                        <FontAwesomeIcon
-                                            icon={faTimes}
-                                            className={`ml-2 ${validMatch || !matchPwd ? "hidden" : "text-red-500"}`}
-                                        />
-                                    </PasswordLabel>
-                                </div>
-
-                                <PasswordInput
-                                    type="password"
-                                    id="confirm_pwd"
-                                    onChange={(e) => setMatchPwd(e.target.value)}
-                                    value={matchPwd}
-                                    required
-                                    aria-invalid={validMatch ? "false" : "true"}
-                                    aria-describedby="confirmnote"
-                                    onFocus={() => setMatchFocus(true)}
-                                    onBlur={() => setMatchFocus(false)}
-                                    className="mb-2"
-                                />
-                                <p
-                                    id="confirmnote"
-                                    className={`mb-2 ${matchFocus && !validMatch ? "block" : "hidden"}`}
-                                >
-                                    <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
-                                    Must match the first password input field.
-                                </p>
-                            </FormContainer>
-
-                            <div className="mt-6">
-                                <Button>Sign In</Button>
-                            </div>
-                        </Form>
-                        <AccountMessage>
-                            Already have an account? <AccountLink to="/login">Login</AccountLink>
-                        </AccountMessage>
-                    </Container>
-                </MainContainer>
-            )}
-        </>
+                    <div className="mt-6">
+                        <Button>Create Account</Button>
+                    </div>
+                </Form>
+                <AccountMessage>
+                    Already have an account? <AccountLink to="/login">Login</AccountLink>
+                </AccountMessage>
+            </Container>
+        </MainContainer>
     );
 };
 

@@ -34,66 +34,9 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
 
-            {/* NEW OFFICIAL ROUTES, WORK INSIDE THESE! */}
-            <Route
-              path="/my-properties-and-rentals"
-              element={
-                <>
-                  <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
-                  <PropertyAndRentals />
-                </>
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                <>
-                  <PageTitle title="Profile | Rently Condo Management SAAS" />
-                  <Profile />
-                </>
-              }
-            />
-            <Route
-              path="/calendar"
-              element={
-                <>
-                  <PageTitle title="Calendar | Rently Condo Management SAAS" />
-                  <Calendar />
-                </>
-              }
-            />
-
-            <Route
-              path="/chart"
-              element={
-                <>
-                  <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
-                  <Chart />
-                </>
-              }
-            />
-
-            <Route
-              path="/forms/form-elements"
-              element={
-                <>
-                  <PageTitle title="Form Elements | Rently Condo Management SAAS" />
-                  <FormElements />
-                </>
-              }
-            />
-            <Route
-              path="/forms/form-layout"
-              element={
-                <>
-                  <PageTitle title="Form Layout | Rently Condo Management SAAS" />
-                  <FormLayout />
-                </>
-              }
-            />
-
             {/* protected routes */}
             <Route element={<PersistLogin />}>
+
               <Route
                 element={
                   <RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />
@@ -105,6 +48,63 @@ function App() {
               <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
                 <Route path="welcomeAdmin" element={<Welcome />} />
               </Route>
+
+              <Route
+                path="/my-properties-and-rentals"
+                element={
+                  <>
+                    <PageTitle title="Properties & rentals | Rently Condo Management SAAS" />
+                    <PropertyAndRentals />
+                  </>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <>
+                    <PageTitle title="Profile | Rently Condo Management SAAS" />
+                    <Profile />
+                  </>
+                }
+              />
+              <Route
+                path="/calendar"
+                element={
+                  <>
+                    <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                    <Calendar />
+                  </>
+                }
+              />
+
+              <Route
+                path="/chart"
+                element={
+                  <>
+                    <PageTitle title="Basic Chart | Rently Condo Management SAAS" />
+                    <Chart />
+                  </>
+                }
+              />
+
+              <Route
+                path="/forms/form-elements"
+                element={
+                  <>
+                    <PageTitle title="Form Elements | Rently Condo Management SAAS" />
+                    <FormElements />
+                  </>
+                }
+              />
+              <Route
+                path="/forms/form-layout"
+                element={
+                  <>
+                    <PageTitle title="Form Layout | Rently Condo Management SAAS" />
+                    <FormLayout />
+                  </>
+                }
+              />
             </Route>
 
             {/* catch all */}
