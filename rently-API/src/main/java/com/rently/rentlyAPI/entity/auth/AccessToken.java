@@ -18,7 +18,7 @@ public class AccessToken {
   @GeneratedValue
   public Integer id;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false, columnDefinition = "varchar(1000)")
   public String token;
 
   @Enumerated(EnumType.STRING)

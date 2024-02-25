@@ -23,23 +23,23 @@ public class UserServiceImpl implements UserService {
 
     public User createUser(RegisterRequestDto request) {
         String encodedPassword = null;
-        
+
         if (request.getPassword() != null) {
             // Encode the password if provided (null with google for example)
             encodedPassword = passwordEncoder.encode(request.getPassword());
         }
         var user = User.builder()
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
-            .email(request.getEmail())
-            .password(encodedPassword)
-            .role(request.getRole())
-            .provider(request.getProvider())
-            .build();
-        
-	    return userRepository.save(user);
+                .firstname(request.getFirstname())
+                .lastname(request.getLastname())
+                .email(request.getEmail())
+                .password(encodedPassword)
+                .role(request.getRole())
+                .provider(request.getProvider())
+                .build();
+
+        return userRepository.save(user);
     }
-    
+
     public void changePassword(ChangePasswordRequestDto request, Principal connectedUser) {
 
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();

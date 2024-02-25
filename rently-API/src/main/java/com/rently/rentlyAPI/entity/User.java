@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.entity;
 import com.rently.rentlyAPI.entity.auth.AccessToken;
 import com.rently.rentlyAPI.entity.auth.Provider;
 import com.rently.rentlyAPI.security.Role;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -50,16 +51,18 @@ public class User extends AbstractEntity implements UserDetails {
     private Provider provider;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'USER'")
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'COMPANY'")
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<AccessToken> accessTokens;
 
-    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "ownerId", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Nullable
     private List<Condo> ownedCondos;
 
-    @OneToMany(mappedBy = "tenantId", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tenantId", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Nullable
     private List<Condo> rentedCondos;
 
     @Override
