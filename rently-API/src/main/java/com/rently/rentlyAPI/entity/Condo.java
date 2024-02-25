@@ -30,7 +30,6 @@ public class Condo extends AbstractEntity {
     @Column(nullable = false, columnDefinition = "varchar(255) default 'AVAILABLE'")
     private CondoStatus status;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;

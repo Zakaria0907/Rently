@@ -40,7 +40,26 @@ public enum Role {
                   COMPANY_DELETE,
                   COMPANY_CREATE
           )
-  )
+  ),
+
+  OWNER(
+          Set.of(
+                  OWNER_READ,
+                  OWNER_UPDATE,
+                  OWNER_DELETE,
+                  OWNER_CREATE
+          )
+    ),
+
+    RENTER(
+            Set.of(
+                    RENTER_READ,
+                    RENTER_UPDATE,
+                    RENTER_DELETE,
+                    RENTER_CREATE
+            )
+    )
+
 
   ;
 

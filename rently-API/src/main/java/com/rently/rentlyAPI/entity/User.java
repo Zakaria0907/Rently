@@ -60,6 +60,9 @@ public class User extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Condo> condos;
 
+    @OneToMany(mappedBy = "user")
+    private List<Key> keys;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();

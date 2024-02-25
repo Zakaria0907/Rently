@@ -14,7 +14,17 @@ public enum Permission {
     COMPANY_READ("company:read"),
     COMPANY_UPDATE("company:update"),
     COMPANY_CREATE("company:create"),
-    COMPANY_DELETE("company:delete")
+    COMPANY_DELETE("company:delete"),
+
+    OWNER_READ("owner:read"),
+    OWNER_UPDATE("owner:update"),
+    OWNER_CREATE("owner:create"),
+    OWNER_DELETE("owner:delete"),
+
+    RENTER_READ("renter:read"),
+    RENTER_UPDATE("renter:update"),
+    RENTER_CREATE("renter:create"),
+    RENTER_DELETE("renter:delete"),
 
     ;
 
