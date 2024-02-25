@@ -24,7 +24,7 @@ import java.util.Collections;
 
 import static com.rently.rentlyAPI.security.Permission.*;
 import static com.rently.rentlyAPI.security.Role.ADMIN;
-import static com.rently.rentlyAPI.security.Role.MANAGER;
+import static com.rently.rentlyAPI.security.Role.COMPANY;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -66,11 +66,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                .requestMatchers("/api/v1/company/**").hasAnyRole(ADMIN.name(), COMPANY.name())
+                                .requestMatchers(GET, "/api/v1/company/**").hasAnyAuthority(ADMIN_READ.name(), COMPANY_READ.name())
+                                .requestMatchers(POST, "/api/v1/company/**").hasAnyAuthority(ADMIN_CREATE.name(), COMPANY_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/company/**").hasAnyAuthority(ADMIN_UPDATE.name(), COMPANY_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/company/**").hasAnyAuthority(ADMIN_DELETE.name(), COMPANY_DELETE.name())
 
                                 .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
 

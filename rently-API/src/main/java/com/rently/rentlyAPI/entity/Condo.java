@@ -1,13 +1,11 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.auth.Provider;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Data
@@ -16,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "condo")
-public class Condo extends AbstractEntity{
+public class Condo extends AbstractEntity {
 
     private String name;
 
@@ -42,6 +40,5 @@ public class Condo extends AbstractEntity{
     @ManyToOne
     @Nullable
     private User tenantId;
-
 
 }
