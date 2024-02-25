@@ -56,6 +56,12 @@ public class User extends AbstractEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<AccessToken> accessTokens;
 
+    @OneToMany(mappedBy = "ownerId", cascade = CascadeType.REMOVE)
+    private List<Condo> ownedCondos;
+
+    @OneToMany(mappedBy = "tenantId", cascade = CascadeType.REMOVE)
+    private List<Condo> rentedCondos;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
