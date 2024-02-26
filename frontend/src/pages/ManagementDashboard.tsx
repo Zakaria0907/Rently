@@ -17,7 +17,7 @@ const ManagementDashboard: React.FC = () => {
             {
                 title: 'Buildings',
                 count: 2,
-                link: '/buildings',
+                link: '/building-management',
                 icon: <FaRegBuilding className="mt-1 text-xl" />,
             },
             {
