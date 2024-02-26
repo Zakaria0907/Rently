@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface CondoRepository extends JpaRepository<Condo, Integer> {
 
-
-
 }

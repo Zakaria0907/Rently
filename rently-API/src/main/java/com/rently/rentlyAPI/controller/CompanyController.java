@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.controller;
 
+import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.dto.KeyDto;
 import com.rently.rentlyAPI.services.CompanyService;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/company")
 @Tag(name = "Company")
@@ -16,6 +19,27 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyService companyService;
+    
+    
+    @GetMapping("/{companyId}/building/{buildingId}")
+    public ResponseEntity<BuildingDto> getBuildingByCompanyIdAndBuildingId(@PathVariable("companyId") Integer companyId, @PathVariable("buildingId") Integer buildingId) {
+        BuildingDto building = companyService.getBuildingByCompanyIdAndBuildingId(companyId, buildingId);
+        return ResponseEntity.ok(building);
+    }
+    
+    
+    @GetMapping("/building/all/{companyId}")
+    public ResponseEntity<List<BuildingDto>> getAllBuildingsByCompanyId(@PathVariable("companyId") Integer companyId) {
+        List<BuildingDto> buildings = companyService.getAllBuildingsByCompanyId(companyId);
+        return ResponseEntity.ok(buildings);
+    }
+    
+    
+    @PostMapping("/create-building/{company-id}" )
+    public ResponseEntity<BuildingDto> createBuilding(@PathVariable (value = "company-id") Integer companyId, @RequestBody BuildingDto buildingDto) {
+        return ResponseEntity.ok(companyService.createBuildingByCompanyId(companyId, buildingDto));
+    }
+    
 
     @PostMapping("/create-condo/{company-id}" )
     public ResponseEntity<CondoDto> createCondo(@PathVariable (value = "company-id") Integer companyId, @RequestBody CondoDto condoDto) {

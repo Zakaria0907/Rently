@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 public class CondoServiceImpl implements CondoService {
 
     private final CondoRepository condoRepository;
-
+    
+    @Override
     public Condo save(Condo condo) {
         return condoRepository.save(condo);
     }
 
+    @Override
     public boolean exists(Condo condo) {
         return condoRepository.existsById(condo.getId());
     }
