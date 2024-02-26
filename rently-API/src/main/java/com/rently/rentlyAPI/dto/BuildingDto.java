@@ -51,11 +51,11 @@ public class BuildingDto {
 				.address(buildingDto.getAddress())
 				.unitCount(buildingDto.getUnitCount() != null ? buildingDto.getUnitCount() : 0)
 				.description(buildingDto.getDescription())
-				// Note: The company (User) should be set in the service layer.
+				// Note: The company (User) is set in the service
 				.build();
 		
 		// Intentionally left blank: .company(User.builder().id(buildingDto.getUserId()).build())
-		// Setting the company (User) should be handled in the service layer where you have access to the UserRepository.
+		// Setting the company is handled in the company service
 		
 		return building;
 	}
