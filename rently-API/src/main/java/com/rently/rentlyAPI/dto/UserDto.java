@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
+import com.rently.rentlyAPI.entity.S3File;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
@@ -17,26 +18,19 @@ import lombok.Setter;
 public class UserDto {
 
     private Integer id;
-
-    @NotEmpty(message = "The first name is required")
-    @NotNull(message = "The first name is required")
+    
     @NotBlank(message = "The first name is required")
     private String firstname;
-
-    @NotEmpty(message = "The last name is required")
-    @NotNull(message = "The last name is required")
+    
     @NotBlank(message = "The last name is required")
     private String lastname;
-
-    //TODO: Add validation for phone number
+    
+    @NotBlank(message = "The phone number is required")
     private String phoneNumber;
-    //TODO: Add validation for bio
+    
     private String bio;
-
-
-    @NotNull(message = "The email is required")
+    
     @NotBlank(message = "The email is required")
-    @NotEmpty(message = "The email is required")
     private String email;
 
     @Builder.Default
@@ -49,9 +43,8 @@ public class UserDto {
             .lastname(user.getLastname())
             .email(user.getEmail())
             .role(user.getRole().name())
-            //TODO: Add phone number and bio
-//            .phoneNumber(user.getPhoneNumber())
-//            .bio(user.getBio())
+            .phoneNumber(user.getPhoneNumber())
+            .bio(user.getBio())
             .build();
     }
 
@@ -60,9 +53,8 @@ public class UserDto {
             .id(userDTO.getId())
             .firstname(userDTO.getFirstname())
             .lastname(userDTO.getLastname())
-            //TODO: Add phone number and bio
-//            .phoneNumber(userDTO.getPhoneNumber())
-//            .bio(userDTO.getBio())
+            .phoneNumber(userDTO.getPhoneNumber())
+            .bio(userDTO.getBio())
             .email(userDTO.getEmail())
             .role(Role.valueOf(userDTO.getRole()))
             .build();

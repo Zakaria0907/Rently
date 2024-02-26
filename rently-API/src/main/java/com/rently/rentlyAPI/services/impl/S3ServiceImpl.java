@@ -64,10 +64,10 @@ public class S3ServiceImpl implements S3Service {
 	//TODO: Make proper custom exception handling
 	//uploadImage method is used to upload the image to the S3 bucket and save the file to the database.
 	@Override
-	public void uploadImage(MultipartFile imageFile, Principal connectedUser) {
+	public void uploadImage(MultipartFile imageFile, Integer userId) {
 		
 		try {
-			User user = userRepository.findByEmail(connectedUser.getName())
+			User user = userRepository.findById(userId)
 					.orElseThrow(() -> new IllegalStateException("User not found"));
 			
 			// If profile picture existe delete from db and s3
