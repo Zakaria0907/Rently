@@ -30,29 +30,34 @@ public class CompanyServiceImpl implements CompanyService {
     private final KeyService keyService;
 
     public CondoDto createCondoByCompanyId(Integer companyId, CondoDto condoDto) {
+        
+        
+        // Check if the user exists
+        User user = userRepository.findById(companyId)
+            .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
+        
         // Validate the condoDto
         validator.validate(condoDto);
-
-        condoDto.setUserId(companyId);
-        // Retrieve the User entity from the database using userId
-        User user = null;
-        if (condoDto.getUserId() != null) {
-            user = userRepository.findById(condoDto.getUserId())
-                    .orElseThrow(() -> new EntityNotFoundException("User with ID " + condoDto.getUserId() + " not found"));
+        
+        // Check if the user has the role COMPANY
+        if(user.getRole() != Role.COMPANY){
+            throw new OperationNonPermittedException("Only a User with role COMPANY can create a condo.");
         }
-
+        
+        // Set the user id in the condoDto
+        condoDto.setUserId(companyId);
+        
         // Set the user in the condo entity
         Condo condoEntity = CondoDto.toEntity(condoDto);
         condoEntity.setUser(user);
-
+        
         // Save the condo entity
-        CondoDto condo = CondoDto.fromEntity(condoService.save(condoEntity));
-
-        return condo;
+	    return CondoDto.fromEntity(condoService.save(condoEntity));
     }
 
 
     public KeyDto createActivationKeyToBecomeRenter(String userEmail, Integer companyId) {
+        
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
 

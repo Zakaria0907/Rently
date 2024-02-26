@@ -41,8 +41,6 @@ public class AuthenticationService {
   private final TokenService tokenService;
   private final ObjectsValidator<Object> validator;
   private final UserServiceImpl userServiceImpl;
-
-  
   
   // Main service methods
   public UserDto register(RegisterRequestDto registerRequestDto) {
