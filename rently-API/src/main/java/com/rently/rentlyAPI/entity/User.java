@@ -62,6 +62,9 @@ public class User extends AbstractEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Key> keys;
+    
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Building> buildings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
