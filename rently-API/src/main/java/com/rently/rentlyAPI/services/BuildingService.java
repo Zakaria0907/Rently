@@ -12,4 +12,6 @@ public interface BuildingService {
 	public boolean exists(Building building);
 	
 	public List<Building> findAllByCompanyId(Integer companyId);
+	
+	public Building findById(Integer id);
 }
