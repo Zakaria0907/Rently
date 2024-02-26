@@ -28,4 +28,9 @@ public class BuildingServiceImpl implements BuildingService {
 	public List<Building> findAllByCompanyId(Integer companyId) {
 		return buildingRepository.findAllByCompanyId(companyId);
 	}
+	
+	@Override
+	public Building findById(Integer id) {
+		return buildingRepository.findById(id).orElse(null);
+	}
 }
