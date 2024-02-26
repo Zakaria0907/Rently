@@ -2,7 +2,9 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
 import com.rently.rentlyAPI.dto.UserProfileDto;
+import com.rently.rentlyAPI.entity.Key;
 import com.rently.rentlyAPI.entity.User;
+import org.springframework.data.jpa.repository.Query;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -13,5 +15,9 @@ public interface UserService {
     public User updateProfile(UpdateProfileRequestDto request, Integer userId);
     
     public UserProfileDto viewProfile(Integer userId);
+
+    User activateKeyToChangeRole(String key);
+
+
 
 }

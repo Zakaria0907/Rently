@@ -4,9 +4,13 @@ import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
 import com.rently.rentlyAPI.dto.UserProfileDto;
 import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
+import com.rently.rentlyAPI.entity.Key;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
+import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.security.Role;
+import com.rently.rentlyAPI.services.KeyService;
 import com.rently.rentlyAPI.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final KeyService keyService;
 
     public User createUser(RegisterRequestDto request) {
         String encodedPassword = null;
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
         
 	    return userRepository.save(user);
     }
-    
+
     public void changePassword(ChangePasswordRequestDto request, Principal connectedUser) {
         
         var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
@@ -95,6 +100,44 @@ public class UserServiceImpl implements UserService {
             .build();
     }
     
+
+    //user becomes RENTER by providing key (user cannot go from owner -> renter)
+    public User activateKeyToChangeRole(String condoKey) {
+
+        //find the key
+        Key key = keyService.findByKey(condoKey);
+
+        //if key is not found
+        if (key == null) {
+            throw new EntityNotFoundException("Key with key " + condoKey + " not found");
+        }
+
+        //find user by key
+         User user = userRepository.findUserByKey(condoKey);
+
+            //if user is not found
+            if (user == null) {
+                throw new EntityNotFoundException("User with key " + condoKey + " not found");
+            }
+
+            //if user is not a renter
+            if (user.getRole() != Role.USER) {
+                throw new OperationNonPermittedException("User with key " + condoKey + " is not allowed to become a RENTER");
+            }
+
+            //if key role is not renter or owner
+            if (key.getRole() != Role.RENTER && key.getRole() != Role.OWNER) {
+                throw new OperationNonPermittedException("Your key ROLE is " + key.getRole() + " and it is not an allowed role.");
+            }
+
+            user.setRole(key.getRole());
+            key.setActive(true);
+            key.setUser(user);
+            keyService.save(key);
+            return userRepository.save(user);
+    }
+
+
     @Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);

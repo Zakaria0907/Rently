@@ -18,7 +18,7 @@ public class AccessToken {
   @GeneratedValue
   public Integer id;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false, columnDefinition = "varchar(1000)")
   public String token;
 
   @Enumerated(EnumType.STRING)
@@ -28,7 +28,7 @@ public class AccessToken {
 
   public boolean expired;
 
-  @OneToOne(mappedBy= "accessToken", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy= "accessToken", cascade = CascadeType.REMOVE, orphanRemoval = true)
   public RefreshToken refreshToken;
 
   @ManyToOne(fetch = FetchType.LAZY)

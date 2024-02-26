@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
@@ -48,7 +49,6 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<ExceptionRepresentation> handleException(OperationNonPermittedException e) {
 		ExceptionRepresentation representation = ExceptionRepresentation.builder()
 				.errorMessage(e.getErrorMsg())
-				.errorSource(e.getMessage())
 				.build();
 		return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(representation);
 	}
@@ -56,8 +56,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<ExceptionRepresentation> handleException(DataIntegrityViolationException e) {
 		ExceptionRepresentation representation = ExceptionRepresentation.builder()
-				.errorMessage("User already exists with the provided email")
-//                .errorSource(e.getMessage())
+				.errorMessage(e.getMessage())
 				.build();
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(representation);
 	}
@@ -88,6 +87,14 @@ public class GlobalExceptionHandler {
 	}
 	
 	
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<ExceptionRepresentation> handleHttpMessageNotReadableException(Exception e) {
+		ExceptionRepresentation representation = ExceptionRepresentation.builder()
+				.errorMessage(e.getMessage())
+				.build();
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(representation);
+	}
 
 
 
