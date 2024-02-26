@@ -24,7 +24,7 @@ import java.util.Collections;
 
 import static com.rently.rentlyAPI.security.Permission.*;
 import static com.rently.rentlyAPI.security.Role.ADMIN;
-import static com.rently.rentlyAPI.security.Role.MANAGER;
+import static com.rently.rentlyAPI.security.Role.COMPANY;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -66,11 +66,11 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name(), MANAGER.name())
-                                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
-                                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name(), MANAGER_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name(), MANAGER_DELETE.name())
+                                .requestMatchers("/api/v1/company/**").hasAnyRole(ADMIN.name(), COMPANY.name())
+                                .requestMatchers(GET, "/api/v1/company/**").hasAnyAuthority(ADMIN_READ.name(), COMPANY_READ.name())
+                                .requestMatchers(POST, "/api/v1/company/**").hasAnyAuthority(ADMIN_CREATE.name(), COMPANY_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/company/**").hasAnyAuthority(ADMIN_UPDATE.name(), COMPANY_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/company/**").hasAnyAuthority(ADMIN_DELETE.name(), COMPANY_DELETE.name())
 
                                 .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
 
@@ -82,15 +82,15 @@ public class WebSecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-                .oauth2Login(oauth2Login -> oauth2Login
-//                    TODO: Do we need this (below)?
-//                    .loginPage("http://localhost:5173/login")
-//                    TODO: change sucess redirect endpoint
-//                    .defaultSuccessUrl("http://localhost:5173/register")
-                    .failureUrl("/api/v1/auth/login-failure")
-                    .successHandler(oAuth2LoginSuccessHandler)
-                    .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
-                )
+//                .oauth2Login(oauth2Login -> oauth2Login
+////                    TODO: Do we need this (below)?
+////                    .loginPage("http://localhost:5173/login")
+////                    TODO: change sucess redirect endpoint
+////                    .defaultSuccessUrl("http://localhost:5173/register")
+//                    .failureUrl("/api/v1/auth/login-failure")
+//                    .successHandler(oAuth2LoginSuccessHandler)
+//                    .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+//                )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
