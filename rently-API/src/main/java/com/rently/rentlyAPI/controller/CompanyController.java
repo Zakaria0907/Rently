@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyService companyService;
-
+    
     @PostMapping("/create-condo/{company-id}" )
     public ResponseEntity<CondoDto> createCondo(@PathVariable (value = "company-id") Integer companyId, @RequestBody CondoDto condoDto) {
         return ResponseEntity.ok(companyService.createCondoByCompanyId(companyId, condoDto));
     }
-
+    
     @PostMapping("/generate-renter-key/{company-id}")
     public ResponseEntity<KeyDto> createActivationKeyToBecomeRenter (@PathVariable (value = "company-id") Integer companyId,@RequestParam String userEmail) {
         return ResponseEntity.ok(companyService.createActivationKeyToBecomeRenter(userEmail, companyId));
