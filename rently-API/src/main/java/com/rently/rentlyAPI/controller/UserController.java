@@ -30,11 +30,10 @@ public class UserController {
     //sample url : http://localhost:8080/api/v1/users/activateKeyToChangeRole?key=abc
     @PostMapping("/activateKeyToChangeRole")
     public ResponseEntity<KeyDto> activateKeyToChangeRole(@RequestParam String key) {
-        service.activateKeyToChangeRole(key);
+        userService.activateKeyToChangeRole(key);
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping
     @PatchMapping("/change-password")
     public ResponseEntity<?> changePassword(
           @RequestBody ChangePasswordRequestDto request,

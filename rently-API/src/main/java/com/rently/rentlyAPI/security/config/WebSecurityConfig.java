@@ -24,7 +24,7 @@ import java.util.Collections;
 
 import static com.rently.rentlyAPI.security.Permission.*;
 import static com.rently.rentlyAPI.security.Role.ADMIN;
-import static com.rently.rentlyAPI.security.Role.MANAGER;
+import static com.rently.rentlyAPI.security.Role.COMPANY;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
