@@ -77,13 +77,13 @@ public class CompanyController {
     }
     
     // Endpoint to get the count of condos by buildingId
-    @GetMapping("{buildingId}/count-condos")
+    @GetMapping("building/{buildingId}/count-condos")
     public ResponseEntity<Integer> countCondosById(@PathVariable("buildingId") Integer buildingId) {
         return ResponseEntity.ok(companyService.countCondosById(buildingId));
     }
     
     // Endpoint to get all condos by buildingId
-    @GetMapping("{buildingId}/condos/all")
+    @GetMapping("building/{buildingId}/condos/all")
     public ResponseEntity<List<CondoDto>> findAllCondosByBuildingId(@PathVariable("buildingId") Integer buildingId) {
         List<CondoDto> condos = companyService.findAllCondosByBuildingId(buildingId);
         return ResponseEntity.ok(condos);
