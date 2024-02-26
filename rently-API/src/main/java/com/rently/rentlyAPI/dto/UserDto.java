@@ -28,6 +28,12 @@ public class UserDto {
     @NotBlank(message = "The last name is required")
     private String lastname;
 
+    //TODO: Add validation for phone number
+    private String phoneNumber;
+    //TODO: Add validation for bio
+    private String bio;
+
+
     @NotNull(message = "The email is required")
     @NotBlank(message = "The email is required")
     @NotEmpty(message = "The email is required")
@@ -36,7 +42,6 @@ public class UserDto {
     @Builder.Default
     private String role = Role.USER.name();
 
-
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
             .id(user.getId())
@@ -44,6 +49,9 @@ public class UserDto {
             .lastname(user.getLastname())
             .email(user.getEmail())
             .role(user.getRole().name())
+            //TODO: Add phone number and bio
+//            .phoneNumber(user.getPhoneNumber())
+//            .bio(user.getBio())
             .build();
     }
 
@@ -52,6 +60,9 @@ public class UserDto {
             .id(userDTO.getId())
             .firstname(userDTO.getFirstname())
             .lastname(userDTO.getLastname())
+            //TODO: Add phone number and bio
+//            .phoneNumber(userDTO.getPhoneNumber())
+//            .bio(userDTO.getBio())
             .email(userDTO.getEmail())
             .role(Role.valueOf(userDTO.getRole()))
             .build();

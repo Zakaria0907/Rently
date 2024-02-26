@@ -42,7 +42,7 @@ public class RegisterRequestDto {
     private String password;
 
     @Builder.Default
-    private Role role = Role.USER;
+    private Role role = Role.COMPANY;
 
     @Builder.Default
     private Provider provider = Provider.RENTLY;
