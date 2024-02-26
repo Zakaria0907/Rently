@@ -24,23 +24,26 @@ import java.util.List;
 @Table(name = "_user")
 public class User extends AbstractEntity implements UserDetails {
     
-    @NotBlank(message = "The first name is required")
-    private String firstname;
-
-
-    @NotBlank(message = "The last name is required")
-    private String lastname;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
-    private S3File profilePicture;
-
     @Column(unique = true)
     @NotBlank(message = "The email is required")
     private String email;
     
     @NotBlank(message = "The password is required")
     private String password;
+    
+    @NotBlank(message = "The first name is required")
+    private String firstname;
+    
+    @NotBlank(message = "The last name is required")
+    private String lastname;
+    
+    private String phoneNumber;
+    
+    private String bio;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
+    private S3File profilePicture;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(255) default 'RENTLY'")

@@ -91,15 +91,15 @@ public class WebSecurityConfig {
                                 .addLogoutHandler(logoutHandler)
                                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 )
-//                .oauth2Login(oauth2Login -> oauth2Login
-////                    TODO: Do we need this (below)?
-////                    .loginPage("http://localhost:5173/login")
-////                    TODO: change sucess redirect endpoint
-////                    .defaultSuccessUrl("http://localhost:5173/register")
-//                    .failureUrl("/api/v1/auth/login-failure")
-//                    .successHandler(oAuth2LoginSuccessHandler)
-//                    .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
-//                )
+                .oauth2Login(oauth2Login -> oauth2Login
+//                    TODO: Do we need this (below)?
+//                    .loginPage("http://localhost:5173/login")
+//                    TODO: change sucess redirect endpoint
+//                    .defaultSuccessUrl("http://localhost:5173/register")
+                    .failureUrl("/api/v1/auth/login-failure")
+                    .successHandler(oAuth2LoginSuccessHandler)
+                    .userInfoEndpoint(userInfo -> userInfo.userService(oAuth2UserService))
+                )
             
         ;
 
