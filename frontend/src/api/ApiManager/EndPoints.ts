@@ -5,6 +5,7 @@ const ENDPOINTS = {
     LOGIN: () => '/auth/authenticate',
     REFRESH: () => '/auth/refresh-token',
     LOGOUT: () => '/auth/logout',
+    VIEW_PROFILE: () => '/users/view-profile/1',
     
 }
 
