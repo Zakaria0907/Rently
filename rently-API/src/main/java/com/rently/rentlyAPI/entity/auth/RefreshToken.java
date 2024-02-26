@@ -18,7 +18,7 @@ public class RefreshToken {
     @GeneratedValue
     public Integer id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false, columnDefinition = "varchar(1000)")
     private String refreshToken;
 
     @Enumerated(EnumType.STRING)

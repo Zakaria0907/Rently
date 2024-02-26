@@ -27,20 +27,39 @@ public enum Role {
                   ADMIN_UPDATE,
                   ADMIN_DELETE,
                   ADMIN_CREATE,
-                  MANAGER_READ,
-                  MANAGER_UPDATE,
-                  MANAGER_DELETE,
-                  MANAGER_CREATE
+                  COMPANY_READ,
+                  COMPANY_UPDATE,
+                  COMPANY_DELETE,
+                  COMPANY_CREATE
           )
   ),
-  MANAGER(
+  COMPANY(
           Set.of(
-                  MANAGER_READ,
-                  MANAGER_UPDATE,
-                  MANAGER_DELETE,
-                  MANAGER_CREATE
+                  COMPANY_READ,
+                  COMPANY_UPDATE,
+                  COMPANY_DELETE,
+                  COMPANY_CREATE
           )
-  )
+  ),
+
+  OWNER(
+          Set.of(
+                  OWNER_READ,
+                  OWNER_UPDATE,
+                  OWNER_DELETE,
+                  OWNER_CREATE
+          )
+    ),
+
+    RENTER(
+            Set.of(
+                    RENTER_READ,
+                    RENTER_UPDATE,
+                    RENTER_DELETE,
+                    RENTER_CREATE
+            )
+    )
+
 
   ;
 
