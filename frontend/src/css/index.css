@@ -68,13 +68,13 @@
   @apply dark:!border-meta-4 dark:!bg-meta-4 dark:!text-bodydark1;
 }
 .apexcharts-xaxistooltip-bottom:after {
-  @apply !border-b-gray dark:!border-b-meta-4;
+  @apply !border-b-customGray dark:!border-b-meta-4;
 }
 .apexcharts-xaxistooltip-bottom:before {
-  @apply !border-b-gray dark:!border-b-meta-4;
+  @apply !border-b-customGray dark:!border-b-meta-4;
 }
 .apexcharts-xaxistooltip-bottom {
-  @apply !rounded !border-none !bg-gray !text-xs !font-medium !text-black dark:!text-white;
+  @apply !rounded !border-none !bg-customGray !text-xs !font-medium !text-black dark:!text-white;
 }
 .apexcharts-tooltip-series-group {
   @apply !pl-1.5;
@@ -131,7 +131,7 @@ span.flatpickr-weekday,
 .flatpickr-day:focus,
 .flatpickr-day.prevMonthDay:focus,
 .flatpickr-day.nextMonthDay:focus {
-  @apply border-gray bg-gray dark:!border-meta-4 dark:!bg-meta-4;
+  @apply border-customGray bg-customGray dark:!border-meta-4 dark:!bg-meta-4;
 }
 .flatpickr-day.selected,
 .flatpickr-day.startRange,

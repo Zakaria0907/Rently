@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
+import ApiManager from '../api/ApiManager';
 import useAuth from './useAuth';
 
 // interface Auth {
@@ -10,11 +11,11 @@ const useRefreshToken = (): (() => Promise<string>) => {
     const { setAuth } = useAuth();
 
     const refresh = async (): Promise<string> => {
-        const response: AxiosResponse<{ user: any; access_token: string }> = await axios.get('/auth/refresh-token', {withCredentials: true });
+        const response: AxiosResponse<{ user: any; access_token: string }> = await ApiManager.refresh({});
         setAuth((prev: any) => {
             console.log("response.data in useRefreshToken", response?.data);
-            console.log("JSON.stringify.prev in useRefreshToken", JSON.stringify(prev));
-            console.log("response.data.access_token in useRefreshToken", response?.data?.access_token);
+            // console.log("JSON.stringify.prev in useRefreshToken", JSON.stringify(prev));
+            // console.log("response.data.access_token in useRefreshToken", response?.data?.access_token);
             return {
                 ...prev,
                 roles: response.data.user.role,

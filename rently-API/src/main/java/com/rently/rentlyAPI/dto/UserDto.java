@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
+import com.rently.rentlyAPI.entity.S3File;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
@@ -17,25 +18,23 @@ import lombok.Setter;
 public class UserDto {
 
     private Integer id;
-
-    @NotEmpty(message = "The first name is required")
-    @NotNull(message = "The first name is required")
+    
     @NotBlank(message = "The first name is required")
     private String firstname;
-
-    @NotEmpty(message = "The last name is required")
-    @NotNull(message = "The last name is required")
+    
     @NotBlank(message = "The last name is required")
     private String lastname;
-
-    @NotNull(message = "The email is required")
+    
+    @NotBlank(message = "The phone number is required")
+    private String phoneNumber;
+    
+    private String bio;
+    
     @NotBlank(message = "The email is required")
-    @NotEmpty(message = "The email is required")
     private String email;
 
     @Builder.Default
     private String role = Role.USER.name();
-
 
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
@@ -44,6 +43,8 @@ public class UserDto {
             .lastname(user.getLastname())
             .email(user.getEmail())
             .role(user.getRole().name())
+            .phoneNumber(user.getPhoneNumber())
+            .bio(user.getBio())
             .build();
     }
 
@@ -52,6 +53,8 @@ public class UserDto {
             .id(userDTO.getId())
             .firstname(userDTO.getFirstname())
             .lastname(userDTO.getLastname())
+            .phoneNumber(userDTO.getPhoneNumber())
+            .bio(userDTO.getBio())
             .email(userDTO.getEmail())
             .role(Role.valueOf(userDTO.getRole()))
             .build();

@@ -7,7 +7,7 @@ const getHeaders = () => {
 };
 
 class ApiMethods {
-    static apiRequest(method: string, url: any, body = {}, privateCall = false) {
+    static apiRequest(method: string, url: any, body = {}, withCredentials = false) {
         const options = {
             method: method,
             headers: getHeaders(),
@@ -20,7 +20,7 @@ class ApiMethods {
             options.data = body;
         }
 
-        if (privateCall) {
+        if (withCredentials) {
             options.withCredentials = true;
         }
 
@@ -29,20 +29,20 @@ class ApiMethods {
             .catch(error => Promise.reject(error));
     }
 
-    static get(url: any, privateCall = false) {
-        return this.apiRequest('GET', url, {}, privateCall);
+    static get(url: any, withCredentials = false) {
+        return this.apiRequest('GET', url, {}, withCredentials);
     }
 
-    static post(url: any, data: {} | undefined, privateCall = false) {
-        return this.apiRequest('POST', url, data, privateCall);
+    static post(url: any, data: {} | undefined, withCredentials = false) {
+        return this.apiRequest('POST', url, data, withCredentials);
     }
 
-    static put(url: any, data: {} | undefined, privateCall = false) {
-        return this.apiRequest('PUT', url, data, privateCall);
+    static put(url: any, data: {} | undefined, withCredentials = false) {
+        return this.apiRequest('PUT', url, data, withCredentials);
     }
 
-    static delete(url: any, privateCall = false) {
-        return this.apiRequest('DELETE', url, {}, privateCall);
+    static delete(url: any, withCredentials = false) {
+        return this.apiRequest('DELETE', url, {}, withCredentials);
     }
 }
 
