@@ -120,10 +120,11 @@ const Profile = () => {
                         </svg>
                       </span>
                       <input
-                        className="w-full rounded border border-stroke bg-customGray py-3 pl-11.5 pr-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
+                        className="w-full rounded border border-stroke bg-customGray py-3 pl-11.5 pr-4.5 text-black focus:border-primary active:border-primary disabled:cursor-default focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary"
                         type="email"
                         name="emailAddress"
                         id="emailAddress"
+                        disabled
                         placeholder="Email Address"
                         defaultValue={auth?.email}
                       />

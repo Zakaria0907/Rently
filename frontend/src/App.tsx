@@ -23,7 +23,8 @@ import FormLayout from "./pages/Form/FormLayout";
 import Chart from "./pages/Chart";
 import PropertyAndRentals from "./pages/PropertyAndRentals";
 import ManagementDashboard from "./pages/ManagementDashboard";
-import Buildings from "./pages/ManageBuilding";
+import ManageBuilding from "./pages/ManageBuilding";
+import ManageUnits from "./pages/ManageUnits";
 
 function App() {
   return (
@@ -126,7 +127,17 @@ function App() {
                 element={
                   <>
                     <PageTitle title="Manage Building | Rently Condo Management SAAS" />
-                    <Buildings />
+                    <ManageBuilding />
+                  </>
+                }
+              />
+
+              <Route
+                path="/manage-units"
+                element={
+                  <>
+                    <PageTitle title="Manage Units | Rently Condo Management SAAS" />
+                    <ManageUnits />
                   </>
                 }
               />
