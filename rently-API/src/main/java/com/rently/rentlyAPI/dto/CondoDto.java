@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
+import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
@@ -38,6 +39,8 @@ public class CondoDto {
     private CondoStatus status;
 
     private Integer userId;
+    
+    private Integer buildingId;
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()
@@ -49,6 +52,7 @@ public class CondoDto {
                 .description(condo.getDescription())
                 .status(condo.getStatus())
                 .userId(condo.getUser().getId())
+                .buildingId(condo.getBuilding().getId())
                 .build();
     }
 
@@ -62,6 +66,7 @@ public class CondoDto {
                 .description(condoDto.getDescription())
                 .status(condoDto.getStatus())
                 .user(User.builder().id(condoDto.getUserId()).build())
+                // Building is set in the service
                 .build();
     }
 

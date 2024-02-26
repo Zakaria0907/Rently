@@ -20,6 +20,14 @@ public class CompanyController {
 
     private final CompanyService companyService;
     
+    // ==== BUILDING ENDPOINTS ====
+    // Endpoint to create a building by companyId
+    @PostMapping("{company-id}/create-building" )
+    public ResponseEntity<BuildingDto> createBuilding(
+        @PathVariable (value = "company-id") Integer companyId, @RequestBody BuildingDto buildingDto) {
+        return ResponseEntity.ok(companyService.createBuildingByCompanyId(companyId, buildingDto));
+    }
+    
     // Endpoint to get a building by companyId and buildingId
     @GetMapping("/{companyId}/building/{buildingId}")
     public ResponseEntity<BuildingDto> getBuildingByCompanyIdAndBuildingId(@PathVariable("companyId") Integer companyId, @PathVariable("buildingId") Integer buildingId) {
@@ -27,25 +35,62 @@ public class CompanyController {
         return ResponseEntity.ok(building);
     }
     
+    //TODO: Endpoint to update a building by companyId and buildingId
+    @PutMapping("/{companyId}/building/{buildingId}/update")
+    public ResponseEntity<BuildingDto> updateBuildingByCompanyIdAndBuildingId(@PathVariable("companyId") Integer companyId, @PathVariable("buildingId") Integer buildingId, @RequestBody BuildingDto buildingDto) {
+//        return ResponseEntity.ok(companyService.updateBuildingByCompanyIdAndBuildingId(companyId, buildingId, buildingDto));
+        return null;
+    }
+    
     // Endpoint to get all buildings by companyId
-    @GetMapping("/building/all/{companyId}")
+    @GetMapping("{companyId}/building/all")
     public ResponseEntity<List<BuildingDto>> getAllBuildingsByCompanyId(@PathVariable("companyId") Integer companyId) {
         List<BuildingDto> buildings = companyService.getAllBuildingsByCompanyId(companyId);
         return ResponseEntity.ok(buildings);
     }
     
-    // Endpoint to create a building by companyId
-    @PostMapping("/create-building/{company-id}" )
-    public ResponseEntity<BuildingDto> createBuilding(@PathVariable (value = "company-id") Integer companyId, @RequestBody BuildingDto buildingDto) {
-        return ResponseEntity.ok(companyService.createBuildingByCompanyId(companyId, buildingDto));
+    
+    // ==== CONDOS ENDPOINTS ====
+    // Endpoint to create a condo by companyId and buildingId
+    @PostMapping("{company-id}/building/{building-id}/create-condo" )
+    public ResponseEntity<CondoDto> createCondo(
+        @PathVariable (value = "company-id") Integer companyId,
+        @PathVariable (value = "building-id") Integer buildingId,
+        @RequestBody CondoDto condoDto)
+    {
+        return ResponseEntity.ok(companyService.createCondoByCompanyId(companyId, buildingId, condoDto));
     }
     
-    //TODO: modify the endpoint to associate the condo with the building
-    @PostMapping("/create-condo/{company-id}" )
-    public ResponseEntity<CondoDto> createCondo(@PathVariable (value = "company-id") Integer companyId, @RequestBody CondoDto condoDto) {
-        return ResponseEntity.ok(companyService.createCondoByCompanyId(companyId, condoDto));
+    // TODO: Endpoint to get a condo by buildingId and condoId
+    @GetMapping("{buildingId}/condo/{condoId}")
+    public ResponseEntity<CondoDto> getCondoByBuildingIdAndCondoId(@PathVariable("buildingId") Integer buildingId, @PathVariable("condoId") Integer condoId) {
+//        CondoDto condo = companyService.getCondoByBuildingIdAndCondoId(buildingId, condoId);
+//        return ResponseEntity.ok(condo);
+        return null;
     }
     
+    // TODO: Endpoint to update a condo by buildingId and condoId
+    @PutMapping("{buildingId}/condo/{condoId}/update")
+    public ResponseEntity<CondoDto> updateCondoByBuildingIdAndCondoId(@PathVariable("buildingId") Integer buildingId, @PathVariable("condoId") Integer condoId, @RequestBody CondoDto condoDto) {
+//        return ResponseEntity.ok(companyService.updateCondoByBuildingIdAndCondoId(buildingId, condoId, condoDto));
+        return null;
+    }
+    
+    // Endpoint to get the count of condos by buildingId
+    @GetMapping("{buildingId}/count-condos")
+    public ResponseEntity<Integer> countCondosById(@PathVariable("buildingId") Integer buildingId) {
+        return ResponseEntity.ok(companyService.countCondosById(buildingId));
+    }
+    
+    // Endpoint to get all condos by buildingId
+    @GetMapping("{buildingId}/condos/all")
+    public ResponseEntity<List<CondoDto>> findAllCondosByBuildingId(@PathVariable("buildingId") Integer buildingId) {
+        List<CondoDto> condos = companyService.findAllCondosByBuildingId(buildingId);
+        return ResponseEntity.ok(condos);
+    }
+    
+    
+    // ==== ACTIVATION KEY ENDPOINTS ====
     @PostMapping("/generate-renter-key/{company-id}")
     public ResponseEntity<KeyDto> createActivationKeyToBecomeRenter (@PathVariable (value = "company-id") Integer companyId,@RequestParam String userEmail) {
         return ResponseEntity.ok(companyService.createActivationKeyToBecomeRenter(userEmail, companyId));

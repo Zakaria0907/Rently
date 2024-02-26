@@ -25,7 +25,7 @@ public class BuildingDto {
 	@NotBlank(message = "Address is required")
 	private String address;
 	
-	private Integer unitCount;
+//	private Integer unitCount;
 	
 	private String description;
 	
@@ -37,7 +37,7 @@ public class BuildingDto {
 				.id(building.getId())
 				.name(building.getName())
 				.address(building.getAddress())
-				.unitCount(building.getUnitCount())
+//				.unitCount(building.getUnitCount())
 				.description(building.getDescription())
 				.userId(building.getCompany() != null ? building.getCompany().getId() : null)
 				.build();
@@ -49,7 +49,7 @@ public class BuildingDto {
 				.id(buildingDto.getId())
 				.name(buildingDto.getName())
 				.address(buildingDto.getAddress())
-				.unitCount(buildingDto.getUnitCount() != null ? buildingDto.getUnitCount() : 0)
+//				.unitCount(buildingDto.getUnitCount() != null ? buildingDto.getUnitCount() : 0)
 				.description(buildingDto.getDescription())
 				// Note: The company (User) is set in the service
 				.build();

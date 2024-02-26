@@ -23,8 +23,9 @@ public class Building extends AbstractEntity {
 	@NotBlank(message = "Address is required")
 	private String address;
 	
-	@Column(nullable = false, columnDefinition = "int default 0")
-	private Integer unitCount;
+	//TODO: remove and make query for this
+//	@Column(nullable = false, columnDefinition = "int default 0")
+//	private Integer unitCount;
 	
 	private String description;
 	
