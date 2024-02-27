@@ -1,36 +1,35 @@
 import React from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import ChartOne from '../../components/Charts/ChartOne';
-import ChartThree from '../../components/Charts/ChartThree';
 import ChartTwo from '../../components/Charts/ChartTwo';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
-import { GrUserWorker } from "react-icons/gr";
 import { FaRegBuilding, FaRegUser } from "react-icons/fa";
+import { BsReceipt } from "react-icons/bs";
 
 
-const ManagementDashboard: React.FC = () => {
+const UserDashboard: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
 
     React.useEffect(() => {
         const cards = [
             {
-                title: 'Buildings',
-                count: 2,
-                link: '/manage-building',
+                title: 'Random',
+                count: 10,
+                link: '/manage-units',
                 icon: <FaRegBuilding className="mt-1 text-xl" />,
             },
             {
-                title: 'Owners',
-                count: 10,
-                link: '/owners',
+                title: 'Random',
+                count: 9,
+                link: '/renters',
                 icon: <FaRegUser className="mt-1 text-xl" />,
             },
             {
-                title: 'Employees',
+                title: 'Random',
                 count: 7,
-                link: '/employees',
-                icon: <GrUserWorker className="mt-1 text-xl" />,
+                link: '/unit-fees',
+                icon: <BsReceipt className="mt-1 text-xl" />,
             },
         ];
 
@@ -39,7 +38,7 @@ const ManagementDashboard: React.FC = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Management Company Dashboard" />
+            <Breadcrumb pageName="Owner Dashboard" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
                     cardCollection.map((card, index) => {
@@ -74,12 +73,8 @@ const ManagementDashboard: React.FC = () => {
                     })
                 }
             </div>
-            <div className="grid grid-cols-12 gap-4 md:gap-6 2xl:gap-7.5">
-                <ChartOne />
-                <ChartTwo />
-            </div>
         </DefaultLayout>
     );
 };
 
-export default ManagementDashboard;
+export default UserDashboard;

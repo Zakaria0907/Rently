@@ -1,9 +1,15 @@
 export enum Roles {
-    USER = "USER",
     ADMIN = "ADMIN",
+    USER = "USER",
+    RENTER = "RENTER",
+    OWNER = "OWNER",
+    COMPANY= "COMPANY",
 }
 
 export enum RoleText {
-    USER = "Public User",
     ADMIN = "Administator",
+    USER = "Public User",
+    RENTER = "Renter",
+    OWNER = "Owner",
+    COMPANY = "Management Company",
 }

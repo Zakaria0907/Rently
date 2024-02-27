@@ -45,7 +45,7 @@ const Login = () => {
             setUserName("");
             setPwd("");
             // navigate(from, { replace: true }); // PUT IT BACK AFTER
-            navigate("/profile");
+            navigate("/login-success");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg("No Server Response");

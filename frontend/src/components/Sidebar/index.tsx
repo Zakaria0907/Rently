@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
-// import Logo from '../../images/logo/logo.svg';
 import RentlyLogo from '../../images/icon/rently-logo.svg?react';
-import { FaRegBuilding, FaRegUser } from "react-icons/fa";
-import { RxDashboard } from "react-icons/rx";
-import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
-import { IoIosArrowDown } from "react-icons/io";
+import useAuth from '../../hooks/useAuth';
+import CompanySidebar from '../../pages/CompanyPages/CompanySidebar';
+import OwnerSidebar from '../../pages/OwnerPages/OwnerSidebar';
+import UserSidebar from '../../pages/UserPages/UserSidebar';
+import { Roles } from '../../types/enums'; 
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -16,6 +16,8 @@ interface SidebarProps {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
+
+  const { auth } = useAuth();
 
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
@@ -105,146 +107,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           {/* <!-- Menu Group --> */}
           <div>
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              MENU
+              {auth.roles} MENU
             </h3>
-
-            <ul className="mb-6 flex flex-col gap-1.5">
-
-              {/* <!-- Menu Item Dashboard --> */}
-              <li>
-                <NavLink
-                  to="/management-dashboard"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
-                    'bg-graydark dark:bg-meta-4'
-                    }`}
-                >
-                  <RxDashboard />
-                  Dashboard
-                </NavLink>
-              </li>
-              {/* <!-- Menu Item Dashboard --> */}
-
-
-              {/* <!-- Menu Item Profile --> */}
-              <li>
-                <NavLink
-                  to="/profile"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('profile') && 'bg-graydark dark:bg-meta-4'
-                    }`}
-                >
-                  <FaRegUser />
-                  Profile
-                </NavLink>
-              </li>
-              {/* <!-- Menu Item Profile --> */}
-
-              {/* <!-- Menu Item Buildings --> */}
-              <SidebarLinkGroup
-                activeCondition={
-                  pathname === '/' || pathname.includes('dashboard')
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <NavLink
-                        to="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === '/' ||
-                          pathname.includes('dashboard')) &&
-                          'bg-graydark dark:bg-meta-4'
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <FaRegBuilding />
-                        Buildings
-                        <IoIosArrowDown className={`ml-auto transform ${open && '-rotate-180'}`} />
-                      </NavLink>
-                      {/* <!-- Dropdown Menu Start --> */}
-                      <div
-                        className={`translate transform overflow-hidden ${!open && 'hidden'
-                          }`}
-                      >
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <NavLink
-                              to="/manage-building"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              All
-                            </NavLink>
-                          </li>
-                        </ul>
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <NavLink
-                              to="/my-properties-and-rentals"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              Building 1
-                            </NavLink>
-                          </li>
-                        </ul>
-                        <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
-                          <li>
-                            <NavLink
-                              to="/my-properties-and-rentals"
-                              className={({ isActive }) =>
-                                'group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ' +
-                                (isActive && '!text-white')
-                              }
-                            >
-                              Building 2
-                            </NavLink>
-                          </li>
-                        </ul>
-                      </div>
-                      {/* <!-- Dropdown Menu End --> */}
-                    </React.Fragment>
-                  );
-                }}
-              </SidebarLinkGroup>
-              {/* <!-- Menu Item Buildings --> */}
-
-              {/* <!-- Menu Item Calendar --> */}
-              <li>
-                <NavLink
-                  to="/calendar"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
-                    'bg-graydark dark:bg-meta-4'
-                    }`}
-                >
-                  <IoCalendarOutline />
-                  Reservations
-                </NavLink>
-              </li>
-              {/* <!-- Menu Item Calendar --> */}
-
-
-              {/* <!-- Menu Item Settings --> */}
-              <li>
-                <NavLink
-                  to="/settings"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                    'bg-graydark dark:bg-meta-4'
-                    }`}
-                >
-                  <IoSettingsOutline />
-                  Settings
-                </NavLink>
-              </li>
-              {/* <!-- Menu Item Settings --> */}
-            </ul>
+            {
+              auth.roles === Roles.COMPANY && <CompanySidebar />
+            }
+            {
+              auth.roles === Roles.OWNER && <OwnerSidebar />
+            }
+            {
+              auth.roles === Roles.USER && <UserSidebar />
+            }
           </div>
 
           {/* <!-- Others Group --> */}

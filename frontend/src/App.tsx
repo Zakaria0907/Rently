@@ -22,11 +22,13 @@ import FormElements from "./pages/Form/FormElements";
 import FormLayout from "./pages/Form/FormLayout";
 import Chart from "./pages/Chart";
 import PropertyAndRentals from "./pages/PropertyAndRentals";
-import ManagementDashboard from "./pages/CompanyPages/ManagementDashboard";
+import CompanyDashboard from "./pages/CompanyPages/CompanyDashboard";
 import ManageBuilding from "./pages/CompanyPages/ManageBuilding";
 import ManageUnits from "./pages/CompanyPages/ManageUnits";
 import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
 import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
+import RoleBasedRedirect from "./utils/RoleBaseRedirect";
+import UserDashboard from "./pages/UserPages/UserDashBoard";
 
 function App() {
   return (
@@ -42,18 +44,68 @@ function App() {
             {/* protected routes */}
             <Route element={<PersistLogin />}>
 
+              {/* route to allow role-based redirection*/}
+              <Route path="/login-success" element={<RoleBasedRedirect />} />
+
               {/* admin routes */}
               <Route element={<RequireAuth allowedRoles={[Roles.ADMIN]} />}>
                 <Route path="welcomeAdmin" element={<Welcome />} />
+
+                <Route
+                  path="/admin-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
               </Route>
 
               {/* user routes */}
               <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
                 <Route path="welcome" element={<Welcome />} />
+
+                <Route
+                  path="/user-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/user-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="User Dashboard | Rently Condo Management SAAS" />
+                      <UserDashboard />
+                    </>
+                  }
+                />
+
+
+              </Route>
+
+              {/* renter routes */}
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.RENTER]} />}>
+                <Route path="welcomeAdmin" element={<Welcome />} />
+
+                <Route
+                  path="/renter-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
               </Route>
 
               {/* owner routes*/}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.OWNER]} />}>
                 <Route path="welcomeOwner" element={<Welcome />} />
                 <Route
                   path="/owner-dashboard"
@@ -74,18 +126,48 @@ function App() {
                     </>
                   }
                 />
+
+                <Route
+                  path="/owner-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/owner-calendar"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <Calendar />
+                    </>
+                  }
+                />
               </Route>
 
               {/*management company routes, once it is in the backend, we can enforce the role*/}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />}>
                 <Route path="welcome" element={<Welcome />} />
 
                 <Route
-                  path="/management-dashboard"
+                  path="/company-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/company-dashboard"
                   element={
                     <>
                       <PageTitle title="Management Dashboard | Rently Condo Management SAAS" />
-                      <ManagementDashboard />
+                      <CompanyDashboard />
                     </>
                   }
                 />
@@ -99,17 +181,9 @@ function App() {
                     </>
                   }
                 />
+
                 <Route
-                  path="/profile"
-                  element={
-                    <>
-                      <PageTitle title="Profile | Rently Condo Management SAAS" />
-                      <Profile />
-                    </>
-                  }
-                />
-                <Route
-                  path="/calendar"
+                  path="/company-calendar"
                   element={
                     <>
                       <PageTitle title="Calendar | Rently Condo Management SAAS" />

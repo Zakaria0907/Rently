@@ -23,6 +23,8 @@ const Buildings: React.FC = () => {
     const [buildings, setBuildings] = React.useState<any[]>([]);
     const [addBuildingPopup, setAddBuildingPopup] = React.useState(false);
 
+    const axiosPrivate = useAxiosPrivate();
+
     const toggleAddBuildingPopup = () => {
         setAddBuildingPopup(((prev) => !prev));
     };
