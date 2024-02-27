@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.entity;
+package com.rently.rentlyAPI.entity.enums;
 
 public enum FileType {
 	//document
