@@ -48,6 +48,7 @@ const Profile = () => {
         {
           headers: {
             'Content-Type': 'multipart/form-data', // Adjusted header for formData
+            withCredentials: false,
           },
         }
       );
@@ -60,7 +61,7 @@ const Profile = () => {
   const handleProfileUpdate = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     try {
-      const response = await axiosPrivate.post('/users/update-profile/1',
+      const response = await axiosPrivate.patch('/users/update-profile/1',
         JSON.stringify({
           firstname: firstName,
           lastname: lastName,
@@ -70,7 +71,7 @@ const Profile = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            withCredentials: true,
+            withCredentials: false,
           },
         }
       );

@@ -22,9 +22,11 @@ import FormElements from "./pages/Form/FormElements";
 import FormLayout from "./pages/Form/FormLayout";
 import Chart from "./pages/Chart";
 import PropertyAndRentals from "./pages/PropertyAndRentals";
-import ManagementDashboard from "./pages/ManagementDashboard";
-import ManageBuilding from "./pages/ManageBuilding";
-import ManageUnits from "./pages/ManageUnits";
+import ManagementDashboard from "./pages/CompanyPages/ManagementDashboard";
+import ManageBuilding from "./pages/CompanyPages/ManageBuilding";
+import ManageUnits from "./pages/CompanyPages/ManageUnits";
+import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
+import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 
 function App() {
   return (
@@ -48,6 +50,30 @@ function App() {
               {/* user routes */}
               <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
                 <Route path="welcome" element={<Welcome />} />
+              </Route>
+
+              {/* owner routes*/}
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+                <Route path="welcomeOwner" element={<Welcome />} />
+                <Route
+                  path="/owner-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="Owner Dashboard | Rently Condo Management SAAS" />
+                      <OwnerDashboard />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/manage-units"
+                  element={
+                    <>
+                      <PageTitle title="Manage Units | Rently Condo Management SAAS" />
+                      <OwnerManageUnits />
+                    </>
+                  }
+                />
               </Route>
 
               {/*management company routes, once it is in the backend, we can enforce the role*/}
@@ -133,7 +159,7 @@ function App() {
               />
 
               <Route
-                path="/manage-units"
+                path="/manage-building/building/:buildingId"
                 element={
                   <>
                     <PageTitle title="Manage Units | Rently Condo Management SAAS" />

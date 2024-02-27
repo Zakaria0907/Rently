@@ -1,15 +1,16 @@
 import React from 'react';
-import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
-import DefaultLayout from './DefaultLayout';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
+import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
-import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
 import { FaRegBuilding } from "react-icons/fa";
-import { IoIosAddCircleOutline } from 'react-icons/io';
 
 
 
-const Buildings: React.FC = () => {
+const OwnerManageUnits: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
+    const [units, setUnits] = React.useState<any[]>([]);
+
 
     React.useEffect(() => {
         const cards = [
@@ -67,13 +68,8 @@ const Buildings: React.FC = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Manage Units" />
-            <div className="flex items-center ">
-                <button className="flex items-center bg-primary text-white rounded-md px-3 py-2 gap-2 mb-4 hover:bg-indigo-500">
-                    <span className="mr-2">Add Unit</span>
-                    <IoIosAddCircleOutline className="text-white text-xl" />
-                </button>
-            </div>
+            <Breadcrumb pageName={`Manage Units`} />
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
                     cardCollection.map((card, index) => {
@@ -113,4 +109,4 @@ const Buildings: React.FC = () => {
     );
 };
 
-export default Buildings;
+export default OwnerManageUnits;

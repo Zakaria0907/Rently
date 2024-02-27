@@ -6,12 +6,14 @@ interface AddPropertyPopupProps {
     addProperty: (property: any) => void;
 }
 
-const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty }: AddPropertyPopupProps) => {
+const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty }: AddPropertyPopupProps) => {
     const [property, setProperty] = useState({
         id: Math.random().toString(36).substring(2, 15),
         name: "",
         address: "",
     });
+
+    const [availableForRent, setAvailableForRent] = useState(false);
 
     return (
         <div
@@ -27,7 +29,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
 
                 <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
                     <h3 className="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
-                        Add a new Building
+                        Add a new Unit
                     </h3>
                     <p className="mt-2 text-sm text-gray-500">
                         This will add a property to your property list
@@ -37,7 +39,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
                         <div className="flex flex-col gap-5.5 ">
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    Building Name
+                                    Unit Name
                                 </label>
                                 <input
                                     type="text"
@@ -59,7 +61,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
 
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    Unit Count
+                                    Unit Number
                                 </label>
                                 <input
                                     type="number"
@@ -79,45 +81,32 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
                                 ></textarea>
                             </div>
 
+
+                            <div className='mb-3 block text-black dark:text-white'>
+                                Unit Available for Rent
+                                <label
+                                    htmlFor="toggle1"
+                                    className="flex cursor-pointer select-none items-center py-3"
+                                >
+                                    <div className="relative">
+                                        <input
+                                            type="checkbox"
+                                            id="toggle1"
+                                            className="sr-only"
+                                            onChange={() => {
+                                                setAvailableForRent(!availableForRent);
+                                            }}
+                                        />
+                                        <div className="block h-8 w-14 rounded-full bg-meta-9 dark:bg-[#5A616B]"></div>
+                                        <div
+                                            className={`absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition ${availableForRent && '!right-1 !translate-x-full !bg-primary dark:!bg-white'
+                                                }`}
+                                        ></div>
+                                    </div>
+                                </label>
+                            </div>
+
                         </div>
-
-
-                        {/* 
-                        <label htmlFor="emails-list" className="text-sm text-gray-700">
-                            Property Name
-                        </label>
-
-                        <label className="block mt-3" htmlFor="email">
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Property Name"
-                                className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setProperty({ ...property, name: e.target.value })
-                                }
-                                value={property.name}
-                            />
-                        </label>
-
-                        <label htmlFor="emails-list" className="text-sm text-gray-700">
-                            Address
-                        </label>
-
-                        <label className="block mt-3" htmlFor="email">
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="1234 Main St, City, State, 12345"
-                                className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setProperty({ ...property, address: e.target.value })
-                                }
-                                value={property.address}
-                            />
-                        </label> */}
 
                         <div className="mt-4 sm:flex sm:items-center sm:-mx-2">
                             <button
@@ -143,4 +132,4 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
     );
 };
 
-export default AddPropertyPopup;
+export default AddUnitPopup;
