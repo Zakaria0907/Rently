@@ -11,13 +11,13 @@ public class ObjectValidationExceptionTest {
 
     Set<String> mockedSet = mock(Set.class);
     @Test
-    public void testGettersAndSetters() {
+    public void testConstructorAndGetters() {
         // Arrange
         ObjectValidationException testObjectValidationException = new ObjectValidationException(mockedSet, "Hello");
 
         // Act
 
-        
+
         // Assert
         assertEquals(mockedSet, testObjectValidationException.getViolations());
         assertEquals("Hello", testObjectValidationException.getViolationSource());
