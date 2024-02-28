@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class UpdateProfileRequestDtoTest {
 
     @Test
-    public void testArgsConstructor() {
+    public void testSetters() {
         // Arrange
         UpdateProfileRequestDto testUpdateProfileRequestDto = new UpdateProfileRequestDto();
         testUpdateProfileRequestDto.setFirstname("Bing");
