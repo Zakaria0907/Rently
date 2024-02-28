@@ -1,16 +1,10 @@
 package com.rently.rentlyAPI.dto;
 
 import com.rently.rentlyAPI.entity.Building;
-import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.User;
-import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class BuildingDtoTest {
 
