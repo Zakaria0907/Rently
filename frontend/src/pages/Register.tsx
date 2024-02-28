@@ -15,10 +15,12 @@ const NAME_REGEX =
     /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = "/auth/register";
+const PHONE_REGEX = /^[0-9]{10}$/;
 
 const Register = (): JSX.Element => {
     const firstNameRef = useRef<HTMLInputElement>(null);
     const lastNameRef = useRef<HTMLInputElement>(null);
+    const phoneNumberRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
 
@@ -33,6 +35,10 @@ const Register = (): JSX.Element => {
     const [email, setEmail] = useState<string>("");
     const [validEmail, setValidEmail] = useState<boolean>(false);
     const [emailFocus, setEmailFocus] = useState<boolean>(false);
+
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
+    const [validPhoneNumber, setValidPhoneNumber] = useState<boolean>(false);
+    const [phoneNumberFocus, setPhoneNumberFocus] = useState<boolean>(false);
 
     const [pwd, setPwd] = useState<string>("");
     const [validPwd, setValidPwd] = useState<boolean>(false);
@@ -75,6 +81,13 @@ const Register = (): JSX.Element => {
     }, [email]);
 
     useEffect(() => {
+        const result = PHONE_REGEX.test(phoneNumber);
+        console.log(result);
+        console.log(phoneNumber);
+        setValidPhoneNumber(result);
+    }, [phoneNumber]);
+
+    useEffect(() => {
         const result = PWD_REGEX.test(pwd);
         console.log(result);
         console.log(pwd);
@@ -85,13 +98,14 @@ const Register = (): JSX.Element => {
 
     useEffect(() => {
         setErrMsg("");
-    }, [firstName, lastName, email, pwd, matchPwd]);
+    }, [firstName, lastName, email, pwd, matchPwd, phoneNumber]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         const confirmFirstName = NAME_REGEX.test(firstName);
         const confirmLastName = NAME_REGEX.test(lastName);
         const confirmEmail = EMAIL_REGEX.test(email);
+        const confirmPhoneNumber = PHONE_REGEX.test(phoneNumber);
         const confirmPwd = PWD_REGEX.test(pwd);
         if (!confirmFirstName || !confirmLastName || !confirmEmail || !confirmPwd) {
             setErrMsg("Invalid Entry/Entries");
@@ -100,7 +114,7 @@ const Register = (): JSX.Element => {
         try {
             const response: any = await axios.post(
                 REGISTER_URL,
-                JSON.stringify({ firstname: firstName, lastname: lastName, email: email, password: pwd, role: "USER" }),
+                JSON.stringify({ firstname: firstName, lastname: lastName, email: email, phoneNumber: phoneNumber, password: pwd, role: "USER" }),
                 {
                     headers: { "Content-Type": "application/json" },
                     withCredentials: true,
@@ -256,6 +270,42 @@ const Register = (): JSX.Element => {
                         >
                             <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
                             Please enter a valid email address.
+                        </p>
+                    </FormContainer>
+
+                    <FormContainer>
+                        <Label htmlFor="phoneNumber">
+                            Phone Number
+                            <FontAwesomeIcon
+                                icon={faCheck}
+                                className={`ml-2 ${validPhoneNumber ? "text-green-500" : "hidden"}`}
+                            />
+                            <FontAwesomeIcon
+                                icon={faTimes}
+                                className={`ml-2 ${validPhoneNumber || !phoneNumber ? "hidden" : "text-red-500"}`}
+                            />
+                        </Label>
+                        <Input
+                            type="text"
+                            id="phoneNumber"
+                            ref={phoneNumberRef}
+                            autoComplete="off"
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                            value={phoneNumber}
+                            required
+                            aria-invalid={validPhoneNumber ? "false" : "true"}
+                            aria-describedby="phonenote"
+                            onFocus={() => setPhoneNumberFocus(true)}
+                            onBlur={() => setPhoneNumberFocus(false)}
+                            className="mb-2"
+                        />
+
+                        <p
+                            id="phonenote"
+                            className={`mb-2 ${phoneNumberFocus && phoneNumber && !validPhoneNumber ? "block" : "hidden"}`}
+                        >
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-2" />
+                            Please enter a valid phone number.
                         </p>
                     </FormContainer>
 

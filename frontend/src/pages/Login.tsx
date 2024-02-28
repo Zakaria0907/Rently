@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import ApiManager from "../api/ApiManager";
+import { User } from "../types/types";
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -35,14 +36,20 @@ const Login = () => {
         try {
             const response: any = await ApiManager.login({ email: userName, password: pwd });
             console.log("marker: ", JSON.stringify(response?.data));
-            const access_token = response?.data?.access_token;
-            const roles = response?.data?.user?.role;
-            const company = response?.data?.companyname;
-            setAuth({ user: userName, pwd, roles, access_token, company });
+            const user: User = {
+                id: response?.data?.user?.id,
+                firstname: response?.data?.user?.firstname,
+                lastname: response?.data?.user?.lastname,
+                phoneNumber: response?.data?.user?.phoneNumber,
+                bio: response?.data?.user?.bio,
+                email: response?.data?.user?.email,
+                roles: response?.data?.user?.role,
+            }
+            setAuth(user);
             setUserName("");
             setPwd("");
             // navigate(from, { replace: true }); // PUT IT BACK AFTER
-            navigate("/profile");
+            navigate("/login-success");
         } catch (err: any) {
             if (!err?.response) {
                 setErrMsg("No Server Response");
