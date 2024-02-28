@@ -24,9 +24,6 @@ const ManageUnits: React.FC = () => {
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
 
-    const toggleAddUnitPopup = () => {
-        setAddUnitPopup(((prev) => !prev));
-    };
 
 
 
@@ -47,6 +44,18 @@ const ManageUnits: React.FC = () => {
             console.error(error);
         }
     };
+
+    
+    const toggleAddUnitPopup = () => {
+        setAddUnitPopup(((prev) => !prev));
+    };
+
+    const handleSettingsClick = (unit: Unit) => {
+        console.log('Settings Clicked');
+        setSelectedUnit(unit);
+        setEditUnitPopup(true);
+    }
+
 
     useEffect(() => {
         const cards = [
@@ -98,11 +107,6 @@ const ManageUnits: React.FC = () => {
         setCardCollection(cards);
     }, []);
 
-    const handleSettingsClick = (unit: Unit) => {
-        console.log('Settings Clicked');
-        setSelectedUnit(unit);
-        setEditUnitPopup(true);
-    }
 
     return (
         <DefaultLayout>

@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Building } from '../types/types';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
-interface AddPropertyPopupProps {
+interface EditPropertyPopupProps {
     closeModal: () => void;
     userId: number;
+    selectedBuilding: Building;
 }
 
-const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId }: AddPropertyPopupProps) => {
+const EditPropertyPopup: React.FC<EditPropertyPopupProps> = ({ closeModal, userId, selectedBuilding }: EditPropertyPopupProps) => {
     const [building, setBuilding] = useState<Building>({
-        name: '',
-        address: '',
-        unitCount: 0,
-        description: '',
+        name: selectedBuilding.name,
+        address: selectedBuilding.address,
+        unitCount: selectedBuilding.unitCount ?? 0,
+        description: selectedBuilding.description,
     });
 
     const axiosPrivate = useAxiosPrivate();
@@ -21,7 +22,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
     const addBuilding = async () => {
         console.log("Adding this building: ", building);
         try {
-            await axiosPrivate.post(`/company/${userId}/create-building`, building);
+            await axiosPrivate.patch(`/company/${userId}/create-building`, building);
             closeModal();
         } catch (error) {
             console.log(error);
@@ -29,7 +30,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
     }
 
     const enableAddButton = () => {
-        return building.name.length > 0 && building.address.length > 0 && building.unitCount! > 0 && building.description.length > 0;
+        return building.name.length > 0 && building.address.length > 0 && building.description.length > 0;
     }
 
 
@@ -66,6 +67,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                         setBuilding({ ...building, name: e.target.value })
                                     }
+                                    value={building.name}
                                 />
                             </div>
 
@@ -80,6 +82,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                         setBuilding({ ...building, address: e.target.value })
                                     }
+                                    value={building.address}
                                 />
                             </div>
 
@@ -94,6 +97,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                         setBuilding({ ...building, unitCount: parseInt(e.target.value) })
                                     }
+                                    value={building.unitCount}
                                 />
                             </div>
 
@@ -108,6 +112,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                                         setBuilding({ ...building, description: e.target.value })
                                     }
+                                    value={building.description}
                                 ></textarea>
                             </div>
 
@@ -137,4 +142,4 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
     );
 };
 
-export default AddPropertyPopup;
+export default EditPropertyPopup;

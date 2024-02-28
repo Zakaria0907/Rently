@@ -18,11 +18,12 @@ export interface User {
 }
 
 export interface Building {
-    id: number;
+    id?: number;
     name: string;
     address: string;
+    unitCount?: number;
     description: string;
-    userId: number;
+    userId?: number;
 }
 
 export type Unit = {
