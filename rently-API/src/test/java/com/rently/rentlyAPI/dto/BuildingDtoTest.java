@@ -17,8 +17,7 @@ public class BuildingDtoTest {
     @Test
     public void testFromEntity() {
         // Arrange
-        mockedUser.setId(1);
-        mockedBuilding.setCompany(mockedUser);
+        when(mockedBuilding.getCompany()).thenReturn(mockedUser);
         when(mockedBuilding.getCompany()).thenReturn(mockedUser);
         when(mockedUser.getId()).thenReturn(1);
 
