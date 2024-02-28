@@ -53,6 +53,6 @@ public class FileUploadExceptionTest {
         assertEquals(mockedSdkClientException.getMessage(), testFileUploadException.getMessage());
 
     }
-    
+
 
 }
