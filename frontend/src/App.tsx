@@ -28,7 +28,7 @@ import ManageUnits from "./pages/CompanyPages/ManageUnits";
 import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
 import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 import RoleBasedRedirect from "./utils/RoleBaseRedirect";
-import UserDashboard from "./pages/UserPages/UserDashBoard";
+import UserDashboard from "./pages/UserPages/UserDashboard";
 
 function App() {
   return (

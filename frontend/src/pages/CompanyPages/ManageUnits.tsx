@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
@@ -7,25 +7,48 @@ import { FaRegBuilding } from "react-icons/fa";
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { useParams } from 'react-router-dom';
 import AddUnitPopup from '../../components/AddUnitPopup';
+import useAuth from '../../hooks/useAuth';
+import { Unit } from '../../types/types';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import EditUnitPopup from '../../components/EditUnitPopup';
 
 
 
 const ManageUnits: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
     const { buildingId } = useParams<{ buildingId: string }>();
-    const [units, setUnits] = React.useState<any[]>([]);
+    const [units, setUnits] = React.useState<Unit[]>([]);
     const [addUnitPopup, setAddUnitPopup] = React.useState(false);
+    const [editUnitPopup, setEditUnitPopup] = React.useState(false);
+    const [selectedUnit, setSelectedUnit] = React.useState<Unit | undefined>(undefined);
+    const { auth } = useAuth();
+    const axiosPrivate = useAxiosPrivate();
 
     const toggleAddUnitPopup = () => {
         setAddUnitPopup(((prev) => !prev));
     };
 
-    const addUnit = (unit: any) => {
-        toggleAddUnitPopup();
-        console.log(unit);
+
+
+    useEffect(() => {
+        fetchUnits();
+    }, [addUnitPopup]);
+
+    useEffect(() => {
+        fetchUnits();
+    }, []);
+
+    const fetchUnits = async () => {
+        try {
+            const response = await axiosPrivate.get(`/company/building/${buildingId}/condos/all`);
+            console.log("Units fetched: ", response.data);
+            setUnits(response.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
-    React.useEffect(() => {
+    useEffect(() => {
         const cards = [
             {
                 unitId: 1,
@@ -75,8 +98,10 @@ const ManageUnits: React.FC = () => {
         setCardCollection(cards);
     }, []);
 
-    const handleSettingsClick = () => {
+    const handleSettingsClick = (unit: Unit) => {
         console.log('Settings Clicked');
+        setSelectedUnit(unit);
+        setEditUnitPopup(true);
     }
 
     return (
@@ -93,20 +118,24 @@ const ManageUnits: React.FC = () => {
             </div>
 
             {
-                addUnitPopup && <AddUnitPopup closeModal={toggleAddUnitPopup} addProperty={addUnit} />
+                addUnitPopup && <AddUnitPopup closeModal={toggleAddUnitPopup} userId={parseInt(auth.id ?? '')} buildingId={parseInt(buildingId ?? '')} />
+            }
+
+            {
+                editUnitPopup && selectedUnit && <EditUnitPopup closeModal={() => setEditUnitPopup(false)} selectedUnit={selectedUnit} userId={parseInt(auth.id ?? '')} buildingId={parseInt(buildingId ?? '')} />
             }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
-                    cardCollection.map((card, index) => {
+                    units.map((card, index) => {
                         return (
                             <div key={index} className="bg-white rounded-md border border-gray-200 p-6 shadow-default shadow-black/5 ">
                                 <div className="flex justify-between mb-10">
                                     <div>
                                         <div className="flex items-center mb-1">
-                                            <div className="text-2xl font-semibold">{card.title}</div>
+                                            <div className="text-2xl font-semibold">{card.name}</div>
                                         </div>
-                                        <div className="text-sm font-medium text-gray-400">{card.squareFootage} sq ft </div>
+                                        <div className="text-sm font-medium text-gray-400">{card.condoType}</div>
                                     </div>
                                     <div className="dropdown">
                                         <button type="button" className="dropdown-toggle text-gray-400 hover:text-gray-600"><i className="ri-more-fill"></i></button>
@@ -122,9 +151,9 @@ const ManageUnits: React.FC = () => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <IoSettingsOutline className="mt-1.5 text-xl text-primary cursor-pointer hover:text-red-800" onClick={() => handleSettingsClick()} />
+                                    <IoSettingsOutline className="mt-1.5 text-xl text-primary cursor-pointer hover:text-red-800" onClick={() => handleSettingsClick(card)} />
                                 </div>
-                                <Link to={card.link} className="text-primary font-medium text-sm hover:text-red-800">View</Link>
+                                <Link to={`/manage-unit/${card.id}`} className="text-primary font-medium text-sm hover:text-red-800">View</Link>
                             </div>
                         );
                     })
