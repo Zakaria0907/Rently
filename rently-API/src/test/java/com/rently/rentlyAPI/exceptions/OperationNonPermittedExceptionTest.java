@@ -10,7 +10,7 @@ public class OperationNonPermittedExceptionTest {
     public void testConstructorAndGetters() {
         // Arrange
         OperationNonPermittedException testOperationNonPermittedException = new OperationNonPermittedException("errorMsg");
-        
+
         // Act
 
         // Assert
