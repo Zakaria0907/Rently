@@ -1,7 +1,5 @@
 import React from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartTwo from '../../components/Charts/ChartTwo';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
 import { FaRegBuilding, FaRegUser } from "react-icons/fa";

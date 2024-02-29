@@ -13,3 +13,16 @@ export enum RoleText {
     OWNER = "Owner",
     COMPANY = "Management Company",
 }
+
+export enum UnitStatus {
+    AVAILABLE_FOR_SALE = "AVAILABLE_FOR_SALE",
+    AVAILABLE_FOR_RENT = "AVAILABLE_FOR_RENT",
+    RENTED = "RENTED",
+}
+
+export enum UnitType {
+    APARTMENT = "APARTMENT",
+    PENTHOUSE = "PENTHOUSE",
+    FACILITIES = "COMMON_FACILITIES",
+    OTHER = "OTHER",
+}

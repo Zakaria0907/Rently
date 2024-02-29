@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
@@ -14,25 +14,55 @@ import condo5 from '../../images/condos/condo5.jpg';
 import condo6 from '../../images/condos/condo6.jpg';
 import AddPropertyPopup from '../../components/AddPropertyPopup';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-
-
+import useAuth from '../../hooks/useAuth';
+import { Building } from '../../types/types';
+import EditPropertyPopup from '../../components/EditPropertyPopup';
 
 
 const Buildings: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
-    const [buildings, setBuildings] = React.useState<any[]>([]);
+    const [buildings, setBuildings] = React.useState<Building[]>([]);
     const [addBuildingPopup, setAddBuildingPopup] = React.useState(false);
-
+    const [editBuildingPopup, setEditBuildingPopup] = React.useState(false);
+    const [selectedBuilding, setSelectedBuilding] = React.useState<Building | undefined>(undefined);
+    const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
 
+    useEffect(() => {
+        fetchBuildings();
+    }, [addBuildingPopup]);
+
+    useEffect(() => {
+        fetchBuildings();
+    }, []);
+
+    const fetchBuildings = async () => {
+        try {
+            const response = await axiosPrivate.get(`/company/${auth.id}/building/all`);
+            console.log("Units fetched: ", response.data);
+            setBuildings(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+    
     const toggleAddBuildingPopup = () => {
         setAddBuildingPopup(((prev) => !prev));
     };
 
-    const addBuilding = (property: any) => {
-        toggleAddBuildingPopup();
-        console.log(property);
+    const handleSettingsClick = (building: Building) => {
+        console.log('Settings Clicked');
+        setSelectedBuilding(building);
+        setEditBuildingPopup(true);
+    }
+
+    const getRandomImage = () => {
+        const images = [condo1, condo2, condo3, condo4, condo5, condo6];
+        const randomIndex = Math.floor(Math.random() * images.length);
+        return images[randomIndex];
     };
+
+
 
     React.useEffect(() => {
         const cards = [
@@ -90,14 +120,9 @@ const Buildings: React.FC = () => {
         setCardCollection(cards);
     }, []);
 
-    const handleSettingsClick = () => {
-        console.log('Settings Clicked');
-    }
-
     return (
         <DefaultLayout>
             <Breadcrumb pageName="Manage Buildings" />
-
             <div className="flex items-center ">
                 <button
                     onClick={toggleAddBuildingPopup}
@@ -108,16 +133,20 @@ const Buildings: React.FC = () => {
             </div>
 
             {
-                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} addProperty={addBuilding} />
+                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} userId={auth.id ?? ''} />
+            }
+
+            {
+                editBuildingPopup && selectedBuilding && <EditPropertyPopup closeModal={() => setEditBuildingPopup(false)} userId={auth.id ?? ''} selectedBuilding={selectedBuilding} />
             }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
-                    cardCollection.map((card, index) => {
+                    buildings.map((card, index) => {
                         return (
                             <div key={index} className="bg-white rounded-md border border-gray-200 p-6 shadow-default shadow-black/5 ">
                                 <Image
-                                    src={card.image}
+                                    src={getRandomImage()}
                                     alt='condo image'
                                     borderRadius='lg'
                                     objectFit='cover'
@@ -128,9 +157,9 @@ const Buildings: React.FC = () => {
                                 <div className="flex justify-between mb-10">
                                     <div>
                                         <div className="flex items-center mb-1">
-                                            <div className="text-2xl font-semibold">{card.title}</div>
+                                            <div className="text-2xl font-semibold">{card.name}</div>
                                         </div>
-                                        <div className="text-sm font-medium text-gray-400">{card.unitCount} Units</div>
+                                        <div className="text-sm font-medium text-gray-400">{card.description} </div>
                                     </div>
                                     <div className="dropdown">
                                         <button type="button" className="dropdown-toggle text-gray-400 hover:text-gray-600"><i className="ri-more-fill"></i></button>
@@ -146,9 +175,9 @@ const Buildings: React.FC = () => {
                                             </li>
                                         </ul>
                                     </div>
-                                    <IoSettingsOutline className="mt-1.5 text-xl text-primary cursor-pointer hover:text-red-800" onClick={() => handleSettingsClick()} />
+                                    <IoSettingsOutline className="mt-1.5 text-xl text-primary cursor-pointer hover:text-red-800" onClick={() => handleSettingsClick(card)} />
                                 </div>
-                                <Link to={card.link} className="text-primary font-medium text-sm hover:text-red-800">Manage Units</Link>
+                                <Link to={`/manage-building/building/${card.id}`} className="text-primary font-medium text-sm hover:text-red-800">Manage Units</Link>
                             </div>
                         );
                     })
