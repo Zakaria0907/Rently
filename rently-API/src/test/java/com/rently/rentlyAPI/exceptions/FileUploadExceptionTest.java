@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.mockito.Mockito.mock;
 
 public class FileUploadExceptionTest {
@@ -19,12 +20,12 @@ public class FileUploadExceptionTest {
     @Test
     public void testFileUploadException() {
         // Arrange
-
+        FileUploadException testFileUploadException = new FileUploadException("message");
 
         // Act
 
         // Assert
-        Mockito.verify(mockedFileUploadException);
+        assertEquals("message", testFileUploadException.getMessage());
 
     }
 
