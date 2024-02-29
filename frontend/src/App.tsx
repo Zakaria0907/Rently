@@ -29,6 +29,7 @@ import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
 import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 import RoleBasedRedirect from "./utils/RoleBaseRedirect";
 import UserDashboard from "./pages/UserPages/UserDashboard";
+import FacilitiesAvailabilityCalendar from "./components/FacilitiesAvailabilityCalendar";
 
 function App() {
   return (
@@ -43,7 +44,6 @@ function App() {
 
             {/* protected routes */}
             <Route element={<PersistLogin />}>
-
               {/* route to allow role-based redirection*/}
               <Route path="/login-success" element={<RoleBasedRedirect />} />
 
@@ -63,7 +63,11 @@ function App() {
               </Route>
 
               {/* user routes */}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />
+                }
+              >
                 <Route path="welcome" element={<Welcome />} />
 
                 <Route
@@ -85,12 +89,14 @@ function App() {
                     </>
                   }
                 />
-
-
               </Route>
 
               {/* renter routes */}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.RENTER]} />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[Roles.ADMIN, Roles.RENTER]} />
+                }
+              >
                 <Route path="welcomeAdmin" element={<Welcome />} />
 
                 <Route
@@ -102,10 +108,23 @@ function App() {
                     </>
                   }
                 />
+                <Route
+                  path="/Availability-Calendar"
+                  element={
+                    <>
+                      <PageTitle title="Availability Calendar | Rently Condo Management SAAS" />
+                      <FacilitiesAvailabilityCalendar />
+                    </>
+                  }
+                />
               </Route>
 
               {/* owner routes*/}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.OWNER]} />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[Roles.ADMIN, Roles.OWNER]} />
+                }
+              >
                 <Route path="welcomeOwner" element={<Welcome />} />
                 <Route
                   path="/owner-dashboard"
@@ -149,7 +168,11 @@ function App() {
               </Route>
 
               {/*management company routes, once it is in the backend, we can enforce the role*/}
-              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />}>
+              <Route
+                element={
+                  <RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />
+                }
+              >
                 <Route path="welcome" element={<Welcome />} />
 
                 <Route
@@ -241,7 +264,6 @@ function App() {
                   </>
                 }
               />
-
             </Route>
 
             {/* catch all */}
