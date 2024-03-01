@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ApplicationAuditAwareTest {
 
     @Test
-    public void testGetCurrentAuditor() {
+    public void testGetCurrentAuditor() throws InterruptedException {
         // Arrange
         ApplicationAuditAware testApplicationAuditAware = new ApplicationAuditAware();
 
