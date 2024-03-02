@@ -22,9 +22,8 @@ public class CondoDto {
     @Nullable
     private Integer id;
 
-    @NotEmpty(message = "Condo name is required")
+    
     @NotBlank(message = "Condo name is required")
-    @NotNull(message = "Condo name is required")
     private String name;
 
     private String address;
@@ -41,6 +40,8 @@ public class CondoDto {
     private Integer userId;
     
     private Integer buildingId;
+    
+    // we should add a field "floor" to the condo entity
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()

@@ -72,6 +72,46 @@ public class CompanyServiceImpl implements CompanyService {
           return BuildingDto.fromEntity(building);
     }
     
+    @Override
+    public BuildingDto updateBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId, BuildingDto buildingDto) {
+        //Check if the user exists
+        User company = userRepository.findById(companyId)
+            .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
+        
+        //TODO: Validate the buildingDto
+        
+        if(company.getRole() != Role.COMPANY){
+            throw new OperationNonPermittedException("Only a User with role COMPANY can create a building.");
+        }
+        
+        // Check if the building exists
+        if(!buildingService.exists(buildingId)){
+            throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+        }
+        Building building = buildingService.findById(buildingId);
+        Building updatedBuilding = buildingService.update(buildingDto, building);
+        
+        return BuildingDto.fromEntity(updatedBuilding);
+    }
+    
+    @Override
+    public void deleteBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId) {
+        
+        // Check if the user exists
+        userRepository.findById(companyId)
+            .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
+        
+        // Check if the building exists
+        if(!buildingService.exists(buildingId)){
+            throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+        }
+        
+        Building building = buildingService.findById(buildingId);
+        // Delete the building
+        buildingService.delete(building);
+        
+    }
+    
     // Get all buildings by company ID
     @Override
     public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
@@ -139,8 +179,69 @@ public class CompanyServiceImpl implements CompanyService {
         
         return CondoDto.fromEntity(savedCondo);
     }
-
-
+    
+    // Update a condo by building ID and condo ID
+    
+    
+    @Override
+    public CondoDto getCondoByBuildingIdAndCondoId(Integer buildingId, Integer condoId) {
+        
+        // Check if the building exists
+        if(!buildingService.exists(buildingId)){
+            throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+        }
+        
+        // Check if the condo exists
+        if(!condoService.exists(condoId)){
+            throw new EntityNotFoundException("Condo with ID " + condoId + " not found");
+        }
+        
+        // Find the condo by its ID
+        Condo condo = condoService.findById(condoId);
+        return CondoDto.fromEntity(condo);
+    }
+    
+    @Override
+    public CondoDto updateCondoByBuildingIdAndCondoId(Integer buildingId, Integer condoId, CondoDto condoDto) {
+  
+          // Check if the building exists
+          if(!buildingService.exists(buildingId)){
+              throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+          }
+          
+          // Check if the condo exists
+          if(!condoService.exists(condoId)){
+              throw new EntityNotFoundException("Condo with ID " + condoId + " not found");
+          }
+          
+          // Find the condo by its ID
+          Condo condo = condoService.findById(condoId);
+          
+          // Update the condo entity
+          Condo updatedCondo = condoService.update(condoDto, condo);
+          
+          return CondoDto.fromEntity(updatedCondo);
+    }
+    
+    @Override
+    public void deleteCondoByBuildingIdAndCondoId(Integer buildingId, Integer condoId) {
+        
+        // Check if the building exists
+        if(!buildingService.exists(buildingId)){
+            throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+        }
+        
+        // Check if the condo exists
+        if(!condoService.exists(condoId)){
+            throw new EntityNotFoundException("Condo with ID " + condoId + " not found");
+        }
+        
+        Condo condo = condoService.findById(condoId);
+        condoService.delete(condo);
+        
+    }
+    
+    
     public KeyDto createActivationKeyToBecomeRenter(String userEmail, Integer companyId) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
