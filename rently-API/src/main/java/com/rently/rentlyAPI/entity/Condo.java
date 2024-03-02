@@ -37,6 +37,5 @@ public class Condo extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User user;
-
-
+    
 }
