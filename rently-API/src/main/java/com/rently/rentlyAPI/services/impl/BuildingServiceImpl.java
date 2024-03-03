@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
 import com.rently.rentlyAPI.repository.BuildingRepository;
@@ -22,6 +23,23 @@ public class BuildingServiceImpl implements BuildingService {
 		return buildingRepository.save(building);
 	}
 	
+	@Override
+	public Building update(BuildingDto buildingDto, Building building) {
+		//update the building with the giving buildingDto and check for null
+		if (buildingDto.getName() != null) building.setName(buildingDto.getName());
+		if (buildingDto.getAddress() != null) building.setAddress(buildingDto.getAddress());
+		if (buildingDto.getDescription() != null) building.setDescription(buildingDto.getDescription());
+		
+		return buildingRepository.save(building);
+	}
+	
+	@Override
+	public void delete(Building building) {
+		buildingRepository.delete(building);
+	}
+	
+	@Override
+
 //	@Override
 //	public boolean exists(Building building) {
 //		return building.getId() != null && buildingRepository.existsById(building.getId());
