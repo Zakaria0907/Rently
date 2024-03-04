@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.FileType;
+import com.rently.rentlyAPI.entity.enums.FileType;
 import com.rently.rentlyAPI.entity.S3File;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

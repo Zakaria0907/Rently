@@ -1,5 +1,5 @@
 package com.rently.rentlyAPI.entity;
-import jakarta.annotation.Nullable;
+import com.rently.rentlyAPI.entity.enums.FileType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

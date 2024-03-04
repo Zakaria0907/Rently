@@ -1,8 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
-import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
-import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
@@ -10,14 +8,13 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.rently.rentlyAPI.entity.FileType;
+import com.rently.rentlyAPI.entity.enums.FileType;
 import com.rently.rentlyAPI.entity.S3File;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.exceptions.FileUploadException;
 import com.rently.rentlyAPI.repository.S3FileRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.services.S3Service;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,8 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.Optional;
 

@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.repository;
 
 import com.rently.rentlyAPI.entity.S3File;
-import com.rently.rentlyAPI.entity.FileType;
+import com.rently.rentlyAPI.entity.enums.FileType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
