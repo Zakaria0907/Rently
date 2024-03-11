@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.dto.auth;
 
 import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.auth.entity.Provider;
+import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
 

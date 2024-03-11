@@ -3,7 +3,7 @@ package com.rently.rentlyAPI.auth.services;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.auth.entity.AccessToken;
 import com.rently.rentlyAPI.auth.entity.RefreshToken;
-import com.rently.rentlyAPI.auth.entity.TokenType;
+import com.rently.rentlyAPI.auth.entity.enums.TokenType;
 import com.rently.rentlyAPI.auth.repository.RefreshTokenRepository;
 import com.rently.rentlyAPI.auth.repository.TokenRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;

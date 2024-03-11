@@ -6,7 +6,7 @@ import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.dto.UserDto;
 import com.rently.rentlyAPI.auth.entity.RefreshToken;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.auth.entity.Provider;
+import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.auth.repository.RefreshTokenRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;

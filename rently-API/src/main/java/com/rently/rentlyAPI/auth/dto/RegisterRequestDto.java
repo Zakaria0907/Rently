@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.auth.dto;
 
 
-import com.rently.rentlyAPI.auth.entity.Provider;
+import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

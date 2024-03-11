@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.auth.entity;
 
+import com.rently.rentlyAPI.auth.entity.enums.TokenType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
