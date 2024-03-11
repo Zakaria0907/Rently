@@ -1,6 +1,6 @@
-package com.rently.rentlyAPI.services.auth;
+package com.rently.rentlyAPI.auth.services;
 
-import com.rently.rentlyAPI.entity.auth.RentlyOAuth2User;
+import com.rently.rentlyAPI.auth.entity.RentlyOAuth2User;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

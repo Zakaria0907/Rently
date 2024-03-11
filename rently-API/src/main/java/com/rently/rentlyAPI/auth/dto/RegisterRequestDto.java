@@ -1,12 +1,9 @@
-package com.rently.rentlyAPI.dto.auth;
+package com.rently.rentlyAPI.auth.dto;
 
 
-import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.auth.Provider;
+import com.rently.rentlyAPI.auth.entity.Provider;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 //package com.rently.rentlyAPI;
 //
-//import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
+//import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 //import com.rently.rentlyAPI.entity.User;
 //import com.rently.rentlyAPI.repository.UserRepository;
 //import com.rently.rentlyAPI.services.impl.UserServiceImpl;

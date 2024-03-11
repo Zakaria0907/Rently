@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity.auth;
 
+import com.rently.rentlyAPI.auth.entity.TokenType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,19 +1,18 @@
 package com.rently.rentlyAPI.security.utils;
 
-import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
-import com.rently.rentlyAPI.entity.auth.RentlyOAuth2User;
+import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
+import com.rently.rentlyAPI.auth.entity.RentlyOAuth2User;
 import com.rently.rentlyAPI.entity.User;
-import com.rently.rentlyAPI.entity.auth.Provider;
+import com.rently.rentlyAPI.auth.entity.Provider;
 import com.rently.rentlyAPI.security.Role;
 import com.rently.rentlyAPI.services.UserService;
-import com.rently.rentlyAPI.services.auth.TokenService;
+import com.rently.rentlyAPI.auth.services.TokenService;
 import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;

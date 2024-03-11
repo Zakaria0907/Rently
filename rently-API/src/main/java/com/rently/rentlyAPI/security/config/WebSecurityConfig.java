@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.security.config;
 
 import com.rently.rentlyAPI.security.filter.JwtAuthenticationFilter;
-import com.rently.rentlyAPI.services.auth.RentlyOAuth2UserService;
+import com.rently.rentlyAPI.auth.services.RentlyOAuth2UserService;
 import com.rently.rentlyAPI.security.utils.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

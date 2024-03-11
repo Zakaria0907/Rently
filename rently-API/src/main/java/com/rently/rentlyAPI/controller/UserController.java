@@ -3,7 +3,7 @@ package com.rently.rentlyAPI.controller;
 import com.rently.rentlyAPI.dto.KeyDto;
 import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
 import com.rently.rentlyAPI.dto.UserProfileDto;
-import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.services.impl.S3ServiceImpl;
 import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;

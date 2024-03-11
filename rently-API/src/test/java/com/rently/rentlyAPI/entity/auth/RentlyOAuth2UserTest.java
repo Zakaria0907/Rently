@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity.auth;
 
+import com.rently.rentlyAPI.auth.entity.RentlyOAuth2User;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

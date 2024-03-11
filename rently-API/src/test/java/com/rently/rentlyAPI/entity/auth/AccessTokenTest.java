@@ -1,5 +1,8 @@
 package com.rently.rentlyAPI.entity.auth;
 
+import com.rently.rentlyAPI.auth.entity.AccessToken;
+import com.rently.rentlyAPI.auth.entity.RefreshToken;
+import com.rently.rentlyAPI.auth.entity.TokenType;
 import com.rently.rentlyAPI.entity.User;
 import org.junit.jupiter.api.Test;
 

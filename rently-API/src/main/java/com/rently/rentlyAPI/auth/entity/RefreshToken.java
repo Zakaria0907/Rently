@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.entity.auth;
+package com.rently.rentlyAPI.auth.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
