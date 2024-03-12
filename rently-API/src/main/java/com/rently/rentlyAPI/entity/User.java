@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.auth.entity.AccessToken;
+
 import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.persistence.*;
@@ -50,9 +50,6 @@ public class User extends AbstractEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(255) default 'COMPANY'")
     private Role role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<AccessToken> accessTokens;
 
     @OneToMany(mappedBy = "user")
     private List<Key> registrationKey;

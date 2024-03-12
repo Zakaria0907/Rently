@@ -4,10 +4,8 @@ import com.rently.rentlyAPI.auth.dto.AuthenticationRequestDto;
 import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
 import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.auth.entity.RefreshToken;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.auth.entity.enums.Provider;
-import com.rently.rentlyAPI.auth.repository.RefreshTokenRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
@@ -34,13 +32,11 @@ import java.io.IOException;
 public class AuthenticationService {
   private final UserRepository userRepository;
   private final JwtUtils jwtUtils;
-  private final RefreshTokenRepository refreshTokenRepository;
   private final AuthenticationManager authenticationManager;
   private final UserService userService;
-  private final TokenService tokenService;
   private final ObjectsValidator<Object> validator;
   private final UserServiceImpl userServiceImpl;
-  
+
   // Main service methods
   public UserDto register(RegisterRequestDto registerRequestDto) {
     validator.validate(registerRequestDto);
@@ -48,16 +44,16 @@ public class AuthenticationService {
 
     if (user != null) {
      throw new AuthenticationException("This email is already associated with an account");
-      
+
     }
     User savedUser = userServiceImpl.createUser(registerRequestDto);
     return UserDto.fromEntity(savedUser);
   }
-  
+
   public AuthenticationResponseDto authenticate(AuthenticationRequestDto request, HttpServletResponse response) {
     User user = userService.findByEmail(request.getEmail())
         .orElseThrow(() -> new EntityNotFoundException("User " +request.getEmail() + " not found"));
-    
+
     // Check if the user's email is associated with a third party provider
     if (!user.getProvider().equals(Provider.RENTLY) && (request.getPassword() != null)) {
       // Return a forbidden response with the appropriate message
@@ -65,7 +61,7 @@ public class AuthenticationService {
     }
     // TODO: handle these cases
     // 1. User does not exist
-    
+
     // Proceed with authentication
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -73,18 +69,15 @@ public class AuthenticationService {
             request.getPassword()
         )
     );
-    
-    String jwtToken = jwtUtils.generateToken(user);
-    String refreshToken = jwtUtils.generateRefreshToken(user);
-    tokenService.revokeAllUserTokens(user);
-    tokenService.revokeAllUserRefreshTokens(user);
-    tokenService.saveUserTokens(user, jwtToken, refreshToken);
+
+    String jwtToken = jwtUtils.generateToken(user, false);
+    String refreshToken = jwtUtils.generateToken(user, true);
 
     jwtUtils.addTokensAsCookies(response, jwtToken, refreshToken);
     UserDto userDto = UserDto.fromEntity(user);
     return buildAuthenticationResponse(jwtToken, refreshToken, userDto);
   }
-  
+
 
   /**
  * The refreshToken method is responsible for refreshing the user's access token, the user refresh token is used to generate a new access token and refresh token.
@@ -124,28 +117,15 @@ public class AuthenticationService {
 
     System.out.println("user in AuthenticationService: " + user.getRole());
 
-    RefreshToken refreshTokenEntity = refreshTokenRepository.findByRefreshToken(refreshToken)
-        .orElseThrow();
-
-    if (refreshTokenEntity.isRevoked() || !jwtUtils.isTokenValid(refreshToken, user)) {
-      response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-      return;
-    }
-
-    tokenService.revokeAllUserTokens(user);
-    tokenService.revokeAllUserRefreshTokens(user);
-
-    String accessToken = jwtUtils.generateToken(user);
-    String newRefreshToken = jwtUtils.generateRefreshToken(user);
-
-    tokenService.saveUserTokens(user, accessToken, newRefreshToken);
+    String accessToken = jwtUtils.generateToken(user, false);
+    String newRefreshToken = jwtUtils.generateToken(user, true);
 
     jwtUtils.addTokensAsCookies(response, accessToken, newRefreshToken);
 
     AuthenticationResponseDto authResponse = buildAuthenticationResponse(accessToken, newRefreshToken, UserDto.fromEntity(user));
     new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
   }
-  
+
   // Helper methods
   private AuthenticationResponseDto buildAuthenticationResponse(String jwtToken, String refreshToken, UserDto userDto) {
     return AuthenticationResponseDto.builder()
@@ -154,5 +134,5 @@ public class AuthenticationService {
         .user(userDto)
         .build();
   }
-  
+
 }

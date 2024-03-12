@@ -6,7 +6,6 @@ import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
 import com.rently.rentlyAPI.services.UserService;
-import com.rently.rentlyAPI.auth.services.TokenService;
 import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import jakarta.servlet.ServletException;
@@ -26,7 +25,6 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	
 	private final UserService userService;
 	private final JwtUtils jwtUtils;
-	private final TokenService tokenService;
 	private final UserServiceImpl userServiceImpl;
 	
 	@Override
@@ -70,11 +68,8 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	}
 	
 	private void handleUserWithThirdPartyProvider(User user, HttpServletResponse response) {
-		String jwtToken = jwtUtils.generateToken(user);
-		String refreshToken = jwtUtils.generateRefreshToken(user);
-		tokenService.revokeAllUserTokens(user);
-		tokenService.revokeAllUserRefreshTokens(user);
-		tokenService.saveUserTokens(user, jwtToken, refreshToken);
+		String jwtToken = jwtUtils.generateToken(user, false);
+		String refreshToken = jwtUtils.generateToken(user, true);
 		jwtUtils.addTokensAsCookies(response, jwtToken, refreshToken);
 	}
 	
