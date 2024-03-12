@@ -29,7 +29,7 @@ public class BuildingDto {
 	
 	private String description;
 	
-	private Integer userId;
+	private Integer companyId;
 	
 	// Converts a Building entity to a BuildingDto
 	public static BuildingDto fromEntity(Building building) {
@@ -39,7 +39,7 @@ public class BuildingDto {
 				.address(building.getAddress())
 //				.unitCount(building.getUnitCount())
 				.description(building.getDescription())
-				.userId(building.getCompany() != null ? building.getCompany().getId() : null)
+				.companyId(building.getCompany() != null ? building.getCompany().getId() : null)
 				.build();
 	}
 	
