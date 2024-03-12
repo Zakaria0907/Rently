@@ -55,13 +55,7 @@ public class User extends AbstractEntity implements UserDetails {
     private List<AccessToken> accessTokens;
 
     @OneToMany(mappedBy = "user")
-    private List<Condo> condos;
-
-    @OneToMany(mappedBy = "user")
     private List<Key> registrationKey;
-    
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Building> buildings;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
