@@ -40,4 +40,15 @@ public class AdminController {
         return ResponseEntity.ok(adminService.createCompany(company));
     }
 
+    @DeleteMapping("/delete-company/id={companyId}")
+    public ResponseEntity<String> deleteCompanyById(@PathVariable("companyId") Integer companyId) {
+        adminService.deleteCompanyById(companyId);
+        return ResponseEntity.ok("Company deleted successfully");
+    }
+    @DeleteMapping("/delete-company/name={companyName}")
+    public ResponseEntity<String> deleteCompanyByName(@PathVariable("companyName") String companyName) {
+        adminService.deleteCompanyByName(companyName);
+        return ResponseEntity.ok("Company deleted successfully");
+    }
+
 }
