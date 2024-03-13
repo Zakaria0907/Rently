@@ -34,7 +34,14 @@ public class CompanyServiceImpl implements CompanyService {
     private final ObjectsValidator<Object> validator;
     private final KeyService keyService;
     private final CondoRepository condoRepository; // unused
-    
+
+
+    @Override
+    public Company save(Company company) {
+        return companyRepository.save(company);
+
+    }
+
     // Create a building by company ID
     @Override
     public BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto) {
@@ -271,8 +278,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Key keyEntity = KeyDto.toEntity(keyDto);
         keyEntity.setUser(user);
-        KeyDto key = KeyDto.fromEntity(keyService.save(keyEntity));
-        return key;
+        return KeyDto.fromEntity(keyService.save(keyEntity));
 
     }
 
@@ -322,8 +328,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Key keyEntity = KeyDto.toEntity(keyDto);
         keyEntity.setUser(user);
-        KeyDto key = KeyDto.fromEntity(keyService.save(keyEntity));
-        return key;
+        return KeyDto.fromEntity(keyService.save(keyEntity));
     }
 
 

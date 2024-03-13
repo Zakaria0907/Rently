@@ -26,18 +26,18 @@ public class Company extends AbstractEntity {
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Building> buildings;
 
-    @OneToMany(mappedBy = "handlingCompany")
+    @OneToMany(mappedBy = "handlingCompany", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HousingContract> housingContracts;
 
-    @OneToMany(mappedBy = "handlingCompany")
+    @OneToMany(mappedBy = "handlingCompany", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmploymentContract> employmentContracts;
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Request> requests;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeAssignment> backlog;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FacilityReservation> reservationCalendar;
 
 }
