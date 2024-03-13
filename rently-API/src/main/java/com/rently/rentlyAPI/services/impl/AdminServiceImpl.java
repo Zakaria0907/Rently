@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @AllArgsConstructor
@@ -23,7 +26,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Transactional
-    public void deleteCompanyById(Integer companyId){
+    public void deleteCompanyById(Integer companyId) {
         companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyId + " not found"));
         companyRepository.deleteCompanyById(companyId);
@@ -35,5 +38,25 @@ public class AdminServiceImpl implements AdminService {
         companyRepository.findCompanyByName(name)
                 .orElseThrow(() -> new EntityNotFoundException("Company with name: " + name + " not found"));
         companyRepository.deleteCompanyByName(name);
+    }
+
+    @Override
+    public CompanyDto getCompanyById(Integer companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new EntityNotFoundException("Company with id: " + companyId + " not found"));
+        return CompanyDto.fromEntity(company);
+    }
+
+    @Override
+    public CompanyDto getCompanyByName(String name) {
+        Company company = companyRepository.findCompanyByName(name)
+                .orElseThrow(() -> new EntityNotFoundException("Company with name: " + name + " not found"));
+        return CompanyDto.fromEntity(company);
+    }
+
+    @Override
+    public List<CompanyDto> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
+        return companies.stream().map(CompanyDto::fromEntity).collect(Collectors.toList());
     }
 }
