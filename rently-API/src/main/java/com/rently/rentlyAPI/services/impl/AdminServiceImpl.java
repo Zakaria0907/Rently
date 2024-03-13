@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.CompanyRepository;
 import com.rently.rentlyAPI.services.AdminService;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -20,6 +22,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public CompanyDto createCompany(CompanyDto company) {
+        Optional<Company> existing = companyRepository.findCompanyByName(company.getName());
+        System.out.println(existing);
+        if(existing.isPresent())
+            throw new OperationNonPermittedException("There is already a company with the name: "+company.getName());
         Company authorEntity = CompanyDto.toEntity(company);
         Company savedCompany = companyRepository.save(authorEntity);
         return CompanyDto.fromEntity(savedCompany);
