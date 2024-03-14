@@ -1,6 +1,5 @@
 package com.rently.rentlyAPI.security;
 
-import com.rently.rentlyAPI.security.Permission;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,24 +20,24 @@ public enum Role {
   USER(Collections.emptySet()),
 
   //Admin have all permissions
-  ADMIN(
+  SYSTEM_ADMIN(
           Set.of(
-                  ADMIN_READ,
-                  ADMIN_UPDATE,
-                  ADMIN_DELETE,
-                  ADMIN_CREATE,
-                  COMPANY_READ,
-                  COMPANY_UPDATE,
-                  COMPANY_DELETE,
-                  COMPANY_CREATE
+                  SYSTEM_ADMIN_READ,
+                  SYSTEM_ADMIN_UPDATE,
+                  SYSTEM_ADMIN_DELETE,
+                  SYSTEM_ADMIN_CREATE,
+                  COMPANY_ADMIN_READ,
+                  COMPANY_ADMIN_UPDATE,
+                  COMPANY_ADMIN_DELETE,
+                  COMPANY_ADMIN_CREATE
           )
   ),
-  COMPANY(
+  COMPANY_ADMIN(
           Set.of(
-                  COMPANY_READ,
-                  COMPANY_UPDATE,
-                  COMPANY_DELETE,
-                  COMPANY_CREATE
+                  COMPANY_ADMIN_READ,
+                  COMPANY_ADMIN_UPDATE,
+                  COMPANY_ADMIN_DELETE,
+                  COMPANY_ADMIN_CREATE
           )
   ),
 
