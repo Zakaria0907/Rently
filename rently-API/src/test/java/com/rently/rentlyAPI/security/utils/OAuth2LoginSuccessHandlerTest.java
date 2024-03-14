@@ -1,10 +1,10 @@
 //package com.rently.rentlyAPI.security.utils;
 //
 //import com.rently.rentlyAPI.entity.User;
-//import com.rently.rentlyAPI.entity.auth.Provider;
-//import com.rently.rentlyAPI.entity.auth.RentlyOAuth2User;
+//import com.rently.rentlyAPI.auth.entity.enums.Provider;
+//import com.rently.rentlyAPI.auth.entity.RentlyOAuth2User;
 //import com.rently.rentlyAPI.services.UserService;
-//import com.rently.rentlyAPI.services.auth.TokenService;
+//import com.rently.rentlyAPI.auth.services.TokenService;
 //import com.rently.rentlyAPI.services.impl.UserServiceImpl;
 //import jakarta.servlet.ServletException;
 //import jakarta.servlet.http.HttpServletRequest;

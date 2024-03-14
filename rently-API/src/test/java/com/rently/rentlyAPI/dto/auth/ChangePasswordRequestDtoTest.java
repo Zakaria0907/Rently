@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.dto.auth;
 
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

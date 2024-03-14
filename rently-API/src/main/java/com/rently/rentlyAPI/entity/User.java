@@ -1,13 +1,10 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.auth.AccessToken;
-import com.rently.rentlyAPI.entity.auth.Provider;
+
+import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,17 +51,8 @@ public class User extends AbstractEntity implements UserDetails {
     @Column(nullable = false, columnDefinition = "varchar(255) default 'COMPANY'")
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<AccessToken> accessTokens;
-
     @OneToMany(mappedBy = "user")
-    private List<Condo> condos;
-
-    @OneToMany(mappedBy = "user")
-    private List<Key> keys;
-    
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Building> buildings;
+    private List<Key> registrationKey;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

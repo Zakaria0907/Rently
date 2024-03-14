@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.dto.auth;
+package com.rently.rentlyAPI.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

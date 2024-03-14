@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
+import com.rently.rentlyAPI.entity.Request;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @SuperBuilder
@@ -22,19 +24,26 @@ public class Building extends AbstractEntity {
 	
 	@NotBlank(message = "Address is required")
 	private String address;
-	
-	//TODO: remove and make query for this
-//	@Column(nullable = false, columnDefinition = "int default 0")
-//	private Integer unitCount;
-	
+
 	private String description;
 	
 	// This column links to the Condo entities
 	@OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Condo> condos;
+
+	@OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Locker> buildingLockers;
+
+	@OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Parking> buildingParkings;
+	@OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CommonFacility> commonFacilities;
 	
-	// This column links to the User entity acting as a company
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User company;
+	@JoinColumn(name = "company_id")
+	private Company company;
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.dto.auth;
 
+import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
 import com.rently.rentlyAPI.dto.UserDto;
 import org.junit.jupiter.api.Test;
 

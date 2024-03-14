@@ -3,11 +3,9 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.dto.KeyDto;
-import com.rently.rentlyAPI.entity.Building;
-import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.Key;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.*;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
+import com.rently.rentlyAPI.repository.CompanyRepository;
 import com.rently.rentlyAPI.repository.CondoRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.Role;
@@ -31,23 +29,32 @@ public class CompanyServiceImpl implements CompanyService {
     private final BuildingService buildingService;
     private final CondoService condoService;
     private final UserRepository userRepository;
+    private final CompanyRepository companyRepository;
+
     private final ObjectsValidator<Object> validator;
     private final KeyService keyService;
     private final CondoRepository condoRepository; // unused
-    
+
+
+    @Override
+    public Company save(Company company) {
+        return companyRepository.save(company);
+
+    }
+
     // Create a building by company ID
     @Override
     public BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto) {
         
         //Check if the user exists
-        User company = userRepository.findById(companyId)
+        Company company = companyRepository.findById(companyId)
             .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
         
         //TODO: Validate the buildingDto
         
-        if(company.getRole() != Role.COMPANY){
-            throw new OperationNonPermittedException("Only a User with role COMPANY can create a building.");
-        }
+//        if(company.getRole() != Role.COMPANY){
+//            throw new OperationNonPermittedException("Only a User with role COMPANY can create a building.");
+//        }
         
         Building building = BuildingDto.toEntity(buildingDto);
         building.setCompany(company);
@@ -60,7 +67,7 @@ public class CompanyServiceImpl implements CompanyService {
     public BuildingDto getBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId) {
           
           // Check if the user exists
-          userRepository.findById(companyId)
+          companyRepository.findById(companyId)
               .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
           
           // Check if the building exists
@@ -75,14 +82,14 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public BuildingDto updateBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId, BuildingDto buildingDto) {
         //Check if the user exists
-        User company = userRepository.findById(companyId)
+        Company company = companyRepository.findById(companyId)
             .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
         
         //TODO: Validate the buildingDto
         
-        if(company.getRole() != Role.COMPANY){
-            throw new OperationNonPermittedException("Only a User with role COMPANY can create a building.");
-        }
+//        if(company.getRole() != Role.COMPANY){
+//            throw new OperationNonPermittedException("Only a User with role COMPANY can create a building.");
+//        }
         
         // Check if the building exists
         if(!buildingService.exists(buildingId)){
@@ -98,7 +105,7 @@ public class CompanyServiceImpl implements CompanyService {
     public void deleteBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId) {
         
         // Check if the user exists
-        userRepository.findById(companyId)
+        companyRepository.findById(companyId)
             .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
         
         // Check if the building exists
@@ -117,7 +124,7 @@ public class CompanyServiceImpl implements CompanyService {
     public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
         
         // Check if the user exists
-        userRepository.findById(companyId)
+        companyRepository.findById(companyId)
             .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
         
         List<Building> buildings = buildingService.findAllByCompanyId(companyId);
@@ -150,7 +157,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CondoDto createCondoByCompanyId(Integer companyId, Integer buildingId, CondoDto condoDto) {
         // Check if the user exists
-        User user = userRepository.findById(companyId)
+        Company user = companyRepository.findById(companyId)
             .orElseThrow(() -> new EntityNotFoundException("User with ID " + companyId + " not found"));
         
         // Check if the building exists
@@ -159,9 +166,9 @@ public class CompanyServiceImpl implements CompanyService {
         }
         
         // Check if the user has the role COMPANY
-        if(user.getRole() != Role.COMPANY){
-            throw new OperationNonPermittedException("Only a User with role COMPANY can create a condo.");
-        }
+//        if(user.getRole() != Role.COMPANY){
+//            throw new OperationNonPermittedException("Only a User with role COMPANY can create a condo.");
+//        }
         
         // Validate the condoDto
         validator.validate(condoDto);
@@ -172,7 +179,7 @@ public class CompanyServiceImpl implements CompanyService {
         // Convert the condoDto to entity and associate it with the building and user
         Condo condoEntity = CondoDto.toEntity(condoDto);
         condoEntity.setBuilding(building); // Assuming Condo entity has a setBuilding method to establish the relationship
-        condoEntity.setUser(user); // Set the user in the condo entity if needed
+//        condoEntity.setUser(user); // Set the user in the condo entity if needed
         
         // Save the condo entity
         Condo savedCondo = condoService.save(condoEntity);
@@ -246,16 +253,16 @@ public class CompanyServiceImpl implements CompanyService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
 
-        User company = userRepository.findById(companyId)
+        Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyId + " not found"));
 
         if (user.getRole() != Role.USER) {
             throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to become a RENTER");
         }
 
-        if (company.getRole() != Role.COMPANY) {
-            throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to attribute a key to a non company user");
-        }
+//        if (company.getRole() != Role.COMPANY) {
+//            throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to attribute a key to a non company user");
+//        }
 
         //Build a keyDto with builder
         KeyDto keyDto = KeyDto.builder()
@@ -271,8 +278,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Key keyEntity = KeyDto.toEntity(keyDto);
         keyEntity.setUser(user);
-        KeyDto key = KeyDto.fromEntity(keyService.save(keyEntity));
-        return key;
+        return KeyDto.fromEntity(keyService.save(keyEntity));
 
     }
 
@@ -297,16 +303,16 @@ public class CompanyServiceImpl implements CompanyService {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + userEmail + " not found"));
 
-        User company = userRepository.findById(companyId)
+        Company company = companyRepository.findById(companyId)
                 .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyId + " not found"));
 
         if (user.getRole() != Role.USER) {
             throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to become a RENTER");
         }
 
-        if (company.getRole() != Role.COMPANY) {
-            throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to attribute a key to a non company user");
-        }
+//        if (company.getRole() != Role.COMPANY) {
+//            throw new OperationNonPermittedException("User with email " + userEmail + " is not allowed to attribute a key to a non company user");
+//        }
 
         //Build a keyDto with builder
         KeyDto keyDto = KeyDto.builder()
@@ -322,8 +328,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         Key keyEntity = KeyDto.toEntity(keyDto);
         keyEntity.setUser(user);
-        KeyDto key = KeyDto.fromEntity(keyService.save(keyEntity));
-        return key;
+        return KeyDto.fromEntity(keyService.save(keyEntity));
     }
 
 

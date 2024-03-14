@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.auth.AccessToken;
-import com.rently.rentlyAPI.entity.auth.Provider;
+import com.rently.rentlyAPI.auth.entity.AccessToken;
+import com.rently.rentlyAPI.auth.entity.enums.Provider;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +37,7 @@ public class UserTest {
         assertEquals(Role.COMPANY, testUser.getRole());
         assertEquals(mockedAccessTokens, testUser.getAccessTokens());
         assertEquals(mockedCondos, testUser.getCondos());
-        assertEquals(mockedKeys, testUser.getKeys());
+        assertEquals(mockedKeys, testUser.getRegistrationKey());
         assertEquals(mockedBuildings, testUser.getBuildings());
         assertEquals("test@example.com", testUser.getUsername());
         assertTrue(testUser.isAccountNonExpired());
@@ -63,7 +63,7 @@ public class UserTest {
         assertNull(testUser.getRole());
         assertNull(testUser.getAccessTokens());
         assertNull(testUser.getCondos());
-        assertNull(testUser.getKeys());
+        assertNull(testUser.getRegistrationKey());
         assertNull(testUser.getBuildings());
         assertNull(testUser.getUsername());
         assertTrue(testUser.isAccountNonExpired());
@@ -89,7 +89,7 @@ public class UserTest {
         assertNull(testUser.getRole());
         assertNull(testUser.getAccessTokens());
         assertNull(testUser.getCondos());
-        assertNull(testUser.getKeys());
+        assertNull(testUser.getRegistrationKey());
         assertNull(testUser.getBuildings());
         assertNull(testUser.getUsername());
         assertTrue(testUser.isAccountNonExpired());

@@ -1,10 +1,11 @@
 package com.rently.rentlyAPI.controller.auth;
 
+import com.rently.rentlyAPI.auth.controller.AuthenticationController;
 import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.dto.auth.AuthenticationRequestDto;
-import com.rently.rentlyAPI.dto.auth.AuthenticationResponseDto;
-import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
-import com.rently.rentlyAPI.services.auth.AuthenticationService;
+import com.rently.rentlyAPI.auth.dto.AuthenticationRequestDto;
+import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
+import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
+import com.rently.rentlyAPI.auth.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;

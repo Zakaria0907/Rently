@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.dto.auth;
+package com.rently.rentlyAPI.auth.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;

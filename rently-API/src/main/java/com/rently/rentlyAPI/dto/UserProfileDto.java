@@ -10,12 +10,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class UserProfileDto {
-	private String firstname;
-	private String lastname;
-	private String phoneNumber;
-	private String bio;
-	private String email;
-	private String profilePicture;
-	private String role;
-	
+    private String firstname;
+    private String lastname;
+    private String phoneNumber;
+    private String bio;
+    private String email;
+    private String profilePicture;
+    private String role;
+
 }

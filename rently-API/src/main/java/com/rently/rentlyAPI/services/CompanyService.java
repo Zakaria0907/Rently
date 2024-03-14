@@ -3,11 +3,12 @@ package com.rently.rentlyAPI.services;
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.dto.KeyDto;
-import com.rently.rentlyAPI.entity.Condo;
+import com.rently.rentlyAPI.entity.Company;
 
 import java.util.List;
 
 public interface CompanyService {
+  Company save(Company company);
   BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto);
   BuildingDto getBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId);
   BuildingDto updateBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId, BuildingDto buildingDto);
