@@ -4,6 +4,7 @@ import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
 import { FaRegBuilding, FaRegUser } from "react-icons/fa";
 import { BsReceipt } from "react-icons/bs";
+import Temp from '../../components/Temp';
 
 
 const UserDashboard: React.FC = () => {

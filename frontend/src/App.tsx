@@ -29,6 +29,7 @@ import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
 import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 import RoleBasedRedirect from "./utils/RoleBaseRedirect";
 import UserDashboard from "./pages/UserPages/UserDashboard";
+import UserSettings from "./pages/UserPages/UserSettings";
 
 function App() {
   return (
@@ -86,6 +87,15 @@ function App() {
                   }
                 />
 
+                <Route
+                  path="/user-settings"
+                  element={
+                    <>
+                      <PageTitle title="User Settings | Rently Condo Management SAAS" />
+                      <UserSettings />
+                    </>
+                  }
+                />
 
               </Route>
 
