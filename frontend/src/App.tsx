@@ -32,6 +32,7 @@ import UserDashboard from "./pages/UserPages/UserDashboard";
 import UserSettings from "./pages/UserPages/UserSettings";
 import RenterDashboard from "./pages/RenterPages/RenterDashboard";
 import RenterSettings from "./pages/RenterPages/RenterSettings";
+import CompanyFinancialReport from "./pages/CompanyPages/CompanyFinancialReport";
 
 function App() {
   return (
@@ -230,6 +231,17 @@ function App() {
                     <>
                       <PageTitle title="Calendar | Rently Condo Management SAAS" />
                       <Calendar />
+                    </>
+                  }
+                />
+                
+
+                <Route
+                  path="/company-financial-report"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <CompanyFinancialReport />
                     </>
                   }
                 />
