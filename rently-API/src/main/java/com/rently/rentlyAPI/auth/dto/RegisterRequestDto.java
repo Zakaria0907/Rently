@@ -35,7 +35,7 @@ public class RegisterRequestDto {
     private String bio;
 
     @Builder.Default
-    private Role role = Role.COMPANY;
+    private Role role = Role.COMPANY_ADMIN;
 
     @Builder.Default
     private Provider provider = Provider.RENTLY;

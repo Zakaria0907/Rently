@@ -15,29 +15,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping
-    public String get() {
-        return "GET:: admin controller";
-    }
-
-    @PostMapping
-
-    public String post() {
-        return "POST:: admin controller";
-    }
-
-    @PutMapping
-
-    public String put() {
-        return "PUT:: admin controller";
-    }
-
-    @DeleteMapping
-    public String delete() {
-        return "DELETE:: admin controller";
-    }
-
-
+    // super admin actions on companies
     @GetMapping("/companies/all")
     public ResponseEntity<List<CompanyDto>> getAllCompanies() {
         List<CompanyDto> companies = adminService.getAllCompanies();

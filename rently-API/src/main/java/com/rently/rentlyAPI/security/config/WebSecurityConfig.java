@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.rently.rentlyAPI.security.Permission.*;
-import static com.rently.rentlyAPI.security.Role.ADMIN;
-import static com.rently.rentlyAPI.security.Role.COMPANY;
+import static com.rently.rentlyAPI.security.Role.SYSTEM_ADMIN;
+import static com.rently.rentlyAPI.security.Role.COMPANY_ADMIN;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -66,18 +66,18 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req ->
                         req.requestMatchers(WHITE_LIST_URL)
                                 .permitAll()
-                                .requestMatchers("/api/v1/company/**").hasAnyRole(ADMIN.name(), COMPANY.name())
-                                .requestMatchers(GET, "/api/v1/company/**").hasAnyAuthority(ADMIN_READ.name(), COMPANY_READ.name())
-                                .requestMatchers(POST, "/api/v1/company/**").hasAnyAuthority(ADMIN_CREATE.name(), COMPANY_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/company/**").hasAnyAuthority(ADMIN_UPDATE.name(), COMPANY_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/company/**").hasAnyAuthority(ADMIN_DELETE.name(), COMPANY_DELETE.name())
+                                .requestMatchers("/api/v1/company/**").hasAnyRole(SYSTEM_ADMIN.name(), COMPANY_ADMIN.name())
+                                .requestMatchers(GET, "/api/v1/company/**").hasAnyAuthority(SYSTEM_ADMIN_READ.name(), COMPANY_ADMIN_READ.name())
+                                .requestMatchers(POST, "/api/v1/company/**").hasAnyAuthority(SYSTEM_ADMIN_CREATE.name(), COMPANY_ADMIN_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/company/**").hasAnyAuthority(SYSTEM_ADMIN_UPDATE.name(), COMPANY_ADMIN_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/company/**").hasAnyAuthority(SYSTEM_ADMIN_DELETE.name(), COMPANY_ADMIN_DELETE.name())
 
-                                .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
+                                .requestMatchers("/api/v1/admin/**").hasRole(SYSTEM_ADMIN.name())
 
-                                .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-                                .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-                                .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-                                .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())
+                                .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_READ.name())
+                                .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_CREATE.name())
+                                .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_DELETE.name())
 
                                 .anyRequest()
                                 .authenticated()
