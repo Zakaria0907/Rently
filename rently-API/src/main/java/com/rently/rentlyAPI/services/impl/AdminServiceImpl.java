@@ -21,13 +21,12 @@ public class AdminServiceImpl implements AdminService {
     private final CompanyRepository companyRepository;
 
     @Override
-    public CompanyDto createCompany(CompanyDto company) {
-        Optional<Company> existing = companyRepository.findCompanyByName(company.getName());
-        System.out.println(existing);
+    public CompanyDto createCompany(CompanyDto companyDto) {
+        Optional<Company> existing = companyRepository.findCompanyByName(companyDto.getName());
         if(existing.isPresent())
-            throw new OperationNonPermittedException("There is already a company with the name: "+company.getName());
-        Company authorEntity = CompanyDto.toEntity(company);
-        Company savedCompany = companyRepository.save(authorEntity);
+            throw new OperationNonPermittedException("There is already a company with the name: "+companyDto.getName());
+        Company company = CompanyDto.toEntity(companyDto);
+        Company savedCompany = companyRepository.save(company);
         return CompanyDto.fromEntity(savedCompany);
     }
 
