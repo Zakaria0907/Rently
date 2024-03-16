@@ -7,6 +7,7 @@ import CompanySidebar from '../../pages/CompanyPages/CompanySidebar';
 import OwnerSidebar from '../../pages/OwnerPages/OwnerSidebar';
 import UserSidebar from '../../pages/UserPages/UserSidebar';
 import { Roles } from '../../types/enums'; 
+import RenterSidebar from '../../pages/RenterPages/RenterSidebar';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -117,6 +118,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             }
             {
               auth.roles === Roles.USER && <UserSidebar />
+            }
+            {
+              auth.roles === Roles.RENTER && <RenterSidebar />
             }
           </div>
 

@@ -1,15 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import DefaultLayout from '../../pages/DefaultLayout';
+import DefaultLayout from '../DefaultLayout';
 import useAuth from '../../hooks/useAuth';
 
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 
-//TODO: ADD ACTUAL ACTIVATION KEY ROUTE
-//TODOD: ADD FEEDBACK/ANIMAITON WHEN ACTIVATING KEY
-const UserSettings = () => {
+//TODO: Refactor for Renters
+const RenterSettings = () => {
     const { auth } = useAuth();
     const [activationKey, setActivationKey] = useState<string | null>(auth?.activationKey);
 
@@ -51,7 +50,7 @@ const UserSettings = () => {
                         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                             <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
                                 <h3 className="font-medium text-black dark:text-white">
-                                    Account Activation
+                                    Deactivate Account
                                 </h3>
                             </div>
                             <div className="p-7">
@@ -62,7 +61,7 @@ const UserSettings = () => {
                                             className="mb-3 block text-sm font-medium text-black dark:text-white"
                                             htmlFor="Username"
                                         >
-                                            Activate Your Account
+                                            Reason for Deactivation
                                         </label>
                                         <div className="relative">
                                             <span className="absolute left-4.5 top-4">
@@ -101,7 +100,7 @@ const UserSettings = () => {
                                                 name="activationKey"
                                                 id="activationKey"
                                                 rows={6}
-                                                placeholder="Write your activationKey here"
+                                                placeholder="Enter your reason for deactivation here..."
                                                 onChange={(e) => setActivationKey(e.target.value)}
                                                 defaultValue={activationKey ?? ''}
                                             ></textarea>
@@ -119,7 +118,7 @@ const UserSettings = () => {
                                             className="flex justify-center rounded bg-primary py-2 px-6 font-medium text-customGray hover:bg-opacity-90"
                                             type="submit"
                                         >
-                                            Save
+                                            Deactivate
                                         </button>
                                     </div>
                                 </form>
@@ -132,4 +131,4 @@ const UserSettings = () => {
     );
 };
 
-export default UserSettings;
+export default RenterSettings;

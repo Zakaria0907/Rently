@@ -6,15 +6,15 @@ import { FaRegBuilding, FaRegUser } from "react-icons/fa";
 import { BsReceipt } from "react-icons/bs";
 
 
-const UserDashboard: React.FC = () => {
+const RenterDashboard: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
 
     React.useEffect(() => {
         const cards = [
             {
-                title: 'Random',
+                title: 'Common Facilities',
                 count: 10,
-                link: '/manage-units',
+                link: '/renter-calendar',
                 icon: <FaRegBuilding className="mt-1 text-xl" />,
             },
             {
@@ -36,7 +36,7 @@ const UserDashboard: React.FC = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Public User Dashboard" />
+            <Breadcrumb pageName="Renter Dashboard" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
                     cardCollection.map((card, index) => {
@@ -75,4 +75,4 @@ const UserDashboard: React.FC = () => {
     );
 };
 
-export default UserDashboard;
+export default RenterDashboard;

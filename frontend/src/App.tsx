@@ -30,6 +30,8 @@ import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 import RoleBasedRedirect from "./utils/RoleBaseRedirect";
 import UserDashboard from "./pages/UserPages/UserDashboard";
 import UserSettings from "./pages/UserPages/UserSettings";
+import RenterDashboard from "./pages/RenterPages/RenterDashboard";
+import RenterSettings from "./pages/RenterPages/RenterSettings";
 
 function App() {
   return (
@@ -109,6 +111,36 @@ function App() {
                     <>
                       <PageTitle title="Profile | Rently Condo Management SAAS" />
                       <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="User Dashboard | Rently Condo Management SAAS" />
+                      <RenterDashboard />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-settings"
+                  element={
+                    <>
+                      <PageTitle title="User Settings | Rently Condo Management SAAS" />
+                      <RenterSettings />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-calendar"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <Calendar />
                     </>
                   }
                 />
