@@ -36,7 +36,7 @@ const UserDashboard: React.FC = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Owner Dashboard" />
+            <Breadcrumb pageName="Public User Dashboard" />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                 {
                     cardCollection.map((card, index) => {
