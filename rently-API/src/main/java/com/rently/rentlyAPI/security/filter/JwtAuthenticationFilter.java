@@ -1,6 +1,5 @@
 package com.rently.rentlyAPI.security.filter;
 
-import com.rently.rentlyAPI.repository.auth.TokenRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +23,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtUtils jwtUtils;
   private final UserDetailsService userDetailsService;
-  private final TokenRepository tokenRepository;
 
   @Override
   protected void doFilterInternal(
@@ -47,10 +45,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     userEmail = jwtUtils.extractUsername(jwt);
     if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-      var isTokenValid = tokenRepository.findByToken(jwt)
-          .map(t -> !t.isExpired() && !t.isRevoked())
-          .orElse(false);
-      if (jwtUtils.isTokenValid(jwt, userDetails) && isTokenValid) {
+
+      if (jwtUtils.isTokenValid(jwt, userDetails)) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails,
             null,

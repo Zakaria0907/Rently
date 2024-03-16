@@ -34,6 +34,7 @@ import AdminBuildings from "./pages/Admin/AdminViewBuildings";
 import AdminOwners from "./pages/Admin/AdminViewOwners";
 import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 
+
 function App() {
   return (
     <ChakraProvider>

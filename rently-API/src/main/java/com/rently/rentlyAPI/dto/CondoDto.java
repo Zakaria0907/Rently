@@ -22,9 +22,8 @@ public class CondoDto {
     @Nullable
     private Integer id;
 
-    @NotEmpty(message = "Condo name is required")
+
     @NotBlank(message = "Condo name is required")
-    @NotNull(message = "Condo name is required")
     private String name;
 
     private String address;
@@ -38,9 +37,9 @@ public class CondoDto {
     @NotNull(message = "Condo status is required")
     private CondoStatus status;
 
-    private Integer userId;
-    
     private Integer buildingId;
+
+    // we should add a field "floor" to the condo entity
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()
@@ -51,7 +50,6 @@ public class CondoDto {
                 .condoType(condo.getCondoType())
                 .description(condo.getDescription())
                 .status(condo.getStatus())
-                .userId(condo.getUser().getId())
                 .buildingId(condo.getBuilding().getId())
                 .build();
     }
@@ -65,7 +63,6 @@ public class CondoDto {
                 .condoType(condoDto.getCondoType())
                 .description(condoDto.getDescription())
                 .status(condoDto.getStatus())
-                .user(User.builder().id(condoDto.getUserId()).build())
                 // Building is set in the service
                 .build();
     }

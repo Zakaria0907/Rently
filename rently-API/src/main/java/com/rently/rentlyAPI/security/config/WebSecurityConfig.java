@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.security.config;
 
 import com.rently.rentlyAPI.security.filter.JwtAuthenticationFilter;
-import com.rently.rentlyAPI.services.auth.RentlyOAuth2UserService;
+import com.rently.rentlyAPI.auth.services.RentlyOAuth2UserService;
 import com.rently.rentlyAPI.security.utils.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,9 @@ public class WebSecurityConfig {
     
     @Autowired
     private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
-
+    private final JwtAuthenticationFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
+    private final LogoutHandler logoutHandler;
     private static final String[] WHITE_LIST_URL = {
             "http://localhost:8080/api/v1/auth/**",
             "/api/v1/auth/**",
@@ -54,9 +56,7 @@ public class WebSecurityConfig {
             "/swagger-ui/**",
             "/webjars/**",
             "/swagger-ui.html"};
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    private final LogoutHandler logoutHandler;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

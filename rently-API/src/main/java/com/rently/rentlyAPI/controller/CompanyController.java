@@ -35,11 +35,17 @@ public class CompanyController {
         return ResponseEntity.ok(building);
     }
     
-    //TODO: Endpoint to update a building by companyId and buildingId
-    @PutMapping("/{companyId}/building/{buildingId}/update")
+    //Endpoint to update a building by companyId and buildingId
+    @PatchMapping("/{companyId}/building/{buildingId}/update")
     public ResponseEntity<BuildingDto> updateBuildingByCompanyIdAndBuildingId(@PathVariable("companyId") Integer companyId, @PathVariable("buildingId") Integer buildingId, @RequestBody BuildingDto buildingDto) {
-//        return ResponseEntity.ok(companyService.updateBuildingByCompanyIdAndBuildingId(companyId, buildingId, buildingDto));
-        return null;
+        return ResponseEntity.ok(companyService.updateBuildingByCompanyIdAndBuildingId(companyId, buildingId, buildingDto));
+    }
+    
+    // Endpoint to delete a building and subsequently all condos in the building
+    @DeleteMapping("/{companyId}/building/{buildingId}/delete")
+    public ResponseEntity<String> deleteBuildingByCompanyIdAndBuildingId(@PathVariable("companyId") Integer companyId, @PathVariable("buildingId") Integer buildingId) {
+        companyService.deleteBuildingByCompanyIdAndBuildingId(companyId, buildingId);
+        return ResponseEntity.ok("Building deleted successfully");
     }
     
     // Endpoint to get all buildings by companyId
@@ -61,19 +67,23 @@ public class CompanyController {
         return ResponseEntity.ok(companyService.createCondoByCompanyId(companyId, buildingId, condoDto));
     }
     
-    // TODO: Endpoint to get a condo by buildingId and condoId
-    @GetMapping("{buildingId}/condo/{condoId}")
+    //Endpoint to get a condo by buildingId and condoId
+    @GetMapping("building/{buildingId}/condo/{condoId}")
     public ResponseEntity<CondoDto> getCondoByBuildingIdAndCondoId(@PathVariable("buildingId") Integer buildingId, @PathVariable("condoId") Integer condoId) {
-//        CondoDto condo = companyService.getCondoByBuildingIdAndCondoId(buildingId, condoId);
-//        return ResponseEntity.ok(condo);
-        return null;
+        CondoDto condo = companyService.getCondoByBuildingIdAndCondoId(buildingId, condoId);
+        return ResponseEntity.ok(condo);
     }
     
-    // TODO: Endpoint to update a condo by buildingId and condoId
-    @PutMapping("{buildingId}/condo/{condoId}/update")
+    //Endpoint to update a condo by buildingId and condoId
+    @PatchMapping("building/{buildingId}/condo/{condoId}/update")
     public ResponseEntity<CondoDto> updateCondoByBuildingIdAndCondoId(@PathVariable("buildingId") Integer buildingId, @PathVariable("condoId") Integer condoId, @RequestBody CondoDto condoDto) {
-//        return ResponseEntity.ok(companyService.updateCondoByBuildingIdAndCondoId(buildingId, condoId, condoDto));
-        return null;
+        return ResponseEntity.ok(companyService.updateCondoByBuildingIdAndCondoId(buildingId, condoId, condoDto));
+    }
+    
+    @DeleteMapping("building/{buildingId}/condo/{condoId}/delete")
+    public ResponseEntity<String> deleteCondoByBuildingIdAndCondoId(@PathVariable("buildingId") Integer buildingId, @PathVariable("condoId") Integer condoId) {
+        companyService.deleteCondoByBuildingIdAndCondoId(buildingId, condoId);
+        return ResponseEntity.ok("Condo deleted successfully");
     }
     
     // Endpoint to get the count of condos by buildingId

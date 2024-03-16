@@ -1,19 +1,41 @@
 import React, { ChangeEvent, useState } from 'react';
-import { FaRegBuilding } from 'react-icons/fa';
+import { UnitStatus, UnitType } from '../types/enums';
+import { Unit } from '../types/types';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 interface AddPropertyPopupProps {
     closeModal: () => void;
-    addProperty: (property: any) => void;
+    userId: number;
+    buildingId: number;
 }
 
-const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty }: AddPropertyPopupProps) => {
-    const [property, setProperty] = useState({
-        id: Math.random().toString(36).substring(2, 15),
-        name: "",
-        address: "",
+const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId, buildingId }: AddPropertyPopupProps) => {
+    const [unit, setUnit] = useState<Unit>({
+        name: '',
+        address: '',
+        condoNumber: '',
+        condoType: UnitType.APARTMENT,
+        description: '',
+        status: UnitStatus.AVAILABLE_FOR_RENT,
     });
 
-    const [availableForRent, setAvailableForRent] = useState(false);
+    const axiosPrivate = useAxiosPrivate();
+
+
+    const addUnit = async () => {
+        console.log("Adding this unit: ", unit);
+        try {
+            await axiosPrivate.post(`/company/${userId}/building/${buildingId}/create-condo`, unit);
+            closeModal();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const enableAddButton = () => {
+        return unit.name.length > 0 && unit.address.length > 0 && unit.condoNumber.length > 0 && unit.condoType.length > 0 && unit.description.length > 0;
+    }
+
 
     return (
         <div
@@ -32,7 +54,7 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
                         Add a new Unit
                     </h3>
                     <p className="mt-2 text-sm text-gray-500">
-                        This will add a property to your property list
+                        This will add a unit to your unit list
                     </p>
 
                     <form className="mt-4" action="#">
@@ -45,6 +67,7 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
                                     type="text"
                                     placeholder="Default Input"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setUnit({ ...unit, name: e.target.value }) }}
                                 />
                             </div>
 
@@ -56,6 +79,7 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
                                     type="text"
                                     placeholder="Default Input"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setUnit({ ...unit, address: e.target.value }) }}
                                 />
                             </div>
 
@@ -64,10 +88,51 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
                                     Unit Number
                                 </label>
                                 <input
-                                    type="number"
+                                    type="text"
                                     placeholder="Number of Units"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setUnit({ ...unit, condoNumber: e.target.value }) }}
                                 />
+                            </div>
+
+                            <div>
+                                <label className="block text-black dark:text-white">
+                                    Unit Status
+                                </label>
+                                <div className=" py-3">
+
+                                    <select
+                                        id="dropdown"
+                                        value={unit.status ?? UnitStatus.AVAILABLE_FOR_RENT}
+                                        onChange={(e: ChangeEvent<HTMLSelectElement>) => { setUnit({ ...unit, status: e.target.value as UnitStatus }) }}
+                                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    >
+                                        {Object.keys(UnitStatus).map((status, index) => {
+                                            return <option key={index}>{status}</option>
+                                        })}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <label className="block text-black dark:text-white">
+                                    Unit Type
+                                </label>
+                                <div className=" py-3">
+
+                                    <select
+                                        id="dropdown"
+                                        value={unit.condoType ?? UnitType.APARTMENT}
+                                        onChange={(e: ChangeEvent<HTMLSelectElement>) => { setUnit({ ...unit, condoType: e.target.value as UnitType }) }}
+                                        className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    >
+                                        {Object.keys(UnitType).map((condoType, index) => {
+                                            return <option key={index}>{condoType}</option>
+                                        })}
+                                    </select>
+                                </div>
+
                             </div>
 
                             <div>
@@ -78,33 +143,10 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
                                     rows={3}
                                     placeholder="Description of the Building"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setUnit({ ...unit, description: e.target.value }) }}
                                 ></textarea>
                             </div>
 
-
-                            <div className='mb-3 block text-black dark:text-white'>
-                                Unit Available for Rent
-                                <label
-                                    htmlFor="toggle1"
-                                    className="flex cursor-pointer select-none items-center py-3"
-                                >
-                                    <div className="relative">
-                                        <input
-                                            type="checkbox"
-                                            id="toggle1"
-                                            className="sr-only"
-                                            onChange={() => {
-                                                setAvailableForRent(!availableForRent);
-                                            }}
-                                        />
-                                        <div className="block h-8 w-14 rounded-full bg-meta-9 dark:bg-[#5A616B]"></div>
-                                        <div
-                                            className={`absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition ${availableForRent && '!right-1 !translate-x-full !bg-primary dark:!bg-white'
-                                                }`}
-                                        ></div>
-                                    </div>
-                                </label>
-                            </div>
 
                         </div>
 
@@ -119,8 +161,9 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty
 
                             <button
                                 type="button"
-                                onClick={() => addProperty(property)}
-                                className="w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-indigo-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+                                onClick={() => addUnit()}
+                                className={`w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform ${enableAddButton() ? 'bg-primary hover:bg-indigo-500' : 'bg-gray-300 hover:bg-red-500'} rounded-md sm:mt-0 sm:w-1/2 sm:mx-2  focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                                disabled={!enableAddButton()}
                             >
                                 Add
                             </button>

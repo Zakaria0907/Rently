@@ -34,9 +34,13 @@ public class Condo extends AbstractEntity {
     @JoinColumn(name = "building_id")
     private Building building;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    public User user;
+    // condo can be associated to 0 or 1 parking
+    @OneToOne(mappedBy = "condo")
+    private Parking parking;
+
+    // condo can be associated to 0 or 1 locker
+    @OneToOne(mappedBy = "condo")
+    private Locker locker;
 
 
 }

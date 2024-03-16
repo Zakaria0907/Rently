@@ -1,17 +1,37 @@
-import React, { ChangeEvent, useState } from 'react';
-import { FaRegBuilding } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Building } from '../types/types';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 interface AddPropertyPopupProps {
     closeModal: () => void;
-    addProperty: (property: any) => void;
+    userId: number;
 }
 
-const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProperty }: AddPropertyPopupProps) => {
-    const [property, setProperty] = useState({
-        id: Math.random().toString(36).substring(2, 15),
-        name: "",
-        address: "",
+const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId }: AddPropertyPopupProps) => {
+    const [building, setBuilding] = useState<Building>({
+        name: '',
+        address: '',
+        unitCount: 0,
+        description: '',
     });
+
+    const axiosPrivate = useAxiosPrivate();
+
+
+    const addBuilding = async () => {
+        console.log("Adding this building: ", building);
+        try {
+            await axiosPrivate.post(`/company/${userId}/create-building`, building);
+            closeModal();
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const enableAddButton = () => {
+        return building.name.length > 0 && building.address.length > 0 && building.unitCount! > 0 && building.description.length > 0;
+    }
+
 
     return (
         <div
@@ -43,6 +63,9 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
                                     type="text"
                                     placeholder="Default Input"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                        setBuilding({ ...building, name: e.target.value })
+                                    }
                                 />
                             </div>
 
@@ -54,17 +77,23 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
                                     type="text"
                                     placeholder="Default Input"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                        setBuilding({ ...building, address: e.target.value })
+                                    }
                                 />
                             </div>
 
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    Unit Count
+                                    building Count
                                 </label>
                                 <input
                                     type="number"
                                     placeholder="Number of Units"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                        setBuilding({ ...building, unitCount: parseInt(e.target.value) })
+                                    }
                                 />
                             </div>
 
@@ -76,48 +105,13 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
                                     rows={3}
                                     placeholder="Description of the Building"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                                        setBuilding({ ...building, description: e.target.value })
+                                    }
                                 ></textarea>
                             </div>
 
                         </div>
-
-
-                        {/* 
-                        <label htmlFor="emails-list" className="text-sm text-gray-700">
-                            Property Name
-                        </label>
-
-                        <label className="block mt-3" htmlFor="email">
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Property Name"
-                                className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setProperty({ ...property, name: e.target.value })
-                                }
-                                value={property.name}
-                            />
-                        </label>
-
-                        <label htmlFor="emails-list" className="text-sm text-gray-700">
-                            Address
-                        </label>
-
-                        <label className="block mt-3" htmlFor="email">
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="1234 Main St, City, State, 12345"
-                                className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
-                                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                    setProperty({ ...property, address: e.target.value })
-                                }
-                                value={property.address}
-                            />
-                        </label> */}
 
                         <div className="mt-4 sm:flex sm:items-center sm:-mx-2">
                             <button
@@ -130,8 +124,8 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, addProp
 
                             <button
                                 type="button"
-                                onClick={() => addProperty(property)}
-                                className="w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 hover:bg-indigo-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
+                                onClick={() => addBuilding()}
+                                className={`w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform  ${enableAddButton() ? 'bg-primary hover:bg-indigo-500' : 'bg-gray-300 hover:bg-red-500'} rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
                             >
                                 Add
                             </button>

@@ -2,8 +2,8 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
 import com.rently.rentlyAPI.dto.UserProfileDto;
-import com.rently.rentlyAPI.dto.auth.ChangePasswordRequestDto;
-import com.rently.rentlyAPI.dto.auth.RegisterRequestDto;
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.entity.Key;
 import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
@@ -14,7 +14,6 @@ import com.rently.rentlyAPI.services.KeyService;
 import com.rently.rentlyAPI.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
