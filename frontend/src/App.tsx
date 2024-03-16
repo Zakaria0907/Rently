@@ -33,6 +33,7 @@ import UserSettings from "./pages/UserPages/UserSettings";
 import RenterDashboard from "./pages/RenterPages/RenterDashboard";
 import RenterSettings from "./pages/RenterPages/RenterSettings";
 import CompanyFinancialReport from "./pages/CompanyPages/CompanyFinancialReport";
+import CompanySettings from "./pages/CompanyPages/CompanySettings";
 
 function App() {
   return (
@@ -234,7 +235,17 @@ function App() {
                     </>
                   }
                 />
-                
+
+                <Route
+                  path="/company-settings"
+                  element={
+                    <>
+                      <PageTitle title="Company Settings | Rently Condo Management SAAS" />
+                      <CompanySettings />
+                    </>
+                  }
+                />
+
 
                 <Route
                   path="/company-financial-report"

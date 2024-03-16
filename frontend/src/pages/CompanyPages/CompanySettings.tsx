@@ -8,7 +8,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 
 //TODO: Refactor for Renters
-const RenterSettings = () => {
+const CompanySettings = () => {
     const { auth } = useAuth();
     const [activationKey, setActivationKey] = useState<string | null>(auth?.activationKey);
 
@@ -40,7 +40,7 @@ const RenterSettings = () => {
 
     return (
         <DefaultLayout>
-            <Breadcrumb pageName="Renter Settings" />
+            <Breadcrumb pageName="Company Settings" />
 
             <div className="mx-auto max-w-270">
 
@@ -131,4 +131,4 @@ const RenterSettings = () => {
     );
 };
 
-export default RenterSettings;
+export default CompanySettings;
