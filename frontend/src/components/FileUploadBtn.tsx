@@ -22,7 +22,7 @@ const fileUploadBtn: React.FC = () => {
 					/>
 				</svg>
 
-				<h2 className="mx-3 text-gray-400">Upload Condo File</h2>
+				<h2 className="mx-3 text-gray-400">Upload File</h2>
 
 				<input id="dropzone-file" type="file" className="hidden" />
 			</label>
