@@ -1,7 +1,9 @@
 package com.rently.rentlyAPI.controller;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.services.SystemAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +13,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/system-admin")
 @RequiredArgsConstructor
 public class SystemAdminController {
-//
+    //
     private final UserService userService;
+    private final SystemAdminService systemAdminService;
+
+    @PostMapping(path = "/create/company")
+    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(systemAdminService.createCompany(companyDto));
+    }
 
     @PostMapping(path = "/create/sytem-admin")
     public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {
@@ -21,7 +29,7 @@ public class SystemAdminController {
 
     @PostMapping(path = "/create/company-admin/company={companyId}")
     public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto, @PathVariable("companyId") Integer companyId) {
-        return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto,companyId));
+        return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto, companyId));
     }
 
 //
@@ -43,10 +51,7 @@ public class SystemAdminController {
 //        return ResponseEntity.ok(company);
 //    }
 //
-//    @PostMapping(path = "/companies/create")
-//    public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto company) {
-//        return ResponseEntity.ok(adminService.createCompany(company));
-//    }
+
 //
 //    @DeleteMapping("/companies/delete/id={companyId}")
 //    public ResponseEntity<String> deleteCompanyById(@PathVariable("companyId") Integer companyId) {
@@ -57,6 +62,6 @@ public class SystemAdminController {
 //    public ResponseEntity<String> deleteCompanyByName(@PathVariable("companyName") String companyName) {
 //        adminService.deleteCompanyByName(companyName);
 //        return ResponseEntity.ok("Company deleted successfully");
-    }
+}
 //
 //}
