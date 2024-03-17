@@ -1,11 +1,13 @@
 package com.rently.rentlyAPI.services;
 
+import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 
 public interface SystemAdminService {
+
     SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto);
 
-//    CompanyDto createCompany(CompanyDto company);
+    CompanyDto createCompany(CompanyDto company);
 //    void deleteCompanyById(Integer companyId);
 //    void deleteCompanyByName(String name);
 //

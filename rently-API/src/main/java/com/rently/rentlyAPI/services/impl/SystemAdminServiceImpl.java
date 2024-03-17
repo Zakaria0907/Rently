@@ -1,10 +1,12 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.SystemAdmin;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.SystemAdminRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.SystemAdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
     SystemAdminRepository systemAdminRepository;
 
+    CompanyService companyService;
+
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
         // check the system admin does not already exist
         Optional<SystemAdmin> systemAdmin = systemAdminRepository.findByEmail(systemAdminDto.getEmail());//.orElse(null);
@@ -30,6 +34,11 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         SystemAdmin savedUser = systemAdmin.get();
         savedUser = systemAdminRepository.save(savedUser);
         return SystemAdminDto.fromEntity(savedUser);
+    }
+
+    @Override
+    public CompanyDto createCompany(CompanyDto company) {
+        return companyService.createCompany(company);
     }
 
 //    private final CompanyRepository companyRepository;
