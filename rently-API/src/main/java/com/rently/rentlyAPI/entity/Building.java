@@ -44,8 +44,4 @@ public class Building extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
 	private Company company;
-
-
-
-
 }
