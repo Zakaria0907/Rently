@@ -21,46 +21,58 @@ public enum Role {
 
   //Admin have all permissions
   SYSTEM_ADMIN(
-          Set.of(
-                  SYSTEM_ADMIN_READ,
-                  SYSTEM_ADMIN_UPDATE,
-                  SYSTEM_ADMIN_DELETE,
-                  SYSTEM_ADMIN_CREATE,
-                  COMPANY_ADMIN_READ,
-                  COMPANY_ADMIN_UPDATE,
-                  COMPANY_ADMIN_DELETE,
-                  COMPANY_ADMIN_CREATE
-          )
+      Set.of(
+          SYSTEM_ADMIN_CREATE,
+          SYSTEM_ADMIN_READ,
+          SYSTEM_ADMIN_UPDATE,
+          SYSTEM_ADMIN_DELETE
+      )
   ),
+  
   COMPANY_ADMIN(
-          Set.of(
-                  COMPANY_ADMIN_READ,
-                  COMPANY_ADMIN_UPDATE,
-                  COMPANY_ADMIN_DELETE,
-                  COMPANY_ADMIN_CREATE
-          )
+      Set.of(
+          COMPANY_ADMIN_CREATE,
+          COMPANY_ADMIN_READ,
+          COMPANY_ADMIN_UPDATE,
+          COMPANY_ADMIN_DELETE
+      )
+  ),
+  
+  EMPLOYEE(
+      Set.of(
+          EMPLOYEE_CREATE,
+          EMPLOYEE_READ,
+          EMPLOYEE_UPDATE,
+          EMPLOYEE_DELETE
+      )
+  ),
+  
+  PUBLIC_USER(
+      Set.of(
+          PUBLIC_USER_CREATE,
+          PUBLIC_USER_READ,
+          PUBLIC_USER_UPDATE,
+          PUBLIC_USER_DELETE
+      )
   ),
 
   OWNER(
-          Set.of(
-                  OWNER_READ,
-                  OWNER_UPDATE,
-                  OWNER_DELETE,
-                  OWNER_CREATE
-          )
+      Set.of(
+          OWNER_CREATE,
+          OWNER_READ,
+          OWNER_UPDATE,
+          OWNER_DELETE
+      )
     ),
 
-    RENTER(
-            Set.of(
-                    RENTER_READ,
-                    RENTER_UPDATE,
-                    RENTER_DELETE,
-                    RENTER_CREATE
-            )
-    )
-
-
-  ;
+  RENTER(
+      Set.of(
+          RENTER_CREATE,
+          RENTER_READ,
+          RENTER_UPDATE,
+          RENTER_DELETE
+      )
+  );
 
   private final Set<Permission> permissions;
 

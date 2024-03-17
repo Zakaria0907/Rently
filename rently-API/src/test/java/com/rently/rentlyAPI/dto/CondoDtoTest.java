@@ -2,8 +2,7 @@ package com.rently.rentlyAPI.dto;
 
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.User.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
+import com.rently.rentlyAPI.entity.User.Occupant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -16,9 +17,11 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Table(name = "housing_contract")
 public class HousingContract extends AbstractEntity{
+    
     @ManyToOne
     @JoinColumn(name = "company_id")
-    private Company handlingCompany;
+    private Company company;
+   
     @ManyToOne
     @JoinColumn(name = "occupant_id")
     private Occupant occupant;

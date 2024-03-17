@@ -2,11 +2,8 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
 import com.rently.rentlyAPI.dto.UserProfileDto;
-import com.rently.rentlyAPI.entity.Key;
-import com.rently.rentlyAPI.entity.User;
-import org.springframework.data.jpa.repository.Query;
+import com.rently.rentlyAPI.entity.User.User;
 
-import java.security.Principal;
 import java.util.Optional;
 
 public interface UserService {

@@ -1,11 +1,8 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.S3File;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.User.User;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +36,8 @@ public class UserDto {
     public static UserDto fromEntity(User user) {
         return UserDto.builder()
             .id(user.getId())
-            .firstname(user.getFirstname())
-            .lastname(user.getLastname())
+            .firstname(user.getFirstName())
+            .lastname(user.getLastName())
             .email(user.getEmail())
             .role(user.getRole().name())
             .phoneNumber(user.getPhoneNumber())

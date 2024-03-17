@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
+import com.rently.rentlyAPI.entity.User.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

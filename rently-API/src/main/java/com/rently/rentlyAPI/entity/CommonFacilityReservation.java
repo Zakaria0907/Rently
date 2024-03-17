@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.entity;
 
 
+import com.rently.rentlyAPI.entity.User.Occupant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -15,8 +16,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "facility_reservation")
-public class FacilityReservation extends AbstractEntity{
+@Table(name = "commont_facility_reservation")
+public class CommonFacilityReservation extends AbstractEntity{
+    
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -24,11 +26,13 @@ public class FacilityReservation extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "common_facility_id")
     private CommonFacility commonFacility;
+    
     @ManyToOne
     @JoinColumn(name = "occupant_id")
     private Occupant occupant;
 
     private long duration;
+    
     private String date;
 
 }

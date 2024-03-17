@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class CompanyDto {
+    
     @Nullable
     private Integer id;
 
@@ -33,5 +34,4 @@ public class CompanyDto {
                 .name(companyDto.getName())
                 .build();
     }
-
 }

@@ -4,6 +4,7 @@ import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.dto.KeyDto;
 import com.rently.rentlyAPI.entity.*;
+import com.rently.rentlyAPI.entity.User.User;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.CompanyRepository;
 import com.rently.rentlyAPI.repository.CondoRepository;

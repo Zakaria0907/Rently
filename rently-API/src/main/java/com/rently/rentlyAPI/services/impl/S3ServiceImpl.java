@@ -10,7 +10,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.rently.rentlyAPI.entity.enums.FileType;
 import com.rently.rentlyAPI.entity.S3File;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.User.User;
 import com.rently.rentlyAPI.exceptions.FileUploadException;
 import com.rently.rentlyAPI.repository.S3FileRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
@@ -76,7 +76,7 @@ public class S3ServiceImpl implements S3Service {
 			}
 			
 			String fileName = imageFile.getOriginalFilename();
-			String description = user.getFirstname() + " " + user.getLastname() + " has " + fileName + " as a picture";
+			String description = user.getFirstName() + " " + user.getLastName() + " has " + fileName + " as a picture";
 			assert fileName != null;
 			FileType fileType = determineFileType(fileName);
 			String storedUrl = uploadFileToS3(imageFile);

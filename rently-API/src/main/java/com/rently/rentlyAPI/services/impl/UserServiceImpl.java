@@ -5,7 +5,7 @@ import com.rently.rentlyAPI.dto.UserProfileDto;
 import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
 import com.rently.rentlyAPI.entity.Key;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.User.User;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.UserRepository;
@@ -74,8 +74,8 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(user_id)
             .orElseThrow(() -> new EntityNotFoundException("User not found"));
         
-        if (request.getFirstname() != null) user.setFirstname(request.getFirstname());
-        if (request.getLastname() != null) user.setLastname(request.getLastname());
+        if (request.getFirstname() != null) user.setFirstName(request.getFirstname());
+        if (request.getLastname() != null) user.setLastName(request.getLastname());
         if (request.getPhoneNumber() != null) user.setPhoneNumber(request.getPhoneNumber());
         if (request.getBio() != null) user.setBio(request.getBio());
         
@@ -89,8 +89,8 @@ public class UserServiceImpl implements UserService {
         String profilePictureUrl = user.getProfilePicture() != null ? user.getProfilePicture().getStoredUrl() : " ";
 	    
         return UserProfileDto.builder()
-            .firstname(user.getFirstname())
-            .lastname(user.getLastname())
+            .firstname(user.getFirstName())
+            .lastname(user.getLastName())
             .email(user.getEmail())
             .role(user.getRole().name())
             .phoneNumber(user.getPhoneNumber())

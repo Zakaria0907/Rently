@@ -1,12 +1,9 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.User;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
