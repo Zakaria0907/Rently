@@ -1,7 +1,6 @@
 package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.PublicUserDto;
-import com.rently.rentlyAPI.entity.user.PublicUser;
 
 public interface PublicUserService {
 
@@ -11,9 +10,9 @@ public interface PublicUserService {
      PublicUserDto updatePublicUser(PublicUserDto publicUserDto, Integer publicUserId);
 
 
-     PublicUserDto getPublicUser(Integer publicUserId);
+     PublicUserDto getPublicUserById(Integer publicUserId);
 
 
-     String deletePublicUser(Integer id);
+     String deletePublicUserById(Integer id);
 
 }
