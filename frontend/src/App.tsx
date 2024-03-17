@@ -34,6 +34,11 @@ import RenterDashboard from "./pages/RenterPages/RenterDashboard";
 import RenterSettings from "./pages/RenterPages/RenterSettings";
 import CompanyFinancialReport from "./pages/CompanyPages/CompanyFinancialReport";
 import CompanySettings from "./pages/CompanyPages/CompanySettings";
+import AdminView from "./pages/Admin/AdminView";
+import AdminBuildings from "./pages/Admin/AdminViewBuildings";
+import AdminOwners from "./pages/Admin/AdminViewOwners";
+import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
+
 
 function App() {
   return (
@@ -311,10 +316,47 @@ function App() {
 
             {/* catch all */}
             <Route path="*" element={<Missing />} />
-
+            <Route
+                  path="/condo-upload"
+                  element={
+                    <>
+                      <PageTitle title="Condo Upload" />
+                      <AdminView/>
+                    </>
+                  }
+                />
             {/* for testing/dev purposes */}
             <Route path="/temp" element={<Temp />} />
-            <Route path="/condo-fees" element={<CondoFees />} />
+            <Route path="/admin-view" element={<AdminView />} />
+            <Route
+                path="/admin-view-buildings"
+                element={
+                  <>
+                    <PageTitle title="Admin Buildings | Rently Condo Management Administration" />
+                    <AdminBuildings />
+                  </>
+                }
+              />
+              <Route
+                path="/admin-view-owners"
+                element={
+                  <>
+                    <PageTitle title="Admin Owners | Rently Condo Management Administration" />
+                    <AdminOwners />
+                  </>
+                }
+              />
+
+              <Route
+                path="/admin-owner-details/1"
+                element={
+                  <>
+                    <PageTitle title="Owners Details | Rently Condo Management Administration" />
+                    <AdminViewOwnerDetail />
+                  </>
+                }
+              />
+
             <Route
               path="/fees"
               element={
