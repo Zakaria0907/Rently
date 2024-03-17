@@ -5,6 +5,8 @@ import tw from "tailwind-styled-components";
 import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import ApiManager from "../api/ApiManager";
 import { User } from "../types/types";
+import toast, { Toaster } from 'react-hot-toast';
+import { position } from "@chakra-ui/react";
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
@@ -50,15 +52,16 @@ const Login = () => {
             setPwd("");
             // navigate(from, { replace: true }); // PUT IT BACK AFTER
             navigate("/login-success");
+            toast.success("Login Successful");
         } catch (err: any) {
             if (!err?.response) {
-                setErrMsg("No Server Response");
+                toast.error("Network Error");
             } else if (err.response?.status === 400) {
-                setErrMsg("Missing Username or Password");
+               toast.error("Invalid Credentials");
             } else if (err.response?.status === 401) {
-                setErrMsg("Unauthorized");
+                toast.error("Invalid Credentials");
             } else {
-                setErrMsg("Login Failed");
+                toast.error("Unable to login");
             }
             if (errRef.current) {
                 errRef.current.focus();
@@ -81,9 +84,7 @@ const Login = () => {
                     <RentlyLogo className="w-auto h-12" />
                 </LogoContainer>
                 
-                <div>
-                    {errMsg && <p ref={errRef} className="text-red-500">{errMsg}</p>}
-                </div>
+                <Toaster position="top-right"/>
 
                 <Form onSubmit={handleSubmit}>
                     <div>
