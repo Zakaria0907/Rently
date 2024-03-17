@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../pages/DefaultLayout';
-import userThree from '../images/user/user-03.png';
+// import userThree from '../images/user/user-03.png';
 import { Avatar } from '@chakra-ui/react'
 import useAuth from '../hooks/useAuth';
 import { AiOutlineUpload } from "react-icons/ai";

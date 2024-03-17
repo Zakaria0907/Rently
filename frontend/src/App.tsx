@@ -10,8 +10,6 @@ import Missing from "./components/Missing";
 import Temp from "./components/Temp";
 import { Roles } from "./types/enums";
 import { ChakraProvider } from "@chakra-ui/react";
-import CondoFees from "./components/EnterFees";
-import { CartProvider } from "./context/CartContext";
 import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
 import Reservations from "./components/Reservations";
@@ -43,7 +41,6 @@ import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 function App() {
   return (
     <ChakraProvider>
-      <CartProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
@@ -407,7 +404,6 @@ function App() {
             />
           </Route>
         </Routes>
-      </CartProvider>
     </ChakraProvider>
   );
 }

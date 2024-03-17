@@ -78,10 +78,6 @@ const FlexContainer = tw.div`
 const LogoLink = tw.a`
     `;
 
-const LogoImage = tw.img`
-        w-auto
-        h-7
-    `;
 
 const LinkContainer = tw.div`
         flex

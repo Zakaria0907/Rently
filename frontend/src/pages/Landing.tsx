@@ -1,4 +1,3 @@
-import tw from "tailwind-styled-components"
 import React, { useRef } from 'react';
 import Hero from "../components/Hero";
 import Testimonials from "../components/Testimonials";

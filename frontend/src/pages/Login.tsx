@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, ChangeEvent, FormEvent } from "react";
 import useAuth from "../hooks/useAuth";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import ApiManager from "../api/ApiManager";
@@ -11,8 +11,8 @@ const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
+    // const location = useLocation();
+    // const from = location.state?.from?.pathname || "/";
 
     const userRef = useRef<HTMLInputElement>(null);
     const errRef = useRef<HTMLParagraphElement>(null);
@@ -28,6 +28,7 @@ const Login = () => {
     }, []);
 
     useEffect(() => {
+        console.log("setErrMsg: ", errMsg);
         setErrMsg("");
     }, [userName, pwd]);
 
@@ -186,9 +187,9 @@ const LogoContainer = tw.div`
     flex justify-center mx-auto
 `;
 
-const Logo = tw.img`
-    w-auto h-7 sm:h-8
-`;
+// const Logo = tw.img`
+//     w-auto h-7 sm:h-8
+// `;
 
 const Form = tw.form`
     mt-6

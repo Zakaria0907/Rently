@@ -13,7 +13,7 @@ const useRefreshToken = (): (() => Promise<string>) => {
 
     const refresh = async (): Promise<string> => {
         const response: AxiosResponse<{ user: any; access_token: string, companyname?: string }> = await ApiManager.refresh({});
-        setAuth((prev: any) => {
+        setAuth(() => {
             console.log("response.data in useRefreshToken", response?.data);
 
             const user: User = {
