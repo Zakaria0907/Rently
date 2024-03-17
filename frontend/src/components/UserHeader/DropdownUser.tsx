@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
-import UserOne from '../../images/user/user-01.png';
 import useAuth from '../../hooks/useAuth';
 import { RoleText } from '../../types/enums';
 import { Avatar, AvatarBadge } from '@chakra-ui/react'
