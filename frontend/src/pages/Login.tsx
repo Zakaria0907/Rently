@@ -6,7 +6,6 @@ import RentlyLogo from '../images/icon/rently-logo.svg?react';
 import ApiManager from "../api/ApiManager";
 import { User } from "../types/types";
 import toast, { Toaster } from 'react-hot-toast';
-import { position } from "@chakra-ui/react";
 
 const Login = () => {
     const { setAuth, persist, setPersist } = useAuth();

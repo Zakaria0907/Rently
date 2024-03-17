@@ -1,14 +1,12 @@
 import React from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
-import ChartOne from '../../components/Charts/ChartOne';
-import ChartTwo from '../../components/Charts/ChartTwo';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
 import { GrUserWorker } from "react-icons/gr";
 import { FaRegBuilding, FaRegUser } from "react-icons/fa";
 
 
-const AdminView: React.FC = () => {
+const AdminDashboard: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
 
     React.useEffect(() => {
@@ -81,4 +79,4 @@ const AdminView: React.FC = () => {
     );
 };
 
-export default AdminView;
+export default AdminDashboard;

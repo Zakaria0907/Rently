@@ -11,7 +11,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
     const [building, setBuilding] = useState<Building>({
         name: '',
         address: '',
-        unitCount: 0,
+        // unitCount: 0,
         description: '',
     });
 
@@ -29,7 +29,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
     }
 
     const enableAddButton = () => {
-        return building.name.length > 0 && building.address.length > 0 && building.unitCount! > 0 && building.description.length > 0;
+        return building.name.length > 0 && building.address.length > 0 && building.description.length > 0;
     }
 
 
@@ -83,9 +83,9 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                 />
                             </div>
 
-                            <div>
+                            {/* <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    building Count
+                                    Unit Count
                                 </label>
                                 <input
                                     type="number"
@@ -95,7 +95,7 @@ const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId 
                                         setBuilding({ ...building, unitCount: parseInt(e.target.value) })
                                     }
                                 />
-                            </div>
+                            </div> */}
 
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
