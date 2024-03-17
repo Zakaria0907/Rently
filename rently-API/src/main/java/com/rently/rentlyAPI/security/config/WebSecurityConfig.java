@@ -1,8 +1,8 @@
 package com.rently.rentlyAPI.security.config;
 
 import com.rently.rentlyAPI.security.filter.JwtAuthenticationFilter;
-import com.rently.rentlyAPI.auth.services.RentlyOAuth2UserService;
-import com.rently.rentlyAPI.security.utils.OAuth2LoginSuccessHandler;
+//import com.rently.rentlyAPI.auth.services.RentlyOAuth2UserService;
+//import com.rently.rentlyAPI.security.utils.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,11 +34,11 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 //@EnableMethodSecurity //Enables @PreAuthroize annotation
 public class WebSecurityConfig {
     
-    @Autowired
-    private RentlyOAuth2UserService oAuth2UserService;
+//    @Autowired
+//    private RentlyOAuth2UserService oAuth2UserService;
     
     @Autowired
-    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+//    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;

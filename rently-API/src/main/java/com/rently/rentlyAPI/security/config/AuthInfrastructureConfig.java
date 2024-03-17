@@ -1,7 +1,8 @@
 package com.rently.rentlyAPI.security.config;
 
-import com.rently.rentlyAPI.security.config.audit.ApplicationAuditAware;
 import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.security.config.audit.ApplicationAuditAware;
+//import com.rently.rentlyAPI.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

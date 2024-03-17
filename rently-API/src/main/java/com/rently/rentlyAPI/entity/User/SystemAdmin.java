@@ -12,10 +12,6 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "system_admin")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
 public class SystemAdmin extends User {
-
 
 }

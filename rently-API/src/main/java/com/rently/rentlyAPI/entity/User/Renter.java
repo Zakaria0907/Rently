@@ -11,9 +11,6 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "renter")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Renter extends Occupant {
 
 }

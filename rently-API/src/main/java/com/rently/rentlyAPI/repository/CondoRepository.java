@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.repository;
 
-import com.rently.rentlyAPI.dto.CondoDto;
+//import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.entity.Condo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
