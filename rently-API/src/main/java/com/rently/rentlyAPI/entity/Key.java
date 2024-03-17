@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.User.User;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

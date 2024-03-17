@@ -1,7 +1,6 @@
-package com.rently.rentlyAPI.entity.User;
+package com.rently.rentlyAPI.entity.user;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.JOINED)

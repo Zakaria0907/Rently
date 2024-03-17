@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.User.User;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
 

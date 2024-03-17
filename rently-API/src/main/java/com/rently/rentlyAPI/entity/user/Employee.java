@@ -1,11 +1,7 @@
-package com.rently.rentlyAPI.entity.User;
+package com.rently.rentlyAPI.entity.user;
 
-import com.rently.rentlyAPI.entity.enums.EmployeeType;
-import com.rently.rentlyAPI.security.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

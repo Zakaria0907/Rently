@@ -1,11 +1,8 @@
-package com.rently.rentlyAPI.entity.User;
+package com.rently.rentlyAPI.entity.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "renter")

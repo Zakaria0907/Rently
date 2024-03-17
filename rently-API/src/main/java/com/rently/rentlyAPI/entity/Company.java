@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.entity;
 
 
-import com.rently.rentlyAPI.entity.User.CompanyAdmin;
+import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

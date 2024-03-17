@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.entity;
 
 
-import com.rently.rentlyAPI.entity.User.Occupant;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

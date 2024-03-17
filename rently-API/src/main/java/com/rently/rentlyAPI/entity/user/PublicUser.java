@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.entity.User;
+package com.rently.rentlyAPI.entity.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
