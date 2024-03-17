@@ -1,24 +1,27 @@
 package com.rently.rentlyAPI.controller;
 
+import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/admin")
+@RequestMapping("/api/system-admin")
 @RequiredArgsConstructor
 public class SystemAdminController {
 //
     private final UserService userService;
 
-    @PostMapping(path = "/system-admin/create")
+    @PostMapping(path = "/create/sytem-admin")
     public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {
         return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
+    }
+
+    @PostMapping(path = "/create/company-admin/company={companyId}")
+    public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto, @PathVariable("companyId") Integer companyId) {
+        return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto,companyId));
     }
 
 //

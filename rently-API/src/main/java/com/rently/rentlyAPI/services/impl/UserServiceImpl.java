@@ -1,6 +1,8 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.SystemAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.AllArgsConstructor;
@@ -10,9 +12,16 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final SystemAdminService systemAdminService;
+    private final CompanyAdminService companyAdminService;
+
     @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
         return systemAdminService.registerSystemAdmin(systemAdminDto);
+    }
+
+    @Override
+    public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto, Integer companyId) {
+        return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto,companyId);
     }
 //
 //    private final PasswordEncoder passwordEncoder;
