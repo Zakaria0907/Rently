@@ -37,6 +37,11 @@ public class PublicUserServiceImpl implements PublicUserService {
         return null;
     }
 
+    @Override
+    public PublicUserDto getPublicUserByEmail(String publicUserEmail) {
+        return null;
+    }
+
     @Transactional
     public String deletePublicUserById(Integer publicUserId) {
 
