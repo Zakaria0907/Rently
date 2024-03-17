@@ -46,7 +46,7 @@ public class CompanyAdminDto {
     @JsonProperty("company_id")
     private int companyId;
 
-    public CompanyAdmin toEntity(CompanyAdminDto companyAdminDto){
+    public static CompanyAdmin toEntity(CompanyAdminDto companyAdminDto){
         return CompanyAdmin.builder()
                 .email(companyAdminDto.getEmail())
                 .password(companyAdminDto.getPassword())
@@ -60,7 +60,7 @@ public class CompanyAdminDto {
 
     }
 
-    public CompanyAdminDto fromEntity(CompanyAdmin companyAdmin){
+    public static CompanyAdminDto fromEntity(CompanyAdmin companyAdmin){
         return CompanyAdminDto.builder()
                 .id(companyAdmin.getId())
                 .email(companyAdmin.getEmail())

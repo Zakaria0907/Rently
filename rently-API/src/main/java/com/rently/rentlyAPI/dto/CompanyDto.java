@@ -21,13 +21,13 @@ public class CompanyDto {
     @NotBlank(message = "The company name is required")
     private String name;
 
-    public Company toEntity(CompanyDto companyDto){
+    public static Company toEntity(CompanyDto companyDto){
         return Company.builder()
                 .name(companyDto.getName())
                 .build();
     }
 
-    public CompanyDto fromEntity(Company company){
+    public static CompanyDto fromEntity(Company company){
         return CompanyDto.builder()
                 .id(company.getId())
                 .name(company.getName())
