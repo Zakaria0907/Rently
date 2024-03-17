@@ -1,37 +1,36 @@
-//package com.rently.rentlyAPI.dto;
-//
-//
-//import com.rently.rentlyAPI.entity.Company;
-//import jakarta.annotation.Nullable;
-//import jakarta.validation.constraints.NotBlank;
-//import lombok.AllArgsConstructor;
-//import lombok.Builder;
-//import lombok.Getter;
-//import lombok.Setter;
-//
-//@Getter
-//@Setter
-//@AllArgsConstructor
-//@Builder
-//public class CompanyDto {
-//
-//    @Nullable
-//    private Integer id;
-//
-//    @NotBlank(message = "Name is required")
-//    private String name;
-//
-//    public static CompanyDto fromEntity(Company company) {
-//        return CompanyDto.builder()
-//                .id(company.getId())
-//                .name(company.getName())
-//                .build();
-//    }
-//
-//    public static Company toEntity(CompanyDto companyDto) {
-//        return Company.builder()
-//                .id(companyDto.getId())
-//                .name(companyDto.getName())
-//                .build();
-//    }
-//}
+package com.rently.rentlyAPI.dto;
+
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.security.Role;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+
+@Data
+@Builder
+@AllArgsConstructor
+public class CompanyDto {
+
+    @JsonProperty("id")
+    private Integer id;
+
+    @JsonProperty("company_name")
+    @NotBlank(message = "The company name is required")
+    private String name;
+
+    public Company toEntity(CompanyDto companyDto){
+        return Company.builder()
+                .name(companyDto.getName())
+                .build();
+    }
+
+    public CompanyDto fromEntity(Company company){
+        return CompanyDto.builder()
+                .id(company.getId())
+                .name(company.getName())
+                .build();
+    }
+}
