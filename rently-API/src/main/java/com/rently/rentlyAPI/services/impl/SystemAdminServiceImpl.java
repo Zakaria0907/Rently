@@ -1,23 +1,37 @@
-//package com.rently.rentlyAPI.services.impl;
-//
-//import com.rently.rentlyAPI.dto.CompanyDto;
-//import com.rently.rentlyAPI.entity.Company;
-//import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
-//import com.rently.rentlyAPI.repository.CompanyRepository;
-//import com.rently.rentlyAPI.services.AdminService;
-//import jakarta.persistence.EntityNotFoundException;
-//import lombok.AllArgsConstructor;
-//import org.springframework.stereotype.Service;
-//import org.springframework.transaction.annotation.Transactional;
-//
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//
-//@Service
-//@AllArgsConstructor
-//public class AdminServiceImpl implements AdminService {
+package com.rently.rentlyAPI.services.impl;
+
+import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.entity.user.SystemAdmin;
+import com.rently.rentlyAPI.exceptions.AuthenticationException;
+import com.rently.rentlyAPI.repository.SystemAdminRepository;
+import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.services.SystemAdminService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+
+@Service
+@AllArgsConstructor
+public class SystemAdminServiceImpl implements SystemAdminService {
+
+    SystemAdminRepository systemAdminRepository;
+
+    public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
+        // check the system admin does not already exist
+        Optional<SystemAdmin> systemAdmin = systemAdminRepository.findByEmail(systemAdminDto.getEmail());//.orElse(null);
+
+        if (systemAdmin.isPresent()) {
+            throw new AuthenticationException("This email is already associated with an account");
+        }
+
+        //
+        SystemAdmin savedUser = systemAdmin.get();
+        savedUser = systemAdminRepository.save(savedUser);
+        return SystemAdminDto.fromEntity(savedUser);
+    }
+
 //    private final CompanyRepository companyRepository;
 //
 //    @Override
@@ -64,4 +78,4 @@
 //        List<Company> companies = companyRepository.findAll();
 //        return companies.stream().map(CompanyDto::fromEntity).collect(Collectors.toList());
 //    }
-//}
+}

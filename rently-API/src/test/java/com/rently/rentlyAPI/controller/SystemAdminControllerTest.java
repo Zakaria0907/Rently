@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AdminControllerTest {
+public class SystemAdminControllerTest {
 
 
     @Test
     public void testGet() {
         // Arrange
-        AdminController testController = new AdminController();
+        SystemAdminController testController = new SystemAdminController();
 
         // Act
 
@@ -23,7 +23,7 @@ public class AdminControllerTest {
     @Test
     public void testPost() {
         // Arrange
-        AdminController testController = new AdminController();
+        SystemAdminController testController = new SystemAdminController();
 
         // Act
 
@@ -36,7 +36,7 @@ public class AdminControllerTest {
     @Test
     public void testPut() {
         // Arrange
-        AdminController testController = new AdminController();
+        SystemAdminController testController = new SystemAdminController();
 
         // Act
 
@@ -49,7 +49,7 @@ public class AdminControllerTest {
     @Test
     public void testDelete() {
         // Arrange
-        AdminController testController = new AdminController();
+        SystemAdminController testController = new SystemAdminController();
 
         // Act
 

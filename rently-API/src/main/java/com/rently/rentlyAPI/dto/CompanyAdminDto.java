@@ -1,7 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;

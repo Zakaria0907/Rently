@@ -1,29 +1,19 @@
-//package com.rently.rentlyAPI.services.impl;
-//
-//import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
-//import com.rently.rentlyAPI.dto.UserProfileDto;
-//import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
-//import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
-//import com.rently.rentlyAPI.entity.Key;
-//import com.rently.rentlyAPI.entity.User.PublicUser;
-//import com.rently.rentlyAPI.entity.User.User;
-//import com.rently.rentlyAPI.exceptions.AuthenticationException;
-//import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
-//import com.rently.rentlyAPI.repository.UserRepository;
-//import com.rently.rentlyAPI.security.Role;
-//import com.rently.rentlyAPI.services.UserService;
-//import jakarta.persistence.EntityNotFoundException;
-//import lombok.AllArgsConstructor;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//import java.security.Principal;
-//import java.util.Optional;
-//
-//@Service
-//@AllArgsConstructor
-//public class UserServiceImpl implements UserService {
+package com.rently.rentlyAPI.services.impl;
+
+import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.services.SystemAdminService;
+import com.rently.rentlyAPI.services.UserService;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class UserServiceImpl implements UserService {
+    private final SystemAdminService systemAdminService;
+    @Override
+    public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
+        return systemAdminService.registerSystemAdmin(systemAdminDto);
+    }
 //
 //    private final PasswordEncoder passwordEncoder;
 //    private final UserRepository userRepository;
@@ -140,5 +130,5 @@
 //    @Override
 //    public Optional<User> findByEmail(String email) {
 //        return userRepository.findByEmail(email);
-//    }
+    }
 //}

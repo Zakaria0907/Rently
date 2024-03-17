@@ -1,19 +1,26 @@
-//package com.rently.rentlyAPI.controller;
+package com.rently.rentlyAPI.controller;
+
+import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.services.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/admin")
+@RequiredArgsConstructor
+public class SystemAdminController {
 //
-//import com.rently.rentlyAPI.dto.CompanyDto;
-//import com.rently.rentlyAPI.services.AdminService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/api/v1/admin")
-//@RequiredArgsConstructor
-//public class AdminController {
-//
-//    private final AdminService adminService;
+    private final UserService userService;
+
+    @PostMapping(path = "/system-admin/create")
+    public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {
+        return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
+    }
+
 //
 //    // super admin actions on companies
 //    @GetMapping("/companies/all")
@@ -47,6 +54,6 @@
 //    public ResponseEntity<String> deleteCompanyByName(@PathVariable("companyName") String companyName) {
 //        adminService.deleteCompanyByName(companyName);
 //        return ResponseEntity.ok("Company deleted successfully");
-//    }
+    }
 //
 //}
