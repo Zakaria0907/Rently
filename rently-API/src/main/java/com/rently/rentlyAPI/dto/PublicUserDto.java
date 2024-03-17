@@ -46,7 +46,7 @@ public class PublicUserDto {
     @JsonProperty("registration_key")
     private String registrationKey;
 
-    public PublicUser toEntity(PublicUserDto publicUserDto){
+    public static PublicUser toEntity(PublicUserDto publicUserDto){
         return PublicUser.builder()
                 .email(publicUserDto.getEmail())
                 .password(publicUserDto.getPassword())
@@ -61,7 +61,7 @@ public class PublicUserDto {
 
     }
 
-    public PublicUserDto fromEntity(PublicUser publicUser){
+    public static PublicUserDto fromEntity(PublicUser publicUser){
         return PublicUserDto.builder()
                 .id(publicUser.getId())
                 .email(publicUser.getEmail())
