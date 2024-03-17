@@ -12,13 +12,13 @@ public interface BuildingService {
     BuildingDto createBuilding(BuildingDto buildingDto);
 
     // Retrieve a Building by ID
-    Optional<BuildingDto> getBuildingById(Integer id);
+    BuildingDto getBuildingById(Integer buildingId);
 
     // Update an existing Building
-    BuildingDto updateBuilding(Integer id, BuildingDto buildingDto);
+    BuildingDto updateBuilding(Integer buildingId, BuildingDto buildingDto);
 
     // Delete a Building by ID
-    void deleteBuilding(Integer id);
+    void deleteBuilding(Integer buildingId);
 
     // Retrieve all Buildings
     List<BuildingDto> getAllBuildings();

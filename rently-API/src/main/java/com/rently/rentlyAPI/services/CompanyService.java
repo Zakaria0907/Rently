@@ -1,26 +1,21 @@
-//package com.rently.rentlyAPI.services;
-//
-//import com.rently.rentlyAPI.dto.BuildingDto;
-//import com.rently.rentlyAPI.dto.CompanyDto;
-//import com.rently.rentlyAPI.dto.CondoDto;
-//import com.rently.rentlyAPI.dto.KeyDto;
-//import com.rently.rentlyAPI.entity.Company;
-//
-//import java.util.List;
-//
-//public interface CompanyService {
-//
-//  CompanyDto createCompany(CompanyDto companyDto);
-//
-//  CompanyDto getCompanyByName(String name);
-//  CompanyDto getCompanyById(Integer id);
-//
-//  CompanyDto updateCompany(String name, CompanyDto companyDto);
-//  CompanyDto updateCompanyById(Integer id, CompanyDto companyDto);
-//
-//  CompanyDto deleteCompany(String name);
-//  CompanyDto deleteCompanyById(Integer id);
-//
+package com.rently.rentlyAPI.services;
+
+import com.rently.rentlyAPI.dto.BuildingDto;
+import com.rently.rentlyAPI.dto.CompanyDto;
+import com.rently.rentlyAPI.entity.Company;
+
+import java.util.List;
+
+public interface CompanyService {
+
+  CompanyDto createCompany(CompanyDto companyDto);
+
+  CompanyDto getCompanyById(Integer companyId);
+
+  CompanyDto updateCompanyById(String companyId, CompanyDto companyDto);
+
+  CompanyDto deleteCompanyById(Integer companyId);
+
 //  Company save(Company company);
 //  BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto);
 //  BuildingDto getBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId);
@@ -37,4 +32,4 @@
 //  void deleteCondoByBuildingIdAndCondoId(Integer buildingId, Integer condoId);
 //  KeyDto createActivationKeyToBecomeRenter(String userEmail, Integer companyId);
 //  KeyDto createActivationKeyToBecomeOwner(String userEmail, Integer companyId);
-//}
+}
