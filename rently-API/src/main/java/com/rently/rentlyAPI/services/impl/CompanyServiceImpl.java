@@ -1,31 +1,78 @@
-//package com.rently.rentlyAPI.services.impl;
-//
-//import com.rently.rentlyAPI.dto.BuildingDto;
-//import com.rently.rentlyAPI.dto.CondoDto;
-//import com.rently.rentlyAPI.dto.KeyDto;
-//import com.rently.rentlyAPI.entity.*;
-//import com.rently.rentlyAPI.entity.User.User;
-//import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
-//import com.rently.rentlyAPI.repository.CompanyRepository;
-//import com.rently.rentlyAPI.repository.CondoRepository;
-//import com.rently.rentlyAPI.repository.UserRepository;
-//import com.rently.rentlyAPI.security.Role;
-//import com.rently.rentlyAPI.services.BuildingService;
-//import com.rently.rentlyAPI.services.CompanyService;
-//import com.rently.rentlyAPI.services.CondoService;
-//import com.rently.rentlyAPI.validators.ObjectsValidator;
-//import jakarta.persistence.EntityNotFoundException;
-//import lombok.AllArgsConstructor;
-//import org.springframework.stereotype.Service;
-//
-//import java.security.SecureRandom;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//@Service
-//@AllArgsConstructor
-//public class CompanyServiceImpl implements CompanyService {
-//
+package com.rently.rentlyAPI.services.impl;
+
+import com.rently.rentlyAPI.dto.CompanyDto;
+import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.repository.CompanyRepository;
+import com.rently.rentlyAPI.services.CompanyService;
+
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.security.SecureRandom;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+public class CompanyServiceImpl implements CompanyService {
+
+    private final CompanyRepository companyRepository;
+
+    @Override
+    public CompanyDto createCompany(CompanyDto companyDto) {
+        Company company = CompanyDto.toEntity(companyDto);
+        Company savedCompany = companyRepository.save(company);
+        return CompanyDto.fromEntity(savedCompany);
+    }
+
+    @Override
+    public CompanyDto getCompanyById(Integer companyId) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyId + " not found"));
+        return CompanyDto.fromEntity(company);
+    }
+
+    @Override
+    public CompanyDto updateCompanyById(Integer companyId, CompanyDto companyDto) {
+        Optional<Company> companyOptional = companyRepository.findById(companyId);
+
+        if (companyOptional.isPresent()) {
+            Company companyToUpdate = companyOptional.get();
+
+            // Update company details if present
+            if (companyDto.getName() != null && !companyDto.getName().isEmpty()) {
+                companyToUpdate.setName(companyDto.getName());
+            }
+
+            Company updatedCompany = companyRepository.save(companyToUpdate);
+            return CompanyDto.fromEntity(updatedCompany);
+        } else {
+            // Company with the given ID not found
+            throw new EntityNotFoundException("Company with ID " + companyId + " not found");
+        }
+    }
+
+    @Override
+    public void deleteCompanyById(Integer companyId) {
+        // Attempt to retrieve the company by ID
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new EntityNotFoundException("Company with ID " + companyId + " not found"));
+
+        // If the company is found, delete it
+        companyRepository.delete(company);
+    }
+
+    @Override
+    public List<CompanyDto> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
+        return companies.stream()
+                .map(CompanyDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
 //    private final BuildingService buildingService;
 //    private final CondoService condoService;
 //    private final UserRepository userRepository;
@@ -331,5 +378,5 @@
 //        return KeyDto.fromEntity(keyService.save(keyEntity));
 //    }
 //
-//
-//}
+
+}

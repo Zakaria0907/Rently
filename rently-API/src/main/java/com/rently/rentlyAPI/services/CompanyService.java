@@ -12,9 +12,11 @@ public interface CompanyService {
 
   CompanyDto getCompanyById(Integer companyId);
 
-  CompanyDto updateCompanyById(String companyId, CompanyDto companyDto);
+  CompanyDto updateCompanyById(Integer companyId, CompanyDto companyDto);
 
-  CompanyDto deleteCompanyById(Integer companyId);
+  void deleteCompanyById(Integer companyId);
+
+  List<CompanyDto> getAllCompanies();
 
 //  Company save(Company company);
 //  BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto);
