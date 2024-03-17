@@ -72,7 +72,7 @@ public abstract class User extends AbstractEntity implements UserDetails {
     private String firstName;
     
     @NotBlank(message = "The last name is required")
-    private String lastname;
+    private String lastName;
     
     private String phoneNumber;
     
