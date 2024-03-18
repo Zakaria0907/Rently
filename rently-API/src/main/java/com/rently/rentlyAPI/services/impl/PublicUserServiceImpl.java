@@ -6,10 +6,11 @@ import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.PublicUserRepository;
 import com.rently.rentlyAPI.services.PublicUserService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,9 +20,12 @@ public class PublicUserServiceImpl implements PublicUserService {
 
     @Override
     public PublicUserDto createPublicUser(PublicUserDto publicUserDto) {
-        PublicUser existing = publicUserRepository.findByEmail(publicUserDto.getEmail());
-        if (publicUserRepository.isPresent(existing.getEmail()))
+        //check the user does not already exist
+        Optional<PublicUser> existing = publicUserRepository.findByEmail(publicUserDto.getEmail());
+
+        if (existing.isPresent())
             throw new OperationNonPermittedException("There is already a public user with this email: " + publicUserDto.getEmail());
+
         PublicUser publicUser = PublicUserDto.toEntity(publicUserDto);
         PublicUser savedCompany = publicUserRepository.save(publicUser);
         return PublicUserDto.fromEntity(savedCompany);
@@ -55,5 +59,5 @@ public class PublicUserServiceImpl implements PublicUserService {
             throw new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found");
         }
     }
-    }
+}
 

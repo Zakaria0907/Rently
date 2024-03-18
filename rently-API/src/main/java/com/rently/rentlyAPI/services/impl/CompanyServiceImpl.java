@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.CompanyRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 
@@ -23,8 +24,12 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyDto createCompany(CompanyDto companyDto) {
-        Company company = CompanyDto.toEntity(companyDto);
-        Company savedCompany = companyRepository.save(company);
+        Optional<Company> company = companyRepository.findCompanyByName(companyDto.getName());
+        if(company.isPresent()){
+            throw new OperationNonPermittedException("There is already a company with name: "+companyDto.getName());
+        }
+        Company companyToSave = CompanyDto.toEntity(companyDto);
+        Company savedCompany = companyRepository.save(companyToSave);
         return CompanyDto.fromEntity(savedCompany);
     }
 

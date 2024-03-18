@@ -22,7 +22,7 @@ public class SystemAdminController {
         return ResponseEntity.ok(systemAdminService.createCompany(companyDto));
     }
 
-    @PostMapping(path = "/create/sytem-admin")
+    @PostMapping(path = "/create/system-admin")
     public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {
         return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
     }

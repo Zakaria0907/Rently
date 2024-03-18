@@ -31,7 +31,7 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         }
 
         //
-        SystemAdmin savedUser = systemAdmin.get();
+        SystemAdmin savedUser = SystemAdminDto.toEntity(systemAdminDto);
         savedUser = systemAdminRepository.save(savedUser);
         return SystemAdminDto.fromEntity(savedUser);
     }
