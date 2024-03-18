@@ -3,6 +3,8 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.entity.user.User;
+import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.EmployeeService;
 import com.rently.rentlyAPI.services.SystemAdminService;
@@ -13,11 +15,30 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    
+
     private final SystemAdminService systemAdminService;
     private final CompanyAdminService companyAdminService;
     private final EmployeeService employeeService;
-    
+
+    @Override
+    public User findUserAccordingToTypeWithEmail(String email) {
+
+        if (systemAdminService.findByEmail(email).isPresent()) {
+            return systemAdminService.findByEmail(email).get();
+        }
+
+        if (companyAdminService.findByEmail(email).isPresent()) {
+            return companyAdminService.findByEmail(email).get();
+        }
+
+        if (employeeService.findByEmail(email).isPresent()) {
+            return employeeService.findByEmail(email).get();
+        }
+
+        throw new AuthenticationException("User with email " + email + " not found");
+    }
+
+
     @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
         return systemAdminService.registerSystemAdmin(systemAdminDto);
@@ -148,5 +169,5 @@ public class UserServiceImpl implements UserService {
 //    @Override
 //    public Optional<User> findByEmail(String email) {
 //        return userRepository.findByEmail(email);
-    }
+}
 //}

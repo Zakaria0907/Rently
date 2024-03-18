@@ -7,12 +7,16 @@ import com.rently.rentlyAPI.dto.EmploymentContractDto;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CompanyAdminService {
 
+    //Find a CompanyAdminEntity by token
+    CompanyAdmin findCompanyAdminEntityByToken(String token);
+
     // Find a CompanyAdminDto by email
     CompanyAdminDto findCompanyAdminDtoByEmail(String email);
-    
+
     // Find a CompanyAdminEntity by email
     CompanyAdmin findCompanyAdminEntityByEmail(String email);
 
@@ -53,5 +57,7 @@ public interface CompanyAdminService {
 
     EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto);
 
-    List<EmployeeDto> getAllEmployees();
+    List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId);
+
+    Optional<CompanyAdmin> findByEmail(String email);
 }

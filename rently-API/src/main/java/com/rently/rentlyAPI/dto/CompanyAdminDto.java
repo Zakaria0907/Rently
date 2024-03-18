@@ -5,13 +5,13 @@ import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
-public class CompanyAdminDto {
+public class CompanyAdminDto extends RootUserDto {
 
     @JsonProperty("id")
     private Integer id;

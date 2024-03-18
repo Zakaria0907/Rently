@@ -5,15 +5,17 @@ import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.SystemAdmin;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SystemAdminService {
-    
+    Optional<SystemAdmin> findByEmail(String email);
+
     // Find a SystemAdminDto by email
     SystemAdminDto findSystemAdminDtoByEmail(String email);
-    
+
     // Find a SystemAdminEntity by email
     SystemAdmin findSystemAdminEntityByEmail(String email);
-    
+
     // Find a SystemAdminDto by ID
     SystemAdminDto findSystemAdminDtoById(Integer systemAdminId);
     

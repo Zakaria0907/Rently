@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.controller;
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.dto.EmploymentContractDto;
+import com.rently.rentlyAPI.security.utils.JwtUtils;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
 public class CompanyAdminController {
     private final UserService userService;
     private final CompanyAdminService companyAdminService;
+    private final JwtUtils jwtUtils;
 
     @PostMapping(path = "/create/building")
     public ResponseEntity<BuildingDto> createBuilding(@RequestBody BuildingDto buildingDto) {
@@ -43,8 +45,9 @@ public class CompanyAdminController {
     }
 
     @GetMapping(path = "/employees")
-    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
-        return ResponseEntity.ok(companyAdminService.getAllEmployees());
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
+        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
+        return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
     }
 
     @PostMapping(path = "/create/employment-contract")

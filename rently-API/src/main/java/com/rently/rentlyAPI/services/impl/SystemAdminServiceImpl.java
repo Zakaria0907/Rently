@@ -2,11 +2,9 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
-import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.SystemAdmin;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.SystemAdminRepository;
-import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.SystemAdminService;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,17 +18,22 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SystemAdminServiceImpl implements SystemAdminService {
-    
+
     CompanyService companyService;
-    
+
     SystemAdminRepository systemAdminRepository;
-    
+
+    @Override
+    public Optional<SystemAdmin> findByEmail(String email) {
+        return systemAdminRepository.findByEmail(email);
+    }
+
     @Override
     public SystemAdminDto findSystemAdminDtoByEmail(String email) {
         SystemAdmin systemAdmin = findSystemAdminEntityByEmail(email);
         return SystemAdminDto.fromEntity(systemAdmin);
     }
-    
+
     @Override
     public SystemAdmin findSystemAdminEntityByEmail(String email) {
         return systemAdminRepository.findByEmail(email)

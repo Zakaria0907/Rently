@@ -5,17 +5,17 @@ import com.rently.rentlyAPI.entity.user.SystemAdmin;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
-public class SystemAdminDto {
-    
+public class SystemAdminDto extends RootUserDto {
+
     @JsonProperty("id")
     private Integer id;
-    
+
     @JsonProperty("number_created_companies")
     private Integer numberCreatedCompanies;
 

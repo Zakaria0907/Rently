@@ -10,7 +10,9 @@ import com.rently.rentlyAPI.services.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -42,6 +44,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // Return the employee dto
         return EmployeeDto.fromEntity(savedEmployee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId) {
+        List<Employee> employees = employeeRepository.findAllByCompanyId(companyId);
+        return employees.stream()
+                .map(EmployeeDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Employee> findByEmail(String email) {
+        return employeeRepository.findByEmail(email);
     }
 
 

@@ -25,6 +25,8 @@ public interface BuildingService {
     // Retrieve all Buildings
     List<BuildingDto> getAllBuildings();
 
+    BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto);
+
 //
 //	public Building save(Building building);
 //
