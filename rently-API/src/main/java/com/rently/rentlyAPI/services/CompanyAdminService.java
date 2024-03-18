@@ -2,21 +2,23 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.EmploymentContractDto;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 
 import java.util.List;
 
 public interface CompanyAdminService {
-    
+
     // Find a CompanyAdminDto by email
     CompanyAdminDto findCompanyAdminDtoByEmail(String email);
     
     // Find a CompanyAdminEntity by email
     CompanyAdmin findCompanyAdminEntityByEmail(String email);
-    
+
     // Find a CompanyAdminDto by ID
     CompanyAdminDto findCompanyAdminDtoById(Integer companyAdminId);
-    
+
     // Find a CompanyAdminEntity by ID
     CompanyAdmin findCompanyAdminEntityById(Integer companyAdminId);
 
@@ -37,7 +39,7 @@ public interface CompanyAdminService {
     
     // Retrieve all CompanyAdmins by company id
     List<CompanyAdminDto> getAllCompanyAdminsByCompanyId(Integer companyId);
-    
+
     /*
      * The following methods are calling other services
      */
@@ -48,4 +50,8 @@ public interface CompanyAdminService {
     BuildingDto getBuildingById(Integer buildingId);
 
     List<BuildingDto> getAllBuildings();
+
+    EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto);
+
+    List<EmployeeDto> getAllEmployees();
 }

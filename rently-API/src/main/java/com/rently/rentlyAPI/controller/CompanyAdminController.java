@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.controller;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.EmploymentContractDto;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ public class CompanyAdminController {
     public ResponseEntity<BuildingDto> getBuildingByName(@PathVariable(name = "buildingName") String buildingName) {
         return ResponseEntity.ok(companyAdminService.getBuildingByName(buildingName));
     }
+
     @GetMapping(path = "/buildings")
     public ResponseEntity<List<BuildingDto>> getAllBuildings() {
         return ResponseEntity.ok(companyAdminService.getAllBuildings());
@@ -38,4 +40,17 @@ public class CompanyAdminController {
     @PostMapping(path = "/create/employee")
     public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
         return ResponseEntity.ok(userService.registerEmployee(employeeDto));
-    }}
+    }
+
+    @GetMapping(path = "/employees")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
+        return ResponseEntity.ok(companyAdminService.getAllEmployees());
+    }
+
+    @PostMapping(path = "/create/employment-contract")
+    public ResponseEntity<EmploymentContractDto> createEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
+        return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
+    }
+
+
+}

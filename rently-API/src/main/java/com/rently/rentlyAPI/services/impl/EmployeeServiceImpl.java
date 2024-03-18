@@ -28,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new AuthenticationException("This email is already associated with an account");
         }
 
-        // Retreive company with the given ID
+        // Retrieve company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(employeeDto.getCompanyId());
 
         // Create the employee

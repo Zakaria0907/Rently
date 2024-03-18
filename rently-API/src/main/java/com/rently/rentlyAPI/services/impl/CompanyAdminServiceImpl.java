@@ -2,13 +2,18 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.EmploymentContractDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.EmploymentContract;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
-import com.rently.rentlyAPI.services.BuildingService;
+import com.rently.rentlyAPI.repository.EmployeeRepository;
+import com.rently.rentlyAPI.repository.EmploymentContractRepository;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.CompanyService;
 import jakarta.persistence.EntityNotFoundException;
@@ -24,16 +29,17 @@ import java.util.Optional;
 public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     private final CompanyService companyService;
-
     private final BuildingRepository buildingRepository;
     private final CompanyAdminRepository companyAdminRepository;
-    
+    private final EmployeeRepository employeeRepository;
+    private final EmploymentContractRepository employmentContractRepository;
+
     @Override
     public CompanyAdminDto findCompanyAdminDtoByEmail(String email) {
         CompanyAdmin companyAdmin = findCompanyAdminEntityByEmail(email);
         return CompanyAdminDto.fromEntity(companyAdmin);
     }
-    
+
     @Override
     public CompanyAdmin findCompanyAdminEntityByEmail(String email) {
         return companyAdminRepository.findByEmail(email)
@@ -188,5 +194,35 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public List<BuildingDto> getAllBuildings() {
         return buildingRepository.findAll().stream().map(BuildingDto::fromEntity).toList();
+    }
+
+    @Override
+    public EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto) {
+        // no need to check that the company exists, we know it exists because the company admin exists
+        // Check that the building exists
+        Building building = buildingRepository.findById(employmentContractDto.getBuildingId())
+                .orElseThrow(() -> new EntityNotFoundException("Building with id: " + employmentContractDto.getBuildingId() + " not found"));
+        // check that the employee exists
+        Employee employee = employeeRepository.findById(employmentContractDto.getEmployeeId())
+                .orElseThrow(() -> new EntityNotFoundException("Employee with id: " + employmentContractDto.getEmployeeId() + " not found"));
+
+        Company company = companyService.findCompanyEntityById(employmentContractDto.getCompanyId());
+
+        // Create the employment contract
+        EmploymentContract employmentContractToSave = EmploymentContractDto.toEntity(employmentContractDto);
+        employmentContractToSave.setCompany(company);
+        employmentContractToSave.setBuilding(building);
+        employmentContractToSave.setEmployee(employee);
+
+        // Save the employment contract
+        EmploymentContract savedEmploymentContract = employmentContractRepository.save(employmentContractToSave);
+
+        return EmploymentContractDto.fromEntity(savedEmploymentContract);
+
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        return employeeRepository.findAll().stream().map(EmployeeDto::fromEntity).toList();
     }
 }
