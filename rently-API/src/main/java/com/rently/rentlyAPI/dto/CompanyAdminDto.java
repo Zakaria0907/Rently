@@ -21,7 +21,7 @@ public class CompanyAdminDto {
     private String email;
 
     @JsonProperty("password")
-    @NotBlank(message = "The password name is required")
+    @NotBlank(message = "The password is required")
     private String password;
 
     @JsonProperty("first_name")

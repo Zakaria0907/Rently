@@ -30,10 +30,6 @@ public class EmploymentContract extends AbstractEntity{
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @ManyToOne
-    @JoinColumn(name = "condo_id")
-    private Condo condo;
-
     private long yearlySalary;
     private String startDate;
 

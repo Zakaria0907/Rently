@@ -2,17 +2,16 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
-import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
-import com.rently.rentlyAPI.entity.user.SystemAdmin;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.services.BuildingService;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.CompanyService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CompanyAdminServiceImpl implements CompanyAdminService {
 
-    private final BuildingService buildingService;
     private final CompanyService companyService;
 
     private final BuildingRepository buildingRepository;
@@ -150,18 +148,19 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     
     @Override
     public BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto) {
-        Optional<BuildingDto> existingBuilding = buildingRepository.findByName(buildingDto.getName());
+        Optional<Building> existingBuilding = buildingRepository.findByName(buildingDto.getName());
 
         // If the email is already associated with an account, throw an exception
         if (existingBuilding.isPresent()) {
             throw new AuthenticationException("This name is already associated with a building");
         }
 
-        // Retreive company with the given ID
+
+        // Retrieve company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(buildingDto.getCompanyId());
 
         // Create the company admin
-        Building buildingToSave = buildingDto.toEntity(buildingDto);
+        Building buildingToSave = BuildingDto.toEntity(buildingDto);
 
         // Link the company admin to the company
         buildingToSave.setCompany(companyToLink);
@@ -170,6 +169,24 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         Building savedBuilding = buildingRepository.save(buildingToSave);
 
         // Return the company adminDto
-        return BuildingDto.fromEntity(buildingToSave);
+        return BuildingDto.fromEntity(savedBuilding);
+    }
+
+    @Override
+    public BuildingDto getBuildingByName(String buildingName) {
+        Building building =  buildingRepository.getBuildingByName(buildingName)
+                .orElseThrow(() -> new EntityNotFoundException("Building with name " + buildingName + " not found"));
+        return BuildingDto.fromEntity(building);
+    }
+
+    @Override
+    public BuildingDto getBuildingById(Integer buildingId) {
+        return BuildingDto.fromEntity(buildingRepository.findById(buildingId)
+                .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found")));
+    }
+
+    @Override
+    public List<BuildingDto> getAllBuildings() {
+        return buildingRepository.findAll().stream().map(BuildingDto::fromEntity).toList();
     }
 }

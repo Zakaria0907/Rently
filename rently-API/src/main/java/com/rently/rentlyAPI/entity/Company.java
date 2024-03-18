@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.entity;
 
 
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.entity.user.Employee;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -40,5 +41,8 @@ public class Company extends AbstractEntity {
     
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CompanyAdmin> companyAdmins;
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Employee> employees;
 
 }

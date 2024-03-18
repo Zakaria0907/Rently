@@ -1,7 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
@@ -22,7 +21,7 @@ public class EmployeeDto {
     private String email;
 
     @JsonProperty("password")
-    @NotBlank(message = "The password name is required")
+    @NotBlank(message = "The password is required")
     private String password;
 
     @JsonProperty("first_name")
@@ -42,6 +41,9 @@ public class EmployeeDto {
     @JsonProperty("role")
     private String role;
 
+    @JsonProperty("company_id")
+    private Integer companyId;
+
 
     public static Employee toEntity(EmployeeDto employeeDto){
         return Employee.builder()
@@ -52,6 +54,7 @@ public class EmployeeDto {
                 .phoneNumber(employeeDto.getPhoneNumber())
                 .bio(employeeDto.getBio())
                 .role(Role.EMPLOYEE)
+                // company is set in the business logic
                 .build();
 
     }
@@ -65,6 +68,7 @@ public class EmployeeDto {
                 .phoneNumber(employee.getPhoneNumber())
                 .bio(employee.getBio())
                 .role(employee.getRole().name())
+                .companyId(employee.getCompany().getId())
                 .build();
     }
 

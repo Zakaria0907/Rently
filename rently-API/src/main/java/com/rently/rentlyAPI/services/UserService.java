@@ -5,17 +5,16 @@ package com.rently.rentlyAPI.services;
 //import com.rently.rentlyAPI.entity.User.User;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
-import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.entity.user.User;
-
-import java.util.Optional;
 
 public interface UserService {
     
     SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto);
     
     CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto);
+
+    EmployeeDto registerEmployee(EmployeeDto employeeDto);
 
 //
 //    public User updateProfile(UpdateProfileRequestDto request, Integer userId);

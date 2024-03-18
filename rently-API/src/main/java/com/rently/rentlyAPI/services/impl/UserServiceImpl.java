@@ -1,10 +1,10 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
-import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.services.CompanyAdminService;
+import com.rently.rentlyAPI.services.EmployeeService;
 import com.rently.rentlyAPI.services.SystemAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     
     private final SystemAdminService systemAdminService;
     private final CompanyAdminService companyAdminService;
+    private final EmployeeService employeeService;
     
     @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
@@ -25,6 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto) {
         return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto);
+    }
+
+    @Override
+    public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
+        return employeeService.registerEmployee(employeeDto);
     }
 //
 //    private final PasswordEncoder passwordEncoder;

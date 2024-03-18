@@ -11,9 +11,7 @@ import java.util.Optional;
 public interface BuildingRepository extends JpaRepository<Building, Integer> {
 
 	Optional<Building> findById(Integer id);
-	Optional<BuildingDto> findByName(String name);
+	Optional<Building> findByName(String name);
 
-
-	List<Building> findAllByCompanyId(Integer companyId);
-
+	Optional<Building> getBuildingByName(String buildingName);
 }

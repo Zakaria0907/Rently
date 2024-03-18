@@ -2,8 +2,6 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
-import com.rently.rentlyAPI.dto.CompanyDto;
-import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 
 import java.util.List;
@@ -45,4 +43,9 @@ public interface CompanyAdminService {
      */
     BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto);
 
+    BuildingDto getBuildingByName(String buildingName);
+
+    BuildingDto getBuildingById(Integer buildingId);
+
+    List<BuildingDto> getAllBuildings();
 }
