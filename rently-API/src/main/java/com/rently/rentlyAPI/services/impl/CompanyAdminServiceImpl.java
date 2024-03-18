@@ -150,6 +150,26 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     
     @Override
     public BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto) {
-        return null;
+        Optional<BuildingDto> existingBuilding = buildingRepository.findByName(buildingDto.getName());
+
+        // If the email is already associated with an account, throw an exception
+        if (existingBuilding.isPresent()) {
+            throw new AuthenticationException("This name is already associated with a building");
+        }
+
+        // Retreive company with the given ID
+        Company companyToLink = companyService.findCompanyEntityById(buildingDto.getCompanyId());
+
+        // Create the company admin
+        Building buildingToSave = buildingDto.toEntity(buildingDto);
+
+        // Link the company admin to the company
+        buildingToSave.setCompany(companyToLink);
+
+        // Save the company admin
+        Building savedBuilding = buildingRepository.save(buildingToSave);
+
+        // Return the company adminDto
+        return BuildingDto.fromEntity(buildingToSave);
     }
 }

@@ -14,6 +14,13 @@ public class BuildingDto {
 	@JsonProperty("id")
 	private Integer id;
 
+	@JsonProperty("name")
+	@NotBlank(message = "The name is required")
+	private String name;
+
+	@JsonProperty("number_of_floors")
+	private Integer numberOfFloors;
+
 	@JsonProperty("address")
 	@NotBlank(message = "The address is required")
 	private String address;
@@ -28,8 +35,10 @@ public class BuildingDto {
 	public static BuildingDto fromEntity(Building building) {
 		return BuildingDto.builder()
 				.id(building.getId())
+				.name(building.getName())
 				.address(building.getAddress())
 				.description(building.getDescription())
+				.numberOfFloors(building.getNumberOfFloors())
 				.companyId(building.getCompany().getId())
 				.build();
 
@@ -37,8 +46,10 @@ public class BuildingDto {
 
 	public static Building toEntity(BuildingDto buildingDto) {
 		return Building.builder()
+				.name(buildingDto.getName())
 				.address(buildingDto.getAddress())
 				.description(buildingDto.getDescription())
+				.numberOfFloors(buildingDto.getNumberOfFloors())
 				.build();
 	}
 

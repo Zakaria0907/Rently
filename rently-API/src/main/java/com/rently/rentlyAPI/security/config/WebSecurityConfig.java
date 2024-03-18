@@ -44,6 +44,7 @@ public class WebSecurityConfig {
     private final LogoutHandler logoutHandler;
     private static final String[] WHITE_LIST_URL = {
         "/api/system-admin/**",
+            "/api/company-admin/**",
         "http://localhost:8080/api/v1/auth/**",
         "/api/v1/auth/**",
         "/v2/api-docs",

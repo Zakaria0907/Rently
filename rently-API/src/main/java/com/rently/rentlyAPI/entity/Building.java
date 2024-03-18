@@ -22,12 +22,15 @@ import java.util.Set;
 public class Building extends AbstractEntity {
 	
 	@NotBlank(message = "Name is required")
+	@Column(unique = true)
 	private String name;
 	
 	@NotBlank(message = "Address is required")
 	private String address;
 
 	private String description;
+
+	private Integer numberOfFloors;
 	// This column links to the Condo entities
 	@OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Condo> condos;
