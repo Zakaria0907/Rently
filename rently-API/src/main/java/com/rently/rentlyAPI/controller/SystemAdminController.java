@@ -32,9 +32,9 @@ public class SystemAdminController {
         return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
     }
 
-    @PostMapping(path = "/create/company-admin/company={companyId}")
-    public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto, @PathVariable("companyId") Integer companyId) {
-        return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto, companyId));
+    @PostMapping(path = "/create/company-admin")
+    public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto) {
+        return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto));
     }
 
 //

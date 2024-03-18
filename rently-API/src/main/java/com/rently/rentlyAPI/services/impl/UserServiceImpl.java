@@ -18,28 +18,6 @@ public class UserServiceImpl implements UserService {
     private final CompanyAdminService companyAdminService;
     
     @Override
-    public <T extends User> T updateCommonUserFields(T userEntity, UserDto userDto) {
-        // Update SystemAdmin details if present
-        if (userDto.getFirstName() != null && !userDto.getFirstName().isEmpty()) {
-            userEntity.setFirstName(userDto.getFirstName());
-        }
-        
-        if (userDto.getLastName() != null && !userDto.getLastName().isEmpty()) {
-            userEntity.setLastName(userDto.getLastName());
-        }
-        
-        if (userDto.getPhoneNumber() != null) {
-            userEntity.setPhoneNumber(userDto.getPhoneNumber());
-        }
-        
-        if (userDto.getBio() != null) {
-            userEntity.setBio(userDto.getBio());
-        }
-        
-        return userEntity;
-    }
-    
-    @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
         return systemAdminService.registerSystemAdmin(systemAdminDto);
     }
