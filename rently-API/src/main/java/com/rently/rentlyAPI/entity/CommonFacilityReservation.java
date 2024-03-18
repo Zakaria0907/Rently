@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "commont_facility_reservation")
+@Table(name = "common_facility_reservation")
 public class CommonFacilityReservation extends AbstractEntity{
     
     @ManyToOne
