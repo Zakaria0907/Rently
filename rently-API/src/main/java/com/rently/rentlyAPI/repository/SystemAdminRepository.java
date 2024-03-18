@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface SystemAdminRepository extends JpaRepository<SystemAdmin, Integer> {
 
     Optional<SystemAdmin> findByEmail(String email);
+    
+    
 }

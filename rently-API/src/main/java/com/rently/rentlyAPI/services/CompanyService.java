@@ -1,21 +1,28 @@
 package com.rently.rentlyAPI.services;
 
-import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CompanyDto;
 import com.rently.rentlyAPI.entity.Company;
 
 import java.util.List;
 
 public interface CompanyService {
+  
+  // Find a Company Dto by ID
+  CompanyDto findCompanyDtoById(Integer companyId);
+  
+  // Find a Company Entity by ID
+  Company findCompanyEntityById(Integer companyId);
 
+  // Create a new Company
   CompanyDto createCompany(CompanyDto companyDto);
 
-  CompanyDto getCompanyById(Integer companyId);
+  // Update an existing Company
+  CompanyDto updateCompany(CompanyDto companyDto);
 
-  CompanyDto updateCompanyById(Integer companyId, CompanyDto companyDto);
-
+  // Delete a Company by ID
   void deleteCompanyById(Integer companyId);
-
+  
+  // Retrieve all Companies
   List<CompanyDto> getAllCompanies();
 
 //  Company save(Company company);

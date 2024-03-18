@@ -2,6 +2,8 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.dto.UserDto;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.SystemAdminService;
 import com.rently.rentlyAPI.services.UserService;
@@ -11,17 +13,40 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
+    
     private final SystemAdminService systemAdminService;
     private final CompanyAdminService companyAdminService;
-
+    
+    @Override
+    public <T extends User> T updateCommonUserFields(T userEntity, UserDto userDto) {
+        // Update SystemAdmin details if present
+        if (userDto.getFirstName() != null && !userDto.getFirstName().isEmpty()) {
+            userEntity.setFirstName(userDto.getFirstName());
+        }
+        
+        if (userDto.getLastName() != null && !userDto.getLastName().isEmpty()) {
+            userEntity.setLastName(userDto.getLastName());
+        }
+        
+        if (userDto.getPhoneNumber() != null) {
+            userEntity.setPhoneNumber(userDto.getPhoneNumber());
+        }
+        
+        if (userDto.getBio() != null) {
+            userEntity.setBio(userDto.getBio());
+        }
+        
+        return userEntity;
+    }
+    
     @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
         return systemAdminService.registerSystemAdmin(systemAdminDto);
     }
 
     @Override
-    public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto, Integer companyId) {
-        return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto,companyId);
+    public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto) {
+        return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto);
     }
 //
 //    private final PasswordEncoder passwordEncoder;

@@ -28,35 +28,37 @@ public class BuildingServiceImpl implements BuildingService {
     }
 
     @Override
-    public BuildingDto getBuildingById(Integer buildingId) {
+    public BuildingDto findBuildingDtoById(Integer buildingId) {
         Building building = buildingRepository.findById(buildingId)
                 .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found"));
         return BuildingDto.fromEntity(building);
     }
-
+    
     @Override
-    public BuildingDto updateBuilding(Integer buildingId, BuildingDto buildingDto) {
-        Optional<Building> buildingOptional = buildingRepository.findById(buildingId);
-
-        if (buildingOptional.isPresent()) {
-            Building buildingToUpdate = buildingOptional.get();
-
-            // Update address if present
-            if (buildingDto.getAddress() != null && !buildingDto.getAddress().isEmpty()) {
-                buildingToUpdate.setAddress(buildingDto.getAddress());
-            }
-
-            // Update description if present
-            if (buildingDto.getDescription() != null) {
-                buildingToUpdate.setDescription(buildingDto.getDescription());
-            }
-
-            Building updatedBuilding = buildingRepository.save(buildingToUpdate);
-            return BuildingDto.fromEntity(updatedBuilding);
-        } else {
-            // Building with the given ID not found
-            throw new EntityNotFoundException("Building with ID " + buildingId + " not found");
+    public Building findBuildingEntityById(Integer buildingId) {
+        return buildingRepository.findById(buildingId)
+                .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found"));
+    }
+    
+    @Override
+    public BuildingDto updateBuilding(BuildingDto buildingDto) {
+        
+        // Find the Building Entity by ID
+        Building buildingToUpdate = findBuildingEntityById(buildingDto.getId());
+        
+        // Update Building details if present
+        if (buildingDto.getAddress() != null && !buildingDto.getAddress().isEmpty()) {
+            buildingToUpdate.setAddress(buildingDto.getAddress());
         }
+        
+        if (buildingDto.getDescription() != null && !buildingDto.getDescription().isEmpty()) {
+            buildingToUpdate.setDescription(buildingDto.getDescription());
+        }
+
+        // Save the updated Building
+        Building updatedBuilding = buildingRepository.save(buildingToUpdate);
+        
+        return BuildingDto.fromEntity(updatedBuilding);
     }
 
     @Override

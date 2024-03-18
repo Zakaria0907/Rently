@@ -6,13 +6,16 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.dto.UserDto;
+import com.rently.rentlyAPI.entity.user.User;
 
 import java.util.Optional;
 
 public interface UserService {
-//    Optional<User> findByEmail(String email);
+    
     SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto);
-    CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto, Integer companyId);
+    
+    CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto);
 
 //
 //    public User updateProfile(UpdateProfileRequestDto request, Integer userId);

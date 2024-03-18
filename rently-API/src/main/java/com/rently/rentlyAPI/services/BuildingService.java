@@ -2,20 +2,22 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.entity.Building;
-import com.rently.rentlyAPI.entity.Condo;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BuildingService {
+    
     // Create a new Building
     BuildingDto createBuilding(BuildingDto buildingDto);
 
-    // Retrieve a Building by ID
-    BuildingDto getBuildingById(Integer buildingId);
+    // Find a Building Dto by ID
+    BuildingDto findBuildingDtoById(Integer buildingId);
+    
+    // Find a Building Entity by ID
+    Building findBuildingEntityById(Integer buildingId);
 
     // Update an existing Building
-    BuildingDto updateBuilding(Integer buildingId, BuildingDto buildingDto);
+    BuildingDto updateBuilding(BuildingDto buildingDto);
 
     // Delete a Building by ID
     void deleteBuilding(Integer buildingId);

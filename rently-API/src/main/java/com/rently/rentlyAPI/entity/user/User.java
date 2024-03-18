@@ -78,9 +78,9 @@ public abstract class User extends AbstractEntity implements UserDetails {
     
     private String bio;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'RENTLY'")
-    private Provider provider;
+//    @Enumerated(EnumType.STRING)
+//    @Column(nullable = false, columnDefinition = "varchar(255) default 'RENTLY'")
+//    private Provider provider;
     
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(255) default 'USER'")

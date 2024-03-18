@@ -37,25 +37,25 @@ public class WebSecurityConfig {
 //    @Autowired
 //    private RentlyOAuth2UserService oAuth2UserService;
     
-    @Autowired
+//    @Autowired
 //    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
     private static final String[] WHITE_LIST_URL = {
-            "http://localhost:8080/api/v1/auth/**",
-            "/api/v1/auth/**",
-//            "/login/oauth2/code/google",
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui/**",
-            "/webjars/**",
-            "/swagger-ui.html"};
+        "/api/system-admin/**",
+        "http://localhost:8080/api/v1/auth/**",
+        "/api/v1/auth/**",
+        "/v2/api-docs",
+        "/v3/api-docs",
+        "/v3/api-docs/**",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui/**",
+        "/webjars/**",
+        "/swagger-ui.html"};
 
 
     @Bean

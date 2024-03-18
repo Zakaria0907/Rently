@@ -21,6 +21,11 @@ public class SystemAdminController {
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok(systemAdminService.createCompany(companyDto));
     }
+    
+    @PatchMapping(path = "/update/company")
+    public ResponseEntity<CompanyDto> updateCompany(@RequestBody CompanyDto companyDto) {
+        return ResponseEntity.ok(systemAdminService.updateCompany(companyDto));
+    }
 
     @PostMapping(path = "/create/system-admin")
     public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {

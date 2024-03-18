@@ -39,8 +39,7 @@ public class CompanyAdminDto {
     private String bio;
 
     @JsonProperty("role")
-    @Builder.Default
-    private String role = Role.COMPANY_ADMIN.name();
+    private String role;
 
     @JsonProperty("company_id")
     private int companyId;
@@ -53,7 +52,7 @@ public class CompanyAdminDto {
                 .lastName(companyAdminDto.getLastName())
                 .phoneNumber(companyAdminDto.getPhoneNumber())
                 .bio(companyAdminDto.getBio())
-                .role(Role.valueOf(companyAdminDto.getRole()))
+                .role(Role.COMPANY_ADMIN)
                 // companyId is set in business logic
                 .build();
 

@@ -20,7 +20,7 @@ import java.util.List;
 public class Company extends AbstractEntity {
     
     @NotBlank(message = "Name is required")
-    @Column(unique = true,name = "name")
+    @Column(unique = true, name = "name")
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
