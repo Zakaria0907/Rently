@@ -2,13 +2,11 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.PublicUserDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
-import com.rently.rentlyAPI.services.CompanyAdminService;
-import com.rently.rentlyAPI.services.EmployeeService;
-import com.rently.rentlyAPI.services.SystemAdminService;
-import com.rently.rentlyAPI.services.UserService;
+import com.rently.rentlyAPI.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,7 @@ public class UserServiceImpl implements UserService {
     private final SystemAdminService systemAdminService;
     private final CompanyAdminService companyAdminService;
     private final EmployeeService employeeService;
+    private final PublicUserService publicUserService;
 
     @Override
     public User findUserAccordingToTypeWithEmail(String email) {
@@ -33,6 +32,10 @@ public class UserServiceImpl implements UserService {
 
         if (employeeService.findByEmail(email).isPresent()) {
             return employeeService.findByEmail(email).get();
+        }
+
+        if (publicUserService.findOptionalByEmail(email).isPresent()) {
+            return publicUserService.findOptionalByEmail(email).get();
         }
 
         throw new AuthenticationException("User with email " + email + " not found");
@@ -52,6 +55,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
         return employeeService.registerEmployee(employeeDto);
+    }
+
+    @Override
+    public PublicUserDto registerPublicUser(PublicUserDto publicUserDto) {
+        return publicUserService.registerPublicUser(publicUserDto);
     }
 //
 //    private final PasswordEncoder passwordEncoder;

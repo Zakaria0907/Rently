@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.PublicUserDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.User;
 
@@ -15,6 +16,8 @@ public interface UserService {
     CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto);
 
     EmployeeDto registerEmployee(EmployeeDto employeeDto);
+
+    PublicUserDto registerPublicUser(PublicUserDto publicUserDto);
 
 
 //
