@@ -1,14 +1,19 @@
 package com.rently.rentlyAPI.services.impl;
 
-import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.OwnerDto;
 import com.rently.rentlyAPI.dto.PublicUserDto;
-import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.dto.RenterDto;
+import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.PublicUser;
+import com.rently.rentlyAPI.entity.user.Renter;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
-import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
+import com.rently.rentlyAPI.repository.OwnerRepository;
 import com.rently.rentlyAPI.repository.PublicUserRepository;
-import com.rently.rentlyAPI.security.utils.JwtUtils;
+import com.rently.rentlyAPI.repository.RenterRepository;
+import com.rently.rentlyAPI.security.Role;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.PublicUserService;
+import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +28,8 @@ import java.util.Optional;
 public class PublicUserServiceImpl implements PublicUserService {
 
     private final PublicUserRepository publicUserRepository;
+    private final OwnerRepository ownerRepository;
+    private final RenterRepository renterRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -119,16 +126,11 @@ public class PublicUserServiceImpl implements PublicUserService {
 
     @Transactional
     public String deletePublicUserById(Integer publicUserId) {
-
-        try {
-            PublicUser publicUser = publicUserRepository.findById(publicUserId)
-                    .orElseThrow(() -> new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found"));
-
-            publicUserRepository.delete(publicUser);
-            return "PublicUser with ID " + publicUserId + " deleted successfully.";
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found");
-        }
+        
+        PublicUser publicUser = findPublicUserEntityById(publicUserId);
+        publicUserRepository.delete(publicUser);
+        
+        return "Public User deleted successfully";
     }
 
     @Override
@@ -137,6 +139,48 @@ public class PublicUserServiceImpl implements PublicUserService {
         return publicUsers.stream()
                 .map(PublicUserDto::fromEntity)
                 .toList();
+    }
+    
+    @Override
+    public String requestKeyToChangeRole(String token, String role) {
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+        PublicUser publicUser = findPublicUserEntityByEmail(email);
+        
+        String registrationKey = RegistrationKeyUtils.generateRegistrationKey(role);
+        publicUser.setRegistrationKey(registrationKey);
+        publicUserRepository.save(publicUser);
+        
+        return registrationKey;
+    }
+    
+    @Override
+    @Transactional
+    public String activateKeyToChangeRole(String token, String key) {
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+        PublicUser publicUser = findPublicUserEntityByEmail(email);
+        
+        // Check if the key matches
+        if (!publicUser.getRegistrationKey().equals(key)) {
+            return "Invalid key";
+        }
+        
+        if (key.startsWith("OW")){
+            Owner owner = OwnerDto.fromPublicUser(publicUser);
+            deletePublicUserById(publicUser.getId());
+            ownerRepository.save(owner);
+            return "Owner created successfully";
+        }
+        
+        if (key.startsWith("RE")){
+            Renter renter = RenterDto.fromPublicUser(publicUser);
+            deletePublicUserById(publicUser.getId());
+            renterRepository.save(renter);
+            return "Renter created successfully";
+        }
+        
+        return "Activation Failed";
     }
 }
 

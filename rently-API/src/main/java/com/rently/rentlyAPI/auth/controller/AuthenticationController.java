@@ -2,18 +2,16 @@ package com.rently.rentlyAPI.auth.controller;
 
 
 import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.auth.dto.LoginRequestDto;
-import com.rently.rentlyAPI.auth.services.AuthenticationServiceImpl;
+import com.rently.rentlyAPI.auth.services.Impl.AuthenticationServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -26,6 +24,11 @@ public class AuthenticationController {
           HttpServletResponse response
   ) {
     return ResponseEntity.ok(service.authenticate(request, response));
+  }
+  
+  @PostMapping("/change-password")
+  public ResponseEntity<String> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
+    return ResponseEntity.ok(service.changePassword(token, changePasswordRequestDto));
   }
 
 //  @PostMapping("/refresh-token")

@@ -7,12 +7,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 
 @Data
-@Builder
+@SuperBuilder
 @AllArgsConstructor
-public class PublicUserDto {
+public class PublicUserDto extends RootUserDto {
 
     @JsonProperty("id")
     private Integer id;
@@ -41,7 +42,7 @@ public class PublicUserDto {
 
     @JsonProperty("role")
     @Builder.Default
-    private String role = Role.PUBLIC_USER.name();
+    private String role;
 
     @JsonProperty("registration_key")
     private String registrationKey;
@@ -54,7 +55,7 @@ public class PublicUserDto {
                 .lastName(publicUserDto.getLastName())
                 .phoneNumber(publicUserDto.getPhoneNumber())
                 .bio(publicUserDto.getBio())
-                .role(Role.valueOf(publicUserDto.getRole()))
+                .role(Role.PUBLIC_USER)
                 .registrationKey(publicUserDto.getRegistrationKey())
                 // companyId is set in business logic
                 .build();
@@ -73,7 +74,4 @@ public class PublicUserDto {
                 .registrationKey(publicUser.getRegistrationKey())
                 .build();
     }
-
-
-
 }

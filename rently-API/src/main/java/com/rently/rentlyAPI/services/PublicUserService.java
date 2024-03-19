@@ -37,4 +37,8 @@ public interface PublicUserService {
 
      // Retrieve all PublicUsers
      List<PublicUserDto> getAllPublicUsers();
+     
+     String requestKeyToChangeRole(String token, String role);
+     
+     String activateKeyToChangeRole(String token, String key);
 }
