@@ -41,13 +41,33 @@ public class CompanyAdminController {
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllBuildingsByCompanyId(companyId));
     }
-    
+
+
+    //common facilities
     @PostMapping(path = "/create/common-facility")
     public ResponseEntity<CommonFacilityDto> createCommonFacility(@RequestBody CommonFacilityDto commonFacilityDto) {
         return ResponseEntity.ok(companyAdminService.createCommonFacilityAndLinkToBuilding(commonFacilityDto));
     }
 
+    //    @GetMapping(path = "/common-facilities/id={commonFacilityId}")
+//    public ResponseEntity<CommonFacilityDto> getCommonFacilityById(@PathVariable(name = "commonFacilityId") Integer commonFacilityId) {
+//        return ResponseEntity.ok(companyAdminService.getCommonFacilityById(commonFacilityId));
+//    }
+//
+//    @GetMapping(path = "/common-facilities/name={commonFacilityName}")
+//    public ResponseEntity<BuildingDto> getCommonFacilityByName(@PathVariable(name = "commonFacilityName") String commonFacilityName) {
+//        return ResponseEntity.ok(companyAdminService.getCommonFacilityByName(commonFacilityName));
+//    }
+//
+    @GetMapping(path = "/common-facilities/building={buildingId}")
+    public ResponseEntity<List<CommonFacilityDto>> getAllCommonFacilities(@RequestHeader("Authorization") String token, @PathVariable(name = "buildingId") Integer buildingId) {
+        // token.substring(7) To remove the Bearer prefix from the token
+        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
+        return ResponseEntity.ok(companyAdminService.getAllCommonFacilitiesByBuildingId(buildingId));
+    }
 
+
+    // Employees
     @PostMapping(path = "/create/employee")
     public ResponseEntity<EmployeeDto> registerEmployee(@RequestBody EmployeeDto employeeDto) {
         return ResponseEntity.ok(userService.registerEmployee(employeeDto));
@@ -64,6 +84,5 @@ public class CompanyAdminController {
     public ResponseEntity<EmploymentContractDto> registerEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
     }
-
 
 }

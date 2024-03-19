@@ -38,6 +38,10 @@ public interface BuildingService {
 
     CommonFacilityDto createCommonFacility(CommonFacilityDto commonFacilityDto);
 
+    CommonFacilityDto getCommonFacilityById(Integer commonFacilityId);
+
+    List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId);
+
 //
 //	public Building save(Building building);
 //

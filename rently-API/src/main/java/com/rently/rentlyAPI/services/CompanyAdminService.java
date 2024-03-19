@@ -61,4 +61,8 @@ public interface CompanyAdminService {
     CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto);
 
     List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId);
+
+    CommonFacilityDto getCommonFacilityById(Integer commonFacilityId);
+
+    List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId);
 }

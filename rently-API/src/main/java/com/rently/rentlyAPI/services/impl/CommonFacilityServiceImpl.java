@@ -8,7 +8,9 @@ import com.rently.rentlyAPI.services.CommonFacilityService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,5 +28,20 @@ public class CommonFacilityServiceImpl implements CommonFacilityService {
     @Override
     public Optional<CommonFacility> findCommonFacilityByName(Integer buildingId, String facilityName) {
         return commonFacilityRepository.findByNameAndBuildingId(buildingId, facilityName);
+    }
+
+    @Override
+    public CommonFacilityDto findCommonFacilityById(Integer commonFacilityId) {
+        CommonFacility commonFacility = commonFacilityRepository.findById(commonFacilityId)
+                .orElseThrow(() -> new IllegalArgumentException("CommonFacility with ID " + commonFacilityId + " not found"));
+        return CommonFacilityDto.fromEntity(commonFacility);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilityByBuildingId(Integer buildingId) {
+        List<CommonFacility> facilities = commonFacilityRepository.findAllByBuildingId(buildingId);
+        return facilities.stream()
+                .map(CommonFacilityDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

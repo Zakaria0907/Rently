@@ -143,6 +143,17 @@ public class BuildingServiceImpl implements BuildingService {
         return commonFacilityService.createCommonFacilityAndLinkToBuilding(commonFacilityDto, buildingToLink);
     }
 
+    @Override
+    public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
+        return commonFacilityService.findCommonFacilityById(commonFacilityId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId) {
+        findBuildingEntityById(buildingId);
+        return commonFacilityService.getAllCommonFacilityByBuildingId(buildingId);
+    }
+
 //	private final BuildingRepository buildingRepository;
 //
 //	@Override

@@ -9,8 +9,8 @@ import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
-import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.*;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -223,6 +223,17 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
         return buildingService.getAllBuildingsByCompanyId(companyId);
+    }
+
+    @Override
+    public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
+        return buildingService.getCommonFacilityById(commonFacilityId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId) {
+
+        return buildingService.getAllCommonFacilitiesByBuildingId(buildingId);
     }
 
     @Override
