@@ -33,9 +33,10 @@ public class WebSecurityConfig {
 
 //    @Autowired
 //    private RentlyOAuth2UserService oAuth2UserService;
-
-    //    @Autowired
+//
+//    @Autowired
 //    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
@@ -43,6 +44,7 @@ public class WebSecurityConfig {
 //        "/api/system-admin/**",
 //            "/api/company-admin/**",
             "api/system-admin/create/system-admin",
+            "/api/public-user/**",
             "http://localhost:8080/api/v1/auth/**",
             "/api/authentication/**",
             "/v2/api-docs",

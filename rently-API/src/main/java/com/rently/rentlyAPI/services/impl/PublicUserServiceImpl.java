@@ -1,15 +1,25 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.OwnerDto;
 import com.rently.rentlyAPI.dto.PublicUserDto;
+import com.rently.rentlyAPI.dto.RenterDto;
+import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.PublicUser;
-import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
+import com.rently.rentlyAPI.entity.user.Renter;
+import com.rently.rentlyAPI.exceptions.AuthenticationException;
+import com.rently.rentlyAPI.repository.OwnerRepository;
 import com.rently.rentlyAPI.repository.PublicUserRepository;
+import com.rently.rentlyAPI.repository.RenterRepository;
 import com.rently.rentlyAPI.services.PublicUserService;
+import com.rently.rentlyAPI.utils.JwtUtils;
+import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,47 +27,159 @@ import java.util.Optional;
 public class PublicUserServiceImpl implements PublicUserService {
 
     private final PublicUserRepository publicUserRepository;
+    private final OwnerRepository ownerRepository;
+    private final RenterRepository renterRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtils jwtUtils;
 
     @Override
-    public PublicUserDto createPublicUser(PublicUserDto publicUserDto) {
+    public Optional<PublicUser> findByEmail(String email) {
+        return publicUserRepository.findByEmail(email);
+    }
+
+    @Override
+    public PublicUser findPublicUserEntityByToken(String token) {
+        String email = jwtUtils.extractUsername(token);
+        return findPublicUserEntityByEmail(email);
+    }
+
+    @Override
+    public PublicUserDto findPublicUserDtoByEmail(String email) {
+        PublicUser publicUser = findPublicUserEntityByEmail(email);
+        return PublicUserDto.fromEntity(publicUser);
+    }
+
+    @Override
+    public PublicUser findPublicUserEntityByEmail(String email) {
+        return publicUserRepository.findByEmail(email)
+                .orElseThrow(() -> new AuthenticationException("PublicUser with email " + email + " not found"));
+    }
+
+    @Override
+    public PublicUserDto findPublicUserDtoById(Integer publicUserId) {
+        PublicUser publicUser = findPublicUserEntityById(publicUserId);
+        return PublicUserDto.fromEntity(publicUser);
+    }
+
+    @Override
+    public PublicUser findPublicUserEntityById(Integer publicUserId) {
+        return publicUserRepository.findById(publicUserId)
+                .orElseThrow(() -> new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found"));
+    }
+
+    @Override
+    public PublicUserDto registerPublicUser(PublicUserDto publicUserDto) {
         //check the user does not already exist
-        Optional<PublicUser> existing = publicUserRepository.findByEmail(publicUserDto.getEmail());
+        Optional<PublicUser> existingPublicUser = publicUserRepository.findByEmail(publicUserDto.getEmail());
 
-        if (existing.isPresent())
-            throw new OperationNonPermittedException("There is already a public user with this email: " + publicUserDto.getEmail());
+        if (existingPublicUser.isPresent()){
+            throw new AuthenticationException("This email is already associated with an account");
+        }
 
-        PublicUser publicUser = PublicUserDto.toEntity(publicUserDto);
-        PublicUser savedCompany = publicUserRepository.save(publicUser);
+        if (publicUserDto.getPassword() != null) {
+            // Encode the password if provided (null with google for example)
+            String encodedPassword = passwordEncoder.encode(publicUserDto.getPassword());
+            publicUserDto.setPassword(encodedPassword);
+        }
+
+        PublicUser publicUserToSave = PublicUserDto.toEntity(publicUserDto);
+
+        PublicUser savedCompany = publicUserRepository.save(publicUserToSave);
+
         return PublicUserDto.fromEntity(savedCompany);
     }
 
     @Override
-    public PublicUserDto updatePublicUser(PublicUserDto publicUserDto, Integer publicUserId) {
-        return null;
-    }
+    public PublicUserDto updatePublicUser(PublicUserDto publicUserDto) {
+        // Find the CompanyAdmin Entity by its ID
+        PublicUser publicUserToUpdate = findPublicUserEntityById(publicUserDto.getId());
 
-    @Override
-    public PublicUserDto getPublicUserById(Integer publicUserId) {
-        return null;
-    }
+        // Update the CompanyAdmin details if present
+        if (publicUserDto.getEmail() != null && !publicUserDto.getEmail().isEmpty()) {
+            publicUserToUpdate.setEmail(publicUserDto.getEmail());
+        }
 
-    @Override
-    public PublicUserDto getPublicUserByEmail(String publicUserEmail) {
-        return null;
+        if (publicUserDto.getFirstName() != null && !publicUserDto.getFirstName().isEmpty()) {
+            publicUserToUpdate.setFirstName(publicUserDto.getFirstName());
+        }
+
+        if (publicUserDto.getLastName() != null && !publicUserDto.getLastName().isEmpty()) {
+            publicUserToUpdate.setLastName(publicUserDto.getLastName());
+        }
+
+        if (publicUserDto.getPhoneNumber() != null) {
+            publicUserToUpdate.setPhoneNumber(publicUserDto.getPhoneNumber());
+        }
+
+        if (publicUserDto.getBio() != null) {
+            publicUserToUpdate.setBio(publicUserDto.getBio());
+        }
+
+        // Save the updated CompanyAdmin
+        PublicUser updatedPublicUser = publicUserRepository.save(publicUserToUpdate);
+
+        return PublicUserDto.fromEntity(updatedPublicUser);
     }
 
     @Transactional
     public String deletePublicUserById(Integer publicUserId) {
+        
+        PublicUser publicUser = findPublicUserEntityById(publicUserId);
+        publicUserRepository.delete(publicUser);
+        
+        return "Public User deleted successfully";
+    }
 
-        try {
-            PublicUser publicUser = publicUserRepository.findById(publicUserId)
-                    .orElseThrow(() -> new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found"));
-
-            publicUserRepository.delete(publicUser);
-            return "PublicUser with ID " + publicUserId + " deleted successfully.";
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("PublicUser with ID " + publicUserId + " not found");
+    @Override
+    public List<PublicUserDto> getAllPublicUsers() {
+        List<PublicUser> publicUsers = publicUserRepository.findAll();
+        return publicUsers.stream()
+                .map(PublicUserDto::fromEntity)
+                .toList();
+    }
+    
+    @Override
+    public String requestKeyToChangeRole(String token, String role) {
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+        PublicUser publicUser = findPublicUserEntityByEmail(email);
+        
+        String registrationKey = RegistrationKeyUtils.generateRegistrationKey(role);
+        publicUser.setRegistrationKey(registrationKey);
+        publicUserRepository.save(publicUser);
+        
+        return registrationKey;
+    }
+    
+    @Override
+    @Transactional
+    public String activateKeyToChangeRole(String token, String key) {
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+        PublicUser publicUser = findPublicUserEntityByEmail(email);
+        
+        // Check if the key matches
+        if (!publicUser.getRegistrationKey().equals(key)) {
+            return "Invalid key";
         }
+        
+        if (key.startsWith("OW")){
+            Owner owner = OwnerDto.fromPublicUser(publicUser);
+            deletePublicUserById(publicUser.getId());
+            ownerRepository.save(owner);
+            return "Owner created successfully";
+        }
+        
+        if (key.startsWith("RE")){
+            Renter renter = RenterDto.fromPublicUser(publicUser);
+            deletePublicUserById(publicUser.getId());
+            renterRepository.save(renter);
+            return "Renter created successfully";
+        }
+        
+        return "Activation Failed";
     }
 }
 

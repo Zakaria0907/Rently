@@ -1,17 +1,20 @@
-package com.rently.rentlyAPI.auth.services;
+package com.rently.rentlyAPI.auth.services.Impl;
 
 import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.auth.dto.LoginRequestDto;
+import com.rently.rentlyAPI.auth.services.AuthenticationService;
 import com.rently.rentlyAPI.dto.RootUserDto;
 import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.repository.UserRepository;
-import com.rently.rentlyAPI.security.utils.JwtUtils;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.UserService;
 import com.rently.rentlyAPI.validators.ObjectsValidator;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +28,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
   private final AuthenticationManager authenticationManager;
   private final UserService userService;
   private final ObjectsValidator<Object> validator;
+  
+  private final PasswordEncoder passwordEncoder;
 
 
   public AuthenticationResponseDto authenticate(LoginRequestDto loginRequestDto, HttpServletResponse response) {
@@ -49,8 +54,26 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     jwtUtils.addTokensAsCookies(response, jwtToken, refreshToken);
     RootUserDto userDto = RootUserDto.toDto(user);
-//    UserDto userDto = UserDto.fromEntity(user);
+
     return buildAuthenticationResponse(jwtToken, refreshToken, userDto);
+  }
+  
+  @Override
+  public String changePassword(String token, ChangePasswordRequestDto changePasswordRequestDto) {
+    String tokenWithoutBearer = token.substring(7);
+    String email = jwtUtils.extractUsername(tokenWithoutBearer);
+    User user = userService.findUserAccordingToTypeWithEmail(email);
+    
+    
+    if(passwordEncoder.matches(changePasswordRequestDto.getOldPassword(), user.getPassword()) && changePasswordRequestDto.getNewPassword().equals(changePasswordRequestDto.getConfirmationPassword())){
+      String newEncodedPassword = passwordEncoder.encode(changePasswordRequestDto.getNewPassword());
+      user.setPassword(newEncodedPassword);
+      userRepository.save(user);
+      
+      return "Password changed successfully";
+    } else {
+      return "Old password is incorrect";
+    }
   }
 
 

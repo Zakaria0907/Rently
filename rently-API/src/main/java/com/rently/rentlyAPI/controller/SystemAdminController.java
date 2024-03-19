@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/system-admin")
 @RequiredArgsConstructor
 public class SystemAdminController {
-    //
+    
     private final UserService userService;
     private final SystemAdminService systemAdminService;
 
