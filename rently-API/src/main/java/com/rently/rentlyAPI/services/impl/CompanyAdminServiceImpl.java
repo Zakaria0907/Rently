@@ -21,6 +21,7 @@ import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,6 +41,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final EmploymentContractRepository employmentContractRepository;
 
     private final JwtUtils jwtUtils;
+    private final PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -75,21 +77,26 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     @Transactional
     public CompanyAdminDto registerCompanyAdminAndLinkToCompany(CompanyAdminDto companyAdminDto) {
-        
         // Check if the email is already associated with an account
         Optional<CompanyAdmin> existingCompanyAdmin = companyAdminRepository.findByEmail(companyAdminDto.getEmail());
-        
+
         // If the email is already associated with an account, throw an exception
         if (existingCompanyAdmin.isPresent()) {
             throw new AuthenticationException("This email is already associated with an account");
         }
-        
+
+        if (companyAdminDto.getPassword() != null) {
+            // Encode the password if provided (null with google for example)
+            String encodedPassword = passwordEncoder.encode(companyAdminDto.getPassword());
+            companyAdminDto.setPassword(encodedPassword);
+        }
+
         // Retreive company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(companyAdminDto.getCompanyId());
-        
+
         // Create the company admin
         CompanyAdmin companyAdminToSave = CompanyAdminDto.toEntity(companyAdminDto);
-        
+
         // Link the company admin to the company
         companyAdminToSave.setCompany(companyToLink);
         

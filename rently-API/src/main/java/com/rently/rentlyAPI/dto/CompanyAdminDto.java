@@ -45,6 +45,7 @@ public class CompanyAdminDto extends RootUserDto {
     private int companyId;
 
     public static CompanyAdmin toEntity(CompanyAdminDto companyAdminDto){
+
         return CompanyAdmin.builder()
                 .email(companyAdminDto.getEmail())
                 .password(companyAdminDto.getPassword())
