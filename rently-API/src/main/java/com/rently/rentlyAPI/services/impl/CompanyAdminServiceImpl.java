@@ -166,9 +166,14 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     }
     
     @Override
-    public BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto) {
-        return buildingService.createBuildingAndLinkToCompany(buildingDto);
+    public BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto) {
+        // this adds an extra layer of security, the company admin can only create a building for his company
+        Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        if (buildingDto.getCompanyId() != adminCompanyId) {
+            throw new AuthenticationException("You are not authorized to create a building for another company");
+        }
 
+        return buildingService.createBuildingAndLinkToCompany(buildingDto);
     }
 
     @Override
@@ -234,6 +239,11 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId) {
 
         return buildingService.getAllCommonFacilitiesByBuildingId(buildingId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilities() {
+        return buildingService.getAllCommonFacilities();
     }
 
     @Override

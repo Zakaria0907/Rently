@@ -15,4 +15,6 @@ public interface CommonFacilityService {
     CommonFacilityDto findCommonFacilityById(Integer commonFacilityId);
 
     List<CommonFacilityDto> getAllCommonFacilityByBuildingId(Integer buildingId);
+
+    List<CommonFacilityDto> getAllCommonFacilities();
 }

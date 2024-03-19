@@ -44,7 +44,7 @@ public interface CompanyAdminService {
     /*
      * The following methods are calling other services
      */
-    BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto);
+    BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto);
 
     BuildingDto getBuildingByName(String buildingName);
 
@@ -65,4 +65,6 @@ public interface CompanyAdminService {
     CommonFacilityDto getCommonFacilityById(Integer commonFacilityId);
 
     List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId);
+
+    List<CommonFacilityDto> getAllCommonFacilities();
 }

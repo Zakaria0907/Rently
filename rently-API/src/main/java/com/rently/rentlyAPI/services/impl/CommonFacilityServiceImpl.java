@@ -44,4 +44,12 @@ public class CommonFacilityServiceImpl implements CommonFacilityService {
                 .map(CommonFacilityDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilities() {
+        List<CommonFacility> facilities = commonFacilityRepository.findAll();
+        return facilities.stream()
+                .map(CommonFacilityDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

@@ -42,6 +42,8 @@ public interface BuildingService {
 
     List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId);
 
+    List<CommonFacilityDto> getAllCommonFacilities();
+
 //
 //	public Building save(Building building);
 //

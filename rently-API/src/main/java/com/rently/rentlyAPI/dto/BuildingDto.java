@@ -2,9 +2,10 @@ package com.rently.rentlyAPI.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rently.rentlyAPI.entity.Building;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder
@@ -29,7 +30,7 @@ public class BuildingDto {
 	private String description;
 
 	@JsonProperty("company_id")
-	private int companyId;
+	private Integer companyId;
 
 	// Converts a Building entity to a BuildingDto
 	public static BuildingDto fromEntity(Building building) {
