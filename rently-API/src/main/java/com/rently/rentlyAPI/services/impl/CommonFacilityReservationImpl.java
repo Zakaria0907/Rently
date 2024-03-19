@@ -1,13 +1,16 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.CompanyAdminDto;
 import com.rently.rentlyAPI.dto.PublicUserDto;
 import com.rently.rentlyAPI.entity.CommonFacilityReservation;
+import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.entity.user.PublicUser;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.CommonFacilityReservationRepository;
 import com.rently.rentlyAPI.repository.CompanyRepository;
 import com.rently.rentlyAPI.services.CommonFacilityReservationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +37,16 @@ public class CommonFacilityReservationImpl implements CommonFacilityReservationS
 
     @Override
     public CommonFacilityReservationDto updateReservation(CommonFacilityReservationDto commonFacilityReservationDto, Integer occupantID, Integer commonFacilityID) {
-        return null;
+        // Find the CompanyAdmin Entity by its ID
+        CommonFacilityReservation companyAdminToUpdate = commonFacilityReservationRepository.findByOccupantId(occupantID, commonFacilityID)
+                .orElseThrow(() -> new EntityNotFoundException("Occupant with ID " + occupantID + " not found");
+
+        // Update the the reservation details if present
+
+        // Save the updated CompanyAdmin
+        CommonFacilityReservation updatedReservation = commonFacilityReservationRepository.save(companyAdminToUpdate);
+
+        return commonFacilityReservationDto.fromEntity(updatedReservation);
     }
 
     @Override
