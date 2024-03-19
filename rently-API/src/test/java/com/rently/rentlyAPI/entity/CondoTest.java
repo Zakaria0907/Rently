@@ -24,7 +24,7 @@ public class CondoTest {
         // Assert
         assertEquals("Concordia", testCondo.getName());
         assertEquals("1455 Boul. De Maisonneuve O", testCondo.getAddress());
-        assertEquals("123", testCondo.getCondoNumber());
+        assertEquals("123", testCondo.getUnitNumber());
         assertEquals("type1", testCondo.getCondoType());
         assertEquals("description", testCondo.getDescription());
         assertEquals(mockedCondoStatus, testCondo.getStatus());
@@ -43,7 +43,7 @@ public class CondoTest {
         // Assert
         assertNull(testCondo.getName());
         assertNull(testCondo.getAddress());
-        assertNull(testCondo.getCondoNumber());
+        assertNull(testCondo.getUnitNumber());
         assertNull(testCondo.getCondoType());
         assertNull(testCondo.getDescription());
         assertNull(testCondo.getStatus());
@@ -62,7 +62,7 @@ public class CondoTest {
         // Assert
         assertNull(testCondo.getName());
         assertNull(testCondo.getAddress());
-        assertNull(testCondo.getCondoNumber());
+        assertNull(testCondo.getUnitNumber());
         assertNull(testCondo.getCondoType());
         assertNull(testCondo.getDescription());
         assertNull(testCondo.getStatus());

@@ -1,31 +1,34 @@
-//package com.rently.rentlyAPI.services;
-//
-//import com.rently.rentlyAPI.dto.BuildingDto;
-//import com.rently.rentlyAPI.dto.CondoDto;
-//import com.rently.rentlyAPI.entity.Building;
-//import com.rently.rentlyAPI.entity.Condo;
-//
-//import java.util.List;
-//
-//public interface CondoService {
-//
-//    public Condo save(Condo condo);
-//
-//    public Condo update(CondoDto condoDto, Condo condo);
-//
-//    public void delete(Condo condo);
-//
-//    public boolean exists(Condo condo);
-//
-//    public boolean exists(Integer buildingId);
-//
-//
-//
-//    public Condo findById(Integer id);
-//
-//    // Returns the number of condos in a building
-//    public Integer countCondosByBuildingId(Integer companyId);
-//
-//    // Returns all condos in a building
-//    public List<Condo> findAllCondosByBuildingId(Integer buildingId);
-//}
+package com.rently.rentlyAPI.services;
+
+import com.rently.rentlyAPI.dto.BuildingDto;
+import com.rently.rentlyAPI.dto.CompanyDto;
+import com.rently.rentlyAPI.dto.CondoDto;
+import com.rently.rentlyAPI.entity.Building;
+import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.Condo;
+
+import java.util.List;
+
+public interface CondoService {
+
+    // Find a Condo Dto by ID
+    CondoDto findCondoDtoById(Integer condoId);
+
+    // Find a Condo Entity by ID
+    Condo findCondoEntityById(Integer condoId);
+
+    // Create a new Condo
+    CondoDto createCondo(CondoDto condoDto);
+
+    // Update an existing Company
+    CondoDto updateCondo(CondoDto condoDto);
+
+    // Delete a Company by ID
+    void deleteCondoById(Integer condoId);
+
+    // Retrieve all Condos
+    List<CondoDto> getAllCondos();
+
+    // Retrieve all Condos by Building ID
+    List<CondoDto> getAllCondosByBuildingId(Integer buildingId);
+}

@@ -7,13 +7,25 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalInt;
 
 public interface CondoRepository extends JpaRepository<Condo, Integer> {
-	// Returns the number of condos in a building
-	@Query("SELECT COUNT(c) FROM Condo c WHERE c.building.id = :buildingId")
-	Integer countCondosById(Integer buildingId);
+
+	//	// Returns the number of condos in a building
+//	@Query("SELECT COUNT(c) FROM Condo c WHERE c.building.id = :buildingId")
+//	Integer countCondosById(Integer buildingId);
+
+//	// Returns all condos in a building
+//	@Query("SELECT c FROM Condo c WHERE c.building.id = :buildingId")
+//	List<Condo> findAllCondosById(Integer buildingId)
+
+	Integer countAllByBuildingId(Integer buildingId);
+
+	Optional<Condo> findCondoByRegistrationKey(String registrationKey);
+
+	List<Condo> findAllByBuildingId(Integer buildingId);
+
+	boolean isUnitNumberUniqueInBuilding(Integer unitNumber, Integer buildingId, Integer condoId);
 	
-	// Returns all condos in a building
-	@Query("SELECT c FROM Condo c WHERE c.building.id = :buildingId")
-	List<Condo> findAllCondosById(Integer buildingId);
+
 }

@@ -11,13 +11,16 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class CommonFacilityDto {
+
     @JsonProperty("id")
     private Integer id;
 
     @JsonProperty("facility_name")
     private String facilityName;
+
     @JsonProperty("description")
     private String description;
+
     @JsonProperty("building_id")
     private Integer buildingId;
 
@@ -35,7 +38,7 @@ public class CommonFacilityDto {
                 .id(commonFacilityDto.getId())
                 .name(commonFacilityDto.getFacilityName())
                 .description(commonFacilityDto.getDescription())
-                .building(Building.builder().id(commonFacilityDto.getBuildingId()).build())
+                // building is set in the business logic
                 .build();
     }
 }

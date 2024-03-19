@@ -31,7 +31,7 @@ public class CondoDtoTest {
         assertEquals(mockedCondo.getId(), testCondoDto.getId());
         assertEquals(mockedCondo.getName(), testCondoDto.getName());
         assertEquals(mockedCondo.getAddress(), testCondoDto.getAddress());
-        assertEquals(mockedCondo.getCondoNumber(), testCondoDto.getCondoNumber());
+        assertEquals(mockedCondo.getUnitNumber(), testCondoDto.getCondoNumber());
         assertEquals(mockedCondo.getCondoType(), testCondoDto.getCondoType());
         assertEquals(mockedCondo.getDescription(), testCondoDto.getDescription());
         assertEquals(mockedCondo.getStatus(), testCondoDto.getStatus());
@@ -51,7 +51,7 @@ public class CondoDtoTest {
         assertEquals(mockedCondoDto.getId(), testCondo.getId());
         assertEquals(mockedCondoDto.getName(), testCondo.getName());
         assertEquals(mockedCondoDto.getAddress(), testCondo.getAddress());
-        assertEquals(mockedCondoDto.getCondoNumber(), testCondo.getCondoNumber());
+        assertEquals(mockedCondoDto.getCondoNumber(), testCondo.getUnitNumber());
         assertEquals(mockedCondoDto.getCondoType(), testCondo.getCondoType());
         assertEquals(mockedCondoDto.getDescription(), testCondo.getDescription());
         assertEquals(mockedCondoDto.getStatus(), testCondo.getStatus());
