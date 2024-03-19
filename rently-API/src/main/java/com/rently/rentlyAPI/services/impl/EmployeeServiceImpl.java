@@ -7,6 +7,7 @@ import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Optional<Employee> findByEmail(String email) {
         return employeeRepository.findByEmail(email);
+    }
+
+    @Override
+    public Employee findById(Integer employeeId) {
+        return employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new EntityNotFoundException("Employee with id: " + employeeId + " not found"));
     }
 
 

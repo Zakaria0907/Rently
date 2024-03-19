@@ -35,19 +35,25 @@ public class BuildingServiceImpl implements BuildingService {
                 .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found"));
         return BuildingDto.fromEntity(building);
     }
-    
+
     @Override
     public Building findBuildingEntityById(Integer buildingId) {
         return buildingRepository.findById(buildingId)
                 .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found"));
     }
-    
+
+    @Override
+    public Building findBuildingEntityByName(String buildingName) {
+        return buildingRepository.findByName(buildingName)
+                .orElseThrow(() -> new EntityNotFoundException("Building with name " + buildingName + " not found"));
+    }
+
     @Override
     public BuildingDto updateBuilding(BuildingDto buildingDto) {
-        
+
         // Find the Building Entity by ID
         Building buildingToUpdate = findBuildingEntityById(buildingDto.getId());
-        
+
         // Update Building details if present
         if (buildingDto.getAddress() != null && !buildingDto.getAddress().isEmpty()) {
             buildingToUpdate.setAddress(buildingDto.getAddress());
@@ -105,6 +111,14 @@ public class BuildingServiceImpl implements BuildingService {
 
         // Return the company adminDto
         return BuildingDto.fromEntity(savedBuilding);
+    }
+
+    @Override
+    public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
+        List<Building> buildings = buildingRepository.findAllByCompanyId(companyId);
+        return buildings.stream()
+                .map(BuildingDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
 //	private final BuildingRepository buildingRepository;

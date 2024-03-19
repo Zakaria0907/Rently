@@ -16,16 +16,20 @@ public interface BuildingService {
     // Find a Building Entity by ID
     Building findBuildingEntityById(Integer buildingId);
 
+    Building findBuildingEntityByName(String buildingName);
     // Update an existing Building
+
     BuildingDto updateBuilding(BuildingDto buildingDto);
-
     // Delete a Building by ID
-    void deleteBuilding(Integer buildingId);
 
+    void deleteBuilding(Integer buildingId);
     // Retrieve all Buildings
+
     List<BuildingDto> getAllBuildings();
 
     BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto);
+
+    List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId);
 
 //
 //	public Building save(Building building);

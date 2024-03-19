@@ -12,4 +12,6 @@ public interface EmployeeService {
     List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId);
 
     Optional<Employee> findByEmail(String email);
+
+    Employee findById(Integer employeeId);
 }

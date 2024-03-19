@@ -1,9 +1,9 @@
 package com.rently.rentlyAPI.controller;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
+import com.rently.rentlyAPI.dto.CommonFacilityDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.dto.EmploymentContractDto;
-import com.rently.rentlyAPI.security.utils.JwtUtils;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,12 @@ import java.util.List;
 public class CompanyAdminController {
     private final UserService userService;
     private final CompanyAdminService companyAdminService;
-    private final JwtUtils jwtUtils;
 
     @PostMapping(path = "/create/building")
     public ResponseEntity<BuildingDto> createBuilding(@RequestBody BuildingDto buildingDto) {
         return ResponseEntity.ok(companyAdminService.createBuildingAndLinkToCompany(buildingDto));
     }
+
 
     @GetMapping(path = "/buildings/id={buildingId}")
     public ResponseEntity<BuildingDto> getBuildingById(@PathVariable(name = "buildingId") Integer buildingId) {
@@ -34,24 +34,35 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.getBuildingByName(buildingName));
     }
 
+    //company admin can see all his buildings
     @GetMapping(path = "/buildings")
-    public ResponseEntity<List<BuildingDto>> getAllBuildings() {
-        return ResponseEntity.ok(companyAdminService.getAllBuildings());
+    public ResponseEntity<List<BuildingDto>> getAllBuildings(@RequestHeader("Authorization") String token) {
+        // token.substring(7) To remove the Bearer prefix from the token
+        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
+        return ResponseEntity.ok(companyAdminService.getAllBuildingsByCompanyId(companyId));
     }
 
+
+    @PostMapping(path = "/create/common-facility")
+    public ResponseEntity<CommonFacilityDto> createCommonFacility(@RequestBody CommonFacilityDto commonFacilityDto) {
+        return ResponseEntity.ok(companyAdminService.createCommonFacilityAndLinkToBuilding(commonFacilityDto));
+    }
+
+
     @PostMapping(path = "/create/employee")
-    public ResponseEntity<EmployeeDto> createEmployee(@RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> registerEmployee(@RequestBody EmployeeDto employeeDto) {
         return ResponseEntity.ok(userService.registerEmployee(employeeDto));
     }
 
     @GetMapping(path = "/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
+        // token.substring(7) To remove the Bearer prefix from the token
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
     }
 
     @PostMapping(path = "/create/employment-contract")
-    public ResponseEntity<EmploymentContractDto> createEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
+    public ResponseEntity<EmploymentContractDto> registerEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
     }
 

@@ -1,9 +1,6 @@
 package com.rently.rentlyAPI.services;
 
-import com.rently.rentlyAPI.dto.BuildingDto;
-import com.rently.rentlyAPI.dto.CompanyAdminDto;
-import com.rently.rentlyAPI.dto.EmployeeDto;
-import com.rently.rentlyAPI.dto.EmploymentContractDto;
+import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 
 import java.util.List;
@@ -60,4 +57,8 @@ public interface CompanyAdminService {
     List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId);
 
     Optional<CompanyAdmin> findByEmail(String email);
+
+    CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto);
+
+    List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId);
 }

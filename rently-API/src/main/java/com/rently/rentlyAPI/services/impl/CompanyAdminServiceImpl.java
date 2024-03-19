@@ -1,25 +1,16 @@
 package com.rently.rentlyAPI.services.impl;
 
-import com.rently.rentlyAPI.dto.BuildingDto;
-import com.rently.rentlyAPI.dto.CompanyAdminDto;
-import com.rently.rentlyAPI.dto.EmployeeDto;
-import com.rently.rentlyAPI.dto.EmploymentContractDto;
+import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.EmploymentContract;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
-import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
-import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
 import com.rently.rentlyAPI.security.utils.JwtUtils;
-import com.rently.rentlyAPI.services.BuildingService;
-import com.rently.rentlyAPI.services.CompanyAdminService;
-import com.rently.rentlyAPI.services.CompanyService;
-import com.rently.rentlyAPI.services.EmployeeService;
-import jakarta.persistence.EntityNotFoundException;
+import com.rently.rentlyAPI.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,9 +26,9 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final CompanyService companyService;
     private final BuildingService buildingService;
     private final EmployeeService employeeService;
-    private final BuildingRepository buildingRepository;
+    private final CommonFacilityService commonFacilityService;
+
     private final CompanyAdminRepository companyAdminRepository;
-    private final EmployeeRepository employeeRepository;
     private final EmploymentContractRepository employmentContractRepository;
 
     private final JwtUtils jwtUtils;
@@ -46,7 +37,8 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public CompanyAdmin findCompanyAdminEntityByToken(String token) {
-        String email = jwtUtils.extractUsername(token);
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
         return findCompanyAdminEntityByEmail(email);
     }
 
@@ -181,31 +173,27 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public BuildingDto getBuildingByName(String buildingName) {
-        Building building =  buildingRepository.getBuildingByName(buildingName)
-                .orElseThrow(() -> new EntityNotFoundException("Building with name " + buildingName + " not found"));
+        Building building = buildingService.findBuildingEntityByName(buildingName);
         return BuildingDto.fromEntity(building);
     }
 
     @Override
     public BuildingDto getBuildingById(Integer buildingId) {
-        return BuildingDto.fromEntity(buildingRepository.findById(buildingId)
-                .orElseThrow(() -> new EntityNotFoundException("Building with ID " + buildingId + " not found")));
+        return BuildingDto.fromEntity(buildingService.findBuildingEntityById(buildingId));
     }
 
     @Override
     public List<BuildingDto> getAllBuildings() {
-        return buildingRepository.findAll().stream().map(BuildingDto::fromEntity).toList();
+        return buildingService.getAllBuildings(); //buildingRepository.findAll().stream().map(BuildingDto::fromEntity).toList();
     }
 
     @Override
     public EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto) {
         // no need to check that the company exists, we know it exists because the company admin exists
         // Check that the building exists
-        Building building = buildingRepository.findById(employmentContractDto.getBuildingId())
-                .orElseThrow(() -> new EntityNotFoundException("Building with id: " + employmentContractDto.getBuildingId() + " not found"));
+        Building building = buildingService.findBuildingEntityById(employmentContractDto.getBuildingId());
         // check that the employee exists
-        Employee employee = employeeRepository.findById(employmentContractDto.getEmployeeId())
-                .orElseThrow(() -> new EntityNotFoundException("Employee with id: " + employmentContractDto.getEmployeeId() + " not found"));
+        Employee employee = employeeService.findById(employmentContractDto.getEmployeeId());
 
         Company company = companyService.findCompanyEntityById(employmentContractDto.getCompanyId());
 
@@ -225,6 +213,16 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public Optional<CompanyAdmin> findByEmail(String email) {
         return companyAdminRepository.findByEmail(email);
+    }
+
+    @Override
+    public CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto) {
+        return commonFacilityService.createCommonFacilityAndLinkToBuilding(commonFacilityDto);
+    }
+
+    @Override
+    public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
+        return buildingService.getAllBuildingsByCompanyId(companyId);
     }
 
     @Override
