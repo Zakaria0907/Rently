@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IoIosCreate, IoIosTrash, IoMdAddCircleOutline } from "react-icons/io";
 import { Image } from '@chakra-ui/react';
 import OwnerPopup from '../../components/OwnerPopup'; // Popup for adding/editing an owner
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+// import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import UserOne from '../../images/user/user-01.png';
 import UserTwo from '../../images/user/user-02.png';
 import UserThree from '../../images/user/user-03.png';
@@ -17,12 +17,12 @@ interface OwnerData {
     picture: string;
   }
 
-  interface OwnerPopupProps {
-    editMode: boolean;
-    ownerData?: OwnerData | null; // Allow null
-    closeModal: () => void;
-    saveOwner: (owner: OwnerData) => void;
-  }
+//   interface OwnerPopupProps {
+//     editMode: boolean;
+//     ownerData?: OwnerData | null; // Allow null
+//     closeModal: () => void;
+//     saveOwner: (owner: OwnerData) => void;
+//   }
 
 const initialOwners = [
     {

@@ -1,5 +1,4 @@
 import React from 'react';
-import CondoImage from "../assets/images/condo-image-hero.jpg";
 
 
 const Features: React.FC = () => {

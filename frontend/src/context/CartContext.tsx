@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode, FunctionComponent } from 'react';
+import { createContext, useState, useContext, ReactNode, FunctionComponent } from 'react';
 
 interface CartContextType {
     isCartVisible: boolean;

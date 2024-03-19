@@ -1,7 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaRegBuilding, FaRegUser, FaRegChartBar } from "react-icons/fa";
+import { FaRegBuilding, FaRegUser } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
-import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline } from "react-icons/io5";
+import { HiOutlineUserGroup } from "react-icons/hi";
 
 
 const CompanySidebar = () => {
@@ -14,7 +15,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Dashboard --> */}
             <li>
                 <NavLink
-                    to="/company-dashboard"
+                    to="/admin-dashboard"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
                         'bg-graydark dark:bg-meta-4'
                         }`}
@@ -29,7 +30,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Profile --> */}
             <li>
                 <NavLink
-                    to="/company-profile"
+                    to="/admin-profile"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('profile') && 'bg-graydark dark:bg-meta-4'
                         }`}
                 >
@@ -42,7 +43,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Buildings --> */}
             <li>
                 <NavLink
-                    to="/manage-building"
+                    to="/admin-view-buildings"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('dashboard') && 'bg-graydark dark:bg-meta-4'
                         }`}
                 >
@@ -56,30 +57,16 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Calendar --> */}
             <li>
                 <NavLink
-                    to="/company-calendar"
+                    to="/admin-view-owners"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
                         'bg-graydark dark:bg-meta-4'
                         }`}
                 >
-                    <IoCalendarOutline />
-                    Reservations
+                    <HiOutlineUserGroup  />
+                    Owners
                 </NavLink>
             </li>
             {/* <!-- Menu Item Calendar --> */}
-
-            {/* <!-- Menu Item Settings --> */}
-            <li>
-                <NavLink
-                    to="/company-financial-report"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                        'bg-graydark dark:bg-meta-4'
-                        }`}
-                >
-                    <FaRegChartBar />
-                    Finacial Report
-                </NavLink>
-            </li>
-            {/* <!-- Menu Item Settings --> */}
 
             {/* <!-- Menu Item Settings --> */}
             <li>

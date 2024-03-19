@@ -1,9 +1,9 @@
 export enum Roles {
-    ADMIN = "ADMIN",
+    ADMIN = "SYSTEM_ADMIN",
     USER = "USER",
     RENTER = "RENTER",
     OWNER = "OWNER",
-    COMPANY= "COMPANY",
+    COMPANY= "COMPANY_ADMIN",
 }
 
 export enum RoleText {

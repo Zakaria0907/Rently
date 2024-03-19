@@ -4,7 +4,6 @@ import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
 import { IoSettingsOutline } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { FaRegBuilding } from "react-icons/fa";
 import { Image } from '@chakra-ui/react'
 import condo1 from '../../images/condos/condo1.jpg';
 import condo2 from '../../images/condos/condo2.jpg';
@@ -20,7 +19,7 @@ import EditPropertyPopup from '../../components/EditPropertyPopup';
 
 
 const Buildings: React.FC = () => {
-    const [cardCollection, setCardCollection] = React.useState<any[]>([]);
+    // const [cardCollection, setCardCollection] = React.useState<any[]>([]);
     const [buildings, setBuildings] = React.useState<Building[]>([]);
     const [addBuildingPopup, setAddBuildingPopup] = React.useState(false);
     const [editBuildingPopup, setEditBuildingPopup] = React.useState(false);
@@ -64,61 +63,61 @@ const Buildings: React.FC = () => {
 
 
 
-    React.useEffect(() => {
-        const cards = [
-            {
-                buildingId: 1,
-                title: 'Building 1',
-                unitCount: 20,
-                link: '/manage-building/building/1',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo1
-            },
-            {
-                buildingId: 2,
-                title: 'Building 2',
-                unitCount: 12,
-                link: '/manage-building/building/2',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo2
-            },
-            {
-                buildingId: 3,
-                title: 'Building 3',
-                unitCount: 15,
-                link: '/manage-building/building/3',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo3
-            },
-            {
-                buildingId: 4,
-                title: 'Building 4',
-                unitCount: 19,
-                link: '/manage-building/building/4',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo4
-            },
-            {
-                buildingId: 5,
-                title: 'Building 5',
-                unitCount: 18,
-                link: '/manage-building/building/5',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo5
-            },
-            {
-                buildingId: 6,
-                title: 'Building 6',
-                unitCount: 17,
-                link: '/manage-building/building/6',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />,
-                image: condo6
-            },
+    // React.useEffect(() => {
+    //     const cards = [
+    //         {
+    //             buildingId: 1,
+    //             title: 'Building 1',
+    //             unitCount: 20,
+    //             link: '/manage-building/building/1',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo1
+    //         },
+    //         {
+    //             buildingId: 2,
+    //             title: 'Building 2',
+    //             unitCount: 12,
+    //             link: '/manage-building/building/2',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo2
+    //         },
+    //         {
+    //             buildingId: 3,
+    //             title: 'Building 3',
+    //             unitCount: 15,
+    //             link: '/manage-building/building/3',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo3
+    //         },
+    //         {
+    //             buildingId: 4,
+    //             title: 'Building 4',
+    //             unitCount: 19,
+    //             link: '/manage-building/building/4',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo4
+    //         },
+    //         {
+    //             buildingId: 5,
+    //             title: 'Building 5',
+    //             unitCount: 18,
+    //             link: '/manage-building/building/5',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo5
+    //         },
+    //         {
+    //             buildingId: 6,
+    //             title: 'Building 6',
+    //             unitCount: 17,
+    //             link: '/manage-building/building/6',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />,
+    //             image: condo6
+    //         },
 
-        ];
+    //     ];
 
-        setCardCollection(cards);
-    }, []);
+    //     setCardCollection(cards);
+    // }, []);
 
     return (
         <DefaultLayout>

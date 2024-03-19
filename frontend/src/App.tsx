@@ -10,8 +10,6 @@ import Missing from "./components/Missing";
 import Temp from "./components/Temp";
 import { Roles } from "./types/enums";
 import { ChakraProvider } from "@chakra-ui/react";
-import CondoFees from "./components/EnterFees";
-import { CartProvider } from "./context/CartContext";
 import Fees from "./components/Fees";
 import CreatePropertyTest from "./components/CreatePropertyTest";
 import Reservations from "./components/Reservations";
@@ -28,8 +26,13 @@ import ManageUnits from "./pages/CompanyPages/ManageUnits";
 import OwnerDashboard from "./pages/OwnerPages/OwnerDashboard";
 import OwnerManageUnits from "./pages/OwnerPages/OwnerManageUnits";
 import RoleBasedRedirect from "./utils/RoleBaseRedirect";
-import UserDashboard from "./pages/UserPages/UserDashBoard";
-import AdminView from "./pages/Admin/AdminView";
+import UserDashboard from "./pages/UserPages/UserDashboard";
+import UserSettings from "./pages/UserPages/UserSettings";
+import RenterDashboard from "./pages/RenterPages/RenterDashboard";
+import RenterSettings from "./pages/RenterPages/RenterSettings";
+import CompanyFinancialReport from "./pages/CompanyPages/CompanyFinancialReport";
+import CompanySettings from "./pages/CompanyPages/CompanySettings";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminBuildings from "./pages/Admin/AdminViewBuildings";
 import AdminOwners from "./pages/Admin/AdminViewOwners";
 import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
@@ -38,7 +41,6 @@ import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 function App() {
   return (
     <ChakraProvider>
-      <CartProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* public routes */}
@@ -91,6 +93,15 @@ function App() {
                   }
                 />
 
+                <Route
+                  path="/user-settings"
+                  element={
+                    <>
+                      <PageTitle title="User Settings | Rently Condo Management SAAS" />
+                      <UserSettings />
+                    </>
+                  }
+                />
 
               </Route>
 
@@ -104,6 +115,36 @@ function App() {
                     <>
                       <PageTitle title="Profile | Rently Condo Management SAAS" />
                       <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="User Dashboard | Rently Condo Management SAAS" />
+                      <RenterDashboard />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-settings"
+                  element={
+                    <>
+                      <PageTitle title="User Settings | Rently Condo Management SAAS" />
+                      <RenterSettings />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/renter-calendar"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <Calendar />
                     </>
                   }
                 />
@@ -198,6 +239,27 @@ function App() {
                 />
 
                 <Route
+                  path="/company-settings"
+                  element={
+                    <>
+                      <PageTitle title="Company Settings | Rently Condo Management SAAS" />
+                      <CompanySettings />
+                    </>
+                  }
+                />
+
+
+                <Route
+                  path="/company-financial-report"
+                  element={
+                    <>
+                      <PageTitle title="Calendar | Rently Condo Management SAAS" />
+                      <CompanyFinancialReport />
+                    </>
+                  }
+                />
+
+                <Route
                   path="/chart"
                   element={
                     <>
@@ -225,72 +287,99 @@ function App() {
                     </>
                   }
                 />
+
+                <Route
+                  path="/manage-building"
+                  element={
+                    <>
+                      <PageTitle title="Manage Building | Rently Condo Management SAAS" />
+                      <ManageBuilding />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/manage-building/building/:buildingId"
+                  element={
+                    <>
+                      <PageTitle title="Manage Units | Rently Condo Management SAAS" />
+                      <ManageUnits />
+                    </>
+                  }
+                />
+
               </Route>
 
-              <Route
-                path="/manage-building"
-                element={
-                  <>
-                    <PageTitle title="Manage Building | Rently Condo Management SAAS" />
-                    <ManageBuilding />
-                  </>
-                }
-              />
+              {/*Admin Routes*/}
+              <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />}>
+                <Route path="welcome" element={<Welcome />} />
 
-              <Route
-                path="/manage-building/building/:buildingId"
-                element={
-                  <>
-                    <PageTitle title="Manage Units | Rently Condo Management SAAS" />
-                    <ManageUnits />
-                  </>
-                }
-              />
+                <Route
+                  path="/admin-dashboard"
+                  element={
+                    <>
+                      <PageTitle title="Admin Dashboard | Rently Condo Management SAAS" />
+                      <AdminDashboard />
+                    </>
+                  }
+                />
 
+                <Route
+                  path="/admin-profile"
+                  element={
+                    <>
+                      <PageTitle title="Profile | Rently Condo Management SAAS" />
+                      <Profile />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/admin-view-buildings"
+                  element={
+                    <>
+                      <PageTitle title="Admin Buildings | Rently Condo Management Administration" />
+                      <AdminBuildings />
+                    </>
+                  }
+                />
+                <Route
+                  path="/admin-view-owners"
+                  element={
+                    <>
+                      <PageTitle title="Admin Owners | Rently Condo Management Administration" />
+                      <AdminOwners />
+                    </>
+                  }
+                />
+
+                <Route
+                  path="/admin-owner-details/1"
+                  element={
+                    <>
+                      <PageTitle title="Owners Details | Rently Condo Management Administration" />
+                      <AdminViewOwnerDetail />
+                    </>
+                  }
+                />
+
+              </Route>
             </Route>
 
             {/* catch all */}
             <Route path="*" element={<Missing />} />
             <Route
-                  path="/condo-upload"
-                  element={
-                    <>
-                      <PageTitle title="Condo Upload" />
-                      <AdminView/>
-                    </>
-                  }
-                />
+              path="/condo-upload"
+              element={
+                <>
+                  <PageTitle title="Condo Upload" />
+                  <AdminDashboard />
+                </>
+              }
+            />
             {/* for testing/dev purposes */}
             <Route path="/temp" element={<Temp />} />
-            <Route path="/admin-view" element={<AdminView />} />
-            <Route
-                path="/admin-view-buildings"
-                element={
-                  <>
-                    <PageTitle title="Admin Buildings | Rently Condo Management Administration" />
-                    <AdminBuildings />
-                  </>
-                }
-              />
-              <Route
-                path="/admin-view-owners"
-                element={
-                  <>
-                    <PageTitle title="Admin Owners | Rently Condo Management Administration" />
-                    <AdminOwners />
-                  </>
-                }
-              />
 
-              <Route
-                path="/admin-owner-details/1"
-                element={
-                  <>
-                    <PageTitle title="Owners Details | Rently Condo Management Administration" />
-                    <AdminViewOwnerDetail />
-                  </>
-                }
-              />
 
             <Route
               path="/fees"
@@ -315,7 +404,6 @@ function App() {
             />
           </Route>
         </Routes>
-      </CartProvider>
     </ChakraProvider>
   );
 }

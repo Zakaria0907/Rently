@@ -105,7 +105,7 @@ const Register = (): JSX.Element => {
         const confirmFirstName = NAME_REGEX.test(firstName);
         const confirmLastName = NAME_REGEX.test(lastName);
         const confirmEmail = EMAIL_REGEX.test(email);
-        const confirmPhoneNumber = PHONE_REGEX.test(phoneNumber);
+        // const confirmPhoneNumber = PHONE_REGEX.test(phoneNumber);
         const confirmPwd = PWD_REGEX.test(pwd);
         if (!confirmFirstName || !confirmLastName || !confirmEmail || !confirmPwd) {
             setErrMsg("Invalid Entry/Entries");
@@ -124,6 +124,7 @@ const Register = (): JSX.Element => {
             console.log(response?.access_token);
             console.log(JSON.stringify(response));
             setSuccess(true);
+            console.log(success);
             //clear state and controlled inputs
             //need value attrib on inputs for this
             setfirstName("");
@@ -412,9 +413,9 @@ const LogoContainer = tw.div`
     flex justify-center mx-auto
 `;
 
-const Logo = tw.img`
-    w-auto h-7 sm:h-8
-`;
+// const Logo = tw.img`
+//     w-auto h-7 sm:h-8
+// `;
 
 const Form = tw.form`
     mt-6

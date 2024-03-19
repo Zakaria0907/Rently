@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import condo1 from '../../images/condos/condo1.jpg';
 import condo2 from '../../images/condos/condo2.jpg';
 import condo3 from '../../images/condos/condo3.jpg';

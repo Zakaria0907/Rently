@@ -1,10 +1,10 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaRegBuilding, FaRegUser, FaRegChartBar } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
 
 
-const CompanySidebar = () => {
+const RenterSidebar = () => {
     const location = useLocation();
     const { pathname } = location;
 
@@ -14,7 +14,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Dashboard --> */}
             <li>
                 <NavLink
-                    to="/company-dashboard"
+                    to="/renter-dashboard"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
                         'bg-graydark dark:bg-meta-4'
                         }`}
@@ -29,7 +29,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Profile --> */}
             <li>
                 <NavLink
-                    to="/company-profile"
+                    to="/renter-profile"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('profile') && 'bg-graydark dark:bg-meta-4'
                         }`}
                 >
@@ -39,24 +39,10 @@ const CompanySidebar = () => {
             </li>
             {/* <!-- Menu Item Profile --> */}
 
-            {/* <!-- Menu Item Buildings --> */}
-            <li>
-                <NavLink
-                    to="/manage-building"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('dashboard') && 'bg-graydark dark:bg-meta-4'
-                        }`}
-                >
-                    <FaRegBuilding />
-                    Buildings
-                </NavLink>
-            </li>
-            {/* <!-- Menu Item Buildings --> */}
-
-
             {/* <!-- Menu Item Calendar --> */}
             <li>
                 <NavLink
-                    to="/company-calendar"
+                    to="/renter-calendar"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('calendar') &&
                         'bg-graydark dark:bg-meta-4'
                         }`}
@@ -70,21 +56,7 @@ const CompanySidebar = () => {
             {/* <!-- Menu Item Settings --> */}
             <li>
                 <NavLink
-                    to="/company-financial-report"
-                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
-                        'bg-graydark dark:bg-meta-4'
-                        }`}
-                >
-                    <FaRegChartBar />
-                    Finacial Report
-                </NavLink>
-            </li>
-            {/* <!-- Menu Item Settings --> */}
-
-            {/* <!-- Menu Item Settings --> */}
-            <li>
-                <NavLink
-                    to="/company-settings"
+                    to="/renter-settings"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
                         'bg-graydark dark:bg-meta-4'
                         }`}
@@ -98,4 +70,4 @@ const CompanySidebar = () => {
     );
 };
 
-export default CompanySidebar;
+export default RenterSidebar;

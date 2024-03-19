@@ -20,11 +20,11 @@ const PropertyTable: React.FC = () => {
         setaddPropertyPopup(!addPropertyPopup);
     };
 
-    const addProperty = (property: any) => {
-        setProperties([...properties, property]);
-        togglePropertyPopup();
-        console.log(property);
-    };
+    // const addProperty = (property: any) => {
+    //     setProperties([...properties, property]);
+    //     togglePropertyPopup();
+    //     console.log(property);
+    // };
 
     const openServicesModal = (property: any) => {
         setSelectedProperty(property);
@@ -61,7 +61,7 @@ const PropertyTable: React.FC = () => {
                                         </CardSubtitle>
                                     </LeftSideContainer>
                                     <Button onClick={togglePropertyPopup} >+</Button>
-                                    {addPropertyPopup && <AddPropertyPopup addProperty={addProperty} closeModal={togglePropertyPopup} />}
+                                    {addPropertyPopup && <AddPropertyPopup closeModal={togglePropertyPopup} userId={1} />}
                                 </CardHeader>
                                 {
                                     properties.length > 0 ? (
