@@ -1,11 +1,14 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
+import com.rently.rentlyAPI.dto.CommonFacilityDto;
 import com.rently.rentlyAPI.entity.Building;
+import com.rently.rentlyAPI.entity.CommonFacility;
 import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.services.BuildingService;
+import com.rently.rentlyAPI.services.CommonFacilityService;
 import com.rently.rentlyAPI.services.CompanyService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -21,6 +24,7 @@ public class BuildingServiceImpl implements BuildingService {
 
     private final BuildingRepository buildingRepository;
     private final CompanyService companyService;
+    private final CommonFacilityService commonFacilityService;
 
     @Override
     public BuildingDto createBuilding(BuildingDto buildingDto) {
@@ -119,6 +123,24 @@ public class BuildingServiceImpl implements BuildingService {
         return buildings.stream()
                 .map(BuildingDto::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<CommonFacility> findCommonFacilityByName(Integer buildingId, String facilityName) {
+        return commonFacilityService.findCommonFacilityByName(buildingId, facilityName);
+    }
+
+    @Override
+    public CommonFacilityDto createCommonFacility(CommonFacilityDto commonFacilityDto) {
+        Building buildingToLink = findBuildingEntityById(commonFacilityDto.getBuildingId());
+
+        Optional<CommonFacility> existingCommonFacility = findCommonFacilityByName(buildingToLink.getId(), commonFacilityDto.getFacilityName());
+
+        if (existingCommonFacility.isPresent()) {
+
+            throw new AuthenticationException("Common Facility with name " + commonFacilityDto.getFacilityName() + " already exists in this building.");
+        }
+        return commonFacilityService.createCommonFacilityAndLinkToBuilding(commonFacilityDto, buildingToLink);
     }
 
 //	private final BuildingRepository buildingRepository;

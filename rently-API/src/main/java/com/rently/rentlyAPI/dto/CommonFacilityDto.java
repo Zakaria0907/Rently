@@ -21,7 +21,7 @@ public class CommonFacilityDto {
     @JsonProperty("building_id")
     private Integer buildingId;
 
-    public static CommonFacilityDto fromEntity(com.rently.rentlyAPI.entity.CommonFacility commonFacility) {
+    public static CommonFacilityDto fromEntity(CommonFacility commonFacility) {
         return CommonFacilityDto.builder()
                 .id(commonFacility.getId())
                 .facilityName(commonFacility.getName())

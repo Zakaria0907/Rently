@@ -44,7 +44,7 @@ public class WebSecurityConfig {
 //            "/api/company-admin/**",
             "api/system-admin/create/system-admin",
             "http://localhost:8080/api/v1/auth/**",
-            "/api/v1/auth/**",
+            "/api/authentication/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",

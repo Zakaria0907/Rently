@@ -217,7 +217,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto) {
-        return commonFacilityService.createCommonFacilityAndLinkToBuilding(commonFacilityDto);
+        return buildingService.createCommonFacility(commonFacilityDto);
     }
 
     @Override

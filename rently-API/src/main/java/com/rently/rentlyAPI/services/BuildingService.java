@@ -1,9 +1,12 @@
 package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
+import com.rently.rentlyAPI.dto.CommonFacilityDto;
 import com.rently.rentlyAPI.entity.Building;
+import com.rently.rentlyAPI.entity.CommonFacility;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BuildingService {
     
@@ -30,6 +33,10 @@ public interface BuildingService {
     BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto);
 
     List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId);
+
+    Optional<CommonFacility> findCommonFacilityByName(Integer buildingId, String facilityName);
+
+    CommonFacilityDto createCommonFacility(CommonFacilityDto commonFacilityDto);
 
 //
 //	public Building save(Building building);

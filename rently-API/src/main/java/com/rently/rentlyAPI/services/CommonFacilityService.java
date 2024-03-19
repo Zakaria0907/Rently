@@ -1,7 +1,13 @@
 package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.CommonFacilityDto;
+import com.rently.rentlyAPI.entity.Building;
+import com.rently.rentlyAPI.entity.CommonFacility;
+
+import java.util.Optional;
 
 public interface CommonFacilityService {
-    CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto);
+    CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto, Building buildingToLink);
+
+    Optional<CommonFacility> findCommonFacilityByName(Integer buildingId, String facilityName);
 }
