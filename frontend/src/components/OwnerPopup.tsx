@@ -1,5 +1,17 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, FormControl, FormLabel, Input, useDisclosure } from '@chakra-ui/react';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+} from '@chakra-ui/react';
 import Fileupload from '../components/FileUploadBtn';
 
 interface OwnerData {

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { FaRegBuilding, FaRegUser } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
 

@@ -3,7 +3,6 @@ import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../DefaultLayout';
 import { Link } from 'react-router-dom';
 import { IoSettingsOutline } from "react-icons/io5";
-import { FaRegBuilding } from "react-icons/fa";
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { useParams } from 'react-router-dom';
 import AddUnitPopup from '../../components/AddUnitPopup';
@@ -15,7 +14,7 @@ import EditUnitPopup from '../../components/EditUnitPopup';
 
 
 const ManageUnits: React.FC = () => {
-    const [cardCollection, setCardCollection] = React.useState<any[]>([]);
+    // const [cardCollection, setCardCollection] = React.useState<any[]>([]);
     const { buildingId } = useParams<{ buildingId: string }>();
     const [units, setUnits] = React.useState<Unit[]>([]);
     const [addUnitPopup, setAddUnitPopup] = React.useState(false);
@@ -57,55 +56,55 @@ const ManageUnits: React.FC = () => {
     }
 
 
-    useEffect(() => {
-        const cards = [
-            {
-                unitId: 1,
-                title: 'Unit 1',
-                squareFootage: 1000,
-                link: '/manage-unit/1',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
-            {
-                unitId: 2,
-                title: 'Unit 2',
-                squareFootage: 800,
-                link: '/manage-unit/2',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
-            {
-                unitId: 3,
-                title: 'Unit 3',
-                squareFootage: 1200,
-                link: '/manage-unit/3',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
-            {
-                unitId: 4,
-                title: 'Unit 4',
-                squareFootage: 900,
-                link: '/manage-unit/4',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
-            {
-                unitId: 5,
-                title: 'Unit 5',
-                squareFootage: 1100,
-                link: '/manage-unit/5',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
-            {
-                unitId: 6,
-                title: 'Unit 6',
-                squareFootage: 950,
-                link: '/manage-unit/6',
-                icon: <FaRegBuilding className="mt-1.5 text-xl" />
-            },
+    // useEffect(() => {
+    //     const cards = [
+    //         {
+    //             unitId: 1,
+    //             title: 'Unit 1',
+    //             squareFootage: 1000,
+    //             link: '/manage-unit/1',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
+    //         {
+    //             unitId: 2,
+    //             title: 'Unit 2',
+    //             squareFootage: 800,
+    //             link: '/manage-unit/2',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
+    //         {
+    //             unitId: 3,
+    //             title: 'Unit 3',
+    //             squareFootage: 1200,
+    //             link: '/manage-unit/3',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
+    //         {
+    //             unitId: 4,
+    //             title: 'Unit 4',
+    //             squareFootage: 900,
+    //             link: '/manage-unit/4',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
+    //         {
+    //             unitId: 5,
+    //             title: 'Unit 5',
+    //             squareFootage: 1100,
+    //             link: '/manage-unit/5',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
+    //         {
+    //             unitId: 6,
+    //             title: 'Unit 6',
+    //             squareFootage: 950,
+    //             link: '/manage-unit/6',
+    //             icon: <FaRegBuilding className="mt-1.5 text-xl" />
+    //         },
 
-        ];
+    //     ];
 
-        setCardCollection(cards);
-    }, []);
+    //     setCardCollection(cards);
+    // }, []);
 
 
     return (

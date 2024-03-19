@@ -9,7 +9,7 @@ import { FaRegBuilding } from "react-icons/fa";
 
 const OwnerManageUnits: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
-    const [units, setUnits] = React.useState<any[]>([]);
+    // const [units, setUnits] = React.useState<any[]>([]);
 
 
     React.useEffect(() => {

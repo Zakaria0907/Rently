@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../pages/DefaultLayout';
 // import userThree from '../images/user/user-03.png';
@@ -15,7 +15,7 @@ const Profile = () => {
   const [image, setImage] = useState<string | null>(null);
   const [firstName, setFirstName] = useState<string | null>(auth?.firstname);
   const [lastName, setLastName] = useState<string | null>(auth?.lastname);
-  const [phoneNumber, setPhoneNumber] = useState<string | null>(auth?.phone);
+  // const [phoneNumber, setPhoneNumber] = useState<string | null>(auth?.phone);
   const [email, setEmail] = useState<string | null>(auth?.email);
   const [bio, setBio] = useState<string | null>(auth?.bio);
 
@@ -65,7 +65,7 @@ const Profile = () => {
         JSON.stringify({
           firstname: firstName,
           lastname: lastName,
-          phoneNumber: phoneNumber,
+          phoneNumber: '999999999',
           bio: bio,
         }),
         {

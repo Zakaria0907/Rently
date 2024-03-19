@@ -4,7 +4,6 @@ import ChartOne from '../../components/Charts/ChartOne';
 import ChartTwo from '../../components/Charts/ChartTwo';
 import ChartThree from '../../components/Charts/ChartThree';
 import DefaultLayout from '../DefaultLayout';
-import { Link } from 'react-router-dom';
 import ChartFour from '../../components/Charts/ChartFour';
 
 

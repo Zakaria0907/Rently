@@ -13,24 +13,24 @@ import condo4 from '../../images/condos/condo4.jpg';
 import condo5 from '../../images/condos/condo5.jpg';
 import condo6 from '../../images/condos/condo6.jpg';
 import AddPropertyPopup from '../../components/AddPropertyPopup';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+// import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 
 const AdminBuildings: React.FC = () => {
     const [cardCollection, setCardCollection] = React.useState<any[]>([]);
-    const [buildings, setBuildings] = React.useState<any[]>([]);
+    // const [buildings, setBuildings] = React.useState<any[]>([]);
     const [addBuildingPopup, setAddBuildingPopup] = React.useState(false);
 
-    const axiosPrivate = useAxiosPrivate();
+    // const axiosPrivate = useAxiosPrivate();
 
     const toggleAddBuildingPopup = () => {
         setAddBuildingPopup(((prev) => !prev));
     };
 
-    const addBuilding = (property: any) => {
-        toggleAddBuildingPopup();
-        console.log(property);
-    };
+    // const addBuilding = (property: any) => {
+    //     toggleAddBuildingPopup();
+    //     console.log(property);
+    // };
 
     React.useEffect(() => {
         const cards = [
@@ -114,7 +114,7 @@ const AdminBuildings: React.FC = () => {
             </div>
 
             {
-                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} addProperty={addBuilding} />
+                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} userId={1} />
             }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
