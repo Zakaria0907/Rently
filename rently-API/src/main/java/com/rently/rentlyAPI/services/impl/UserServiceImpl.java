@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
     private final EmployeeService employeeService;
     private final PublicUserService publicUserService;
 
+    private final OwnerService ownerService;
+    private final RenterService renterService;
+
     @Override
     public User findUserAccordingToTypeWithEmail(String email) {
 
@@ -34,10 +37,17 @@ public class UserServiceImpl implements UserService {
             return employeeService.findByEmail(email).get();
         }
 
-        if (publicUserService.findOptionalByEmail(email).isPresent()) {
-            return publicUserService.findOptionalByEmail(email).get();
+        if (publicUserService.findByEmail(email).isPresent()) {
+            return publicUserService.findByEmail(email).get();
         }
 
+        if (ownerService.findByEmail(email).isPresent()) {
+            return ownerService.findByEmail(email).get();
+        }
+
+        if (renterService.findByEmail(email).isPresent()) {
+            return renterService.findByEmail(email).get();
+        }
         throw new AuthenticationException("User with email " + email + " not found");
     }
 

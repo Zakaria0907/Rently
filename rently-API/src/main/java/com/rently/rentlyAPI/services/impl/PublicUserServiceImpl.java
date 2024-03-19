@@ -10,9 +10,8 @@ import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.OwnerRepository;
 import com.rently.rentlyAPI.repository.PublicUserRepository;
 import com.rently.rentlyAPI.repository.RenterRepository;
-import com.rently.rentlyAPI.security.Role;
-import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.PublicUserService;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,7 @@ public class PublicUserServiceImpl implements PublicUserService {
     private final JwtUtils jwtUtils;
 
     @Override
-    public Optional<PublicUser> findOptionalByEmail(String email) {
+    public Optional<PublicUser> findByEmail(String email) {
         return publicUserRepository.findByEmail(email);
     }
 

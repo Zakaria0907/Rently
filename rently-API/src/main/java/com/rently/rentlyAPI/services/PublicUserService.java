@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface PublicUserService {
 
      // Find a PublicUserOptional by email
-     Optional<PublicUser> findOptionalByEmail(String email);
+     Optional<PublicUser> findByEmail(String email);
 
      // Find a PublicUser entity by token
      PublicUser findPublicUserEntityByToken(String token);
