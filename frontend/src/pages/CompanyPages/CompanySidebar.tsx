@@ -2,6 +2,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FaRegBuilding, FaRegUser, FaRegChartBar } from "react-icons/fa";
 import { RxDashboard } from "react-icons/rx";
 import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { GrUserWorker } from 'react-icons/gr';
 
 
 const CompanySidebar = () => {
@@ -81,6 +83,34 @@ const CompanySidebar = () => {
             </li>
             {/* <!-- Menu Item Settings --> */}
 
+                        {/* <!-- Menu Item Owners --> */}
+                        <li>
+                <NavLink
+                    to="/company-owners"
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
+                        'bg-graydark dark:bg-meta-4'
+                        }`}
+                >
+                    <HiOutlineUserGroup />
+                    Owners
+                </NavLink>
+            </li>
+            {/* <!-- Menu Item Owners --> */}
+
+            {/* <!-- Menu Item Employees --> */}
+            <li>
+                <NavLink
+                    to="/company-employees"
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
+                        'bg-graydark dark:bg-meta-4'
+                        }`}
+                >
+                    <GrUserWorker />
+                    Employees
+                </NavLink>
+            </li>
+            {/* <!-- Menu Item Employees --> */}
+
             {/* <!-- Menu Item Settings --> */}
             <li>
                 <NavLink
@@ -94,6 +124,7 @@ const CompanySidebar = () => {
                 </NavLink>
             </li>
             {/* <!-- Menu Item Settings --> */}
+
         </ul>
     );
 };
