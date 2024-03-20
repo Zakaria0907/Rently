@@ -4,7 +4,7 @@ import { RxDashboard } from "react-icons/rx";
 import { IoCalendarOutline, IoSettingsOutline } from "react-icons/io5";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { GrUserWorker } from 'react-icons/gr';
-
+import { MdOutlineWorkHistory } from "react-icons/md";
 
 const CompanySidebar = () => {
     const location = useLocation();
@@ -83,8 +83,8 @@ const CompanySidebar = () => {
             </li>
             {/* <!-- Menu Item Settings --> */}
 
-                        {/* <!-- Menu Item Owners --> */}
-                        <li>
+            {/* <!-- Menu Item Owners --> */}
+            <li>
                 <NavLink
                     to="/company-owners"
                     className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
@@ -107,6 +107,20 @@ const CompanySidebar = () => {
                 >
                     <GrUserWorker />
                     Employees
+                </NavLink>
+            </li>
+            {/* <!-- Menu Item Employees --> */}
+
+            {/* <!-- Menu Item Employees --> */}
+            <li>
+                <NavLink
+                    to="/company-requests"
+                    className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('settings') &&
+                        'bg-graydark dark:bg-meta-4'
+                        }`}
+                >
+                    <MdOutlineWorkHistory />
+                    Requests
                 </NavLink>
             </li>
             {/* <!-- Menu Item Employees --> */}

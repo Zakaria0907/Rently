@@ -38,6 +38,7 @@ import AdminOwners from "./pages/Admin/AdminViewOwners";
 import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 import ManageOwners from "./pages/CompanyPages/ManageOwners";
 import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
+import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 
 
 function App() {
@@ -326,6 +327,16 @@ function App() {
                   <>
                     <PageTitle title="Manage Employees | Rently Condo Management SAAS" />
                     <ManageEmployees />
+                  </>
+                }
+              />
+
+              <Route
+                path="/company-requests"
+                element={
+                  <>
+                    <PageTitle title="Requests | Rently Condo Management SAAS" />
+                    <CompanyRequests />
                   </>
                 }
               />
