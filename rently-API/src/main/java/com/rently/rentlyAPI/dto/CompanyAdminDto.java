@@ -42,7 +42,7 @@ public class CompanyAdminDto extends RootUserDto {
     private String role;
 
     @JsonProperty("company_id")
-    private int companyId;
+    private Integer companyId;
 
     public static CompanyAdmin toEntity(CompanyAdminDto companyAdminDto){
 
