@@ -1,48 +1,40 @@
 package com.rently.rentlyAPI.auth.controller;
 
 
-import com.rently.rentlyAPI.dto.UserDto;
-import com.rently.rentlyAPI.auth.dto.AuthenticationRequestDto;
 import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
-import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.auth.services.AuthenticationService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
+import com.rently.rentlyAPI.auth.dto.LoginRequestDto;
+import com.rently.rentlyAPI.auth.services.Impl.AuthenticationServiceImpl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.io.IOException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/api/authentication")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-  private final AuthenticationService service;
+  private final AuthenticationServiceImpl service;
 
-  @PostMapping("/register")
-  public ResponseEntity<UserDto> register(
-     @RequestBody RegisterRequestDto request
-  ) {
-    return ResponseEntity.ok(service.register(request));
-  }
-  
+
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponseDto> authenticate(
-      @RequestBody AuthenticationRequestDto request,
-       HttpServletResponse response
+          @RequestBody LoginRequestDto request,
+          HttpServletResponse response
   ) {
     return ResponseEntity.ok(service.authenticate(request, response));
   }
-
-  @PostMapping("/refresh-token")
-  public void refreshToken( HttpServletRequest request, HttpServletResponse response, String yry , String sdfds) throws IOException {
-    service.refreshToken(request, response);
+  
+  @PostMapping("/change-password")
+  public ResponseEntity<String> changePassword(@RequestHeader("Authorization") String token, @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
+    return ResponseEntity.ok(service.changePassword(token, changePasswordRequestDto));
   }
+
+//  @PostMapping("/refresh-token")
+//  public void refreshToken( HttpServletRequest request, HttpServletResponse response, String yry , String sdfds) throws IOException {
+//    service.refreshToken(request, response);
+//  }
 
 
 }

@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
 
@@ -26,8 +26,8 @@ public class UserDtoTest {
 
         // Assert
         assertEquals(mockedUser.getId(), testUserDto.getId());
-        assertEquals(mockedUser.getFirstname(), testUserDto.getFirstname());
-        assertEquals(mockedUser.getLastname(), testUserDto.getLastname());
+        assertEquals(mockedUser.getFirstName(), testUserDto.getFirstname());
+        assertEquals(mockedUser.getLastName(), testUserDto.getLastname());
         assertEquals(mockedUser.getPhoneNumber(), testUserDto.getPhoneNumber());
         assertEquals(mockedUser.getBio(), testUserDto.getBio());
         assertEquals(mockedUser.getEmail(), testUserDto.getEmail());
@@ -45,8 +45,8 @@ public class UserDtoTest {
 
         // Assert
         assertEquals(mockedUserDto.getId(), testUser.getId());
-        assertEquals(mockedUserDto.getFirstname(), testUser.getFirstname());
-        assertEquals(mockedUserDto.getLastname(), testUser.getLastname());
+        assertEquals(mockedUserDto.getFirstname(), testUser.getFirstName());
+        assertEquals(mockedUserDto.getLastname(), testUser.getLastName());
         assertEquals(mockedUserDto.getPhoneNumber(), testUser.getPhoneNumber());
         assertEquals(mockedUserDto.getBio(), testUser.getBio());
         assertEquals(mockedUserDto.getEmail(), testUser.getEmail());

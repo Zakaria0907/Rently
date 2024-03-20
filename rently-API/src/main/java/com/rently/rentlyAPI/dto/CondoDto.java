@@ -1,69 +1,77 @@
 package com.rently.rentlyAPI.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.Locker;
+import com.rently.rentlyAPI.entity.Parking;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import jakarta.annotation.Nullable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
 public class CondoDto {
 
-    @Nullable
+    @JsonProperty("id")
     private Integer id;
 
-
-    @NotBlank(message = "Condo name is required")
-    private String name;
-
+    // address is building address + condo number
+    @JsonProperty("address")
     private String address;
 
-    private String condoNumber;
+    @JsonProperty("unit_number")
+    @Min(value = 0, message = "Unit number must be greater or equal than 0")
+    private Integer unitNumber;
 
-    private String condoType;
-
+    @JsonProperty("description")
     private String description;
 
-    @NotNull(message = "Condo status is required")
-    private CondoStatus status;
+    @JsonProperty("registration_key")
+    private String registrationKey;
 
+    @JsonProperty("status")
+    private String status;
+
+    @JsonProperty("building_id")
     private Integer buildingId;
 
-    // we should add a field "floor" to the condo entity
+    @JsonProperty("parking_id")
+    private Integer parkingId;
+
+    @JsonProperty("locker_id")
+    private Integer lockerId;
+
+
+    public static Condo toEntity(CondoDto condoDto){
+        return Condo.builder()
+                // Address logic is handled in business logic (Building address + condo number)
+                .unitNumber(condoDto.getUnitNumber())
+                .description(condoDto.getDescription())
+                // registration key is set in the business logic
+                .status(CondoStatus.valueOf(condoDto.getStatus()))
+                // building is set in the business logic
+                // parking is set in the business logic
+                // locker is set in the business logic
+                .build();
+    }
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()
                 .id(condo.getId())
-                .name(condo.getName())
                 .address(condo.getAddress())
-                .condoNumber(condo.getCondoNumber())
-                .condoType(condo.getCondoType())
+                .unitNumber(condo.getUnitNumber())
                 .description(condo.getDescription())
-                .status(condo.getStatus())
+                .registrationKey(condo.getRegistrationKey())
+                .status(condo.getStatus().toString())
                 .buildingId(condo.getBuilding().getId())
-                .build();
-    }
-
-    public static Condo toEntity(CondoDto condoDto) {
-        return Condo.builder()
-                .id(condoDto.getId())
-                .name(condoDto.getName())
-                .address(condoDto.getAddress())
-                .condoNumber(condoDto.getCondoNumber())
-                .condoType(condoDto.getCondoType())
-                .description(condoDto.getDescription())
-                .status(condoDto.getStatus())
-                // Building is set in the service
+                .parkingId(condo.getParking() != null ? condo.getParking().getId() : null)
+                .lockerId(condo.getLocker() != null ? condo.getLocker().getId() : null)
                 .build();
     }
 

@@ -1,6 +1,6 @@
 //package com.rently.rentlyAPI.security.config;
 //
-//import com.rently.rentlyAPI.entity.User;
+//import com.rently.rentlyAPI.entity.User.User;
 //import com.rently.rentlyAPI.repository.UserRepository;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.security.authentication.dao.DaoAuthenticationProvider;

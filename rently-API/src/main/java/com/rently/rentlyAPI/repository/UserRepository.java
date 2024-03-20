@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.repository;
 
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

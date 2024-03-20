@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.entity;
 
 import com.rently.rentlyAPI.auth.entity.AccessToken;
 import com.rently.rentlyAPI.auth.entity.enums.Provider;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
 
@@ -28,8 +29,8 @@ public class UserTest {
         // Assert
         assertEquals("test@example.com", testUser.getEmail());
         assertEquals("password", testUser.getPassword());
-        assertEquals("John", testUser.getFirstname());
-        assertEquals("Doe", testUser.getLastname());
+        assertEquals("John", testUser.getFirstName());
+        assertEquals("Doe", testUser.getLastName());
         assertEquals("1234567890", testUser.getPhoneNumber());
         assertEquals("Bio", testUser.getBio());
         assertEquals(mockedProfilePicture, testUser.getProfilePicture());
@@ -54,8 +55,8 @@ public class UserTest {
         // Assert
         assertNull(testUser.getEmail());
         assertNull(testUser.getPassword());
-        assertNull(testUser.getFirstname());
-        assertNull(testUser.getLastname());
+        assertNull(testUser.getFirstName());
+        assertNull(testUser.getLastName());
         assertNull(testUser.getPhoneNumber());
         assertNull(testUser.getBio());
         assertNull(testUser.getProfilePicture());
@@ -80,8 +81,8 @@ public class UserTest {
         // Assert
         assertNull(testUser.getEmail());
         assertNull(testUser.getPassword());
-        assertNull(testUser.getFirstname());
-        assertNull(testUser.getLastname());
+        assertNull(testUser.getFirstName());
+        assertNull(testUser.getLastName());
         assertNull(testUser.getPhoneNumber());
         assertNull(testUser.getBio());
         assertNull(testUser.getProfilePicture());
