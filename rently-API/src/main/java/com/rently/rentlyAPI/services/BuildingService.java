@@ -44,6 +44,8 @@ public interface BuildingService {
 
     List<CommonFacilityDto> getAllCommonFacilities();
 
+    void deleteCommonFacilityById(Integer commonFacilityId);
+
 //
 //	public Building save(Building building);
 //

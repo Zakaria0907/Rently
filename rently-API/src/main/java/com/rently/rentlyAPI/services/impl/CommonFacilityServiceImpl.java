@@ -52,4 +52,9 @@ public class CommonFacilityServiceImpl implements CommonFacilityService {
                 .map(CommonFacilityDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void deleteCommonFacilityById(Integer commonFacilityId) {
+        commonFacilityRepository.deleteById(commonFacilityId);
+    }
 }

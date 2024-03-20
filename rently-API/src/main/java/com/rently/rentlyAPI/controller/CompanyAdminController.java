@@ -21,18 +21,17 @@ public class CompanyAdminController {
 
     @PostMapping(path = "/create/building")
     public ResponseEntity<BuildingDto> createBuilding(@RequestHeader("Authorization") String token, @RequestBody BuildingDto buildingDto) {
-        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.createBuildingAndLinkToCompany(token, buildingDto));
     }
-    
+
     @GetMapping(path = "/buildings/id={buildingId}")
-    public ResponseEntity<BuildingDto> getBuildingById(@PathVariable(name = "buildingId") Integer buildingId) {
-        return ResponseEntity.ok(companyAdminService.getBuildingById(buildingId));
+    public ResponseEntity<BuildingDto> getBuildingById(@RequestHeader("Authorization") String token, @PathVariable(name = "buildingId") Integer buildingId) {
+        return ResponseEntity.ok(companyAdminService.getBuildingById(token, buildingId));
     }
-    
+
     @GetMapping(path = "/buildings/name={buildingName}")
-    public ResponseEntity<BuildingDto> getBuildingByName(@PathVariable(name = "buildingName") String buildingName) {
-        return ResponseEntity.ok(companyAdminService.getBuildingByName(buildingName));
+    public ResponseEntity<BuildingDto> getBuildingByName(@RequestHeader("Authorization") String token, @PathVariable(name = "buildingName") String buildingName) {
+        return ResponseEntity.ok(companyAdminService.getBuildingByName(token, buildingName));
     }
 
     //company admin can see all his buildings
@@ -56,17 +55,21 @@ public class CompanyAdminController {
     }
 
     @GetMapping(path = "/common-facilities")
-    public ResponseEntity<List<CommonFacilityDto>> getAllCommonFacilitiesForABuilding(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<CommonFacilityDto>> getAllCommonFacilities() {
         // token.substring(7) To remove the Bearer prefix from the token
-        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllCommonFacilities());
     }
 
     @GetMapping(path = "/common-facilities/building={buildingId}")
-    public ResponseEntity<List<CommonFacilityDto>> getAllCommonFacilitiesForABuilding(@RequestHeader("Authorization") String token, @PathVariable(name = "buildingId") Integer buildingId) {
+    public ResponseEntity<List<CommonFacilityDto>> getAllCommonFacilitiesForABuilding(@PathVariable(name = "buildingId") Integer buildingId) {
         // token.substring(7) To remove the Bearer prefix from the token
-        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllCommonFacilitiesByBuildingId(buildingId));
+    }
+
+    @DeleteMapping(path = "/delete/common-facilities/id={commonFacilityId}")
+    public ResponseEntity<String> deleteCommonFacilityById(@PathVariable(name = "commonFacilityId") Integer commonFacilityId) {
+        companyAdminService.deleteCommonFacilityById(commonFacilityId);
+        return ResponseEntity.ok("Common Facility with id: " + commonFacilityId + " has been deleted");
     }
 
 

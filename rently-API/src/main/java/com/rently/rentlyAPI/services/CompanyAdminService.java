@@ -46,9 +46,9 @@ public interface CompanyAdminService {
      */
     BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto);
 
-    BuildingDto getBuildingByName(String buildingName);
+    BuildingDto getBuildingByName(String token, String buildingName);
 
-    BuildingDto getBuildingById(Integer buildingId);
+    BuildingDto getBuildingById(String token, Integer buildingId);
 
     List<BuildingDto> getAllBuildings();
 
@@ -67,4 +67,6 @@ public interface CompanyAdminService {
     List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId);
 
     List<CommonFacilityDto> getAllCommonFacilities();
+
+    void deleteCommonFacilityById(Integer commonFacilityId);
 }

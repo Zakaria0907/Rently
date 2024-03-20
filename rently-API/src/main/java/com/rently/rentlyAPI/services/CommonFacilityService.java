@@ -17,4 +17,6 @@ public interface CommonFacilityService {
     List<CommonFacilityDto> getAllCommonFacilityByBuildingId(Integer buildingId);
 
     List<CommonFacilityDto> getAllCommonFacilities();
+
+    void deleteCommonFacilityById(Integer commonFacilityId);
 }

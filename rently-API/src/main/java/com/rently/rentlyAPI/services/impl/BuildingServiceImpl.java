@@ -159,6 +159,11 @@ public class BuildingServiceImpl implements BuildingService {
         return commonFacilityService.getAllCommonFacilities();
     }
 
+    @Override
+    public void deleteCommonFacilityById(Integer commonFacilityId) {
+        commonFacilityService.deleteCommonFacilityById(commonFacilityId);
+    }
+
 //	private final BuildingRepository buildingRepository;
 //
 //	@Override
