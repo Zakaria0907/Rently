@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../DefaultLayout';
 import { Avatar } from '@chakra-ui/react';
+import { IoMdAddCircleOutline } from 'react-icons/io';
+import CompanyRequestPopup from '../../components/CompanyRequestPopup';
 
 
 
 const CompanyRequests: React.FC = () => {
+    const [requestPopup, setRequestPopup] = useState<boolean>(false);
+
+    function toggleRequestPopup(): void {
+        setRequestPopup(!requestPopup);
+    }
 
     return (
         <DefaultLayout>
@@ -51,8 +58,13 @@ const CompanyRequests: React.FC = () => {
                                                     Request Type
                                                 </th>
 
-                                                <th scope="col" className="relative py-3.5 px-4">
-                                                    <span className="sr-only">Actions</span>
+                                                <th scope="col" className="relative py-3.5 ">
+                                                    <button
+                                                        onClick={() => toggleRequestPopup()}
+                                                        className="flex items-center bg-primary font-normal text-white text-sm rounded-md px-2 py-2 gap-2 hover:bg-indigo-500">
+                                                        <span className="mr-2">Submit Request</span>
+                                                        <IoMdAddCircleOutline className="text-xl" />
+                                                    </button>
                                                 </th>
                                             </tr>
                                         </thead>
@@ -302,6 +314,8 @@ const CompanyRequests: React.FC = () => {
                 </section>
 
             </div>
+
+            {requestPopup && <CompanyRequestPopup closeModal={toggleRequestPopup} />}
         </DefaultLayout>
     );
 };
