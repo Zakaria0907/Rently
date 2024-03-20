@@ -55,15 +55,6 @@ public class SystemAdminServiceImpl implements SystemAdminService {
 
     @Override
     public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
-
-        // Check if the email is already associated with an account
-        Optional<SystemAdmin> existingSystemAdmin = systemAdminRepository.findByEmail(systemAdminDto.getEmail());
-
-        // If the email is already associated with an account, throw an exception
-        if (existingSystemAdmin.isPresent()) {
-            throw new AuthenticationException("This email is already associated with an account");
-        }
-
         // Encode the password
         if (systemAdminDto.getPassword() != null) {
             String encodedPassword = passwordEncoder.encode(systemAdminDto.getPassword());

@@ -73,13 +73,6 @@ public class PublicUserServiceImpl implements PublicUserService {
 
     @Override
     public PublicUserDto registerPublicUser(PublicUserDto publicUserDto) {
-        //check the user does not already exist
-        Optional<PublicUser> existingPublicUser = publicUserRepository.findByEmail(publicUserDto.getEmail());
-
-        if (existingPublicUser.isPresent()){
-            throw new AuthenticationException("This email is already associated with an account");
-        }
-
         if (publicUserDto.getPassword() != null) {
             // Encode the password if provided (null with google for example)
             String encodedPassword = passwordEncoder.encode(publicUserDto.getPassword());

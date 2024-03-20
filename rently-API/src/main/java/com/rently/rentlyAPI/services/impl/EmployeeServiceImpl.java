@@ -3,7 +3,6 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.Employee;
-import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeService;
@@ -23,14 +22,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
-        // Check if the email is already associated with an account
-        Optional<Employee> existingEmployee = employeeRepository.findByEmail(employeeDto.getEmail());
-
-        // If the email is already associated with an account, throw an exception
-        if (existingEmployee.isPresent()) {
-            throw new AuthenticationException("This email is already associated with an account");
-        }
-
         // Retrieve company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(employeeDto.getCompanyId());
 

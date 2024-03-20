@@ -24,10 +24,16 @@ public class UserServiceImpl implements UserService {
     private final PublicUserService publicUserService;
     private final OwnerService ownerService;
     private final RenterService renterService;
-    
-    private final JwtUtils jwtUtils;
-    
 
+    private final JwtUtils jwtUtils;
+
+    /**
+     * This method finds a user with the given email and returns it, regardless of the role
+     *
+     * @param email
+     * @return User with the given email
+     * @throws AuthenticationException if no user with the given email is found
+     */
     @Override
     public User findUserAccordingToTypeWithEmail(String email) {
 
@@ -57,50 +63,79 @@ public class UserServiceImpl implements UserService {
         throw new AuthenticationException("User with email " + email + " not found");
     }
 
-
-    @Override
-    public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
-        return systemAdminService.registerSystemAdmin(systemAdminDto);
+    /**
+     * This method checks if a user with the given email exists in the database, regardless of the role
+     *
+     * @param email
+     * @return
+     */
+    public boolean userExistsForRegistration(String email) {
+        try {
+            findUserAccordingToTypeWithEmail(email);
+        } catch (AuthenticationException e) {
+            // this means no user exists with this email
+            return false;
+        }
+        return true;
     }
 
     @Override
+    public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
+        if (userExistsForRegistration(systemAdminDto.getEmail()) == false) {
+            return systemAdminService.registerSystemAdmin(systemAdminDto);
+        }
+        throw new AuthenticationException("User with email " + systemAdminDto.getEmail() + " already exists.");
+
+    }
+
+
+    @Override
     public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto) {
-        return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto);
+        if (userExistsForRegistration(companyAdminDto.getEmail()) == false) {
+            return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto);
+        }
+        throw new AuthenticationException("User with email " + companyAdminDto.getEmail() + " already exists.");
     }
 
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
-        return employeeService.registerEmployee(employeeDto);
+        if (userExistsForRegistration(employeeDto.getEmail()) == false) {
+            return employeeService.registerEmployee(employeeDto);
+        }
+        throw new AuthenticationException("User with email " + employeeDto.getEmail() + " already exists.");
     }
 
     @Override
     public PublicUserDto registerPublicUser(PublicUserDto publicUserDto) {
-        return publicUserService.registerPublicUser(publicUserDto);
+        if (userExistsForRegistration(publicUserDto.getEmail()) == false) {
+            return publicUserService.registerPublicUser(publicUserDto);
+        }
+        throw new AuthenticationException("User with email " + publicUserDto.getEmail() + " already exists.");
     }
-    
+
     @Override
     public String userKeyActivation(String token, String key) {
         // find the condo with the key
         Condo condo = companyAdminService.getCondoEntityByRegistrationKey(key);
-        
+
         String tokenWithoutBearer = token.substring(7);
         String userEmail = jwtUtils.extractUsername(tokenWithoutBearer);
         User user = findUserAccordingToTypeWithEmail(userEmail);
-        
-        if(user.getRole().equals(Role.PUBLIC_USER)){
+
+        if (user.getRole().equals(Role.PUBLIC_USER)) {
             Occupant newOccupant = publicUserService.transformToOccupant(userEmail, key);
             return companyAdminService.linkOccupantToHousingContract(newOccupant, condo).toString();
         }
-        
-        if(user.getRole().toString().startsWith("OW") || user.getRole().toString().startsWith("RE")){
+
+        if (user.getRole().toString().startsWith("OW") || user.getRole().toString().startsWith("RE")) {
             return companyAdminService.linkOccupantToHousingContract((Occupant) user, condo).toString();
-            
+
         }
-        
+
         return "Invalid user trying to activate key";
-        
+
     }
-    
-    
+
+
 }
 

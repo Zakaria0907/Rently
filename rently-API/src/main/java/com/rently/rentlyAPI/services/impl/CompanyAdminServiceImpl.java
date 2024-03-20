@@ -8,12 +8,8 @@ import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
-import com.rently.rentlyAPI.services.BuildingService;
-import com.rently.rentlyAPI.services.CompanyAdminService;
-import com.rently.rentlyAPI.services.CompanyService;
-import com.rently.rentlyAPI.services.EmployeeService;
-import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.*;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,13 +78,6 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     @Transactional
     public CompanyAdminDto registerCompanyAdminAndLinkToCompany(CompanyAdminDto companyAdminDto) {
-        // Check if the email is already associated with an account
-        Optional<CompanyAdmin> existingCompanyAdmin = companyAdminRepository.findByEmail(companyAdminDto.getEmail());
-
-        // If the email is already associated with an account, throw an exception
-        if (existingCompanyAdmin.isPresent()) {
-            throw new AuthenticationException("This email is already associated with an account");
-        }
 
         if (companyAdminDto.getPassword() != null) {
             // Encode the password if provided (null with Google for example)
