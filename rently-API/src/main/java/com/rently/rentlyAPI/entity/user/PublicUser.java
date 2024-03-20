@@ -16,5 +16,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class PublicUser extends User {
 	
-	private String registrationKey;
+	
+	private String fieldToChangeLater;
 }

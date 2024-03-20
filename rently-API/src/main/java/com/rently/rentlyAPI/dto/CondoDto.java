@@ -8,6 +8,7 @@ import com.rently.rentlyAPI.entity.Parking;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -25,7 +26,7 @@ public class CondoDto {
     private String address;
 
     @JsonProperty("unit_number")
-    @NotBlank(message = "Unit number is required")
+    @Min(value = 0, message = "Unit number must be greater or equal than 0")
     private Integer unitNumber;
 
     @JsonProperty("description")
@@ -62,6 +63,7 @@ public class CondoDto {
 
     public static CondoDto fromEntity(Condo condo) {
         return CondoDto.builder()
+                .id(condo.getId())
                 .address(condo.getAddress())
                 .unitNumber(condo.getUnitNumber())
                 .description(condo.getDescription())

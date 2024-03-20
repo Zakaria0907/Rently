@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.entity;
 
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,8 @@ public class Condo extends AbstractEntity {
 
     // address is building address + condo number
     private String address;
-
-    @NotBlank(message = "Unit number is required")
+    
+    @Min(value = 0, message = "Unit number must be greater or equal than 0")
     private Integer unitNumber;
 
     private String description;

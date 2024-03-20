@@ -18,15 +18,6 @@ public interface UserService {
     EmployeeDto registerEmployee(EmployeeDto employeeDto);
 
     PublicUserDto registerPublicUser(PublicUserDto publicUserDto);
-
-
-//
-//    public User updateProfile(UpdateProfileRequestDto request, Integer userId);
-//
-//    public UserProfileDto viewProfile(Integer userId);
-//
-//    User activateKeyToChangeRole(String key);
-//
-//
-//
+    
+    String userKeyActivation(String token, String key);
 }

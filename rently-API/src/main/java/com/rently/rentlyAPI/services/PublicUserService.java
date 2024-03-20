@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.PublicUserDto;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.PublicUser;
 
 import java.util.List;
@@ -38,7 +39,5 @@ public interface PublicUserService {
      // Retrieve all PublicUsers
      List<PublicUserDto> getAllPublicUsers();
      
-     String requestKeyToChangeRole(String token, String role);
-     
-     String activateKeyToChangeRole(String token, String key);
+     Occupant transformToOccupant(String email, String key);
 }

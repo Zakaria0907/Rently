@@ -24,8 +24,10 @@ public interface CondoRepository extends JpaRepository<Condo, Integer> {
 	Optional<Condo> findCondoByRegistrationKey(String registrationKey);
 
 	List<Condo> findAllByBuildingId(Integer buildingId);
-
-	boolean isUnitNumberUniqueInBuilding(Integer unitNumber, Integer buildingId, Integer condoId);
+	
+	Optional<Condo> findByUnitNumberAndBuildingId(Integer unitNumber, Integer buildingId);
+	
+	boolean existsByRegistrationKey(String registrationKey);
 	
 
 }

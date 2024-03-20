@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,6 +31,10 @@ public class HousingContract extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "condo_id")
     private Condo condo;
-
+    
+    @Min(value = 0, message = "Monthly rent must be greater than 0")
+    private Integer monthlyRent;
+    
+    @NotBlank(message = "Monthly rent is required")
     private String occupantType;
 }

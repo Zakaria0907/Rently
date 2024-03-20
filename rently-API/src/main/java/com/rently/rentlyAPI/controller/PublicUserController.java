@@ -42,17 +42,4 @@ public class PublicUserController {
         return ResponseEntity.ok(successMessage);
     }
     
-    @PostMapping(path = "/request-key-to-change-role/role={role}")
-    public ResponseEntity<String> requestKeyToChangeRole(@RequestHeader("Authorization") String token, @PathVariable(name = "role") String role) {
-        return ResponseEntity.ok(publicUserService.requestKeyToChangeRole(token, role));
-    }
-    
-    @PostMapping(path = "/activate-key-to-change-role/key={key}")
-    public ResponseEntity<String> activateKeyToChangeRole(@RequestHeader("Authorization") String token, @PathVariable(name = "key") String key) {
-        return ResponseEntity.ok(publicUserService.activateKeyToChangeRole(token, key));
-    }
-    
-    
-    
-    
 }

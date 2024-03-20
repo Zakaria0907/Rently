@@ -1,11 +1,10 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.*;
-import com.rently.rentlyAPI.entity.Building;
-import com.rently.rentlyAPI.entity.Company;
-import com.rently.rentlyAPI.entity.EmploymentContract;
+import com.rently.rentlyAPI.entity.*;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.entity.user.Employee;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
@@ -14,6 +13,8 @@ import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeService;
 import com.rently.rentlyAPI.utils.JwtUtils;
+import com.rently.rentlyAPI.services.*;
+import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,10 +30,16 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final CompanyService companyService;
     private final BuildingService buildingService;
     private final EmployeeService employeeService;
+    private final CommonFacilityService commonFacilityService;
+    private final HousingContractService housingContractService;
+    private final CondoService condoService;
+    private final OccupantService occupantService;
+
     private final CompanyAdminRepository companyAdminRepository;
     private final EmploymentContractRepository employmentContractRepository;
 
     private final JwtUtils jwtUtils;
+    private final RegistrationKeyUtils registrationKeyUtils;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -53,6 +60,11 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public CompanyAdmin findCompanyAdminEntityByEmail(String email) {
         return companyAdminRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthenticationException("CompanyAdmin with email " + email + " not found"));
+    }
+    
+    @Override
+    public Optional<CompanyAdmin> findByEmail(String email) {
+        return companyAdminRepository.findByEmail(email);
     }
     
     @Override
@@ -166,6 +178,10 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
                 .toList();
     }
     
+    
+    /*
+     * Building logic
+     */
     @Override
     public BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto) {
         // this adds an extra layer of security, the company admin can only create a building for his company
@@ -201,7 +217,68 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public List<BuildingDto> getAllBuildings() {
         return buildingService.getAllBuildings();
     }
-
+    
+    @Override
+    public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
+        return buildingService.getAllBuildingsByCompanyId(companyId);
+    }
+    
+    
+    /*
+     * Condo logic
+     */
+    @Override
+    public Condo getCondoEntityByRegistrationKey(String registrationKey) {
+        return condoService.findCondoEntityByRegistrationKey(registrationKey);
+    }
+    @Override
+    public CondoDto createCondoAndLinkToBuilding(CondoDto condoDto) {
+        return condoService.createCondoAndLinkToBuilding(condoDto);
+    }
+    
+    @Override
+    public String generateKeyForCondoAndCreateHousingContract(RegistrationKeyRequestDto registrationKeyRequestDto, HousingContractDto housingContractDto) {
+	    Condo condo = condoService.findCondoEntityById(registrationKeyRequestDto.getCondoId());
+	    Company company = companyService.findCompanyEntityById(condo.getBuilding().getCompany().getId());
+	    String registrationKey;
+	    
+      // This might be bit strange, but it's to ensure that the key is unique by generating a new key until it's unique
+      do {
+		    registrationKey = registrationKeyUtils.generateRegistrationKey(registrationKeyRequestDto.getRole());
+	    } while (condoService.keyExists(registrationKey));
+      
+      condo.setRegistrationKey(registrationKey);
+      condoService.updateCondo(CondoDto.fromEntity(condo));
+      
+      // Create a minimal housing contract (no occupant, no company, no condo)
+      HousingContract minimalHousingContract = housingContractService.createHousingContractWithoutOccupant(company, condo, housingContractDto);
+      
+      return registrationKey;
+    }
+    
+    @Override
+    public String sendKeyAndHousingContractToFutureOccupant(EmailDto emailDto) {
+        // TODO: Someone needs to implement the email sending logic.
+        //  For this case insert a toString of the HousingContractDto and the Key in the emailDto body
+        
+        return "Key sent to future occupant";
+    }
+    
+    @Override
+    public HousingContractDto linkOccupantToHousingContract(Occupant occupant, Condo condo) {
+        HousingContract housingContract = housingContractService.findHousingContractEntityByCondoId(condo.getId());
+        HousingContractDto housingContractDto = housingContractService.setOccupantToHousingContract(housingContract, occupant);
+        //TODO: RENTER and OWNER have a field that count the number of condos they have,
+        // this field should be updated. Also the condo status need to be updated
+//        condoService.updateStatus(condo.getId(), "OCCUPIED");
+//        occupantService.updateOccupationCount(occupant.getId());
+        return housingContractDto;
+    }
+    
+    
+    /*
+     * Employee logic
+     */
     @Override
     public EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto) {
         // no need to check that the company exists, we know it exists because the company admin exists
@@ -224,22 +301,21 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return EmploymentContractDto.fromEntity(savedEmploymentContract);
 
     }
-
+    
     @Override
-    public Optional<CompanyAdmin> findByEmail(String email) {
-        return companyAdminRepository.findByEmail(email);
+    public List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId) {
+        return employeeService.getAllEmployeesByCompanyId(companyId);
     }
-
+    
+    
+    /*
+     * Common Facility logic
+     */
     @Override
     public CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto) {
         return buildingService.createCommonFacility(commonFacilityDto);
     }
-
-    @Override
-    public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
-        return buildingService.getAllBuildingsByCompanyId(companyId);
-    }
-
+    
     @Override
     public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
         return buildingService.getCommonFacilityById(commonFacilityId);
@@ -260,9 +336,5 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public void deleteCommonFacilityById(Integer commonFacilityId) {
         buildingService.deleteCommonFacilityById(commonFacilityId);
     }
-
-    @Override
-    public List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId) {
-        return employeeService.getAllEmployeesByCompanyId(companyId);
-    }
+    
 }

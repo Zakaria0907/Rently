@@ -16,6 +16,10 @@ public interface CondoService {
 
     // Find a Condo Entity by ID
     Condo findCondoEntityById(Integer condoId);
+    
+    Condo findByUnitNumberAndBuildingId(Integer unitNumber, Integer buildingId);
+    
+    Condo findCondoEntityByRegistrationKey(String registrationKey);
 
     // Create a new Condo
     CondoDto createCondo(CondoDto condoDto);
@@ -31,4 +35,9 @@ public interface CondoService {
 
     // Retrieve all Condos by Building ID
     List<CondoDto> getAllCondosByBuildingId(Integer buildingId);
+    
+    
+    CondoDto createCondoAndLinkToBuilding(CondoDto condoDto);
+    
+    boolean keyExists(String registrationKey);
 }

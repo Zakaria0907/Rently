@@ -6,7 +6,7 @@ import java.util.Random;
 @Service
 public class RegistrationKeyUtils {
 	
-	public static String generateRegistrationKey(String role) {
+	public String generateRegistrationKey(String role) {
 		Random random = new Random();
 		
 		// Generate a random number in the range 10000 to 99999

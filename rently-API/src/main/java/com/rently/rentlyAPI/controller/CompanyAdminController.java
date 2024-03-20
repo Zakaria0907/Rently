@@ -1,9 +1,6 @@
 package com.rently.rentlyAPI.controller;
 
-import com.rently.rentlyAPI.dto.BuildingDto;
-import com.rently.rentlyAPI.dto.CommonFacilityDto;
-import com.rently.rentlyAPI.dto.EmployeeDto;
-import com.rently.rentlyAPI.dto.EmploymentContractDto;
+import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.services.CompanyAdminService;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +38,22 @@ public class CompanyAdminController {
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllBuildingsByCompanyId(companyId));
     }
-
+    
+    @PostMapping(path = "/create/condo")
+    public ResponseEntity<CondoDto> createCondo(@RequestBody CondoDto condoDto) {
+        return ResponseEntity.ok(companyAdminService.createCondoAndLinkToBuilding(condoDto));
+    }
+    
+    @PostMapping(path = "/generate-key-and-create-housing-contract-for-condo")
+    public ResponseEntity<String> sendKeyToUser(@RequestBody CombinedRequestDto combinedRequestDto) {
+        return ResponseEntity.ok(companyAdminService.generateKeyForCondoAndCreateHousingContract(combinedRequestDto.getRegistrationKeyRequestDto(), combinedRequestDto.getHousingContractDto()));
+    }
+    
+    @PostMapping(path = "/send-key-to-future-occupant")
+    public ResponseEntity<String> sendKeyToFutureOccupant(@RequestBody EmailDto EmailDto) {
+        return ResponseEntity.ok(companyAdminService.sendKeyAndHousingContractToFutureOccupant(EmailDto));
+    }
+    
 
     //common facilities
     @PostMapping(path = "/create/common-facility")
@@ -90,5 +102,6 @@ public class CompanyAdminController {
     public ResponseEntity<EmploymentContractDto> registerEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
     }
+
 
 }

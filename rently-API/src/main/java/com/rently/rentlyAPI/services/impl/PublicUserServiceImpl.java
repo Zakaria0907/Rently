@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.OwnerDto;
 import com.rently.rentlyAPI.dto.PublicUserDto;
 import com.rently.rentlyAPI.dto.RenterDto;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.PublicUser;
 import com.rently.rentlyAPI.entity.user.Renter;
@@ -33,6 +34,7 @@ public class PublicUserServiceImpl implements PublicUserService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
+    private final RegistrationKeyUtils registrationKeyUtils;
 
     @Override
     public Optional<PublicUser> findByEmail(String email) {
@@ -141,45 +143,30 @@ public class PublicUserServiceImpl implements PublicUserService {
     }
     
     @Override
-    public String requestKeyToChangeRole(String token, String role) {
-        String tokenWithoutBearer = token.substring(7);
-        String email = jwtUtils.extractUsername(tokenWithoutBearer);
-        PublicUser publicUser = findPublicUserEntityByEmail(email);
-        
-        String registrationKey = RegistrationKeyUtils.generateRegistrationKey(role);
-        publicUser.setRegistrationKey(registrationKey);
-        publicUserRepository.save(publicUser);
-        
-        return registrationKey;
-    }
-    
-    @Override
     @Transactional
-    public String activateKeyToChangeRole(String token, String key) {
-        String tokenWithoutBearer = token.substring(7);
-        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+    public Occupant transformToOccupant(String email, String key) {
         PublicUser publicUser = findPublicUserEntityByEmail(email);
         
-        // Check if the key matches
-        if (!publicUser.getRegistrationKey().equals(key)) {
-            return "Invalid key";
-        }
+//        // Check if the key matches
+//        if (!publicUser.getRegistrationKey().equals(key)) {
+//            return "Invalid key";
+//        }
         
         if (key.startsWith("OW")){
             Owner owner = OwnerDto.fromPublicUser(publicUser);
             deletePublicUserById(publicUser.getId());
-            ownerRepository.save(owner);
-            return "Owner created successfully";
+            Owner savedOwner = ownerRepository.save(owner);
+            return (Occupant) savedOwner;
         }
         
         if (key.startsWith("RE")){
             Renter renter = RenterDto.fromPublicUser(publicUser);
             deletePublicUserById(publicUser.getId());
-            renterRepository.save(renter);
-            return "Renter created successfully";
+            Renter savedRenter = renterRepository.save(renter);
+            return (Renter) savedRenter;
         }
         
-        return "Activation Failed";
+        return null;
     }
 }
 

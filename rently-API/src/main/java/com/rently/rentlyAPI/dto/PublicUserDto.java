@@ -56,7 +56,6 @@ public class PublicUserDto extends RootUserDto {
                 .phoneNumber(publicUserDto.getPhoneNumber())
                 .bio(publicUserDto.getBio())
                 .role(Role.PUBLIC_USER)
-                .registrationKey(publicUserDto.getRegistrationKey())
                 // companyId is set in business logic
                 .build();
 
@@ -71,7 +70,6 @@ public class PublicUserDto extends RootUserDto {
                 .phoneNumber(publicUser.getPhoneNumber())
                 .bio(publicUser.getBio())
                 .role(publicUser.getRole().name())
-                .registrationKey(publicUser.getRegistrationKey())
                 .build();
     }
 }
