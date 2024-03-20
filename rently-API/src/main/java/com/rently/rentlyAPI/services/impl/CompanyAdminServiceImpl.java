@@ -180,7 +180,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public BuildingDto getBuildingByName(String token, String buildingName) {
         Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
-        if (buildingService.findBuildingEntityByName(buildingName).getId().equals(adminCompanyId)) {
+        if (buildingService.findBuildingEntityByName(buildingName).getCompany().getId().equals(adminCompanyId)) {
             throw new AuthenticationException("You are not authorized to access a building in another company");
         }
 
@@ -191,7 +191,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public BuildingDto getBuildingById(String token, Integer buildingId) {
         Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
-        if (buildingId.equals(adminCompanyId)) {
+        if (!buildingService.findBuildingEntityById(buildingId).getCompany().getId().equals(adminCompanyId)) {
             throw new AuthenticationException("You are not authorized to access a building in another company");
         }
         return BuildingDto.fromEntity(buildingService.findBuildingEntityById(buildingId));

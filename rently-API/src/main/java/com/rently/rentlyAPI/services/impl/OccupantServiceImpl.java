@@ -13,6 +13,7 @@ import com.rently.rentlyAPI.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,6 +61,24 @@ public class OccupantServiceImpl implements OccupantService {
             return renter.get();
         }
         throw new AuthenticationException("Occupant with ID " + email + " not found");
+    }
+
+    @Override
+    public void deleteCommonFacilityReservation(String token, Integer id) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        buildingService.deleteCommonFacilityReservation(occupantId, id);
+    }
+
+    @Override
+    public CommonFacilityReservationDto getCommonFacilityReservation(String token, Integer id) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        return buildingService.getCommonFacilityReservation(occupantId, id);
+    }
+
+    @Override
+    public List<CommonFacilityReservationDto> getAllCommonFacilityReservations(String token) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        return buildingService.getAllCommonFacilityReservations(occupantId);
     }
 
 }

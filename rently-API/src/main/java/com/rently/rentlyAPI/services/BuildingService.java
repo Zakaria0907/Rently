@@ -50,6 +50,12 @@ public interface BuildingService {
 
     CommonFacilityReservationDto createCommonFacilityReservation(Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto);
 
+    void deleteCommonFacilityReservation(Integer occupantId, Integer id);
+
+    CommonFacilityReservationDto getCommonFacilityReservation(Integer occupantId, Integer id);
+
+    List<CommonFacilityReservationDto> getAllCommonFacilityReservations(Integer occupantId);
+
 //
 //	public Building save(Building building);
 //

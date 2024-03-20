@@ -177,6 +177,21 @@ public class BuildingServiceImpl implements BuildingService {
         return commonFacilityReservationService.createCommonFacilityReservation(company, commonFacility, occupant, commonFacilityReservationDto);
     }
 
+    @Override
+    public void deleteCommonFacilityReservation(Integer occupantId, Integer id) {
+        commonFacilityReservationService.deleteCommonFacilityReservation(occupantId, id);
+    }
+
+    @Override
+    public CommonFacilityReservationDto getCommonFacilityReservation(Integer occupantId, Integer id) {
+        return commonFacilityReservationService.findCommonFacilityReservationDtoById(occupantId, id);
+    }
+
+    @Override
+    public List<CommonFacilityReservationDto> getAllCommonFacilityReservations(Integer occupantId) {
+        return commonFacilityReservationService.getAllCommonFacilityReservations(occupantId);
+    }
+
 //	private final BuildingRepository buildingRepository;
 //
 //	@Override
