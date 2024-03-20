@@ -170,8 +170,10 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public CommonFacilityReservationDto createCommonFacilityReservation(Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
-        Company company = companyService.findCompanyEntityById(commonFacilityReservationDto.getCompanyId());
         CommonFacility commonFacility = commonFacilityService.findCommonFacilityEntityById(commonFacilityReservationDto.getCommonFacilityId());
+        Company company = commonFacility.getBuilding().getCompany();
+//                companyService.findCompanyEntityById(commonFacilityReservationDto.getCommonFacilityId());
+//        CommonFacility commonFacility = commonFacilityService.findCommonFacilityEntityById(commonFacilityReservationDto.getCommonFacilityId());
         return commonFacilityReservationService.createCommonFacilityReservation(company, commonFacility, occupant, commonFacilityReservationDto);
     }
 

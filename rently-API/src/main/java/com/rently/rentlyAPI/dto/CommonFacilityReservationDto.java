@@ -13,17 +13,11 @@ import lombok.Data;
 @AllArgsConstructor
 public class CommonFacilityReservationDto {
 
-    @JsonProperty("company_id")
-    @NotBlank(message = "The company id is required")
-    private Integer companyId;
 
     @JsonProperty("common_facility_id")
     @NotBlank(message = "The common facility id is required")
     private Integer commonFacilityId;
 
-    @JsonProperty("occupant_id")
-    @NotBlank(message = "The occupant id is required")
-    private Integer occupantId;
 
     @JsonProperty("reservation_date DD-MM-YYYY")
     @NotBlank(message = "The date is required")
@@ -34,19 +28,13 @@ public class CommonFacilityReservationDto {
         return com.rently.rentlyAPI.entity.CommonFacilityReservation.builder()
                 .date(commonFacilityReservationDto.getReservationDate())
                 //TODO: handle logic for setting the companyId, commonFacilityId, and occupantId
-                //The companyId, commonFacilityId, and occupantId are set in the business logic
-                //.company(commonFacilityReservationDto.getCompany())
-                //.commonFacility(commonFacilityReservationDto.getCommonFacility())
-                //.occupant(commonFacilityReservationDto.getOccupant())
                 .build();
 
     }
 
-    public static CommonFacilityReservationDto fromEntity(CommonFacilityReservation commonFacilityReservation){
+    public static CommonFacilityReservationDto fromEntity(CommonFacilityReservation commonFacilityReservation) {
         return CommonFacilityReservationDto.builder()
-                .companyId(commonFacilityReservation.getCompany().getId())
                 .commonFacilityId(commonFacilityReservation.getCommonFacility().getId())
-                .occupantId(commonFacilityReservation.getOccupant().getId())
                 .reservationDate(commonFacilityReservation.getDate())
                 .build();
     }

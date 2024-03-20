@@ -22,16 +22,16 @@ public class CommonFacilityReservationServiceImpl implements CommonFacilityReser
     @Override
     public CommonFacilityReservationDto createCommonFacilityReservation(Company company, CommonFacility commonFacility, Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
         //check if there is already a reservation at the given time slot for the given user
-        Optional<CommonFacilityReservation> existing = commonFacilityReservationRepository.findByOccupantIdAndDate(commonFacilityReservationDto.getOccupantId(), commonFacilityReservationDto.getReservationDate());
+        Optional<CommonFacilityReservation> existing = commonFacilityReservationRepository.findByOccupantIdAndDate(occupant.getId(), commonFacilityReservationDto.getReservationDate());
 
-        if (existing.isPresent()) { /*&& existing.get().getOccupant().getId().equals(commonFacilityReservationDto.getOccupantId()))*/
-            throw new OperationNonPermittedException("There is already a reservation at the given time slot for occupant with id " + commonFacilityReservationDto.getOccupantId());
+        if (existing.isPresent()) {
+            throw new OperationNonPermittedException("There is already a reservation at the given time slot for occupant with id " + occupant.getId());
         }
         CommonFacilityReservation commonFacilityReservation = CommonFacilityReservationDto.toEntity(commonFacilityReservationDto);
+
         commonFacilityReservation.setCompany(company);
         commonFacilityReservation.setCommonFacility(commonFacility);
         commonFacilityReservation.setOccupant(occupant);
-        // set the company, commonFacility, and occupant
 
         CommonFacilityReservation savedReservation = commonFacilityReservationRepository.save(commonFacilityReservation);
         return CommonFacilityReservationDto.fromEntity(savedReservation);

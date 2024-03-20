@@ -31,6 +31,11 @@ public class CommonFacilityServiceImpl implements CommonFacilityService {
     }
 
     @Override
+    public Optional<CommonFacility> findCommonFacilityById(Integer commonFacilityId) {
+        return commonFacilityRepository.findById(commonFacilityId);
+    }
+
+    @Override
     public CommonFacilityDto findCommonFacilityDtoById(Integer commonFacilityId) {
         CommonFacility commonFacility = commonFacilityRepository.findById(commonFacilityId)
                 .orElseThrow(() -> new IllegalArgumentException("CommonFacility with ID " + commonFacilityId + " not found"));
@@ -39,9 +44,8 @@ public class CommonFacilityServiceImpl implements CommonFacilityService {
 
     @Override
     public CommonFacility findCommonFacilityEntityById(Integer commonFacilityId) {
-        CommonFacility commonFacility = commonFacilityRepository.findById(commonFacilityId)
+        return commonFacilityRepository.findById(commonFacilityId)
                 .orElseThrow(() -> new IllegalArgumentException("CommonFacility with ID " + commonFacilityId + " not found"));
-        return commonFacility;
     }
 
     @Override
