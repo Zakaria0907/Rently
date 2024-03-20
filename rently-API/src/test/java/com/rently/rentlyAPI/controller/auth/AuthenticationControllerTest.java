@@ -4,7 +4,7 @@
 //import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
 //import com.rently.rentlyAPI.auth.dto.LoginRequestDto;
 //import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
-//import com.rently.rentlyAPI.auth.services.AuthenticationServiceImpl;
+//import com.rently.rentlyAPI.auth.services.Impl.AuthenticationServiceImpl;
 //import com.rently.rentlyAPI.dto.UserDto;
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;

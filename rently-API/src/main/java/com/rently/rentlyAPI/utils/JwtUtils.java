@@ -1,4 +1,4 @@
-package com.rently.rentlyAPI.security.utils;
+package com.rently.rentlyAPI.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

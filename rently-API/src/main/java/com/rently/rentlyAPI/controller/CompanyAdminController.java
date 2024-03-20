@@ -23,12 +23,12 @@ public class CompanyAdminController {
     public ResponseEntity<BuildingDto> createBuilding(@RequestBody BuildingDto buildingDto) {
         return ResponseEntity.ok(companyAdminService.createBuildingAndLinkToCompany(buildingDto));
     }
-
-
+    
     @GetMapping(path = "/buildings/id={buildingId}")
     public ResponseEntity<BuildingDto> getBuildingById(@PathVariable(name = "buildingId") Integer buildingId) {
         return ResponseEntity.ok(companyAdminService.getBuildingById(buildingId));
     }
+    
     @GetMapping(path = "/buildings/name={buildingName}")
     public ResponseEntity<BuildingDto> getBuildingByName(@PathVariable(name = "buildingName") String buildingName) {
         return ResponseEntity.ok(companyAdminService.getBuildingByName(buildingName));
@@ -41,8 +41,7 @@ public class CompanyAdminController {
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllBuildingsByCompanyId(companyId));
     }
-
-
+    
     @PostMapping(path = "/create/common-facility")
     public ResponseEntity<CommonFacilityDto> createCommonFacility(@RequestBody CommonFacilityDto commonFacilityDto) {
         return ResponseEntity.ok(companyAdminService.createCommonFacilityAndLinkToBuilding(commonFacilityDto));

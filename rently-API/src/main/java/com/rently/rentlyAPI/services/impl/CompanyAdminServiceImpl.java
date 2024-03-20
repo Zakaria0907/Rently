@@ -9,7 +9,7 @@ import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
-import com.rently.rentlyAPI.security.utils.JwtUtils;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import com.rently.rentlyAPI.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
