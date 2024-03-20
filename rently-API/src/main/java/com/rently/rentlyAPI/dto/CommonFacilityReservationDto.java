@@ -25,7 +25,7 @@ public class CommonFacilityReservationDto {
     @NotBlank(message = "The occupant id is required")
     private Integer occupantId;
 
-    @JsonProperty("reservation_date")
+    @JsonProperty("reservation_date DD-MM-YYYY")
     @NotBlank(message = "The date is required")
     private String reservationDate;
 

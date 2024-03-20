@@ -12,7 +12,10 @@ public interface CommonFacilityService {
 
     Optional<CommonFacility> findCommonFacilityByName(Integer buildingId, String facilityName);
 
-    CommonFacilityDto findCommonFacilityById(Integer commonFacilityId);
+    CommonFacilityDto findCommonFacilityDtoById(Integer commonFacilityId);
+
+    CommonFacility findCommonFacilityEntityById(Integer commonFacilityId);
+
 
     List<CommonFacilityDto> getAllCommonFacilityByBuildingId(Integer buildingId);
 

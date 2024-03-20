@@ -2,12 +2,15 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CommonFacilityDto;
+import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.CommonFacility;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.services.BuildingService;
+import com.rently.rentlyAPI.services.CommonFacilityReservationService;
 import com.rently.rentlyAPI.services.CommonFacilityService;
 import com.rently.rentlyAPI.services.CompanyService;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final BuildingRepository buildingRepository;
     private final CompanyService companyService;
     private final CommonFacilityService commonFacilityService;
+    private final CommonFacilityReservationService commonFacilityReservationService;
 
     @Override
     public BuildingDto createBuilding(BuildingDto buildingDto) {
@@ -145,7 +149,7 @@ public class BuildingServiceImpl implements BuildingService {
 
     @Override
     public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
-        return commonFacilityService.findCommonFacilityById(commonFacilityId);
+        return commonFacilityService.findCommonFacilityDtoById(commonFacilityId);
     }
 
     @Override
@@ -162,6 +166,13 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public void deleteCommonFacilityById(Integer commonFacilityId) {
         commonFacilityService.deleteCommonFacilityById(commonFacilityId);
+    }
+
+    @Override
+    public CommonFacilityReservationDto createCommonFacilityReservation(Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
+        Company company = companyService.findCompanyEntityById(commonFacilityReservationDto.getCompanyId());
+        CommonFacility commonFacility = commonFacilityService.findCommonFacilityEntityById(commonFacilityReservationDto.getCommonFacilityId());
+        return commonFacilityReservationService.createCommonFacilityReservation(company, commonFacility, occupant, commonFacilityReservationDto);
     }
 
 //	private final BuildingRepository buildingRepository;

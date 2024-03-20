@@ -2,8 +2,10 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CommonFacilityDto;
+import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.CommonFacility;
+import com.rently.rentlyAPI.entity.user.Occupant;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +47,8 @@ public interface BuildingService {
     List<CommonFacilityDto> getAllCommonFacilities();
 
     void deleteCommonFacilityById(Integer commonFacilityId);
+
+    CommonFacilityReservationDto createCommonFacilityReservation(Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto);
 
 //
 //	public Building save(Building building);

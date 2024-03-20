@@ -1,7 +1,10 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.entity.CommonFacility;
 import com.rently.rentlyAPI.entity.CommonFacilityReservation;
+import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.CommonFacilityReservationRepository;
 import com.rently.rentlyAPI.services.CommonFacilityReservationService;
@@ -17,7 +20,7 @@ public class CommonFacilityReservationServiceImpl implements CommonFacilityReser
     private final CommonFacilityReservationRepository commonFacilityReservationRepository;
 
     @Override
-    public CommonFacilityReservationDto createReservation(CommonFacilityReservationDto commonFacilityReservationDto) {
+    public CommonFacilityReservationDto createCommonFacilityReservation(Company company, CommonFacility commonFacility, Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
         //check if there is already a reservation at the given time slot for the given user
         Optional<CommonFacilityReservation> existing = commonFacilityReservationRepository.findByOccupantIdAndDate(commonFacilityReservationDto.getOccupantId(), commonFacilityReservationDto.getReservationDate());
 
@@ -25,6 +28,9 @@ public class CommonFacilityReservationServiceImpl implements CommonFacilityReser
             throw new OperationNonPermittedException("There is already a reservation at the given time slot for occupant with id " + commonFacilityReservationDto.getOccupantId());
         }
         CommonFacilityReservation commonFacilityReservation = CommonFacilityReservationDto.toEntity(commonFacilityReservationDto);
+        commonFacilityReservation.setCompany(company);
+        commonFacilityReservation.setCommonFacility(commonFacility);
+        commonFacilityReservation.setOccupant(occupant);
         // set the company, commonFacility, and occupant
 
         CommonFacilityReservation savedReservation = commonFacilityReservationRepository.save(commonFacilityReservation);

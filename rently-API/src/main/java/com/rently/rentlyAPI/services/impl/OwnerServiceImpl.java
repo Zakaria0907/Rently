@@ -17,4 +17,9 @@ public class OwnerServiceImpl implements OwnerService {
     public Optional<Owner> findByEmail(String email) {
         return ownerRepository.findByEmail(email);
     }
+
+    @Override
+    public Optional<Owner> findOwnerEntityById(Integer occupantId) {
+        return ownerRepository.findById(occupantId);
+    }
 }

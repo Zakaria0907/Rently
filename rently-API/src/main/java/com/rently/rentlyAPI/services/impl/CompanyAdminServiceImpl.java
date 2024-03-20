@@ -170,7 +170,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto) {
         // this adds an extra layer of security, the company admin can only create a building for his company
         Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
-        if (buildingDto.getCompanyId().equals(adminCompanyId)) {
+        if (!buildingDto.getCompanyId().equals(adminCompanyId)) {
             throw new AuthenticationException("You are not authorized to create a building for another company");
         }
 

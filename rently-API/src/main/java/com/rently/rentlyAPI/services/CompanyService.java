@@ -25,6 +25,7 @@ public interface CompanyService {
   // Retrieve all Companies
   List<CompanyDto> getAllCompanies();
 
+
 //  Company save(Company company);
 //  BuildingDto createBuildingByCompanyId(Integer companyId, BuildingDto buildingDto);
 //  BuildingDto getBuildingByCompanyIdAndBuildingId(Integer companyId, Integer buildingId);
