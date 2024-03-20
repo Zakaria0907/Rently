@@ -11,14 +11,6 @@ public interface CommonFacilityReservationService {
 
     CommonFacilityReservationDto createCommonFacilityReservation(Company company, CommonFacility commonFacility, Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto);
 
-    CommonFacilityReservationDto updateReservation(CommonFacilityReservationDto commonFacilityReservationDto, Integer occupantID, Integer commonFacilityID);
-
-    CommonFacilityReservationDto getReservation(Integer occupantID, Integer commonFacilityID);
-
-//    PublicUserDto getReservationByEmail(String publicUserEmail);
-
-    String deletePublicUserById(Integer occupantID, Integer commonFacilityID);
-
 
     void deleteCommonFacilityReservation(Integer occupantId, Integer id);
 

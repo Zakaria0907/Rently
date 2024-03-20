@@ -25,11 +25,17 @@ public class CommonFacilityReservationServiceImpl implements CommonFacilityReser
     @Override
     public CommonFacilityReservationDto createCommonFacilityReservation(Company company, CommonFacility commonFacility, Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
         //check if there is already a reservation at the given time slot for the given user
-        Optional<CommonFacilityReservation> existing = commonFacilityReservationRepository.findByOccupantIdAndDate(occupant.getId(), commonFacilityReservationDto.getReservationDate());
-
-        if (existing.isPresent()) {
+        Optional<CommonFacilityReservation> ownExistingReservation = commonFacilityReservationRepository.findByOccupantIdAndDate(occupant.getId(), commonFacilityReservationDto.getReservationDate());
+        if (ownExistingReservation.isPresent()) {
             throw new OperationNonPermittedException("There is already a reservation at the given time slot for occupant with id " + occupant.getId());
         }
+
+        Optional<CommonFacilityReservation> otherExistingReservation = commonFacilityReservationRepository.findByCommonFacilityIdAndDate(commonFacility.getId(), commonFacilityReservationDto.getReservationDate());
+        if (otherExistingReservation.isPresent()) {
+            throw new OperationNonPermittedException("There is already a reservation at the given time slot by another occupant.");
+        }
+
+
         CommonFacilityReservation commonFacilityReservation = CommonFacilityReservationDto.toEntity(commonFacilityReservationDto);
 
         commonFacilityReservation.setCompany(company);
@@ -38,31 +44,6 @@ public class CommonFacilityReservationServiceImpl implements CommonFacilityReser
 
         CommonFacilityReservation savedReservation = commonFacilityReservationRepository.save(commonFacilityReservation);
         return CommonFacilityReservationDto.fromEntity(savedReservation);
-    }
-
-    @Override
-    public CommonFacilityReservationDto updateReservation(CommonFacilityReservationDto commonFacilityReservationDto, Integer occupantID, Integer commonFacilityID) {
-//        // Find the CompanyAdmin Entity by its ID
-//        CommonFacilityReservation companyAdminToUpdate = commonFacilityReservationRepository.findByOccupantId(occupantID, commonFacilityID)
-//                .orElseThrow(() -> new EntityNotFoundException("Occupant with ID " + occupantID + " not found"));
-//
-//        // Update the the reservation details if present
-//
-//        // Save the updated CompanyAdmin
-//        CommonFacilityReservation updatedReservation = commonFacilityReservationRepository.save(companyAdminToUpdate);
-//
-//        return commonFacilityReservationDto.fromEntity(updatedReservation);
-        return null;
-    }
-
-    @Override
-    public CommonFacilityReservationDto getReservation(Integer occupantID, Integer commonFacilityID) {
-        return null;
-    }
-
-    @Override
-    public String deletePublicUserById(Integer occupantID, Integer commonFacilityID) {
-        return null;
     }
 
     @Override

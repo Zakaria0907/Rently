@@ -10,4 +10,6 @@ public interface CommonFacilityReservationRepository extends JpaRepository<Commo
     Optional<CommonFacilityReservation> findByOccupantIdAndDate(Integer occupantId, String reservationDate);
 
     Collection<CommonFacilityReservation> findAllByOccupantId(Integer occupantId);
+
+    Optional<CommonFacilityReservation> findByCommonFacilityIdAndDate(Integer id, String reservationDate);
 }
