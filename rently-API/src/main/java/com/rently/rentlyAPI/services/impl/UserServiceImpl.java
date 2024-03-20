@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     /**
      * This method finds a user with the given email and returns it, regardless of the role
      *
-     * @param email
+     * @param email the email of the user to be found
      * @return User with the given email
      * @throws AuthenticationException if no user with the given email is found
      */
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
     /**
      * This method checks if a user with the given email exists in the database, regardless of the role
      *
-     * @param email
-     * @return
+     * @param email the email of the user to be checked
+     * @return true if the user exists, false otherwise
      */
     public boolean userExistsForRegistration(String email) {
         try {

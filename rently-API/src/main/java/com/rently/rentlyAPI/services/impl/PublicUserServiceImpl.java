@@ -13,7 +13,6 @@ import com.rently.rentlyAPI.repository.PublicUserRepository;
 import com.rently.rentlyAPI.repository.RenterRepository;
 import com.rently.rentlyAPI.services.PublicUserService;
 import com.rently.rentlyAPI.utils.JwtUtils;
-import com.rently.rentlyAPI.utils.RegistrationKeyUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,7 +33,6 @@ public class PublicUserServiceImpl implements PublicUserService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtUtils jwtUtils;
-    private final RegistrationKeyUtils registrationKeyUtils;
 
     @Override
     public Optional<PublicUser> findByEmail(String email) {
@@ -120,10 +118,10 @@ public class PublicUserServiceImpl implements PublicUserService {
 
     @Transactional
     public String deletePublicUserById(Integer publicUserId) {
-        
+
         PublicUser publicUser = findPublicUserEntityById(publicUserId);
         publicUserRepository.delete(publicUser);
-        
+
         return "Public User deleted successfully";
     }
 
@@ -134,31 +132,31 @@ public class PublicUserServiceImpl implements PublicUserService {
                 .map(PublicUserDto::fromEntity)
                 .toList();
     }
-    
+
     @Override
     @Transactional
     public Occupant transformToOccupant(String email, String key) {
         PublicUser publicUser = findPublicUserEntityByEmail(email);
-        
+
 //        // Check if the key matches
 //        if (!publicUser.getRegistrationKey().equals(key)) {
 //            return "Invalid key";
 //        }
-        
-        if (key.startsWith("OW")){
+
+        if (key.startsWith("OW")) {
             Owner owner = OwnerDto.fromPublicUser(publicUser);
             deletePublicUserById(publicUser.getId());
             Owner savedOwner = ownerRepository.save(owner);
-            return (Occupant) savedOwner;
+            return savedOwner;
         }
-        
-        if (key.startsWith("RE")){
+
+        if (key.startsWith("RE")) {
             Renter renter = RenterDto.fromPublicUser(publicUser);
             deletePublicUserById(publicUser.getId());
             Renter savedRenter = renterRepository.save(renter);
-            return (Renter) savedRenter;
+            return savedRenter;
         }
-        
+
         return null;
     }
 }

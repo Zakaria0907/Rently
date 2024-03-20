@@ -26,10 +26,8 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final CompanyService companyService;
     private final BuildingService buildingService;
     private final EmployeeService employeeService;
-    private final CommonFacilityService commonFacilityService;
     private final HousingContractService housingContractService;
     private final CondoService condoService;
-    private final OccupantService occupantService;
 
     private final CompanyAdminRepository companyAdminRepository;
     private final EmploymentContractRepository employmentContractRepository;
