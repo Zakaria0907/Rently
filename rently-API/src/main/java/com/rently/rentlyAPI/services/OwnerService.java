@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface OwnerService {
     Optional<Owner> findByEmail(String email);
+
+    Optional<Owner> findOwnerEntityById(Integer occupantId);
 }

@@ -9,8 +9,11 @@ import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.CompanyAdminRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
+import com.rently.rentlyAPI.services.BuildingService;
+import com.rently.rentlyAPI.services.CompanyAdminService;
+import com.rently.rentlyAPI.services.CompanyService;
+import com.rently.rentlyAPI.services.EmployeeService;
 import com.rently.rentlyAPI.utils.JwtUtils;
-import com.rently.rentlyAPI.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,8 +29,6 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final CompanyService companyService;
     private final BuildingService buildingService;
     private final EmployeeService employeeService;
-    private final CommonFacilityService commonFacilityService;
-
     private final CompanyAdminRepository companyAdminRepository;
     private final EmploymentContractRepository employmentContractRepository;
 
@@ -78,12 +79,12 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         }
 
         if (companyAdminDto.getPassword() != null) {
-            // Encode the password if provided (null with google for example)
+            // Encode the password if provided (null with Google for example)
             String encodedPassword = passwordEncoder.encode(companyAdminDto.getPassword());
             companyAdminDto.setPassword(encodedPassword);
         }
 
-        // Retreive company with the given ID
+        // Retrieve company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(companyAdminDto.getCompanyId());
 
         // Create the company admin
@@ -166,25 +167,39 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     }
     
     @Override
-    public BuildingDto createBuildingAndLinkToCompany(BuildingDto buildingDto) {
-        return buildingService.createBuildingAndLinkToCompany(buildingDto);
+    public BuildingDto createBuildingAndLinkToCompany(String token, BuildingDto buildingDto) {
+        // this adds an extra layer of security, the company admin can only create a building for his company
+        Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        if (!buildingDto.getCompanyId().equals(adminCompanyId)) {
+            throw new AuthenticationException("You are not authorized to create a building for another company");
+        }
 
+        return buildingService.createBuildingAndLinkToCompany(buildingDto);
     }
 
     @Override
-    public BuildingDto getBuildingByName(String buildingName) {
+    public BuildingDto getBuildingByName(String token, String buildingName) {
+        Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        if (buildingService.findBuildingEntityByName(buildingName).getCompany().getId().equals(adminCompanyId)) {
+            throw new AuthenticationException("You are not authorized to access a building in another company");
+        }
+
         Building building = buildingService.findBuildingEntityByName(buildingName);
         return BuildingDto.fromEntity(building);
     }
 
     @Override
-    public BuildingDto getBuildingById(Integer buildingId) {
+    public BuildingDto getBuildingById(String token, Integer buildingId) {
+        Integer adminCompanyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        if (!buildingService.findBuildingEntityById(buildingId).getCompany().getId().equals(adminCompanyId)) {
+            throw new AuthenticationException("You are not authorized to access a building in another company");
+        }
         return BuildingDto.fromEntity(buildingService.findBuildingEntityById(buildingId));
     }
 
     @Override
     public List<BuildingDto> getAllBuildings() {
-        return buildingService.getAllBuildings(); //buildingRepository.findAll().stream().map(BuildingDto::fromEntity).toList();
+        return buildingService.getAllBuildings();
     }
 
     @Override
@@ -223,6 +238,27 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
         return buildingService.getAllBuildingsByCompanyId(companyId);
+    }
+
+    @Override
+    public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
+        return buildingService.getCommonFacilityById(commonFacilityId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId) {
+
+        return buildingService.getAllCommonFacilitiesByBuildingId(buildingId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilities() {
+        return buildingService.getAllCommonFacilities();
+    }
+
+    @Override
+    public void deleteCommonFacilityById(Integer commonFacilityId) {
+        buildingService.deleteCommonFacilityById(commonFacilityId);
     }
 
     @Override

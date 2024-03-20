@@ -4,6 +4,7 @@ import com.rently.rentlyAPI.entity.CommonFacility;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CommonFacilityRepository extends JpaRepository<CommonFacility, Integer> {
@@ -11,4 +12,6 @@ public interface CommonFacilityRepository extends JpaRepository<CommonFacility, 
 
     @Query("SELECT c FROM CommonFacility c WHERE c.building.id = ?1 AND c.name = ?2")
     Optional<CommonFacility> findByNameAndBuildingId(Integer buildingId, String facilityName);
+
+    List<CommonFacility> findAllByBuildingId(Integer buildingId);
 }

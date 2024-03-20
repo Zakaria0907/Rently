@@ -17,4 +17,9 @@ public class RenterServiceImpl implements RenterService {
     public Optional<Renter> findByEmail(String email) {
         return renterRepository.findByEmail(email);
     }
+
+    @Override
+    public Optional<Renter> findRenterEntityById(Integer occupantId) {
+        return renterRepository.findById(occupantId);
+    }
 }

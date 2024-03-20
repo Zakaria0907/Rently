@@ -2,12 +2,15 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.BuildingDto;
 import com.rently.rentlyAPI.dto.CommonFacilityDto;
+import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.CommonFacility;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.BuildingRepository;
 import com.rently.rentlyAPI.services.BuildingService;
+import com.rently.rentlyAPI.services.CommonFacilityReservationService;
 import com.rently.rentlyAPI.services.CommonFacilityService;
 import com.rently.rentlyAPI.services.CompanyService;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,6 +28,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final BuildingRepository buildingRepository;
     private final CompanyService companyService;
     private final CommonFacilityService commonFacilityService;
+    private final CommonFacilityReservationService commonFacilityReservationService;
 
     @Override
     public BuildingDto createBuilding(BuildingDto buildingDto) {
@@ -141,6 +145,49 @@ public class BuildingServiceImpl implements BuildingService {
             throw new AuthenticationException("Common Facility with name " + commonFacilityDto.getFacilityName() + " already exists in this building.");
         }
         return commonFacilityService.createCommonFacilityAndLinkToBuilding(commonFacilityDto, buildingToLink);
+    }
+
+    @Override
+    public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
+        return commonFacilityService.findCommonFacilityDtoById(commonFacilityId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilitiesByBuildingId(Integer buildingId) {
+        findBuildingEntityById(buildingId);
+        return commonFacilityService.getAllCommonFacilityByBuildingId(buildingId);
+    }
+
+    @Override
+    public List<CommonFacilityDto> getAllCommonFacilities() {
+        return commonFacilityService.getAllCommonFacilities();
+    }
+
+    @Override
+    public void deleteCommonFacilityById(Integer commonFacilityId) {
+        commonFacilityService.deleteCommonFacilityById(commonFacilityId);
+    }
+
+    @Override
+    public CommonFacilityReservationDto createCommonFacilityReservation(Occupant occupant, CommonFacilityReservationDto commonFacilityReservationDto) {
+        CommonFacility commonFacility = commonFacilityService.findCommonFacilityEntityById(commonFacilityReservationDto.getCommonFacilityId());
+        Company company = commonFacility.getBuilding().getCompany();
+        return commonFacilityReservationService.createCommonFacilityReservation(company, commonFacility, occupant, commonFacilityReservationDto);
+    }
+
+    @Override
+    public void deleteCommonFacilityReservation(Integer occupantId, Integer id) {
+        commonFacilityReservationService.deleteCommonFacilityReservation(occupantId, id);
+    }
+
+    @Override
+    public CommonFacilityReservationDto getCommonFacilityReservation(Integer occupantId, Integer id) {
+        return commonFacilityReservationService.findCommonFacilityReservationDtoById(occupantId, id);
+    }
+
+    @Override
+    public List<CommonFacilityReservationDto> getAllCommonFacilityReservations(Integer occupantId) {
+        return commonFacilityReservationService.getAllCommonFacilityReservations(occupantId);
     }
 
 //	private final BuildingRepository buildingRepository;
