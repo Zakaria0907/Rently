@@ -37,7 +37,7 @@ const Buildings: React.FC = () => {
 
     const fetchBuildings = async () => {
         try {
-            const response = await axiosPrivate.get(`/company/${auth.id}/building/all`);
+            const response = await axiosPrivate.get(`/company-admin/buildings`);
             console.log("Units fetched: ", response.data);
             setBuildings(response.data);
         } catch (error) {
@@ -132,7 +132,7 @@ const Buildings: React.FC = () => {
             </div>
 
             {
-                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} userId={auth.id ?? ''} />
+                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} company_id={auth.company_id ?? ''} />
             }
 
             {

@@ -61,7 +61,7 @@ const PropertyTable: React.FC = () => {
                                         </CardSubtitle>
                                     </LeftSideContainer>
                                     <Button onClick={togglePropertyPopup} >+</Button>
-                                    {addPropertyPopup && <AddPropertyPopup closeModal={togglePropertyPopup} userId={1} />}
+                                    {addPropertyPopup && <AddPropertyPopup closeModal={togglePropertyPopup} company_id={1} />}
                                 </CardHeader>
                                 {
                                     properties.length > 0 ? (

@@ -24,6 +24,7 @@ const useRefreshToken = (): (() => Promise<string>) => {
                 bio: response?.data?.user?.bio,
                 email: response?.data?.user?.email,
                 roles: response?.data?.user?.role,
+                company_id: response?.data?.user?.company_id,
             }
 
             return user;

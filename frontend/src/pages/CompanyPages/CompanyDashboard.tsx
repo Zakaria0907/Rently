@@ -22,13 +22,13 @@ const CompanyDashboard: React.FC = () => {
             {
                 title: 'Owners',
                 count: 10,
-                link: '/owners',
+                link: '/company-owners',
                 icon: <FaRegUser className="mt-1 text-xl" />,
             },
             {
                 title: 'Employees',
                 count: 7,
-                link: '/employees',
+                link: '/company-employees',
                 icon: <GrUserWorker className="mt-1 text-xl" />,
             },
         ];

@@ -114,7 +114,7 @@ const AdminBuildings: React.FC = () => {
             </div>
 
             {
-                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} userId={1} />
+                addBuildingPopup && <AddPropertyPopup closeModal={toggleAddBuildingPopup} company_id={1} />
             }
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">

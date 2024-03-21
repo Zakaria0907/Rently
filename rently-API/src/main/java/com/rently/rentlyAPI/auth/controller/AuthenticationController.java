@@ -5,10 +5,14 @@ import com.rently.rentlyAPI.auth.dto.AuthenticationResponseDto;
 import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
 import com.rently.rentlyAPI.auth.dto.LoginRequestDto;
 import com.rently.rentlyAPI.auth.services.Impl.AuthenticationServiceImpl;
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/authentication")
@@ -31,10 +35,10 @@ public class AuthenticationController {
     return ResponseEntity.ok(service.changePassword(token, changePasswordRequestDto));
   }
 
-//  @PostMapping("/refresh-token")
-//  public void refreshToken( HttpServletRequest request, HttpServletResponse response, String yry , String sdfds) throws IOException {
-//    service.refreshToken(request, response);
-//  }
+ @PostMapping("/refresh-token")
+ public void refreshToken( HttpServletRequest request, HttpServletResponse response, String yry , String sdfds) throws IOException, IOException {
+   service.refreshToken(request, response);
+ }
 
 
 }
