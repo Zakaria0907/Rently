@@ -2,60 +2,72 @@ package com.rently.rentlyAPI.dto;
 
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.user.User;
+import com.rently.rentlyAPI.entity.Locker;
+import com.rently.rentlyAPI.entity.Parking;
+import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
+@SpringBootTest
 public class CondoDtoTest {
-
-    CondoDto mockedCondoDto = mock(CondoDto.class);
-    Condo mockedCondo = mock(Condo.class);
-    User mockedUser = mock(User.class);
-    Building mockedBuilding = mock(Building.class);
-
-    @Test
-    public void testFromEntity() {
-        // Arrange
-        when(mockedCondo.getUser()).thenReturn(mockedUser);
-        when(mockedCondo.getUser()).thenReturn(mockedUser);
-        when(mockedUser.getId()).thenReturn(1);
-        when(mockedCondo.getBuilding()).thenReturn(mockedBuilding);
-
-        // Act
-        CondoDto testCondoDto = CondoDto.fromEntity(mockedCondo);
-
-        // Assert
-        assertEquals(mockedCondo.getId(), testCondoDto.getId());
-        assertEquals(mockedCondo.getName(), testCondoDto.getName());
-        assertEquals(mockedCondo.getAddress(), testCondoDto.getAddress());
-        assertEquals(mockedCondo.getUnitNumber(), testCondoDto.getCondoNumber());
-        assertEquals(mockedCondo.getCondoType(), testCondoDto.getCondoType());
-        assertEquals(mockedCondo.getDescription(), testCondoDto.getDescription());
-        assertEquals(mockedCondo.getStatus(), testCondoDto.getStatus());
-        assertEquals(mockedCondo.getUser().getId(), testCondoDto.getUserId());
-        assertEquals(mockedCondo.getBuilding().getId(), testCondoDto.getBuildingId());
-    }
 
     @Test
     public void testToEntity() {
-        // Arrange
+        CondoDto condoDto = CondoDto.builder()
+                .unitNumber(101)
+                .description("Test Description")
+                .status("AVAILABLE")
+                .build();
 
-        // Act
-        Condo testCondo = CondoDto.toEntity(mockedCondoDto);
+        Building building = mock(Building.class);
+        Parking parking = mock(Parking.class);
+        Locker locker = mock(Locker.class);
 
+        Condo condo = CondoDto.toEntity(condoDto);
+        condo.setBuilding(building);
+        condo.setParking(parking);
+        condo.setLocker(locker);
 
-        // Assert
-        assertEquals(mockedCondoDto.getId(), testCondo.getId());
-        assertEquals(mockedCondoDto.getName(), testCondo.getName());
-        assertEquals(mockedCondoDto.getAddress(), testCondo.getAddress());
-        assertEquals(mockedCondoDto.getCondoNumber(), testCondo.getUnitNumber());
-        assertEquals(mockedCondoDto.getCondoType(), testCondo.getCondoType());
-        assertEquals(mockedCondoDto.getDescription(), testCondo.getDescription());
-        assertEquals(mockedCondoDto.getStatus(), testCondo.getStatus());
-        assertEquals(mockedCondoDto.getUserId(), testCondo.getUser().getId());
+        assertEquals(condoDto.getUnitNumber(), condo.getUnitNumber());
+        assertEquals(condoDto.getDescription(), condo.getDescription());
+        assertEquals(condoDto.getStatus(), condo.getStatus().toString());
     }
-    
+
+    @Test
+    public void testFromEntity() {
+        Condo condo = new Condo();
+        condo.setId(1);
+        condo.setAddress("456 Elm St");
+        condo.setUnitNumber(202);
+        condo.setDescription("Another Test Description");
+        condo.setRegistrationKey("REG456");
+        condo.setStatus(CondoStatus.AVAILABLE);
+
+        Building building = new Building();
+        building.setId(1);
+        condo.setBuilding(building);
+
+        Parking parking = new Parking();
+        parking.setId(1);
+        condo.setParking(parking);
+
+        Locker locker = new Locker();
+        locker.setId(1);
+        condo.setLocker(locker);
+
+        CondoDto condoDto = CondoDto.fromEntity(condo);
+
+        assertEquals(condo.getId(), condoDto.getId());
+        assertEquals(condo.getAddress(), condoDto.getAddress());
+        assertEquals(condo.getUnitNumber(), condoDto.getUnitNumber());
+        assertEquals(condo.getDescription(), condoDto.getDescription());
+        assertEquals(condo.getRegistrationKey(), condoDto.getRegistrationKey());
+        assertEquals(condo.getStatus().toString(), condoDto.getStatus());
+        assertEquals(condo.getBuilding().getId(), condoDto.getBuildingId());
+        assertEquals(condo.getParking().getId(), condoDto.getParkingId());
+        assertEquals(condo.getLocker().getId(), condoDto.getLockerId());
+    }
 }

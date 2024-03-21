@@ -1,6 +1,5 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.user.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,21 +11,25 @@ import static org.mockito.Mockito.mock;
 public class BuildingTest {
 
     List<Condo> mockedList = mock(List.class);
-    User mockedUser = mock(User.class);
+    List<Parking> mockedParking = mock(List.class);
+    List<Locker> mockedLocker = mock(List.class);
+    List<CommonFacility> mockedCommonFacility = mock(List.class);
+    Company mockedCompany = mock(Company.class);
+
     @Test
     public void testAllArgsConstructor() {
         // Arrange
 
 
         // Act
-        Building testBuilding = new Building("Concordia", "1455 Boul. De Maisonneuve O", "description", mockedList, mockedUser);
+        Building testBuilding = new Building("Concordia", "address", "description", 5, mockedList, mockedLocker, mockedParking, mockedCommonFacility, mockedCompany);//new Building("Concordia", "1455 Boul. De Maisonneuve O", "description", mockedList, mockedUser);
 
         // Assert
         assertEquals("Concordia", testBuilding.getName());
-        assertEquals("1455 Boul. De Maisonneuve O", testBuilding.getAddress());
+        assertEquals("address", testBuilding.getAddress());
         assertEquals("description", testBuilding.getDescription());
         assertEquals(mockedList, testBuilding.getCondos());
-        assertEquals(mockedUser, testBuilding.getCompany());
+        assertEquals(mockedCompany, testBuilding.getCompany());
     }
 
     @Test
