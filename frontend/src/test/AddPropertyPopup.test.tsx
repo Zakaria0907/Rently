@@ -3,7 +3,7 @@ import AddPropertyPopup from "../components/AddPropertyPopup";
 
 describe("AddPropertyPopup Component", () => {
 	beforeEach(() => {
-		render(<AddPropertyPopup closeModal={() => {}} userId={1} />);
+		render(<AddPropertyPopup closeModal={() => {}} company_id={1} />);
 	});
 
 	it("renders the modal title", () => {

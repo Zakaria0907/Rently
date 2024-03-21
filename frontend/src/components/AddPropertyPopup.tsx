@@ -4,24 +4,24 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 interface AddPropertyPopupProps {
     closeModal: () => void;
-    userId: number;
+    company_id: number;
 }
 
-const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId }: AddPropertyPopupProps) => {
+const AddPropertyPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, company_id }: AddPropertyPopupProps) => {
     const [building, setBuilding] = useState<Building>({
         name: '',
         address: '',
-        // unitCount: 0,
+        numberOfFloors: 5,
         description: '',
+        companyId: company_id,
     });
 
     const axiosPrivate = useAxiosPrivate();
 
-
     const addBuilding = async () => {
         console.log("Adding this building: ", building);
         try {
-            await axiosPrivate.post(`/company/${userId}/create-building`, building);
+            await axiosPrivate.post(`/company-admin/create/building`, building);
             closeModal();
         } catch (error) {
             console.log(error);

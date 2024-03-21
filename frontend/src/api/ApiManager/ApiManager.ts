@@ -1,8 +1,7 @@
 import ApiMethods from "./ApiMethods";
 import ENDPOINTS from "./EndPoints"
 
-const BASE_URL = 'http://localhost:8080/api/v1'
-const BASE_URL_AUTH = 'http://localhost:8080/api'
+const BASE_URL = 'http://localhost:8080/api';
 
 class ApiManager {
     static helloWorld = () => {
@@ -16,12 +15,12 @@ class ApiManager {
     }
 
     static login = (data: any) => {
-        const url = BASE_URL_AUTH + ENDPOINTS.LOGIN();
+        const url = BASE_URL + ENDPOINTS.LOGIN();
         return ApiMethods.post(url, data, true);
     }
 
     static refresh = (data: any) => {
-        const url = BASE_URL_AUTH + ENDPOINTS.REFRESH();
+        const url = BASE_URL + ENDPOINTS.REFRESH();
         return ApiMethods.post(url, data, true);
     }
 

@@ -1,6 +1,6 @@
 export enum Roles {
     ADMIN = "SYSTEM_ADMIN",
-    USER = "USER",
+    USER = "PUBLIC_USER",
     RENTER = "RENTER",
     OWNER = "OWNER",
     COMPANY= "COMPANY_ADMIN",

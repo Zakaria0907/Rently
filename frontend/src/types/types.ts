@@ -15,18 +15,20 @@ export interface User {
     bio: string;
     email: string;
     roles: string;
+    company_id?: number;
 }
 
 export interface Building {
     id?: number;
     name: string;
+    numberOfFloors: number;
     address: string;
-    unitCount?: number;
     description: string;
+    companyId?: number;
     userId?: number;
 }
 
-export type Unit = {
+export interface Unit {
     id?: number;
     name: string;
     address: string;
