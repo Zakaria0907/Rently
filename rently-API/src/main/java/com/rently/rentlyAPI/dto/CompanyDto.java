@@ -1,37 +1,36 @@
 package com.rently.rentlyAPI.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.security.Role;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
 public class CompanyDto {
-    @Nullable
+
+    @JsonProperty("id")
     private Integer id;
 
-    @NotBlank(message = "Name is required")
+    @JsonProperty("company_name")
+    @NotBlank(message = "The company name is required")
     private String name;
 
-    public static CompanyDto fromEntity(Company company) {
+    public static Company toEntity(CompanyDto companyDto){
+        return Company.builder()
+                .name(companyDto.getName())
+                .build();
+    }
+
+    public static CompanyDto fromEntity(Company company){
         return CompanyDto.builder()
                 .id(company.getId())
                 .name(company.getName())
                 .build();
     }
-
-    public static Company toEntity(CompanyDto companyDto) {
-        return Company.builder()
-                .id(companyDto.getId())
-                .name(companyDto.getName())
-                .build();
-    }
-
 }

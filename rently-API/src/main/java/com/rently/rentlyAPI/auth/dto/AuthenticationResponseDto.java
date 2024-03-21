@@ -2,7 +2,7 @@ package com.rently.rentlyAPI.auth.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rently.rentlyAPI.dto.UserDto;
+import com.rently.rentlyAPI.dto.RootUserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +21,5 @@ public class AuthenticationResponseDto {
     private String refreshToken;
 
     @JsonProperty("user")
-    private UserDto user;
+    private RootUserDto user;
 }

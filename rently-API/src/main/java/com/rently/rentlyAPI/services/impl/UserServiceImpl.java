@@ -1,144 +1,141 @@
 package com.rently.rentlyAPI.services.impl;
 
-import com.rently.rentlyAPI.dto.UpdateProfileRequestDto;
-import com.rently.rentlyAPI.dto.UserProfileDto;
-import com.rently.rentlyAPI.auth.dto.ChangePasswordRequestDto;
-import com.rently.rentlyAPI.auth.dto.RegisterRequestDto;
-import com.rently.rentlyAPI.entity.Key;
-import com.rently.rentlyAPI.entity.User;
+import com.rently.rentlyAPI.dto.CompanyAdminDto;
+import com.rently.rentlyAPI.dto.EmployeeDto;
+import com.rently.rentlyAPI.dto.PublicUserDto;
+import com.rently.rentlyAPI.dto.SystemAdminDto;
+import com.rently.rentlyAPI.entity.Condo;
+import com.rently.rentlyAPI.entity.user.Occupant;
+import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
-import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
-import com.rently.rentlyAPI.repository.UserRepository;
 import com.rently.rentlyAPI.security.Role;
-import com.rently.rentlyAPI.services.KeyService;
-import com.rently.rentlyAPI.services.UserService;
-import jakarta.persistence.EntityNotFoundException;
+import com.rently.rentlyAPI.services.*;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final PasswordEncoder passwordEncoder;
-    private final UserRepository userRepository;
-    private final KeyService keyService;
+    private final SystemAdminService systemAdminService;
+    private final CompanyAdminService companyAdminService;
+    private final EmployeeService employeeService;
+    private final PublicUserService publicUserService;
+    private final OwnerService ownerService;
+    private final RenterService renterService;
 
-    public User createUser(RegisterRequestDto request) {
-        String encodedPassword = null;
-        
-        if (request.getPassword() != null) {
-            // Encode the password if provided (null with google for example)
-            encodedPassword = passwordEncoder.encode(request.getPassword());
-        }
-        var user = User.builder()
-            .firstname(request.getFirstname())
-            .lastname(request.getLastname())
-            .email(request.getEmail())
-            .password(encodedPassword)
-            .role(request.getRole())
-            .provider(request.getProvider())
-            .phoneNumber(request.getPhoneNumber())
-            .bio(request.getBio())
-            .build();
-        
-	    return userRepository.save(user);
-    }
+    private final JwtUtils jwtUtils;
 
-    public void changePassword(ChangePasswordRequestDto request, Principal connectedUser) {
-        
-        var user = (User) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+    /**
+     * This method finds a user with the given email and returns it, regardless of the role
+     *
+     * @param email the email of the user to be found
+     * @return User with the given email
+     * @throws AuthenticationException if no user with the given email is found
+     */
+    @Override
+    public User findUserAccordingToTypeWithEmail(String email) {
 
-        // check if the current password is correct
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new AuthenticationException("The current password is incorrect");
-        }
-        // check if the two new passwords are the same
-        if (!request.getNewPassword().equals(request.getConfirmationPassword())) {
-            throw new AuthenticationException("The two passwords do not match");
+        if (systemAdminService.findByEmail(email).isPresent()) {
+            return systemAdminService.findByEmail(email).get();
         }
 
-        // update the password
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-
-        // save the new password
-        userRepository.save(user);
-    }
-    
-    public User updateProfile(UpdateProfileRequestDto request, Integer user_id) {
-        User user = userRepository.findById(user_id)
-            .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        
-        if (request.getFirstname() != null) user.setFirstname(request.getFirstname());
-        if (request.getLastname() != null) user.setLastname(request.getLastname());
-        if (request.getPhoneNumber() != null) user.setPhoneNumber(request.getPhoneNumber());
-        if (request.getBio() != null) user.setBio(request.getBio());
-        
-        return userRepository.save(user);
-    }
-    
-    public UserProfileDto viewProfile(Integer userId) {
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> new EntityNotFoundException("User not found"));
-        
-        String profilePictureUrl = user.getProfilePicture() != null ? user.getProfilePicture().getStoredUrl() : " ";
-	    
-        return UserProfileDto.builder()
-            .firstname(user.getFirstname())
-            .lastname(user.getLastname())
-            .email(user.getEmail())
-            .role(user.getRole().name())
-            .phoneNumber(user.getPhoneNumber())
-            .profilePicture(profilePictureUrl)
-            .bio(user.getBio())
-            .build();
-    }
-    
-
-    //user becomes RENTER by providing key (user cannot go from owner -> renter)
-    public User activateKeyToChangeRole(String condoKey) {
-
-        //find the key
-        Key key = keyService.findByKey(condoKey);
-
-        //if key is not found
-        if (key == null) {
-            throw new EntityNotFoundException("Key with key " + condoKey + " not found");
+        if (companyAdminService.findByEmail(email).isPresent()) {
+            return companyAdminService.findByEmail(email).get();
         }
 
-        //find user by key
-         User user = userRepository.findUserByKey(condoKey);
+        if (employeeService.findByEmail(email).isPresent()) {
+            return employeeService.findByEmail(email).get();
+        }
 
-            //if user is not found
-            if (user == null) {
-                throw new EntityNotFoundException("User with key " + condoKey + " not found");
-            }
+        if (publicUserService.findByEmail(email).isPresent()) {
+            return publicUserService.findByEmail(email).get();
+        }
 
-            //if user is not a renter
-            if (user.getRole() != Role.USER) {
-                throw new OperationNonPermittedException("User with key " + condoKey + " is not allowed to become a RENTER");
-            }
+        if (ownerService.findByEmail(email).isPresent()) {
+            return ownerService.findByEmail(email).get();
+        }
 
-            //if key role is not renter or owner
-            if (key.getRole() != Role.RENTER && key.getRole() != Role.OWNER) {
-                throw new OperationNonPermittedException("Your key ROLE is " + key.getRole() + " and it is not an allowed role.");
-            }
+        if (renterService.findByEmail(email).isPresent()) {
+            return renterService.findByEmail(email).get();
+        }
+        throw new AuthenticationException("User with email " + email + " not found");
+    }
 
-            user.setRole(key.getRole());
-            key.setActive(true);
-            key.setUser(user);
-            keyService.save(key);
-            return userRepository.save(user);
+    /**
+     * This method checks if a user with the given email exists in the database, regardless of the role
+     *
+     * @param email the email of the user to be checked
+     * @return true if the user exists, false otherwise
+     */
+    public boolean userExistsForRegistration(String email) {
+        try {
+            findUserAccordingToTypeWithEmail(email);
+        } catch (AuthenticationException e) {
+            // this means no user exists with this email
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public SystemAdminDto registerSystemAdmin(SystemAdminDto systemAdminDto) {
+        if (userExistsForRegistration(systemAdminDto.getEmail()) == false) {
+            return systemAdminService.registerSystemAdmin(systemAdminDto);
+        }
+        throw new AuthenticationException("User with email " + systemAdminDto.getEmail() + " already exists.");
+
     }
 
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    public CompanyAdminDto registerCompanyAdmin(CompanyAdminDto companyAdminDto) {
+        if (userExistsForRegistration(companyAdminDto.getEmail()) == false) {
+            return companyAdminService.registerCompanyAdminAndLinkToCompany(companyAdminDto);
+        }
+        throw new AuthenticationException("User with email " + companyAdminDto.getEmail() + " already exists.");
     }
+
+    @Override
+    public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
+        if (userExistsForRegistration(employeeDto.getEmail()) == false) {
+            return employeeService.registerEmployee(employeeDto);
+        }
+        throw new AuthenticationException("User with email " + employeeDto.getEmail() + " already exists.");
+    }
+
+    @Override
+    public PublicUserDto registerPublicUser(PublicUserDto publicUserDto) {
+        if (userExistsForRegistration(publicUserDto.getEmail()) == false) {
+            return publicUserService.registerPublicUser(publicUserDto);
+        }
+        throw new AuthenticationException("User with email " + publicUserDto.getEmail() + " already exists.");
+    }
+
+    @Override
+    public String userKeyActivation(String token, String key) {
+        // find the condo with the key
+        Condo condo = companyAdminService.getCondoEntityByRegistrationKey(key);
+
+        String tokenWithoutBearer = token.substring(7);
+        String userEmail = jwtUtils.extractUsername(tokenWithoutBearer);
+        User user = findUserAccordingToTypeWithEmail(userEmail);
+
+        if (user.getRole().equals(Role.PUBLIC_USER)) {
+            Occupant newOccupant = publicUserService.transformToOccupant(userEmail, key);
+            return companyAdminService.linkOccupantToHousingContract(newOccupant, condo).toString();
+        }
+
+        if (user.getRole().toString().startsWith("OW") || user.getRole().toString().startsWith("RE")) {
+            return companyAdminService.linkOccupantToHousingContract((Occupant) user, condo).toString();
+
+        }
+
+        return "Invalid user trying to activate key";
+
+    }
+
+
 }
+

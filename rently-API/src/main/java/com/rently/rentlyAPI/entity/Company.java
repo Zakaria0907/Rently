@@ -1,10 +1,9 @@
 package com.rently.rentlyAPI.entity;
 
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.rently.rentlyAPI.entity.user.CompanyAdmin;
+import com.rently.rentlyAPI.entity.user.Employee;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,24 +19,30 @@ import java.util.List;
 @Entity
 @Table(name = "company")
 public class Company extends AbstractEntity {
+    
     @NotBlank(message = "Name is required")
+    @Column(unique = true, name = "name")
     private String name;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Building> buildings;
 
-    @OneToMany(mappedBy = "handlingCompany", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HousingContract> housingContracts;
 
-    @OneToMany(mappedBy = "handlingCompany", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmploymentContract> employmentContracts;
+    
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Request> requests;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EmployeeAssignment> backlog;
+    private List<EmployeeAssignment> employeeAssignments;
+    
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CompanyAdmin> companyAdmins;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FacilityReservation> reservationCalendar;
+    private List<Employee> employees;
 
 }

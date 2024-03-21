@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "commonfacility")
+@Table(name = "common_facility")
 public class CommonFacility extends AbstractEntity {
     private String name;
     private String description;

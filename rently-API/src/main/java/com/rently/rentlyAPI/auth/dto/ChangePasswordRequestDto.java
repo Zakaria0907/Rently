@@ -1,31 +1,25 @@
 package com.rently.rentlyAPI.auth.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
 @AllArgsConstructor
 public class ChangePasswordRequestDto {
 
-    @NotNull(message = "The current password is required")
     @NotBlank(message = "The current password is required")
-    @NotEmpty(message = "The current password is required")
-    private String currentPassword;
-
-    @NotNull(message = "The new password is required")
+    @JsonProperty("old_password")
+    private String oldPassword;
+    
     @NotBlank(message = "The new password is required")
-    @NotEmpty(message = "The new password is required")
+    @JsonProperty("new_password")
     private String newPassword;
-
-    @NotNull(message = "The confirmation password is required")
+    
     @NotBlank(message = "The confirmation password is required")
-    @NotEmpty(message = "The confirmation password is required")
+    @JsonProperty("confirm_password")
     private String confirmationPassword;
 }

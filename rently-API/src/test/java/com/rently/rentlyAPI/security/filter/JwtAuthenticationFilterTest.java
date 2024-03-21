@@ -2,7 +2,7 @@ package com.rently.rentlyAPI.security.filter;
 
 import com.rently.rentlyAPI.auth.entity.AccessToken;
 import com.rently.rentlyAPI.auth.repository.TokenRepository;
-import com.rently.rentlyAPI.security.utils.JwtUtils;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import org.junit.jupiter.api.Test;

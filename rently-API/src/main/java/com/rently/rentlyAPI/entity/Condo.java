@@ -1,8 +1,9 @@
 package com.rently.rentlyAPI.entity;
 
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,18 +14,21 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "condo")
+@Table(name = "condo", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"building_id", "unitNumber"})
+})
 public class Condo extends AbstractEntity {
 
-    private String name;
-
+    // address is building address + condo number
     private String address;
-
-    private String condoNumber;
-
-    private String condoType;
+    
+    @Min(value = 0, message = "Unit number must be greater or equal than 0")
+    private Integer unitNumber;
 
     private String description;
+
+    @Column(unique = true)
+    private String registrationKey;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(255) default 'AVAILABLE'")
@@ -41,6 +45,4 @@ public class Condo extends AbstractEntity {
     // condo can be associated to 0 or 1 locker
     @OneToOne(mappedBy = "condo")
     private Locker locker;
-
-
 }

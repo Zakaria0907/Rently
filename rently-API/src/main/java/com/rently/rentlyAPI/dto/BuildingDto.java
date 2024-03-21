@@ -1,32 +1,37 @@
 package com.rently.rentlyAPI.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rently.rentlyAPI.entity.Building;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
 public class BuildingDto {
-	
-	@Nullable
+
+	@JsonProperty("id")
 	private Integer id;
-	
-	@NotBlank(message = "Name is required")
+
+	@JsonProperty("name")
+	@NotBlank(message = "The name is required")
 	private String name;
-	
-	@NotBlank(message = "Address is required")
+
+	@JsonProperty("number_of_floors")
+	private Integer numberOfFloors;
+
+	@JsonProperty("address")
+	@NotBlank(message = "The address is required")
 	private String address;
 
+	@JsonProperty("description")
 	private String description;
-	
-	private CompanyDto company;
-	
+
+	@JsonProperty("company_id")
+	private Integer companyId;
+
 	// Converts a Building entity to a BuildingDto
 	public static BuildingDto fromEntity(Building building) {
 		return BuildingDto.builder()
@@ -34,19 +39,19 @@ public class BuildingDto {
 				.name(building.getName())
 				.address(building.getAddress())
 				.description(building.getDescription())
-				.company(CompanyDto.fromEntity(building.getCompany()))
-				.build();
-	}
-	
-	// Converts a BuildingDto to a Building entity
-	public static Building toEntity(BuildingDto buildingDto) {
-		return Building.builder()
-				.id(buildingDto.getId())
-				.name(buildingDto.getName())
-				.address(buildingDto.getAddress())
-				.description(buildingDto.getDescription())
-				.company(CompanyDto.toEntity(buildingDto.getCompany()))
+				.numberOfFloors(building.getNumberOfFloors())
+				.companyId(building.getCompany().getId())
 				.build();
 
 	}
+
+	public static Building toEntity(BuildingDto buildingDto) {
+		return Building.builder()
+				.name(buildingDto.getName())
+				.address(buildingDto.getAddress())
+				.description(buildingDto.getDescription())
+				.numberOfFloors(buildingDto.getNumberOfFloors())
+				.build();
+	}
+
 }

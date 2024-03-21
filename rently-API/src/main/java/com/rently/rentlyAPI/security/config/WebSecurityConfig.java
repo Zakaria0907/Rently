@@ -1,10 +1,7 @@
 package com.rently.rentlyAPI.security.config;
 
 import com.rently.rentlyAPI.security.filter.JwtAuthenticationFilter;
-import com.rently.rentlyAPI.auth.services.RentlyOAuth2UserService;
-import com.rently.rentlyAPI.security.utils.OAuth2LoginSuccessHandler;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,8 +20,8 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.rently.rentlyAPI.security.Permission.*;
-import static com.rently.rentlyAPI.security.Role.SYSTEM_ADMIN;
 import static com.rently.rentlyAPI.security.Role.COMPANY_ADMIN;
+import static com.rently.rentlyAPI.security.Role.SYSTEM_ADMIN;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -33,19 +30,23 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 //@EnableMethodSecurity //Enables @PreAuthroize annotation
 public class WebSecurityConfig {
-    
-    @Autowired
-    private RentlyOAuth2UserService oAuth2UserService;
-    
-    @Autowired
-    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
+//    @Autowired
+//    private RentlyOAuth2UserService oAuth2UserService;
+//
+//    @Autowired
+//    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
     private static final String[] WHITE_LIST_URL = {
+//        "/api/system-admin/**",
+//            "/api/company-admin/**",
+            "api/system-admin/create/system-admin",
+            "/api/public-user/**",
             "http://localhost:8080/api/v1/auth/**",
-            "/api/v1/auth/**",
-//            "/login/oauth2/code/google",
+            "/api/authentication/**",
             "/v2/api-docs",
             "/v3/api-docs",
             "/v3/api-docs/**",
@@ -78,6 +79,13 @@ public class WebSecurityConfig {
                                 .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_CREATE.name())
                                 .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_UPDATE.name())
                                 .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(SYSTEM_ADMIN_DELETE.name())
+
+                                .requestMatchers("/api/company-admin/**").hasAnyRole(COMPANY_ADMIN.name())
+                                .requestMatchers(GET, "/api/company-admin/**").hasAnyAuthority(COMPANY_ADMIN_READ.name())
+                                .requestMatchers(POST, "/api/company-admin/**").hasAnyAuthority(COMPANY_ADMIN_CREATE.name())
+                                .requestMatchers(PUT, "/api/company-admin/**").hasAnyAuthority(COMPANY_ADMIN_UPDATE.name())
+                                .requestMatchers(DELETE, "/api/company-admin/**").hasAnyAuthority(COMPANY_ADMIN_DELETE.name())
+
 
                                 .anyRequest()
                                 .authenticated()
