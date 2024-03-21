@@ -1,73 +1,60 @@
-//package com.rently.rentlyAPI.entity;
-//
-//import com.rently.rentlyAPI.entity.user.User;
-//import com.rently.rentlyAPI.entity.enums.CondoStatus;
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertNull;
-//import static org.mockito.Mockito.mock;
-//
-//public class CondoTest {
-//
-//    CondoStatus mockedCondoStatus = mock(CondoStatus.class);
-//    Building mockedBuilding = mock(Building.class);
-//    User mockedUser = mock(User.class);
-//    @Test
-//    public void testAllArgsConstructor() {
-//        // Arrange
-//
-//
-//        // Act
-//        Condo testCondo = new Condo("Concordia", "1455 Boul. De Maisonneuve O", "123", "type1", "description", mockedCondoStatus, mockedBuilding, mockedUser);
-//
-//        // Assert
-//        assertEquals("Concordia", testCondo.getName());
-//        assertEquals("1455 Boul. De Maisonneuve O", testCondo.getAddress());
-//        assertEquals("123", testCondo.getUnitNumber());
-//        assertEquals("type1", testCondo.getCondoType());
-//        assertEquals("description", testCondo.getDescription());
-//        assertEquals(mockedCondoStatus, testCondo.getStatus());
-//        assertEquals(mockedBuilding, testCondo.getBuilding());
-//        assertEquals(mockedUser, testCondo.getUser());
-//    }
-//
-//    @Test
-//    public void testNoArgsConstructor() {
-//        // Arrange
-//
-//
-//        // Act
-//        Condo testCondo = new Condo();
-//
-//        // Assert
-//        assertNull(testCondo.getName());
-//        assertNull(testCondo.getAddress());
-//        assertNull(testCondo.getUnitNumber());
-//        assertNull(testCondo.getCondoType());
-//        assertNull(testCondo.getDescription());
-//        assertNull(testCondo.getStatus());
-//        assertNull(testCondo.getBuilding());
-//        assertNull(testCondo.getUser());
-//    }
-//
-//    @Test
-//    public void testBuilder() {
-//        // Arrange
-//
-//
-//        // Act
-//        Condo testCondo = Condo.builder().build();
-//
-//        // Assert
-//        assertNull(testCondo.getName());
-//        assertNull(testCondo.getAddress());
-//        assertNull(testCondo.getUnitNumber());
-//        assertNull(testCondo.getCondoType());
-//        assertNull(testCondo.getDescription());
-//        assertNull(testCondo.getStatus());
-//        assertNull(testCondo.getBuilding());
-//        assertNull(testCondo.getUser());
-//    }
-//
-//}
+package com.rently.rentlyAPI.entity;
+
+import com.rently.rentlyAPI.entity.enums.CondoStatus;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+
+@SpringBootTest
+public class CondoTest {
+
+    Building mockedBuilding = mock(Building.class);
+    Parking mockedParking = mock(Parking.class);
+    Locker mockedLocker = mock(Locker.class);
+
+    @Test
+    public void testAllArgsConstructor() {
+
+        Condo testCondo = new Condo("Concordia", 4, "123", "key", CondoStatus.AVAILABLE, mockedBuilding, mockedParking, mockedLocker);
+
+        assertEquals("Concordia", testCondo.getAddress());
+        assertEquals(4, testCondo.getUnitNumber());
+        assertEquals("key", testCondo.getRegistrationKey());
+        assertEquals("123", testCondo.getDescription());
+        assertEquals(CondoStatus.AVAILABLE, testCondo.getStatus());
+        assertEquals(mockedBuilding, testCondo.getBuilding());
+        assertEquals(mockedParking, testCondo.getParking());
+        assertEquals(mockedLocker, testCondo.getLocker());
+    }
+
+    @Test
+    public void testNoArgsConstructor() {
+
+        Condo testCondo = new Condo();
+
+        assertNull(testCondo.getAddress());
+        assertNull(testCondo.getUnitNumber());
+        assertNull(testCondo.getDescription());
+        assertNull(testCondo.getStatus());
+        assertNull(testCondo.getBuilding());
+        assertNull(testCondo.getLocker());
+        assertNull(testCondo.getParking());
+
+    }
+
+    @Test
+    public void testBuilder() {
+
+        Condo testCondo = Condo.builder().build();
+
+        assertNull(testCondo.getAddress());
+        assertNull(testCondo.getUnitNumber());
+        assertNull(testCondo.getDescription());
+        assertNull(testCondo.getStatus());
+        assertNull(testCondo.getBuilding());
+    }
+
+}
