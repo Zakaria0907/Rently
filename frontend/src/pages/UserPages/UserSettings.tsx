@@ -20,9 +20,8 @@ const UserSettings = () => {
     const handleProfileUpdate = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         try {
-            const response = await axiosPrivate.patch('/users/update-profile/1',
+            const response = await axiosPrivate.post(`/user/activate-key/key=${activationKey}`,
                 JSON.stringify({
-                    activationKey: activationKey,
                 }),
                 {
                     headers: {
