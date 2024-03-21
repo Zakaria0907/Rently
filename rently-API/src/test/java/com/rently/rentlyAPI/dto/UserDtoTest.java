@@ -1,55 +1,44 @@
 package com.rently.rentlyAPI.dto;
 
-import com.rently.rentlyAPI.entity.user.User;
-import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@SpringBootTest
 public class UserDtoTest {
 
-    UserDto mockedUserDto = mock(UserDto.class);
-    User mockedUser = mock(User.class);
-    Role mockedRole = mock(Role.class);
-
     @Test
-    public void testFromEntity() {
-        // Arrange
-        when(mockedUser.getRole()).thenReturn(mockedRole);
-        when(mockedRole.name()).thenReturn("ADMIN");
+    public void testUserDtoInitialization() {
+        Integer id = 1;
+        String email = "user@example.com";
+        String password = "password";
+        String firstName = "John";
+        String lastName = "Doe";
+        String phoneNumber = "1234567890";
+        String bio = "User bio";
+        String role = "USER";
 
+        UserDto userDto = UserDto.builder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .firstName(firstName)
+                .lastName(lastName)
+                .phoneNumber(phoneNumber)
+                .bio(bio)
+                .role(role)
+                .build();
 
-        // Act
-        UserDto testUserDto = UserDto.fromEntity(mockedUser);
-
-        // Assert
-        assertEquals(mockedUser.getId(), testUserDto.getId());
-        assertEquals(mockedUser.getFirstName(), testUserDto.getFirstname());
-        assertEquals(mockedUser.getLastName(), testUserDto.getLastname());
-        assertEquals(mockedUser.getPhoneNumber(), testUserDto.getPhoneNumber());
-        assertEquals(mockedUser.getBio(), testUserDto.getBio());
-        assertEquals(mockedUser.getEmail(), testUserDto.getEmail());
-        assertEquals(mockedUser.getRole().name(), testUserDto.getRole());
+        assertNotNull(userDto);
+        assertEquals(id, userDto.getId());
+        assertEquals(email, userDto.getEmail());
+        assertEquals(password, userDto.getPassword());
+        assertEquals(firstName, userDto.getFirstName());
+        assertEquals(lastName, userDto.getLastName());
+        assertEquals(phoneNumber, userDto.getPhoneNumber());
+        assertEquals(bio, userDto.getBio());
+        assertEquals(role, userDto.getRole());
     }
-
-    @Test
-    public void testToEntity() {
-        // Arrange
-        when(mockedUserDto.getRole()).thenReturn("ADMIN");
-
-
-        // Act
-        User testUser = UserDto.toEntity(mockedUserDto);
-
-        // Assert
-        assertEquals(mockedUserDto.getId(), testUser.getId());
-        assertEquals(mockedUserDto.getFirstname(), testUser.getFirstName());
-        assertEquals(mockedUserDto.getLastname(), testUser.getLastName());
-        assertEquals(mockedUserDto.getPhoneNumber(), testUser.getPhoneNumber());
-        assertEquals(mockedUserDto.getBio(), testUser.getBio());
-        assertEquals(mockedUserDto.getEmail(), testUser.getEmail());
-    }
-
 }
