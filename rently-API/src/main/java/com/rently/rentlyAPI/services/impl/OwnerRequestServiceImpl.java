@@ -7,6 +7,7 @@ import com.rently.rentlyAPI.entity.OwnerRequest;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.repository.OwnerRequestRepository;
 import com.rently.rentlyAPI.services.OwnerRequestService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +26,16 @@ public class OwnerRequestServiceImpl implements OwnerRequestService {
         OwnerRequest savedOwnerRequest = ownerRequestRepository.save(ownerRequest);
 
         return OwnerRequestDto.fromEntity(savedOwnerRequest);
+    }
+
+    @Override
+    public OwnerRequest findOwnerRequestEntityById(Integer id) {
+        return ownerRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Owner request with ID " + id + " not found"));
+    }
+
+    @Override
+    public void deleteOwnerRequest(OwnerRequest ownerRequest) {
+        ownerRequestRepository.delete(ownerRequest);
     }
 }

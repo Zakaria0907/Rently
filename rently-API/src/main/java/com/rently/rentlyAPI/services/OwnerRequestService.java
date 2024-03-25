@@ -8,4 +8,7 @@ import com.rently.rentlyAPI.entity.user.Owner;
 public interface OwnerRequestService {
     OwnerRequestDto createOwnerRequest(Owner owner, Building building, OwnerRequest ownerRequest);
 
+    OwnerRequest findOwnerRequestEntityById(Integer id);
+
+    void deleteOwnerRequest(OwnerRequest ownerRequest);
 }

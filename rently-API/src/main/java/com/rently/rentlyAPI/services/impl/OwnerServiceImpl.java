@@ -36,4 +36,12 @@ public class OwnerServiceImpl implements OwnerService {
         OwnerRequest ownerRequest = OwnerRequestDto.toEntity(ownerRequestDto);
         return ownerRequestService.createOwnerRequest(owner, building, ownerRequest);
     }
+
+    @Override
+    public void deleteOwnerRequest(Owner owner, Integer id) {
+        OwnerRequest ownerRequest = ownerRequestService.findOwnerRequestEntityById(id);
+        if (owner.equals(ownerRequest.getOwner()))
+            ownerRequestService.deleteOwnerRequest(ownerRequest);
+
+    }
 }

@@ -12,4 +12,6 @@ public interface OwnerService {
     Optional<Owner> findOwnerEntityById(Integer occupantId);
 
     OwnerRequestDto createOwnerRequest(Owner owner, OwnerRequestDto ownerRequestDto);
+
+    void deleteOwnerRequest(Owner owner, Integer id);
 }

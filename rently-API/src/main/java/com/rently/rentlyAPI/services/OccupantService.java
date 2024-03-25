@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.user.Occupant;
 
 import java.util.List;
@@ -19,4 +20,8 @@ public interface OccupantService {
     List<CommonFacilityReservationDto> getAllCommonFacilityReservations(String token);
 
     Occupant findOccupantEntityByToken(String token);
+
+    OwnerRequestDto createOwnerRequest(String token, OwnerRequestDto ownerRequestDto);
+
+    void deleteOwnerRequest(String token, Integer id);
 }
