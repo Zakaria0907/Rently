@@ -57,5 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> new EntityNotFoundException("Employee with id: " + employeeId + " not found"));
     }
 
+    @Override
+    public void deleteEmployee(Integer id) {
+        findById(id);
+        employeeRepository.deleteById(id);
+    }
+
 
 }

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/system-admin")
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class SystemAdminController {
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok(systemAdminService.createCompany(companyDto));
     }
-    
+
     @PatchMapping(path = "/update/company")
     public ResponseEntity<CompanyDto> updateCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok(systemAdminService.updateCompany(companyDto));
@@ -32,9 +34,26 @@ public class SystemAdminController {
         return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
     }
 
+    @GetMapping(path = "/get/system-admin")
+    public ResponseEntity<List<SystemAdminDto>> getAllSystemAdmin() {
+        return ResponseEntity.ok(userService.getAllSystemAdmins());
+    }
+
+
     @PostMapping(path = "/create/company-admin")
     public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto) {
         return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto));
+    }
+
+    @DeleteMapping(path = "/delete/company-admin/id={id}")
+    public ResponseEntity<String> deleteCompanyAdmin(@PathVariable("id") Integer id) {
+        userService.deleteCompanyAdmin(id);
+        return ResponseEntity.ok("Company Admin deleted successfully");
+    }
+
+    @GetMapping(path = "/get/company-admin")
+    public ResponseEntity<List<CompanyAdminDto>> getAllCompanyAdmin() {
+        return ResponseEntity.ok(userService.getAllCompanyAdmins());
     }
 
 //

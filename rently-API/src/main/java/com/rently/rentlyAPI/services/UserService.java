@@ -7,6 +7,8 @@ import com.rently.rentlyAPI.dto.PublicUserDto;
 import com.rently.rentlyAPI.dto.SystemAdminDto;
 import com.rently.rentlyAPI.entity.user.User;
 
+import java.util.List;
+
 public interface UserService {
     //for authentication purposes, we want to get the user with its email
     User findUserAccordingToTypeWithEmail(String email);
@@ -18,6 +20,14 @@ public interface UserService {
     EmployeeDto registerEmployee(EmployeeDto employeeDto);
 
     PublicUserDto registerPublicUser(PublicUserDto publicUserDto);
-    
+
     String userKeyActivation(String token, String key);
+
+    List<SystemAdminDto> getAllSystemAdmins();
+
+    List<CompanyAdminDto> getAllCompanyAdmins();
+
+    void deleteCompanyAdmin(Integer id);
+
+    void deleteEmployee(Integer id);
 }

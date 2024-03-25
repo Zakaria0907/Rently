@@ -2,7 +2,6 @@ package com.rently.rentlyAPI.services;
 
 import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.entity.Condo;
-import com.rently.rentlyAPI.entity.HousingContract;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.entity.user.Occupant;
 
@@ -72,14 +71,16 @@ public interface CompanyAdminService {
     List<CommonFacilityDto> getAllCommonFacilities();
 
     void deleteCommonFacilityById(Integer commonFacilityId);
-    
+
     CondoDto createCondoAndLinkToBuilding(CondoDto condoDto);
-    
+
     Condo getCondoEntityByRegistrationKey(String registrationKey);
-    
+
     String generateKeyForCondoAndCreateHousingContract(RegistrationKeyRequestDto registrationKeyRequestDto, HousingContractDto housingContractDto);
-    
+
     String sendKeyAndHousingContractToFutureOccupant(EmailDto emailDto);
-    
+
     HousingContractDto linkOccupantToHousingContract(Occupant occupant, Condo condo);
+
+    void deleteCompanyAdmin(Integer id);
 }

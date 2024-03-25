@@ -250,7 +250,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         
         return "Key sent to future occupant";
     }
-    
+
     @Override
     public HousingContractDto linkOccupantToHousingContract(Occupant occupant, Condo condo) {
         HousingContract housingContract = housingContractService.findHousingContractEntityByCondoId(condo.getId());
@@ -261,8 +261,14 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 //        occupantService.updateOccupationCount(occupant.getId());
         return housingContractDto;
     }
-    
-    
+
+    @Override
+    public void deleteCompanyAdmin(Integer id) {
+        findCompanyAdminEntityById(id);
+        companyAdminRepository.deleteById(id);
+    }
+
+
     /*
      * Employee logic
      */

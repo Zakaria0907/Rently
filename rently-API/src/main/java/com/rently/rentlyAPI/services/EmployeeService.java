@@ -14,4 +14,6 @@ public interface EmployeeService {
     Optional<Employee> findByEmail(String email);
 
     Employee findById(Integer employeeId);
+
+    void deleteEmployee(Integer id);
 }
