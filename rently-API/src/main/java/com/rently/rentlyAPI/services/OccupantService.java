@@ -17,4 +17,6 @@ public interface OccupantService {
     CommonFacilityReservationDto getCommonFacilityReservation(String token, Integer id);
 
     List<CommonFacilityReservationDto> getAllCommonFacilityReservations(String token);
+
+    Occupant findOccupantEntityByToken(String token);
 }

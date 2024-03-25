@@ -30,7 +30,7 @@ public class OccupantServiceImpl implements OccupantService {
         return buildingService.createCommonFacilityReservation(occupantToLink, commonFacilityReservationDto);
     }
 
-    private Occupant findOccupantEntityByToken(String token) {
+    public Occupant findOccupantEntityByToken(String token) {
         String tokenWithoutBearer = token.substring(7);
         String email = jwtUtils.extractUsername(tokenWithoutBearer);
         return findOccupantEntityByEmail(email);
