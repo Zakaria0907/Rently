@@ -104,7 +104,7 @@ public class CompanyAdminController {
     }
 
     @PostMapping(path = "/create/employment-contract")
-    public ResponseEntity<EmploymentContractDto> registerEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
+    public ResponseEntity<EmploymentContractDto> createEmploymentContract(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
     }
 
