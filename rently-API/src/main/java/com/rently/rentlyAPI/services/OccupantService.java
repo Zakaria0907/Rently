@@ -24,4 +24,6 @@ public interface OccupantService {
     OwnerRequestDto createOwnerRequest(String token, OwnerRequestDto ownerRequestDto);
 
     void deleteOwnerRequest(String token, Integer id);
+
+    List<OwnerRequestDto> getAllOwnerRequests(String token);
 }

@@ -49,5 +49,10 @@ public class OccupantController {
         return ResponseEntity.ok("Owner request with ID " + id + " deleted successfully");
     }
 
+    @GetMapping(path = "/request")
+    public ResponseEntity<List<OwnerRequestDto>> getAllOwnerRequests(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(occupantService.getAllOwnerRequests(token));
+    }
+
 }
 

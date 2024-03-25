@@ -5,10 +5,14 @@ import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.OwnerRequest;
 import com.rently.rentlyAPI.entity.user.Owner;
 
+import java.util.List;
+
 public interface OwnerRequestService {
     OwnerRequestDto createOwnerRequest(Owner owner, Building building, OwnerRequest ownerRequest);
 
     OwnerRequest findOwnerRequestEntityById(Integer id);
 
     void deleteOwnerRequest(OwnerRequest ownerRequest);
+
+    List<OwnerRequestDto> getAllOwnerRequests(Integer occupantId);
 }

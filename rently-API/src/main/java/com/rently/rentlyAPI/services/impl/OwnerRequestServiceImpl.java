@@ -11,6 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @AllArgsConstructor
 public class OwnerRequestServiceImpl implements OwnerRequestService {
@@ -37,5 +40,12 @@ public class OwnerRequestServiceImpl implements OwnerRequestService {
     @Override
     public void deleteOwnerRequest(OwnerRequest ownerRequest) {
         ownerRequestRepository.delete(ownerRequest);
+    }
+
+    @Override
+    public List<OwnerRequestDto> getAllOwnerRequests(Integer ownerId) {
+        return ownerRequestRepository.findAllByOwnerId(ownerId).stream()
+                .map(OwnerRequestDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }

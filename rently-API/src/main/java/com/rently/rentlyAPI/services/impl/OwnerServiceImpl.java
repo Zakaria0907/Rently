@@ -11,6 +11,7 @@ import com.rently.rentlyAPI.services.OwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,10 @@ public class OwnerServiceImpl implements OwnerService {
         if (owner.equals(ownerRequest.getOwner()))
             ownerRequestService.deleteOwnerRequest(ownerRequest);
 
+    }
+
+    @Override
+    public List<OwnerRequestDto> getAllOwnerRequests(Integer occupantId) {
+        return ownerRequestService.getAllOwnerRequests(occupantId);
     }
 }

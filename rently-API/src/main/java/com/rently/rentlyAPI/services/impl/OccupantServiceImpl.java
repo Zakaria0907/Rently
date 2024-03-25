@@ -51,6 +51,12 @@ public class OccupantServiceImpl implements OccupantService {
     }
 
     @Override
+    public List<OwnerRequestDto> getAllOwnerRequests(String token) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        return ownerService.getAllOwnerRequests(occupantId);
+    }
+
+    @Override
     public Occupant findOccupantEntityById(Integer occupantId) {
         Optional<Owner> owner = ownerService.findOwnerEntityById(occupantId);
         Optional<Renter> renter = renterService.findRenterEntityById(occupantId);
