@@ -143,6 +143,11 @@ public class UserServiceImpl implements UserService {
         return systemAdminService.getAllSystemAdmins();
     }
 
+    @Override
+    public List<CompanyAdminDto> getAllCompanyAdmins() {
+        return companyAdminService.getAllCompanyAdmins();
+    }
+
 
 }
 

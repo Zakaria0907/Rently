@@ -35,7 +35,7 @@ public class SystemAdminController {
     }
 
     @GetMapping(path = "/get/system-admin")
-    public ResponseEntity<List<SystemAdminDto>> getAllSystemAdminDto() {
+    public ResponseEntity<List<SystemAdminDto>> getAllSystemAdmin() {
         return ResponseEntity.ok(userService.getAllSystemAdmins());
     }
 
@@ -43,6 +43,11 @@ public class SystemAdminController {
     @PostMapping(path = "/create/company-admin")
     public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto) {
         return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto));
+    }
+
+    @GetMapping(path = "/get/company-admin")
+    public ResponseEntity<List<CompanyAdminDto>> getAllCompanyAdmin() {
+        return ResponseEntity.ok(userService.getAllCompanyAdmins());
     }
 
 //

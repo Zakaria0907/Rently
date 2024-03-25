@@ -24,4 +24,6 @@ public interface UserService {
     String userKeyActivation(String token, String key);
 
     List<SystemAdminDto> getAllSystemAdmins();
+
+    List<CompanyAdminDto> getAllCompanyAdmins();
 }
