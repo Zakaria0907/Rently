@@ -153,6 +153,11 @@ public class UserServiceImpl implements UserService {
         companyAdminService.deleteCompanyAdmin(id);
     }
 
+    @Override
+    public void deleteEmployee(Integer id) {
+        employeeService.deleteEmployee(id);
+    }
+
 
 }
 

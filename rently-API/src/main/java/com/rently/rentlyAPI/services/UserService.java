@@ -28,4 +28,6 @@ public interface UserService {
     List<CompanyAdminDto> getAllCompanyAdmins();
 
     void deleteCompanyAdmin(Integer id);
+
+    void deleteEmployee(Integer id);
 }

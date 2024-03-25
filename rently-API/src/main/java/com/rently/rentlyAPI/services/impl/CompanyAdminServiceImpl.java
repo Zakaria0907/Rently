@@ -264,6 +264,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
     @Override
     public void deleteCompanyAdmin(Integer id) {
+        findCompanyAdminEntityById(id);
         companyAdminRepository.deleteById(id);
     }
 

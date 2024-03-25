@@ -97,6 +97,12 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
     }
 
+    @DeleteMapping(path = "/delete/employee/id={id}")
+    public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id) {
+        userService.deleteEmployee(id);
+        return ResponseEntity.ok("Company Admin deleted successfully");
+    }
+
     @PostMapping(path = "/create/employment-contract")
     public ResponseEntity<EmploymentContractDto> registerEmployee(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
