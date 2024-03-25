@@ -17,4 +17,6 @@ public interface OwnerService {
     void deleteOwnerRequest(Owner owner, Integer id);
 
     List<OwnerRequestDto> getAllOwnerRequests(Integer occupantId);
+
+    OwnerRequestDto getOwnerRequestById(Integer occupantId, Integer requestId);
 }

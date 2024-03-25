@@ -47,7 +47,12 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public List<OwnerRequestDto> getAllOwnerRequests(Integer occupantId) {
-        return ownerRequestService.getAllOwnerRequests(occupantId);
+    public List<OwnerRequestDto> getAllOwnerRequests(Integer ownerId) {
+        return ownerRequestService.getAllOwnerRequests(ownerId);
+    }
+
+    @Override
+    public OwnerRequestDto getOwnerRequestById(Integer ownerId, Integer requestId) {
+        return ownerRequestService.getOwnerRequestById(ownerId, requestId);
     }
 }

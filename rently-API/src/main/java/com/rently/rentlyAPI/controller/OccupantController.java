@@ -54,5 +54,10 @@ public class OccupantController {
         return ResponseEntity.ok(occupantService.getAllOwnerRequests(token));
     }
 
+    @GetMapping(path = "/request/id={id}")
+    public ResponseEntity<OwnerRequestDto> getOwnerRequestById(@RequestHeader("Authorization") String token, @PathVariable Integer id) {
+        return ResponseEntity.ok(occupantService.getOwnerRequestById(token, id));
+    }
+
 }
 

@@ -7,4 +7,6 @@ import java.util.Collection;
 
 public interface OwnerRequestRepository extends JpaRepository<OwnerRequest, Integer> {
     Collection<OwnerRequest> findAllByOwnerId(Integer ownerId);
+
+    OwnerRequest findByOwnerIdAndId(Integer occupantId, Integer requestId);
 }
