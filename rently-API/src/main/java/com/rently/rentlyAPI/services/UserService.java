@@ -26,4 +26,6 @@ public interface UserService {
     List<SystemAdminDto> getAllSystemAdmins();
 
     List<CompanyAdminDto> getAllCompanyAdmins();
+
+    void deleteCompanyAdmin(Integer id);
 }

@@ -148,6 +148,11 @@ public class UserServiceImpl implements UserService {
         return companyAdminService.getAllCompanyAdmins();
     }
 
+    @Override
+    public void deleteCompanyAdmin(Integer id) {
+        companyAdminService.deleteCompanyAdmin(id);
+    }
+
 
 }
 

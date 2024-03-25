@@ -45,6 +45,12 @@ public class SystemAdminController {
         return ResponseEntity.ok(userService.registerCompanyAdmin(companyAdminDto));
     }
 
+    @DeleteMapping(path = "/delete/company-admin/id={id}")
+    public ResponseEntity<String> deleteCompanyAdmin(@PathVariable("id") Integer id) {
+        userService.deleteCompanyAdmin(id);
+        return ResponseEntity.ok("Company Admin deleted successfully");
+    }
+
     @GetMapping(path = "/get/company-admin")
     public ResponseEntity<List<CompanyAdminDto>> getAllCompanyAdmin() {
         return ResponseEntity.ok(userService.getAllCompanyAdmins());

@@ -93,7 +93,6 @@ public class CompanyAdminController {
 
     @GetMapping(path = "/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
-        // token.substring(7) To remove the Bearer prefix from the token
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
     }
