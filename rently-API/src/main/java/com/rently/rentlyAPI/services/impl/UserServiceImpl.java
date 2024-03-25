@@ -14,6 +14,8 @@ import com.rently.rentlyAPI.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -134,6 +136,11 @@ public class UserServiceImpl implements UserService {
 
         return "Invalid user trying to activate key";
 
+    }
+
+    @Override
+    public List<SystemAdminDto> getAllSystemAdmins() {
+        return systemAdminService.getAllSystemAdmins();
     }
 
 

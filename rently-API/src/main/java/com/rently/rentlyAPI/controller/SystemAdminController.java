@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/system-admin")
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class SystemAdminController {
     public ResponseEntity<CompanyDto> createCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok(systemAdminService.createCompany(companyDto));
     }
-    
+
     @PatchMapping(path = "/update/company")
     public ResponseEntity<CompanyDto> updateCompany(@RequestBody CompanyDto companyDto) {
         return ResponseEntity.ok(systemAdminService.updateCompany(companyDto));
@@ -31,6 +33,12 @@ public class SystemAdminController {
     public ResponseEntity<SystemAdminDto> createSystemAdmin(@RequestBody SystemAdminDto systemAdminDto) {
         return ResponseEntity.ok(userService.registerSystemAdmin(systemAdminDto));
     }
+
+    @GetMapping(path = "/get/system-admin")
+    public ResponseEntity<List<SystemAdminDto>> getAllSystemAdminDto() {
+        return ResponseEntity.ok(userService.getAllSystemAdmins());
+    }
+
 
     @PostMapping(path = "/create/company-admin")
     public ResponseEntity<CompanyAdminDto> createCompanyAdmin(@RequestBody CompanyAdminDto companyAdminDto) {
