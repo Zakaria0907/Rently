@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "request")
-public class Request extends AbstractEntity{
+public class OwnerRequest extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
