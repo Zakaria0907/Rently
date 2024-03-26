@@ -4,11 +4,10 @@ import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.CompanyAdmin;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+//@SpringBootTest
 public class CompanyAdminDtoTest {
 
     @Test

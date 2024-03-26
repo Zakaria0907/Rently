@@ -8,6 +8,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${DDL_AUTO}
+
     show-sql: false
     properties:
       hibernate:

@@ -2,11 +2,10 @@ package com.rently.rentlyAPI.dto;
 
 import com.rently.rentlyAPI.entity.Company;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+//@SpringBootTest
 public class CompanyDtoTest {
 
     @Test

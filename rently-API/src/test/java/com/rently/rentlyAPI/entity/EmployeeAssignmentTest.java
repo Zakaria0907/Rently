@@ -2,12 +2,11 @@ package com.rently.rentlyAPI.entity;
 
 import com.rently.rentlyAPI.entity.user.Employee;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class EmployeeAssignmentTest {
     Company mockedCompany = mock(Company.class);
     Employee mockedEmployee = mock(Employee.class);

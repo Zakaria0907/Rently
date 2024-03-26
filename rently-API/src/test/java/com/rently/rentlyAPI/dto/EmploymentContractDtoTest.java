@@ -5,13 +5,12 @@ import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.EmploymentContract;
 import com.rently.rentlyAPI.entity.user.Employee;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class EmploymentContractDtoTest {
 
     @Test
