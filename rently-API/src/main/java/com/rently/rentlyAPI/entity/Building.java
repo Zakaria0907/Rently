@@ -1,6 +1,5 @@
 package com.rently.rentlyAPI.entity;
 
-import com.rently.rentlyAPI.entity.Request;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "building")

@@ -34,7 +34,7 @@ public class Company extends AbstractEntity {
     private List<EmploymentContract> employmentContracts;
     
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Request> requests;
+    private List<OwnerRequest> ownerRequests;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmployeeAssignment> employeeAssignments;

@@ -11,14 +11,14 @@ import static org.mockito.Mockito.mock;
 public class EmployeeAssignmentTest {
     Company mockedCompany = mock(Company.class);
     Employee mockedEmployee = mock(Employee.class);
-    Request mockedRequest = mock(Request.class);
+    OwnerRequest mockedOwnerRequest = mock(OwnerRequest.class);
 
     @Test
     public void testAllArgsConstructor() {
 
-        EmployeeAssignment testEmployeeAssignment = new EmployeeAssignment(mockedCompany, mockedEmployee, mockedRequest);
+        EmployeeAssignment testEmployeeAssignment = new EmployeeAssignment(mockedCompany, mockedEmployee, mockedOwnerRequest);
         assertEquals(mockedCompany, testEmployeeAssignment.getCompany());
         assertEquals(mockedEmployee, testEmployeeAssignment.getEmployee());
-        assertEquals(mockedRequest, testEmployeeAssignment.getRequest());
+        assertEquals(mockedOwnerRequest, testEmployeeAssignment.getOwnerRequest());
     }
 }

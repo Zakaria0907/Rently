@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.Renter;
@@ -30,11 +31,35 @@ public class OccupantServiceImpl implements OccupantService {
         return buildingService.createCommonFacilityReservation(occupantToLink, commonFacilityReservationDto);
     }
 
-    private Occupant findOccupantEntityByToken(String token) {
+    public Occupant findOccupantEntityByToken(String token) {
         String tokenWithoutBearer = token.substring(7);
         String email = jwtUtils.extractUsername(tokenWithoutBearer);
         return findOccupantEntityByEmail(email);
 
+    }
+
+    @Override
+    public OwnerRequestDto createOwnerRequest(String token, OwnerRequestDto ownerRequestDto) {
+        Occupant occupantToLink = findOccupantEntityByToken(token);
+        return ownerService.createOwnerRequest((Owner) occupantToLink, ownerRequestDto);
+    }
+
+    @Override
+    public void deleteOwnerRequest(String token, Integer id) {
+        Occupant occupantToLink = findOccupantEntityByToken(token);
+        ownerService.deleteOwnerRequest((Owner) occupantToLink, id);
+    }
+
+    @Override
+    public List<OwnerRequestDto> getAllOwnerRequests(String token) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        return ownerService.getAllOwnerRequests(occupantId);
+    }
+
+    @Override
+    public OwnerRequestDto getOwnerRequestById(String token, Integer requestId) {
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        return ownerService.getOwnerRequestById(occupantId, requestId);
     }
 
     @Override

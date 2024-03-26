@@ -22,7 +22,7 @@ public class CompanyTest {
 
         List<EmploymentContract> employmentContracts = new ArrayList<>();
 
-        List<Request> requests = new ArrayList<>();
+        List<OwnerRequest> ownerRequests = new ArrayList<>();
 
         List<EmployeeAssignment> employeeAssignments = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class CompanyTest {
         company.setBuildings(buildings);
         company.setHousingContracts(housingContracts);
         company.setEmploymentContracts(employmentContracts);
-        company.setRequests(requests);
+        company.setOwnerRequests(ownerRequests);
         company.setEmployeeAssignments(employeeAssignments);
         company.setCompanyAdmins(companyAdmins);
         company.setEmployees(employees);
@@ -48,7 +48,7 @@ public class CompanyTest {
         assertEquals(buildings, company.getBuildings());
         assertEquals(housingContracts, company.getHousingContracts());
         assertEquals(employmentContracts, company.getEmploymentContracts());
-        assertEquals(requests, company.getRequests());
+        assertEquals(ownerRequests, company.getOwnerRequests());
         assertEquals(employeeAssignments, company.getEmployeeAssignments());
         assertEquals(companyAdmins, company.getCompanyAdmins());
         assertEquals(employees, company.getEmployees());

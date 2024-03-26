@@ -25,5 +25,5 @@ public class EmployeeAssignment extends AbstractEntity{
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "request_id")
-    private Request request;
+    private OwnerRequest ownerRequest;
 }
