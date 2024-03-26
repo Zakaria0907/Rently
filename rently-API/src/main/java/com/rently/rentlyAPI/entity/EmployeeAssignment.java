@@ -21,7 +21,7 @@ public class EmployeeAssignment extends AbstractEntity{
     @JoinColumn(name = "company_id")
     private Company company;
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(nullable = true, name = "employee_id")
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "request_id")
