@@ -7,6 +7,7 @@ import com.rently.rentlyAPI.entity.OwnerRequest;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.OwnerRequestRepository;
+import com.rently.rentlyAPI.services.EmployeeAssignmentService;
 import com.rently.rentlyAPI.services.OwnerRequestService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class OwnerRequestServiceImpl implements OwnerRequestService {
     private final OwnerRequestRepository ownerRequestRepository;
+    private final EmployeeAssignmentService employeeAssignmentService;
 
     @Override
     public OwnerRequestDto createOwnerRequest(Owner owner, Building building, OwnerRequest ownerRequest) {
@@ -29,6 +31,8 @@ public class OwnerRequestServiceImpl implements OwnerRequestService {
         ownerRequest.setCompany(company);
 
         OwnerRequest savedOwnerRequest = ownerRequestRepository.save(ownerRequest);
+
+        employeeAssignmentService.createEmployeeAssignment(savedOwnerRequest);
 
         return OwnerRequestDto.fromEntity(savedOwnerRequest);
     }
