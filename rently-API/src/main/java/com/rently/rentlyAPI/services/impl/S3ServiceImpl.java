@@ -90,7 +90,7 @@ public class S3ServiceImpl implements S3Service {
 			String storedUrl = uploadFileToS3(imageFile);
 
 			// Save file to database
-			S3File s3File = new S3File(description, fileName, fileType, storedUrl);
+			S3File s3File = new S3File(fileName, fileType, storedUrl);
 			s3FileRepository.save(s3File);
 
 			// Update user profile picture

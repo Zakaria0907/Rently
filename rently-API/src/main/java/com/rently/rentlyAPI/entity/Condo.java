@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -37,6 +39,9 @@ public class Condo extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
     private Building building;
+
+    @OneToMany(mappedBy = "condo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CondoFile> condoFiles;
 
     // condo can be associated to 0 or 1 parking
     @OneToOne(mappedBy = "condo")
