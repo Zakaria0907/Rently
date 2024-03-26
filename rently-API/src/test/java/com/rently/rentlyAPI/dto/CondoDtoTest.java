@@ -6,12 +6,11 @@ import com.rently.rentlyAPI.entity.Locker;
 import com.rently.rentlyAPI.entity.Parking;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class CondoDtoTest {
 
     @Test

@@ -3,12 +3,11 @@ package com.rently.rentlyAPI.dto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.CommonFacility;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class CommonFacilityDtoTest {
 
     @Test

@@ -4,12 +4,11 @@ import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class EmployeeDtoTest {
 
     @Test
