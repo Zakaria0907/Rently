@@ -91,6 +91,11 @@ public class CompanyAdminController {
         return ResponseEntity.ok(userService.registerEmployee(employeeDto));
     }
 
+    @PatchMapping(path = "/update/employee")
+    public ResponseEntity<EmployeeDto> updateEmployee(@RequestBody EmployeeDto employeeDto) {
+        return ResponseEntity.ok(companyAdminService.updateEmployee(employeeDto));
+    }
+
     @GetMapping(path = "/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();

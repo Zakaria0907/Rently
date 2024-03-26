@@ -83,4 +83,6 @@ public interface CompanyAdminService {
     HousingContractDto linkOccupantToHousingContract(Occupant occupant, Condo condo);
 
     void deleteCompanyAdmin(Integer id);
+
+    EmployeeDto updateEmployee(EmployeeDto employeeDto);
 }
