@@ -1,10 +1,8 @@
 package com.rently.rentlyAPI.entity.user;
 
 import com.rently.rentlyAPI.entity.Company;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.rently.rentlyAPI.entity.enums.EmployeeType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +21,8 @@ public class Employee extends User {
     // number of assignment completed
     @Column(nullable = false, columnDefinition = "int default 0")
     private int assignmentCount;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'GENERAL'")
+    private EmployeeType employeeType;
 
 }
