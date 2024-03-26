@@ -2,6 +2,7 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.enums.EmployeeType;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.services.CompanyService;
@@ -61,6 +62,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Integer id) {
         findById(id);
         employeeRepository.deleteById(id);
+    }
+
+    @Override
+    public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
+        // Find the Employee Entity by its ID
+        Employee employeeToUpdate = findById(employeeDto.getId());
+
+        // Update Employee details if present
+        if (employeeDto.getFirstName() != null && !employeeDto.getFirstName().isEmpty()) {
+            employeeToUpdate.setFirstName(employeeDto.getFirstName());
+        }
+        if (employeeDto.getLastName() != null && !employeeDto.getLastName().isEmpty()) {
+            employeeToUpdate.setLastName(employeeDto.getLastName());
+        }
+        if (employeeDto.getEmployeeType() != null && !employeeDto.getEmployeeType().isEmpty()) {
+            employeeToUpdate.setEmployeeType(EmployeeType.valueOf(employeeDto.getEmployeeType()));
+        }
+
+        // Save the updated employee
+        Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
+
+        return EmployeeDto.fromEntity(updatedEmployee);
     }
 
 

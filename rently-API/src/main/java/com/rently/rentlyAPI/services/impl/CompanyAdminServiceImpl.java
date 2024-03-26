@@ -254,18 +254,22 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     @Override
     public HousingContractDto linkOccupantToHousingContract(Occupant occupant, Condo condo) {
         HousingContract housingContract = housingContractService.findHousingContractEntityByCondoId(condo.getId());
-        HousingContractDto housingContractDto = housingContractService.setOccupantToHousingContract(housingContract, occupant);
         //TODO: RENTER and OWNER have a field that count the number of condos they have,
         // this field should be updated. Also the condo status need to be updated
 //        condoService.updateStatus(condo.getId(), "OCCUPIED");
 //        occupantService.updateOccupationCount(occupant.getId());
-        return housingContractDto;
+        return housingContractService.setOccupantToHousingContract(housingContract, occupant);
     }
 
     @Override
     public void deleteCompanyAdmin(Integer id) {
         findCompanyAdminEntityById(id);
         companyAdminRepository.deleteById(id);
+    }
+
+    @Override
+    public EmployeeDto updateEmployee(EmployeeDto employeeDto) {
+        return employeeService.updateEmployee(employeeDto);
     }
 
 

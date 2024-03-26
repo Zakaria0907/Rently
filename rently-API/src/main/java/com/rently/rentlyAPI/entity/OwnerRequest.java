@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "request")
+@Table(name = "owner_request")
 public class OwnerRequest extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "company_id")
