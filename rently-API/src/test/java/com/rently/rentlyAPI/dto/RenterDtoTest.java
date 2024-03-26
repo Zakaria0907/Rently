@@ -3,11 +3,10 @@ package com.rently.rentlyAPI.dto;
 import com.rently.rentlyAPI.entity.user.Renter;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+//@SpringBootTest
 public class RenterDtoTest {
 
     @Test

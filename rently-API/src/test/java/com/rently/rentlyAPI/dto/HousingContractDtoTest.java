@@ -6,13 +6,12 @@ import com.rently.rentlyAPI.entity.HousingContract;
 import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 
-@SpringBootTest
+//@SpringBootTest
 public class HousingContractDtoTest {
 
     @Test
