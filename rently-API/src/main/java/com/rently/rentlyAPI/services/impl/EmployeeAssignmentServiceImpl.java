@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.entity.EmployeeAssignment;
 import com.rently.rentlyAPI.entity.OwnerRequest;
+import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.EmployeeAssignmentRepository;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService {
     private final EmployeeAssignmentRepository employeeAssignmentRepository;
+
 
     @Override
     public void createEmployeeAssignment(OwnerRequest savedOwnerRequest) {
@@ -31,4 +33,14 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
                 .map(EmployeeAssignmentDto::fromEntity)
                 .toList();
     }
+
+    @Override
+    public EmployeeAssignmentDto assignEmployeeToAssignment(Employee employee, Integer assignmentId) {
+        EmployeeAssignment employeeAssignment = employeeAssignmentRepository.findById(assignmentId).orElseThrow();
+        employeeAssignment.setEmployee(employee);
+        EmployeeAssignment savedEmployeeAssignment = employeeAssignmentRepository.save(employeeAssignment);
+        return EmployeeAssignmentDto.fromEntity(savedEmployeeAssignment);
+    }
+
+
 }

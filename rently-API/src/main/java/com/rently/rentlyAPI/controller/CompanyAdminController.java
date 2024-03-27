@@ -124,5 +124,10 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.getAllEmployeeAssignments(token));
     }
 
+    @PatchMapping(path = "/assignments/assign/employee={employeeId}/assignment={assignmentId}")
+    public ResponseEntity<EmployeeAssignmentDto> assignEmployeeToAssignment(@PathVariable Integer employeeId, @PathVariable Integer assignmentId) {
+        return ResponseEntity.ok(companyAdminService.assignEmployeeToAssignment(employeeId, assignmentId));
+    }
+
 
 }

@@ -89,4 +89,6 @@ public interface CompanyAdminService {
     List<EmployeeDto> getAllEmployeesByTypeAndBuilding(String token, String employeeType, Integer buildingId);
 
     List<EmployeeAssignmentDto> getAllEmployeeAssignments(String token);
+
+    EmployeeAssignmentDto assignEmployeeToAssignment(Integer employeeId, Integer assignmentId);
 }

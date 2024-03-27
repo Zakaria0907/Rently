@@ -28,6 +28,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     private final EmployeeService employeeService;
     private final HousingContractService housingContractService;
     private final CondoService condoService;
+    private final EmployeeAssignmentService employeeAssignmentService;
 
     private final CompanyAdminRepository companyAdminRepository;
     private final EmploymentContractRepository employmentContractRepository;
@@ -55,18 +56,18 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return companyAdminRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthenticationException("CompanyAdmin with email " + email + " not found"));
     }
-    
+
     @Override
     public Optional<CompanyAdmin> findByEmail(String email) {
         return companyAdminRepository.findByEmail(email);
     }
-    
+
     @Override
     public CompanyAdminDto findCompanyAdminDtoById(Integer companyAdminId) {
         CompanyAdmin companyAdmin = findCompanyAdminEntityById(companyAdminId);
         return CompanyAdminDto.fromEntity(companyAdmin);
     }
-    
+
     @Override
     public CompanyAdmin findCompanyAdminEntityById(Integer companyAdminId) {
         return companyAdminRepository.findById(companyAdminId)
@@ -91,56 +92,56 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
 
         // Link the company admin to the company
         companyAdminToSave.setCompany(companyToLink);
-        
+
         // Save the company admin
         CompanyAdmin savedCompanyAdmin = companyAdminRepository.save(companyAdminToSave);
-        
+
         // Return the company adminDto
         return CompanyAdminDto.fromEntity(savedCompanyAdmin);
     }
-    
+
     @Override
     public CompanyAdminDto updateCompanyAdmin(CompanyAdminDto companyAdminDto) {
         // Find the CompanyAdmin Entity by its ID
         CompanyAdmin companyAdminToUpdate = findCompanyAdminEntityById(companyAdminDto.getId());
-        
+
         // Update the CompanyAdmin details if present
         if (companyAdminDto.getEmail() != null && !companyAdminDto.getEmail().isEmpty()) {
             companyAdminToUpdate.setEmail(companyAdminDto.getEmail());
         }
-        
+
         if (companyAdminDto.getFirstName() != null && !companyAdminDto.getFirstName().isEmpty()) {
             companyAdminToUpdate.setFirstName(companyAdminDto.getFirstName());
         }
-        
+
         if (companyAdminDto.getLastName() != null && !companyAdminDto.getLastName().isEmpty()) {
             companyAdminToUpdate.setLastName(companyAdminDto.getLastName());
         }
-        
+
         if (companyAdminDto.getPhoneNumber() != null) {
             companyAdminToUpdate.setPhoneNumber(companyAdminDto.getPhoneNumber());
         }
-        
+
         if (companyAdminDto.getBio() != null) {
             companyAdminToUpdate.setBio(companyAdminDto.getBio());
         }
-        
+
         // Save the updated CompanyAdmin
         CompanyAdmin updatedCompanyAdmin = companyAdminRepository.save(companyAdminToUpdate);
-        
+
         return CompanyAdminDto.fromEntity(updatedCompanyAdmin);
     }
-    
+
     @Override
     public void deleteCompanyAdminById(Integer companyAdminId) {
-        
+
         // Find the CompanyAdmin Entity by its ID
         CompanyAdmin companyAdminToDelete = findCompanyAdminEntityById(companyAdminId);
-        
+
         // If the CompanyAdmin is found, delete it
         companyAdminRepository.delete(companyAdminToDelete);
     }
-    
+
     @Override
     public List<CompanyAdminDto> getAllCompanyAdmins() {
         List<CompanyAdmin> companyAdmins = companyAdminRepository.findAll();
@@ -148,7 +149,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
                 .map(CompanyAdminDto::fromEntity)
                 .toList();
     }
-    
+
     @Override
     public List<CompanyAdminDto> getAllCompanyAdminsByCompanyName(String companyName) {
         List<CompanyAdmin> companyAdmins = companyAdminRepository.findAllByCompanyName(companyName);
@@ -156,7 +157,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
                 .map(CompanyAdminDto::fromEntity)
                 .toList();
     }
-    
+
     @Override
     public List<CompanyAdminDto> getAllCompanyAdminsByCompanyId(Integer companyId) {
         List<CompanyAdmin> companyAdmins = companyAdminRepository.findAllByCompanyId(companyId);
@@ -164,8 +165,8 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
                 .map(CompanyAdminDto::fromEntity)
                 .toList();
     }
-    
-    
+
+
     /*
      * Building logic
      */
@@ -204,13 +205,13 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public List<BuildingDto> getAllBuildings() {
         return buildingService.getAllBuildings();
     }
-    
+
     @Override
     public List<BuildingDto> getAllBuildingsByCompanyId(Integer companyId) {
         return buildingService.getAllBuildingsByCompanyId(companyId);
     }
-    
-    
+
+
     /*
      * Condo logic
      */
@@ -218,36 +219,37 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public Condo getCondoEntityByRegistrationKey(String registrationKey) {
         return condoService.findCondoEntityByRegistrationKey(registrationKey);
     }
+
     @Override
     public CondoDto createCondoAndLinkToBuilding(CondoDto condoDto) {
         return condoService.createCondoAndLinkToBuilding(condoDto);
     }
-    
+
     @Override
     public String generateKeyForCondoAndCreateHousingContract(RegistrationKeyRequestDto registrationKeyRequestDto, HousingContractDto housingContractDto) {
-	    Condo condo = condoService.findCondoEntityById(registrationKeyRequestDto.getCondoId());
-	    Company company = companyService.findCompanyEntityById(condo.getBuilding().getCompany().getId());
-	    String registrationKey;
-	    
-      // This might be bit strange, but it's to ensure that the key is unique by generating a new key until it's unique
-      do {
-		    registrationKey = registrationKeyUtils.generateRegistrationKey(registrationKeyRequestDto.getRole());
-	    } while (condoService.keyExists(registrationKey));
-      
-      condo.setRegistrationKey(registrationKey);
-      condoService.updateCondo(CondoDto.fromEntity(condo));
-      
-      // Create a minimal housing contract (no occupant, no company, no condo)
-      HousingContract minimalHousingContract = housingContractService.createHousingContractWithoutOccupant(company, condo, housingContractDto);
-      
-      return registrationKey;
+        Condo condo = condoService.findCondoEntityById(registrationKeyRequestDto.getCondoId());
+        Company company = companyService.findCompanyEntityById(condo.getBuilding().getCompany().getId());
+        String registrationKey;
+
+        // This might be bit strange, but it's to ensure that the key is unique by generating a new key until it's unique
+        do {
+            registrationKey = registrationKeyUtils.generateRegistrationKey(registrationKeyRequestDto.getRole());
+        } while (condoService.keyExists(registrationKey));
+
+        condo.setRegistrationKey(registrationKey);
+        condoService.updateCondo(CondoDto.fromEntity(condo));
+
+        // Create a minimal housing contract (no occupant, no company, no condo)
+        HousingContract minimalHousingContract = housingContractService.createHousingContractWithoutOccupant(company, condo, housingContractDto);
+
+        return registrationKey;
     }
-    
+
     @Override
     public String sendKeyAndHousingContractToFutureOccupant(EmailDto emailDto) {
         // TODO: Someone needs to implement the email sending logic.
         //  For this case insert a toString of the HousingContractDto and the Key in the emailDto body
-        
+
         return "Key sent to future occupant";
     }
 
@@ -285,6 +287,12 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return employeeService.getAllEmployeeAssignmentsByCompanyId(companyId);
     }
 
+    @Override
+    public EmployeeAssignmentDto assignEmployeeToAssignment(Integer employeeId, Integer assignmentId) {
+        Employee employee = employeeService.findById(employeeId);
+        return employeeAssignmentService.assignEmployeeToAssignment(employee, assignmentId);
+    }
+
     /*
      * Employee logic
      */
@@ -316,8 +324,8 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         Integer companyId = findCompanyAdminEntityByToken(token).getCompany().getId();
         return employeeService.getAllEmployeesByCompanyId(companyId);
     }
-    
-    
+
+
     /*
      * Common Facility logic
      */
@@ -325,7 +333,7 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public CommonFacilityDto createCommonFacilityAndLinkToBuilding(CommonFacilityDto commonFacilityDto) {
         return buildingService.createCommonFacility(commonFacilityDto);
     }
-    
+
     @Override
     public CommonFacilityDto getCommonFacilityById(Integer commonFacilityId) {
         return buildingService.getCommonFacilityById(commonFacilityId);
@@ -346,5 +354,5 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public void deleteCommonFacilityById(Integer commonFacilityId) {
         buildingService.deleteCommonFacilityById(commonFacilityId);
     }
-    
+
 }
