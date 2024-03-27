@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "s3_file")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
 @EqualsAndHashCode(callSuper = true)
 @SuperBuilder
