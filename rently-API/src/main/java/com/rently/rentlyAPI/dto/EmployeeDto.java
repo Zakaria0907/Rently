@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rently.rentlyAPI.entity.enums.EmployeeType;
+import com.rently.rentlyAPI.entity.enums.WorkType;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.security.Role;
 import jakarta.validation.constraints.NotBlank;
@@ -44,6 +44,7 @@ public class EmployeeDto extends RootUserDto {
 
     @JsonProperty("company_id")
     private Integer companyId;
+
     @JsonProperty("employee_type")
     private String employeeType;
 
@@ -57,7 +58,7 @@ public class EmployeeDto extends RootUserDto {
                 .phoneNumber(employeeDto.getPhoneNumber())
                 .bio(employeeDto.getBio())
                 .role(Role.EMPLOYEE)
-                .employeeType(EmployeeType.valueOf(employeeDto.getEmployeeType()))
+                .employeeType(WorkType.valueOf(employeeDto.getEmployeeType()))
                 // company is set in the business logic
                 .build();
 

@@ -1,7 +1,7 @@
 package com.rently.rentlyAPI.entity.user;
 
 import com.rently.rentlyAPI.entity.Company;
-import com.rently.rentlyAPI.entity.enums.EmployeeType;
+import com.rently.rentlyAPI.entity.enums.WorkType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +23,6 @@ public class Employee extends User {
     private int assignmentCount;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "varchar(255) default 'GENERAL'")
-    private EmployeeType employeeType;
+    private WorkType employeeType;
 
 }
