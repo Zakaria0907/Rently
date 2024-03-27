@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.EmploymentContract;
@@ -8,6 +9,7 @@ import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
 import com.rently.rentlyAPI.services.CompanyService;
+import com.rently.rentlyAPI.services.EmployeeAssignmentService;
 import com.rently.rentlyAPI.services.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final CompanyService companyService;
     private final EmploymentContractRepository employmentContractRepository;
+    private final EmployeeAssignmentService employeeAssignmentService;
 
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
@@ -106,6 +109,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return employees;
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAllEmployeeAssignmentsByCompanyId(Integer companyId) {
+        return employeeAssignmentService.getAllEmployeeAssignmentsByCompanyId(companyId);
     }
 
 

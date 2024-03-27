@@ -279,6 +279,12 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return employeeService.getAllEmployeesByTypeAndBuilding(companyId, employeeType, buildingId);
     }
 
+    @Override
+    public List<EmployeeAssignmentDto> getAllEmployeeAssignments(String token) {
+        Integer companyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        return employeeService.getAllEmployeeAssignmentsByCompanyId(companyId);
+    }
+
     /*
      * Employee logic
      */

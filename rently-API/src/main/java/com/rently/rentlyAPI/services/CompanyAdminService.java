@@ -87,4 +87,6 @@ public interface CompanyAdminService {
     EmployeeDto updateEmployee(EmployeeDto employeeDto);
 
     List<EmployeeDto> getAllEmployeesByTypeAndBuilding(String token, String employeeType, Integer buildingId);
+
+    List<EmployeeAssignmentDto> getAllEmployeeAssignments(String token);
 }

@@ -118,4 +118,11 @@ public class CompanyAdminController {
     }
 
 
+    // get all assignments
+    @GetMapping(path = "/assignments")
+    public ResponseEntity<List<EmployeeAssignmentDto>> getAllEmployeeAssignments(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(companyAdminService.getAllEmployeeAssignments(token));
+    }
+
+
 }
