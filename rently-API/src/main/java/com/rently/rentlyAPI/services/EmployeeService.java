@@ -18,4 +18,6 @@ public interface EmployeeService {
     void deleteEmployee(Integer id);
 
     EmployeeDto updateEmployee(EmployeeDto employeeDto);
+
+    List<EmployeeDto> getAllEmployeesByTypeAndBuilding(Integer companyId, String employeeType, Integer buildingId);
 }

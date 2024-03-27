@@ -2,9 +2,11 @@ package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.EmploymentContract;
 import com.rently.rentlyAPI.entity.enums.EmployeeType;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
+import com.rently.rentlyAPI.repository.EmploymentContractRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeService;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final CompanyService companyService;
+    private final EmploymentContractRepository employmentContractRepository;
 
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
@@ -84,6 +87,25 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee updatedEmployee = employeeRepository.save(employeeToUpdate);
 
         return EmployeeDto.fromEntity(updatedEmployee);
+    }
+
+    @Override
+    public List<EmployeeDto> getAllEmployeesByTypeAndBuilding(Integer companyId, String employeeType, Integer buildingId) {
+        List<EmploymentContract> contracts = employmentContractRepository.findByCompanyIdAndBuildingId(companyId, buildingId);
+        if (contracts.isEmpty()) {
+            System.out.println(contracts);
+            throw new EntityNotFoundException("No employees found for building: " + buildingId);
+        }
+        List<EmployeeDto> employees = contracts.stream()
+                .map(EmploymentContract::getEmployee)
+                .filter(employee -> employee.getEmployeeType().equals(EmployeeType.valueOf(employeeType)))
+                .map(EmployeeDto::fromEntity)
+                .collect(Collectors.toList());
+        if (employees.isEmpty()) {
+            throw new EntityNotFoundException("No employees found for building: " + buildingId + " with type: " + employeeType);
+        }
+
+        return employees;
     }
 
 

@@ -98,14 +98,18 @@ public class CompanyAdminController {
 
     @GetMapping(path = "/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
-        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
-        return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
+        return ResponseEntity.ok(companyAdminService.getAllEmployees(token));
+    }
+
+    @GetMapping(path = "/employees/type={employeeType}/building={buildingId}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByTypeAndBuilding(@RequestHeader("Authorization") String token, @PathVariable String employeeType, @PathVariable Integer buildingId) {
+        return ResponseEntity.ok(companyAdminService.getAllEmployeesByTypeAndBuilding(token, employeeType, buildingId));
     }
 
     @DeleteMapping(path = "/delete/employee/id={id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id) {
         userService.deleteEmployee(id);
-        return ResponseEntity.ok("Company Admin deleted successfully");
+        return ResponseEntity.ok("Employee deleted successfully");
     }
 
     @PostMapping(path = "/create/employment-contract")

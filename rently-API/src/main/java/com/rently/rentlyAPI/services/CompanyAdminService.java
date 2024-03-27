@@ -56,7 +56,7 @@ public interface CompanyAdminService {
 
     EmploymentContractDto createEmploymentContract(EmploymentContractDto employmentContractDto);
 
-    List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId);
+    List<EmployeeDto> getAllEmployees(String token);
 
     Optional<CompanyAdmin> findByEmail(String email);
 
@@ -85,4 +85,6 @@ public interface CompanyAdminService {
     void deleteCompanyAdmin(Integer id);
 
     EmployeeDto updateEmployee(EmployeeDto employeeDto);
+
+    List<EmployeeDto> getAllEmployeesByTypeAndBuilding(String token, String employeeType, Integer buildingId);
 }

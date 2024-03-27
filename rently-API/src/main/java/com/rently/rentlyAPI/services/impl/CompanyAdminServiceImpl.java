@@ -272,6 +272,12 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return employeeService.updateEmployee(employeeDto);
     }
 
+    @Override
+    public List<EmployeeDto> getAllEmployeesByTypeAndBuilding(String token, String employeeType, Integer buildingId) {
+
+        Integer companyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        return employeeService.getAllEmployeesByTypeAndBuilding(companyId, employeeType, buildingId);
+    }
 
     /*
      * Employee logic
@@ -298,9 +304,10 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return EmploymentContractDto.fromEntity(savedEmploymentContract);
 
     }
-    
+
     @Override
-    public List<EmployeeDto> getAllEmployeesByCompanyId(Integer companyId) {
+    public List<EmployeeDto> getAllEmployees(String token) {
+        Integer companyId = findCompanyAdminEntityByToken(token).getCompany().getId();
         return employeeService.getAllEmployeesByCompanyId(companyId);
     }
     
