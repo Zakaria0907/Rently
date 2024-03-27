@@ -116,5 +116,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeAssignmentService.getAllEmployeeAssignmentsByCompanyId(companyId);
     }
 
+    @Override
+    public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId) {
+        return employeeAssignmentService.getAllUnassignedEmployeeAssignmentsByCompanyId(companyId);
+    }
+
 
 }

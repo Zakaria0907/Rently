@@ -91,4 +91,6 @@ public interface CompanyAdminService {
     List<EmployeeAssignmentDto> getAllEmployeeAssignments(String token);
 
     EmployeeAssignmentDto assignEmployeeToAssignment(Integer employeeId, Integer assignmentId);
+
+    List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignments(String token);
 }

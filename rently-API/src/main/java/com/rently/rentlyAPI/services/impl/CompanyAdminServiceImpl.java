@@ -293,6 +293,12 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
         return employeeAssignmentService.assignEmployeeToAssignment(employee, assignmentId);
     }
 
+    @Override
+    public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignments(String token) {
+        Integer companyId = findCompanyAdminEntityByToken(token).getCompany().getId();
+        return employeeService.getAllUnassignedEmployeeAssignmentsByCompanyId(companyId);
+    }
+
     /*
      * Employee logic
      */

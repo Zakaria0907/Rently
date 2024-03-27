@@ -42,5 +42,13 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
         return EmployeeAssignmentDto.fromEntity(savedEmployeeAssignment);
     }
 
+    @Override
+    public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId) {
+        List<EmployeeAssignmentDto> employeeAssignments = getAllEmployeeAssignmentsByCompanyId(companyId);
+        return employeeAssignments.stream()
+                .filter(employeeAssignmentDto -> employeeAssignmentDto.getEmployeeId() == null)
+                .toList();
+    }
+
 
 }

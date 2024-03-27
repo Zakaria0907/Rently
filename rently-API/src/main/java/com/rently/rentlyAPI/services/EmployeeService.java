@@ -23,4 +23,6 @@ public interface EmployeeService {
     List<EmployeeDto> getAllEmployeesByTypeAndBuilding(Integer companyId, String employeeType, Integer buildingId);
 
     List<EmployeeAssignmentDto> getAllEmployeeAssignmentsByCompanyId(Integer companyId);
+
+    List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId);
 }
