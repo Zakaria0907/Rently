@@ -98,19 +98,40 @@ public class CompanyAdminController {
 
     @GetMapping(path = "/employees")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(@RequestHeader("Authorization") String token) {
-        Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
-        return ResponseEntity.ok(companyAdminService.getAllEmployeesByCompanyId(companyId));
+        return ResponseEntity.ok(companyAdminService.getAllEmployees(token));
+    }
+
+    @GetMapping(path = "/employees/type={employeeType}/building={buildingId}")
+    public ResponseEntity<List<EmployeeDto>> getAllEmployeesByTypeAndBuilding(@RequestHeader("Authorization") String token, @PathVariable String employeeType, @PathVariable Integer buildingId) {
+        return ResponseEntity.ok(companyAdminService.getAllEmployeesByTypeAndBuilding(token, employeeType, buildingId));
     }
 
     @DeleteMapping(path = "/delete/employee/id={id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Integer id) {
         userService.deleteEmployee(id);
-        return ResponseEntity.ok("Company Admin deleted successfully");
+        return ResponseEntity.ok("Employee deleted successfully");
     }
 
     @PostMapping(path = "/create/employment-contract")
     public ResponseEntity<EmploymentContractDto> createEmploymentContract(@RequestBody EmploymentContractDto employmentContractDto) {
         return ResponseEntity.ok(companyAdminService.createEmploymentContract(employmentContractDto));
+    }
+
+
+    // get all assignments
+    @GetMapping(path = "/assignments")
+    public ResponseEntity<List<EmployeeAssignmentDto>> getAllEmployeeAssignments(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(companyAdminService.getAllEmployeeAssignments(token));
+    }
+
+    @GetMapping(path = "/assignments/unassigned")
+    public ResponseEntity<List<EmployeeAssignmentDto>> getAllUnassignedEmployeeAssignments(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(companyAdminService.getAllUnassignedEmployeeAssignments(token));
+    }
+
+    @PatchMapping(path = "/assignments/assign/employee={employeeId}/assignment={assignmentId}")
+    public ResponseEntity<EmployeeAssignmentDto> assignEmployeeToAssignment(@PathVariable Integer employeeId, @PathVariable Integer assignmentId) {
+        return ResponseEntity.ok(companyAdminService.assignEmployeeToAssignment(employeeId, assignmentId));
     }
 
 

@@ -1,6 +1,6 @@
 package com.rently.rentlyAPI.entity.enums;
 
-public enum EmployeeType {
+public enum WorkType {
     PLUMBING,
     ELECTRICITY,
     GENERAL,

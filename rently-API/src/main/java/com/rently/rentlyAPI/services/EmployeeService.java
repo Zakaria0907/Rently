@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services;
 
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.user.Employee;
 
@@ -18,4 +19,10 @@ public interface EmployeeService {
     void deleteEmployee(Integer id);
 
     EmployeeDto updateEmployee(EmployeeDto employeeDto);
+
+    List<EmployeeDto> getAllEmployeesByTypeAndBuilding(Integer companyId, String employeeType, Integer buildingId);
+
+    List<EmployeeAssignmentDto> getAllEmployeeAssignmentsByCompanyId(Integer companyId);
+
+    List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId);
 }
