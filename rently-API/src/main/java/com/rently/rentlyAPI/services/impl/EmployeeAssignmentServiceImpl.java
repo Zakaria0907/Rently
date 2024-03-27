@@ -19,6 +19,7 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
     public void createEmployeeAssignment(OwnerRequest savedOwnerRequest) {
         EmployeeAssignment employeeAssignment = EmployeeAssignment.builder()
                 .company(savedOwnerRequest.getCompany())
+                .workType(savedOwnerRequest.getWorkType())
                 .ownerRequest(savedOwnerRequest)
                 .build();
         employeeAssignmentRepository.save(employeeAssignment);

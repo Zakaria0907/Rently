@@ -1,10 +1,8 @@
 package com.rently.rentlyAPI.entity;
 
+import com.rently.rentlyAPI.entity.enums.WorkType;
 import com.rently.rentlyAPI.entity.user.Employee;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @Entity
 @Table(name = "employee_assignment")
-public class EmployeeAssignment extends AbstractEntity{
+public class EmployeeAssignment extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
@@ -26,4 +24,8 @@ public class EmployeeAssignment extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "request_id")
     private OwnerRequest ownerRequest;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'GENERAL'")
+    private WorkType workType;
+
 }
