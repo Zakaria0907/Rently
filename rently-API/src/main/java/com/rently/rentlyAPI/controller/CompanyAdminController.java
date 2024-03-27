@@ -67,6 +67,9 @@ public class CompanyAdminController {
         return ResponseEntity.ok().body("Condo's file uploaded successfully.");
     }
     
+    // TODO: get all condo file by condo id
+    // TODO: get condo file by id
+    
 
     //common facilities
     @PostMapping(path = "/create/common-facility")
