@@ -4,16 +4,14 @@ import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.entity.AssignmentUpdate;
 import com.rently.rentlyAPI.entity.EmployeeAssignment;
 import com.rently.rentlyAPI.entity.OwnerRequest;
-import com.rently.rentlyAPI.entity.enums.AssignmentStatus;
 import com.rently.rentlyAPI.entity.user.Employee;
-import com.rently.rentlyAPI.repository.AssignmentUpdateRepository;
 import com.rently.rentlyAPI.repository.EmployeeAssignmentRepository;
+import com.rently.rentlyAPI.services.AssignmentUpdateService;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,32 +20,28 @@ import java.util.Optional;
 @AllArgsConstructor
 public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService {
     private final EmployeeAssignmentRepository employeeAssignmentRepository;
-    private final AssignmentUpdateRepository assignmentUpdateRepository;
+    private final AssignmentUpdateService assignmentUpdateService;
 
 
     @Override
     public void createEmployeeAssignment(OwnerRequest savedOwnerRequest) {
         List<AssignmentUpdate> updates = new ArrayList<>();
 
+        //create the assignment
         EmployeeAssignment employeeAssignment = EmployeeAssignment.builder()
                 .company(savedOwnerRequest.getCompany())
                 .workType(savedOwnerRequest.getWorkType())
                 .ownerRequest(savedOwnerRequest)
                 .build();
 
-        AssignmentUpdate assignmentUpdate = AssignmentUpdate.builder()
-                .employeeAssignment(employeeAssignment)
-                .status(AssignmentStatus.NOT_ASSIGNED)
-                .creationDate(LocalDateTime.now())
-                .comment("The assignment has been created, it will be assigned shortly.")
-                .build();
-
+        //create the assignment update
+        AssignmentUpdate assignmentUpdate = assignmentUpdateService.createAssignmentUpdateOnCreateAssignment(employeeAssignment);
+        //save the add the update to the list in the assignment
         updates.add(assignmentUpdate);
         employeeAssignment.setUpdates(updates);
+
         employeeAssignmentRepository.save(employeeAssignment);
-        assignmentUpdateRepository.save(assignmentUpdate);
-
-
+        assignmentUpdateService.save(assignmentUpdate);
     }
 
     @Override
@@ -61,7 +55,11 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
     public EmployeeAssignmentDto assignEmployeeToAssignment(Employee employee, Integer assignmentId) {
         EmployeeAssignment employeeAssignment = employeeAssignmentRepository.findById(assignmentId).orElseThrow();
         employeeAssignment.setEmployee(employee);
+        AssignmentUpdate assignmentUpdate = assignmentUpdateService.createAssignmentUpdateOnAssign(employeeAssignment);
+        employeeAssignment.getUpdates().add(assignmentUpdate);
+
         EmployeeAssignment savedEmployeeAssignment = employeeAssignmentRepository.save(employeeAssignment);
+        assignmentUpdateService.save(assignmentUpdate);
         return EmployeeAssignmentDto.fromEntity(savedEmployeeAssignment);
     }
 
