@@ -2,10 +2,12 @@ package com.rently.rentlyAPI.controller;
 
 import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.services.CompanyAdminService;
+import com.rently.rentlyAPI.services.S3Service;
 import com.rently.rentlyAPI.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class CompanyAdminController {
     private final UserService userService;
     private final CompanyAdminService companyAdminService;
+    private final S3Service s3Service;
 
     @PostMapping(path = "/create/building")
     public ResponseEntity<BuildingDto> createBuilding(@RequestHeader("Authorization") String token, @RequestBody BuildingDto buildingDto) {
@@ -38,7 +41,7 @@ public class CompanyAdminController {
         Integer companyId = companyAdminService.findCompanyAdminEntityByToken(token).getCompany().getId();
         return ResponseEntity.ok(companyAdminService.getAllBuildingsByCompanyId(companyId));
     }
-    
+    // Condo
     @PostMapping(path = "/create/condo")
     public ResponseEntity<CondoDto> createCondo(@RequestBody CondoDto condoDto) {
         return ResponseEntity.ok(companyAdminService.createCondoAndLinkToBuilding(condoDto));
@@ -53,6 +56,19 @@ public class CompanyAdminController {
     public ResponseEntity<String> sendKeyToFutureOccupant(@RequestBody EmailDto EmailDto) {
         return ResponseEntity.ok(companyAdminService.sendKeyAndHousingContractToFutureOccupant(EmailDto));
     }
+    
+    @PostMapping("/upload/condo-file/condo={condoId}")
+    public ResponseEntity<?> uploadCondoFile(
+        @RequestParam("file") MultipartFile multipartFile,
+        @RequestParam("description") String description,
+        @PathVariable(name = "condoId") Integer condoId
+    ) throws Exception {
+        s3Service.uploadCondoFile(multipartFile, description, condoId);
+        return ResponseEntity.ok().body("Condo's file uploaded successfully.");
+    }
+    
+    // TODO: get all condo file by condo id
+    // TODO: get condo file by id
     
 
     //common facilities

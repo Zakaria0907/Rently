@@ -8,13 +8,19 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.rently.rentlyAPI.dto.CondoFileDto;
+import com.rently.rentlyAPI.entity.Condo;
+import com.rently.rentlyAPI.entity.CondoFile;
 import com.rently.rentlyAPI.entity.enums.FileType;
 import com.rently.rentlyAPI.entity.S3File;
 
 import com.rently.rentlyAPI.entity.user.User;
 import com.rently.rentlyAPI.exceptions.FileUploadException;
+import com.rently.rentlyAPI.repository.CondoFileRepository;
+import com.rently.rentlyAPI.repository.CondoRepository;
 import com.rently.rentlyAPI.repository.S3FileRepository;
 import com.rently.rentlyAPI.repository.UserRepository;
+import com.rently.rentlyAPI.services.CondoService;
 import com.rently.rentlyAPI.services.S3Service;
 import com.rently.rentlyAPI.services.UserService;
 import com.rently.rentlyAPI.utils.JwtUtils;
@@ -39,6 +45,12 @@ public class S3ServiceImpl implements S3Service {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private CondoService condoService;
+	
+	@Autowired
+	private CondoFileRepository condoFileRepository;
 
 	@Autowired
 	private JwtUtils jwtUtils;
@@ -90,7 +102,7 @@ public class S3ServiceImpl implements S3Service {
 			String storedUrl = uploadFileToS3(imageFile);
 
 			// Save file to database
-			S3File s3File = new S3File(description, fileName, fileType, storedUrl);
+			S3File s3File = new S3File(fileName, fileType, storedUrl);
 			s3FileRepository.save(s3File);
 
 			// Update user profile picture
@@ -101,7 +113,31 @@ public class S3ServiceImpl implements S3Service {
 			throw FileUploadException.wrap(e);
 		}
 	}
-
+	
+	@Override
+	public void uploadCondoFile(MultipartFile multipartFile, String description, Integer condoId) throws Exception {
+		try {
+			Condo condo = condoService.findCondoEntityById(condoId);
+			
+			String storedUrl = uploadFileToS3(multipartFile);
+			
+			String fileName = multipartFile.getOriginalFilename();
+			assert fileName != null;
+			
+			CondoFile condoFile = new CondoFile();
+			condoFile.setFilename(fileName);
+			condoFile.setFileType(determineFileType(fileName));
+			condoFile.setStoredUrl(storedUrl);
+			condoFile.setCondo(condo);
+			condoFile.setDescription(description);
+			
+			condoFileRepository.save(condoFile);
+			
+		} catch (SdkClientException e) {
+			throw FileUploadException.wrap(e);
+		}
+	}
+	
 	//uploadFileToS3 method is used to upload the file to the S3 bucket and return the URL of the file.
 	private String uploadFileToS3(MultipartFile file)  {
 

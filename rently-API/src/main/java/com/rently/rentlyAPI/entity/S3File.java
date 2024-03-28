@@ -3,17 +3,17 @@ import com.rently.rentlyAPI.entity.enums.FileType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "s3_file")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Data
+@EqualsAndHashCode(callSuper = true)
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public class S3File extends AbstractEntity {
-	
-	@Column(length = 1024)
-	private String description;
 	
 	@NotBlank(message = "The file name is required")
 	@Column(nullable = false, unique = true)

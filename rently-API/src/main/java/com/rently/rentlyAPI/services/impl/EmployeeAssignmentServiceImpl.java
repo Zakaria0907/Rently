@@ -9,12 +9,14 @@ import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.AssignmentUpdateRepository;
 import com.rently.rentlyAPI.repository.EmployeeAssignmentRepository;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -65,10 +67,29 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
 
     @Override
     public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId) {
-        List<EmployeeAssignmentDto> employeeAssignments = getAllEmployeeAssignmentsByCompanyId(companyId);
+        List<EmployeeAssignmentDto> employeeAssignments = getAllEmployeeAssignmentsByCompanyId(companyId);//getAllEmployeeAssignmentsByCompanyId(companyId);
         return employeeAssignments.stream()
+//                .map(EmployeeAssignmentDto::fromEntity)
                 .filter(employeeAssignmentDto -> employeeAssignmentDto.getEmployeeId() == null)
                 .toList();
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAllAssignments(Integer id) {
+        List<EmployeeAssignment> employeeAssignments = employeeAssignmentRepository.findAllByEmployeeId(id);
+        return employeeAssignments.stream()
+                .map(EmployeeAssignmentDto::fromEntity)
+                .toList();
+    }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentByEmployeeIdAndAssignmentId(Integer employeeId, Integer assignmentId) {
+        Optional<EmployeeAssignment> employeeAssignment = employeeAssignmentRepository.findByEmployeeIdAndId(employeeId, assignmentId);
+        if (employeeAssignment.isEmpty()) {
+            throw new EntityNotFoundException("Employee assignment not found");
+        }
+
+        return EmployeeAssignmentDto.fromEntity(employeeAssignment.get());
     }
 
 
