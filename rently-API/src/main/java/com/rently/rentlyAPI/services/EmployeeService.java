@@ -16,6 +16,8 @@ public interface EmployeeService {
 
     Employee findById(Integer employeeId);
 
+    Employee findEmployeeEntityByToken(String token);
+
     void deleteEmployee(Integer id);
 
     EmployeeDto updateEmployee(EmployeeDto employeeDto);
@@ -25,4 +27,6 @@ public interface EmployeeService {
     List<EmployeeAssignmentDto> getAllEmployeeAssignmentsByCompanyId(Integer companyId);
 
     List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId);
+
+    List<EmployeeAssignmentDto> getAllAssignments(String token);
 }

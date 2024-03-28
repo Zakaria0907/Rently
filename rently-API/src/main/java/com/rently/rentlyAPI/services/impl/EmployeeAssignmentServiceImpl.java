@@ -44,9 +44,18 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
 
     @Override
     public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId) {
-        List<EmployeeAssignmentDto> employeeAssignments = getAllEmployeeAssignmentsByCompanyId(companyId);
+        List<EmployeeAssignmentDto> employeeAssignments = getAllEmployeeAssignmentsByCompanyId(companyId);//getAllEmployeeAssignmentsByCompanyId(companyId);
         return employeeAssignments.stream()
+//                .map(EmployeeAssignmentDto::fromEntity)
                 .filter(employeeAssignmentDto -> employeeAssignmentDto.getEmployeeId() == null)
+                .toList();
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAllAssignments(Integer id) {
+        List<EmployeeAssignment> employeeAssignments = employeeAssignmentRepository.findAllByEmployeeId(id);
+        return employeeAssignments.stream()
+                .map(EmployeeAssignmentDto::fromEntity)
                 .toList();
     }
 

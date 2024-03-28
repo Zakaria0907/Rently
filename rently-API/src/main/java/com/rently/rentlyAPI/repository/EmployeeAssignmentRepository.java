@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface EmployeeAssignmentRepository extends JpaRepository<EmployeeAssignment, Integer> {
     List<EmployeeAssignment> findAllByCompanyId(Integer companyId);
+
+    List<EmployeeAssignment> findAllByEmployeeId(Integer id);
 }
