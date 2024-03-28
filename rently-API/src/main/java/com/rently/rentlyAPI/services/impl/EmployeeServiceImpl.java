@@ -6,13 +6,16 @@ import com.rently.rentlyAPI.entity.Company;
 import com.rently.rentlyAPI.entity.EmploymentContract;
 import com.rently.rentlyAPI.entity.enums.WorkType;
 import com.rently.rentlyAPI.entity.user.Employee;
+import com.rently.rentlyAPI.exceptions.AuthenticationException;
 import com.rently.rentlyAPI.repository.EmployeeRepository;
 import com.rently.rentlyAPI.repository.EmploymentContractRepository;
 import com.rently.rentlyAPI.services.CompanyService;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
 import com.rently.rentlyAPI.services.EmployeeService;
+import com.rently.rentlyAPI.utils.JwtUtils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,9 +29,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final CompanyService companyService;
     private final EmploymentContractRepository employmentContractRepository;
     private final EmployeeAssignmentService employeeAssignmentService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
     @Override
     public EmployeeDto registerEmployee(EmployeeDto employeeDto) {
+        if (employeeDto.getPassword() != null) {
+            // Encode the password if provided (null with google for example)
+            String encodedPassword = passwordEncoder.encode(employeeDto.getPassword());
+            employeeDto.setPassword(encodedPassword);
+        }
         // Retrieve company with the given ID
         Company companyToLink = companyService.findCompanyEntityById(employeeDto.getCompanyId());
 
@@ -62,6 +72,17 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findById(Integer employeeId) {
         return employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new EntityNotFoundException("Employee with id: " + employeeId + " not found"));
+    }
+
+    @Override
+    public Employee findEmployeeEntityByToken(String token) {
+        String tokenWithoutBearer = token.substring(7);
+        String email = jwtUtils.extractUsername(tokenWithoutBearer);
+        Optional<Employee> employee = findByEmail(email);
+        if (employee.isPresent()) {
+            return employee.get();
+        }
+        throw new AuthenticationException("Employee with email " + email + " not found");
     }
 
     @Override
@@ -119,6 +140,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId) {
         return employeeAssignmentService.getAllUnassignedEmployeeAssignmentsByCompanyId(companyId);
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAllAssignments(String token) {
+        Employee employee = findEmployeeEntityByToken(token);
+        return employeeAssignmentService.getAllAssignments(employee.getId());
+    }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentById(String token, Integer assignmentId) {
+        Employee employee = findEmployeeEntityByToken(token);
+        return employeeAssignmentService.getAssignmentByEmployeeIdAndAssignmentId(employee.getId(), assignmentId);
     }
 
 
