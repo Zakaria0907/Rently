@@ -148,5 +148,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeAssignmentService.getAllAssignments(employee.getId());
     }
 
+    @Override
+    public EmployeeAssignmentDto getAssignmentById(String token, Integer assignmentId) {
+        Employee employee = findEmployeeEntityByToken(token);
+        return employeeAssignmentService.getAssignmentByEmployeeIdAndAssignmentId(employee.getId(), assignmentId);
+    }
+
 
 }

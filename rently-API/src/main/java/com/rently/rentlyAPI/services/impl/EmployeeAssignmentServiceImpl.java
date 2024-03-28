@@ -6,10 +6,12 @@ import com.rently.rentlyAPI.entity.OwnerRequest;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.repository.EmployeeAssignmentRepository;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -57,6 +59,16 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
         return employeeAssignments.stream()
                 .map(EmployeeAssignmentDto::fromEntity)
                 .toList();
+    }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentByEmployeeIdAndAssignmentId(Integer employeeId, Integer assignmentId) {
+        Optional<EmployeeAssignment> employeeAssignment = employeeAssignmentRepository.findByEmployeeIdAndId(employeeId, assignmentId);
+        if (employeeAssignment.isEmpty()) {
+            throw new EntityNotFoundException("Employee assignment not found");
+        }
+
+        return EmployeeAssignmentDto.fromEntity(employeeAssignment.get());
     }
 
 

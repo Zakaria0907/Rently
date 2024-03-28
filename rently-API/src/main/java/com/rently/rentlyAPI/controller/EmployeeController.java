@@ -4,10 +4,7 @@ import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +17,10 @@ public class EmployeeController {
     @GetMapping(path = "/assignments")
     public ResponseEntity<List<EmployeeAssignmentDto>> getAssignments(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(employeeService.getAllAssignments(token));
+    }
+
+    @GetMapping(path = "/assignments/id={id}")
+    public ResponseEntity<EmployeeAssignmentDto> getAssignmentById(@RequestHeader("Authorization") String token, @PathVariable Integer id) {
+        return ResponseEntity.ok(employeeService.getAssignmentById(token, id));
     }
 }

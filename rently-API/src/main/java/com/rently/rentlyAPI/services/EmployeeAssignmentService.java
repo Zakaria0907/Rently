@@ -16,4 +16,6 @@ public interface EmployeeAssignmentService {
     List<EmployeeAssignmentDto> getAllUnassignedEmployeeAssignmentsByCompanyId(Integer companyId);
 
     List<EmployeeAssignmentDto> getAllAssignments(Integer id);
+
+    EmployeeAssignmentDto getAssignmentByEmployeeIdAndAssignmentId(Integer employeeId, Integer assignmentId);
 }
