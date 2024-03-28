@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,6 +24,8 @@ public class EmployeeAssignmentDto {
     private Integer ownerRequestId;
     @JsonProperty("work_type")
     private String workType;
+    @JsonProperty("assignment_updates")
+    private List<AssignmentUpdateDto> assignmentUpdates;
 
 
     public static EmployeeAssignmentDto fromEntity(EmployeeAssignment employeeAssignment) {
@@ -28,6 +33,11 @@ public class EmployeeAssignmentDto {
                 .id(employeeAssignment.getId())
                 .companyId(employeeAssignment.getCompany().getId())
                 .workType(employeeAssignment.getWorkType().name())
+
+                .assignmentUpdates(employeeAssignment.getUpdates().stream()
+                        .map(AssignmentUpdateDto::fromEntity)
+                        .collect(Collectors.toList()))
+
                 .ownerRequestId(employeeAssignment.getOwnerRequest().getId());
 
         if (employeeAssignment.getEmployee() != null) {

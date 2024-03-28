@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Data
 @SuperBuilder
 @NoArgsConstructor
@@ -25,7 +27,11 @@ public class EmployeeAssignment extends AbstractEntity {
     @JoinColumn(name = "request_id")
     private OwnerRequest ownerRequest;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'GENERAL'")
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'NOT_ASSIGNED'")
     private WorkType workType;
+
+    @OneToMany(mappedBy = "employeeAssignment")
+    private List<AssignmentUpdate> updates;
+
 
 }
