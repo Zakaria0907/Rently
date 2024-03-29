@@ -57,7 +57,7 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.getAllCondosByBuildingId(buildingId));
     }
     
-    @DeleteMapping(path = "/condos/condoId={condoId}")
+    @DeleteMapping(path = "/condos/delete/condoId={condoId}")
     public ResponseEntity<String> deleteCondoById(@PathVariable(name = "condoId") Integer condoId) {
         String confirmation = companyAdminService.deleteCondoById(condoId);
         return ResponseEntity.ok(confirmation);
