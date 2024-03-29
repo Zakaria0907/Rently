@@ -1,4 +1,4 @@
-import { UnitStatus, UnitType } from "./enums";
+import { UnitStatus, UnitType, EmployeeType } from "./enums";
 
 export interface exampleInterface {
     string: string;
@@ -16,6 +16,7 @@ export interface User {
     email: string;
     roles: string;
     company_id?: number;
+    employee_type?: EmployeeType;
 }
 
 export interface Building {

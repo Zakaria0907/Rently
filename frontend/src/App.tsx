@@ -39,6 +39,7 @@ import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 import ManageOwners from "./pages/CompanyPages/ManageOwners";
 import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
 import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
+import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 
 
 function App() {
@@ -396,6 +397,42 @@ function App() {
                 }
               />
 
+            </Route>
+
+            {/*Employee Routes*/}
+            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.EMPLOYEE]} />}>
+              <Route path="welcome" element={<Welcome />} />
+
+              <Route
+                path="/employee-dashboard"
+                element={
+                  <>
+                    <PageTitle title="Employee Dashboard | Rently Condo Management SAAS" />
+                    <EmployeeDashboard />
+                  </>
+                }
+              />
+
+              <Route
+                path="/employee-profile"
+                element={
+                  <>
+                    <PageTitle title="Profile | Rently Condo Management SAAS" />
+                    <Profile />
+                  </>
+                }
+              />
+
+              <Route
+                path="/employee-request-dashboard"
+                element={
+                  <>
+                    <PageTitle title="Request Dashboard | Rently Condo Management Employee" />
+                    <AdminBuildings />
+                  </>
+                }
+              />
+            
             </Route>
           </Route>
 

@@ -18,13 +18,14 @@ const useRefreshToken = (): (() => Promise<string>) => {
 
             const user: User = {
                 id: response?.data?.user?.id,
-                firstname: response?.data?.user?.firstname,
-                lastname: response?.data?.user?.lastname,
-                phoneNumber: response?.data?.user?.phoneNumber,
+                firstname: response?.data?.user?.first_name,
+                lastname: response?.data?.user?.last_name,
+                phoneNumber: response?.data?.user?.phone_number,
                 bio: response?.data?.user?.bio,
                 email: response?.data?.user?.email,
                 roles: response?.data?.user?.role,
                 company_id: response?.data?.user?.company_id,
+                employee_type: response?.data?.user?.employee_type,
             }
 
             return user;
