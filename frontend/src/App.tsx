@@ -39,6 +39,7 @@ import AdminViewOwnerDetail from "./pages/Admin/AdminViewOwnerDetail";
 import ManageOwners from "./pages/CompanyPages/ManageOwners";
 import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
 import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
+import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 
 
 function App() {
@@ -407,7 +408,7 @@ function App() {
                 element={
                   <>
                     <PageTitle title="Employee Dashboard | Rently Condo Management SAAS" />
-                    <AdminDashboard />
+                    <EmployeeDashboard />
                   </>
                 }
               />
