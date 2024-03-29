@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.controller;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.services.OccupantService;
 import lombok.RequiredArgsConstructor;
@@ -57,6 +58,16 @@ public class OccupantController {
     @GetMapping(path = "/request/id={id}")
     public ResponseEntity<OwnerRequestDto> getOwnerRequestById(@RequestHeader("Authorization") String token, @PathVariable Integer id) {
         return ResponseEntity.ok(occupantService.getOwnerRequestById(token, id));
+    }
+
+    @GetMapping(path = "/request/status")
+    public ResponseEntity<List<EmployeeAssignmentDto>> getAllStatus(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(occupantService.getAllOwnerRequestsStatus(token));
+    }
+
+    @GetMapping(path = "/request/status/requestId={requestId}")
+    public ResponseEntity<EmployeeAssignmentDto> getStatusByRequest(@RequestHeader("Authorization") String token, @PathVariable Integer requestId) {
+        return ResponseEntity.ok(occupantService.getOwnerRequestStatusByRequestId(token, requestId));
     }
 
 }
