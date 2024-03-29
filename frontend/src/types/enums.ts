@@ -4,6 +4,7 @@ export enum Roles {
     RENTER = "RENTER",
     OWNER = "OWNER",
     COMPANY= "COMPANY_ADMIN",
+    EMPLOYEE = "EMPLOYEE",
 }
 
 export enum RoleText {
@@ -25,4 +26,12 @@ export enum UnitType {
     PENTHOUSE = "PENTHOUSE",
     FACILITIES = "COMMON_FACILITIES",
     OTHER = "OTHER",
+}
+
+export enum EmployeeType {
+    ELECTRICITY = "ELECTRICITY",
+    PLUMBING = "PLUMBING",
+    CLEANING = "CLEANING",
+    SECURITY = "SECURITY",
+    GENERAL = "GENERAL",
 }
