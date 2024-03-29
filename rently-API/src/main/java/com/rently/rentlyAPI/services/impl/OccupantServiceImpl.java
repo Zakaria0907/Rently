@@ -1,19 +1,18 @@
 package com.rently.rentlyAPI.services.impl;
 
-import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
-import com.rently.rentlyAPI.dto.OwnerRequestDto;
+import com.rently.rentlyAPI.dto.*;
+import com.rently.rentlyAPI.entity.Condo;
+import com.rently.rentlyAPI.entity.HousingContract;
 import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.Renter;
 import com.rently.rentlyAPI.exceptions.AuthenticationException;
-import com.rently.rentlyAPI.services.BuildingService;
-import com.rently.rentlyAPI.services.OccupantService;
-import com.rently.rentlyAPI.services.OwnerService;
-import com.rently.rentlyAPI.services.RenterService;
+import com.rently.rentlyAPI.services.*;
 import com.rently.rentlyAPI.utils.JwtUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +20,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class OccupantServiceImpl implements OccupantService {
     private final BuildingService buildingService;
+    private final CondoService condoService;
+    private final HousingContractService housingContractService;
     private final RenterService renterService;
     private final OwnerService ownerService;
     private final JwtUtils jwtUtils;
@@ -61,7 +62,50 @@ public class OccupantServiceImpl implements OccupantService {
         Integer occupantId = findOccupantEntityByToken(token).getId();
         return ownerService.getOwnerRequestById(occupantId, requestId);
     }
-
+    
+    @Override
+    public List<CondoDto> getMyCondos(String token) {
+        // Step 1: Extract Occupant Id
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        
+        // Step 2: Fetch All Housing Contracts of that occupant
+        List<HousingContract> contracts = housingContractService.findHousingContractEntitiesByOccupantId(occupantId);
+        
+        // Step 3: Get the Condo Ids from the Housing Contracts, fetch them, convert to Dtos and add to the List
+        List<CondoDto> condosDto = new ArrayList<>();
+        for (HousingContract contract : contracts) {
+            Condo condo = condoService.findCondoEntityById(contract.getCondo().getId());
+            CondoDto condoDto = CondoDto.fromEntity(condo);
+            condosDto.add(condoDto);
+        }
+        
+        // Step 5: Return the List of Condo DTOs
+        return condosDto;
+    }
+    
+    @Override
+    public HousingContractAndCondoDto getMyCondoInformationById(String token, Integer condoId) {
+        // Step 1: Extract Occupant ID
+        Integer occupantId = findOccupantEntityByToken(token).getId();
+        
+        // Step 2: For extra security, check if the occupant has a contract with the condo
+        Optional<HousingContract> contractOptional = housingContractService.findHousingContractByCondoIdAndOccupantId(condoId, occupantId);
+        
+        if (contractOptional.isPresent()) {
+            
+            Condo condo = condoService.findCondoEntityById(condoId);
+            HousingContract contract = contractOptional.get();
+            
+            CondoDto condoDto = CondoDto.fromEntity(condo);
+            HousingContractDto housingContractDto = HousingContractDto.fromEntity(contract);
+            
+            return new HousingContractAndCondoDto(housingContractDto, condoDto);
+        } else {
+            throw new AuthenticationException("Occupant with ID " + occupantId + " does not have a contract with Condo with ID " + condoId);
+        
+        }
+    }
+    
     @Override
     public Occupant findOccupantEntityById(Integer occupantId) {
         Optional<Owner> owner = ownerService.findOwnerEntityById(occupantId);
