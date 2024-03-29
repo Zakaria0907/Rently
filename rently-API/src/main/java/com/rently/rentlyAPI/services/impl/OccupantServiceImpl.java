@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.services.impl;
 
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
@@ -60,6 +61,12 @@ public class OccupantServiceImpl implements OccupantService {
     public OwnerRequestDto getOwnerRequestById(String token, Integer requestId) {
         Integer occupantId = findOccupantEntityByToken(token).getId();
         return ownerService.getOwnerRequestById(occupantId, requestId);
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAllOwnerRequestsStatus(String token) {
+        List<OwnerRequestDto> ownerRequests = getAllOwnerRequests(token);
+        return ownerService.getAssignmentStatuses(ownerRequests);
     }
 
     @Override

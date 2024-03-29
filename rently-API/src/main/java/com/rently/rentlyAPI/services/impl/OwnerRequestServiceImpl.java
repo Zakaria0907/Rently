@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.Company;
@@ -63,5 +64,13 @@ public class OwnerRequestServiceImpl implements OwnerRequestService {
             return OwnerRequestDto.fromEntity(request.get());
         }
         throw new AuthenticationException("You do not have access to other people's requests");
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAssignmentStatuses(List<OwnerRequestDto> ownerRequests) {
+        List<EmployeeAssignmentDto> assignmentDtos = ownerRequests.stream()
+                .map(ownerRequestDto -> employeeAssignmentService.getEmployeeAssignmentByOwnerRequestId(ownerRequestDto.getId()))
+                .collect(Collectors.toList());
+        return assignmentDtos;
     }
 }
