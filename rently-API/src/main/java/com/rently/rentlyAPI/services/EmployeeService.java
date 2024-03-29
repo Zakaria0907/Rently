@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services;
 
+import com.rently.rentlyAPI.dto.AssignmentUpdateDto;
 import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.user.Employee;
@@ -31,4 +32,7 @@ public interface EmployeeService {
     List<EmployeeAssignmentDto> getAllAssignments(String token);
 
     EmployeeAssignmentDto getAssignmentById(String token, Integer assignmentId);
+
+    AssignmentUpdateDto updateAssignmentStatus(String token, AssignmentUpdateDto assignmentUpdateDto, Integer id);
+
 }

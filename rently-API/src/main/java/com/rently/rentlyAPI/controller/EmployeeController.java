@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.controller;
 
+import com.rently.rentlyAPI.dto.AssignmentUpdateDto;
 import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +24,10 @@ public class EmployeeController {
     public ResponseEntity<EmployeeAssignmentDto> getAssignmentById(@RequestHeader("Authorization") String token, @PathVariable Integer id) {
         return ResponseEntity.ok(employeeService.getAssignmentById(token, id));
     }
+
+    @PostMapping(path = "/assignments/id={assignmentId}")
+    public ResponseEntity<AssignmentUpdateDto> updateAssignmentStatusOnProgress(@RequestHeader("Authorization") String token, @RequestBody AssignmentUpdateDto assignmentUpdateDto, @PathVariable Integer assignmentId) {
+        return ResponseEntity.ok(employeeService.updateAssignmentStatus(token, assignmentUpdateDto, assignmentId));
+    }
+
 }
