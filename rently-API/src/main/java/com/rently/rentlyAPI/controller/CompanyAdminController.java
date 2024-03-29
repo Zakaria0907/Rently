@@ -52,9 +52,9 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.getAllCondos());
     }
     
-    @GetMapping(path = "/condos/buildingId={condoId}")
-    public ResponseEntity<List<CondoDto>> getAllCondosByBuildingId(@PathVariable(name = "condoId") Integer condoId) {
-        return ResponseEntity.ok(companyAdminService.getAllCondosByBuildingId(condoId));
+    @GetMapping(path = "/condos/buildingId={buildingId}")
+    public ResponseEntity<List<CondoDto>> getAllCondosByBuildingId(@PathVariable(name = "buildingId") Integer buildingId) {
+        return ResponseEntity.ok(companyAdminService.getAllCondosByBuildingId(buildingId));
     }
     
     @DeleteMapping(path = "/condos/condoId={condoId}")
