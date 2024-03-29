@@ -70,6 +70,12 @@ public class OccupantServiceImpl implements OccupantService {
     }
 
     @Override
+    public EmployeeAssignmentDto getOwnerRequestStatusByRequestId(String token, Integer requestId) {
+        OwnerRequestDto ownerRequest = getOwnerRequestById(token, requestId);
+        return ownerService.getAssignmentStatus(ownerRequest.getId());
+    }
+
+    @Override
     public Occupant findOccupantEntityById(Integer occupantId) {
         Optional<Owner> owner = ownerService.findOwnerEntityById(occupantId);
         Optional<Renter> renter = renterService.findRenterEntityById(occupantId);

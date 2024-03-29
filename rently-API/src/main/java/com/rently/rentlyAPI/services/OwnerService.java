@@ -22,4 +22,6 @@ public interface OwnerService {
     OwnerRequestDto getOwnerRequestById(Integer occupantId, Integer requestId);
 
     List<EmployeeAssignmentDto> getAssignmentStatuses(List<OwnerRequestDto> ownerRequests);
+
+    EmployeeAssignmentDto getAssignmentStatus(Integer requestId);
 }

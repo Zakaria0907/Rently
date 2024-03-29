@@ -31,4 +31,6 @@ public interface OccupantService {
     OwnerRequestDto getOwnerRequestById(String token, Integer id);
 
     List<EmployeeAssignmentDto> getAllOwnerRequestsStatus(String token);
+
+    EmployeeAssignmentDto getOwnerRequestStatusByRequestId(String token, Integer requestId);
 }

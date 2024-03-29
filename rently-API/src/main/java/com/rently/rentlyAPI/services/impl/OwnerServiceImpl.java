@@ -62,4 +62,9 @@ public class OwnerServiceImpl implements OwnerService {
 
         return ownerRequestService.getAssignmentStatuses(ownerRequests);
     }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentStatus(Integer requestId) {
+        return ownerRequestService.getAssignmentStatusByRequestId(requestId);
+    }
 }

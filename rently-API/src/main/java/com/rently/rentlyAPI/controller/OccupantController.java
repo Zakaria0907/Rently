@@ -65,5 +65,10 @@ public class OccupantController {
         return ResponseEntity.ok(occupantService.getAllOwnerRequestsStatus(token));
     }
 
+    @GetMapping(path = "/request/status/requestId={requestId}")
+    public ResponseEntity<EmployeeAssignmentDto> getStatusByRequest(@RequestHeader("Authorization") String token, @PathVariable Integer requestId) {
+        return ResponseEntity.ok(occupantService.getOwnerRequestStatusByRequestId(token, requestId));
+    }
+
 }
 

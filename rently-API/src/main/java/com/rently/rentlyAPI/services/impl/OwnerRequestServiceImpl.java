@@ -73,4 +73,9 @@ public class OwnerRequestServiceImpl implements OwnerRequestService {
                 .collect(Collectors.toList());
         return assignmentDtos;
     }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentStatusByRequestId(Integer requestId) {
+        return employeeAssignmentService.getEmployeeAssignmentByOwnerRequestId(requestId);
+    }
 }
