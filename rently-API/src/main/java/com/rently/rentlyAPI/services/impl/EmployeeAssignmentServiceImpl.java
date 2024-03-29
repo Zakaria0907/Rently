@@ -1,10 +1,13 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.AssignmentUpdateDto;
 import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.entity.AssignmentUpdate;
 import com.rently.rentlyAPI.entity.EmployeeAssignment;
 import com.rently.rentlyAPI.entity.OwnerRequest;
+import com.rently.rentlyAPI.entity.enums.AssignmentStatus;
 import com.rently.rentlyAPI.entity.user.Employee;
+import com.rently.rentlyAPI.exceptions.OperationNonPermittedException;
 import com.rently.rentlyAPI.repository.EmployeeAssignmentRepository;
 import com.rently.rentlyAPI.services.AssignmentUpdateService;
 import com.rently.rentlyAPI.services.EmployeeAssignmentService;
@@ -31,6 +34,7 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
         EmployeeAssignment employeeAssignment = EmployeeAssignment.builder()
                 .company(savedOwnerRequest.getCompany())
                 .workType(savedOwnerRequest.getWorkType())
+                .status(AssignmentStatus.NOT_ASSIGNED)
                 .ownerRequest(savedOwnerRequest)
                 .build();
 
@@ -55,6 +59,7 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
     public EmployeeAssignmentDto assignEmployeeToAssignment(Employee employee, Integer assignmentId) {
         EmployeeAssignment employeeAssignment = employeeAssignmentRepository.findById(assignmentId).orElseThrow();
         employeeAssignment.setEmployee(employee);
+        employeeAssignment.setStatus(AssignmentStatus.ASSIGNED);
         AssignmentUpdate assignmentUpdate = assignmentUpdateService.createAssignmentUpdateOnAssign(employeeAssignment);
         employeeAssignment.getUpdates().add(assignmentUpdate);
 
@@ -88,6 +93,26 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
         }
 
         return EmployeeAssignmentDto.fromEntity(employeeAssignment.get());
+    }
+
+    @Override
+    public AssignmentUpdateDto updateAssignmentStatus(Integer assignmentId, AssignmentUpdateDto assignmentUpdateDto) {
+        EmployeeAssignment employeeAssignment = employeeAssignmentRepository.findById(assignmentId).orElseThrow();
+        if (employeeAssignment.getStatus().equals(AssignmentStatus.COMPLETED) || employeeAssignment.getStatus().equals(AssignmentStatus.CANCELLED)) {
+            throw new OperationNonPermittedException("You cannot modify a closed assignment");
+        }
+        employeeAssignment.setStatus(AssignmentStatus.valueOf(assignmentUpdateDto.getStatus()));
+
+        AssignmentUpdate assignmentUpdate = AssignmentUpdateDto.toEntity(assignmentUpdateDto);
+        assignmentUpdate.setEmployeeAssignment(employeeAssignment);
+        assignmentUpdate.setStatus(AssignmentStatus.valueOf(assignmentUpdateDto.getStatus()));
+
+        employeeAssignment.getUpdates().add(assignmentUpdate);
+
+        employeeAssignmentRepository.save(employeeAssignment);
+        assignmentUpdateService.save(assignmentUpdate);
+
+        return AssignmentUpdateDto.fromEntity(assignmentUpdate);
     }
 
 

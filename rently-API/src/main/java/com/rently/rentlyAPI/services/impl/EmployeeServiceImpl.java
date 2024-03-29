@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.AssignmentUpdateDto;
 import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.EmployeeDto;
 import com.rently.rentlyAPI.entity.Company;
@@ -152,6 +153,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeAssignmentDto getAssignmentById(String token, Integer assignmentId) {
         Employee employee = findEmployeeEntityByToken(token);
         return employeeAssignmentService.getAssignmentByEmployeeIdAndAssignmentId(employee.getId(), assignmentId);
+    }
+
+    @Override
+    public AssignmentUpdateDto updateAssignmentStatus(String token, AssignmentUpdateDto assignmentUpdateDto, Integer id) {
+        EmployeeAssignmentDto assignmentDto = getAssignmentById(token, id);
+        return employeeAssignmentService.updateAssignmentStatus(assignmentDto.getId(), assignmentUpdateDto);
     }
 
 

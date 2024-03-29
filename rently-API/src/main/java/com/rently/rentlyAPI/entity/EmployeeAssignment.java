@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.entity;
 
+import com.rently.rentlyAPI.entity.enums.AssignmentStatus;
 import com.rently.rentlyAPI.entity.enums.WorkType;
 import com.rently.rentlyAPI.entity.user.Employee;
 import jakarta.persistence.*;
@@ -21,15 +22,18 @@ public class EmployeeAssignment extends AbstractEntity {
     @JoinColumn(name = "company_id")
     private Company company;
     @ManyToOne
-    @JoinColumn(nullable = true, name = "employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "request_id")
     private OwnerRequest ownerRequest;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'NOT_ASSIGNED'")
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'GENERAL'")
     private WorkType workType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'NOT_ASSIGNED'")
+    private AssignmentStatus status;
     @OneToMany(mappedBy = "employeeAssignment")
     private List<AssignmentUpdate> updates;
 
