@@ -47,6 +47,22 @@ public class CompanyAdminController {
         return ResponseEntity.ok(companyAdminService.createCondoAndLinkToBuilding(condoDto));
     }
     
+    @GetMapping(path = "/condos/all")
+    public ResponseEntity<List<CondoDto>> getAllCondos() {
+        return ResponseEntity.ok(companyAdminService.getAllCondos());
+    }
+    
+    @GetMapping(path = "/condos/buildingId={buildingId}")
+    public ResponseEntity<List<CondoDto>> getAllCondosByBuildingId(@PathVariable(name = "buildingId") Integer buildingId) {
+        return ResponseEntity.ok(companyAdminService.getAllCondosByBuildingId(buildingId));
+    }
+    
+    @DeleteMapping(path = "/condos/delete/condoId={condoId}")
+    public ResponseEntity<String> deleteCondoById(@PathVariable(name = "condoId") Integer condoId) {
+        String confirmation = companyAdminService.deleteCondoById(condoId);
+        return ResponseEntity.ok(confirmation);
+    }
+    
     @PostMapping(path = "/generate-key-and-create-housing-contract-for-condo")
     public ResponseEntity<String> sendKeyToUser(@RequestBody CombinedRequestDto combinedRequestDto) {
         return ResponseEntity.ok(companyAdminService.generateKeyForCondoAndCreateHousingContract(combinedRequestDto.getRegistrationKeyRequestDto(), combinedRequestDto.getHousingContractDto()));

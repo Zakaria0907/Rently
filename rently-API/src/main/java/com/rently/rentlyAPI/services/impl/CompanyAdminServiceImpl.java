@@ -224,7 +224,23 @@ public class CompanyAdminServiceImpl implements CompanyAdminService {
     public CondoDto createCondoAndLinkToBuilding(CondoDto condoDto) {
         return condoService.createCondoAndLinkToBuilding(condoDto);
     }
-
+    
+    @Override
+    public String deleteCondoById(Integer condoId) {
+        condoService.deleteCondoById(condoId);
+        return "Condo deleted successfully";
+    }
+    
+    @Override
+    public List<CondoDto> getAllCondos() {
+        return condoService.getAllCondos();
+    }
+    
+    @Override
+    public List<CondoDto> getAllCondosByBuildingId(Integer buildingId) {
+        return condoService.getAllCondosByBuildingId(buildingId);
+    }
+    
     @Override
     public String generateKeyForCondoAndCreateHousingContract(RegistrationKeyRequestDto registrationKeyRequestDto, HousingContractDto housingContractDto) {
         Condo condo = condoService.findCondoEntityById(registrationKeyRequestDto.getCondoId());

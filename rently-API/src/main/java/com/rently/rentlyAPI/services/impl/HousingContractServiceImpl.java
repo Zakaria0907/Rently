@@ -10,6 +10,7 @@ import com.rently.rentlyAPI.services.HousingContractService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,6 +51,16 @@ public class HousingContractServiceImpl implements HousingContractService {
 			throw new IllegalArgumentException("Housing contract for condo with ID " + condoId + " not found");
 		}
 		return housingContract.get();
+	}
+	
+	@Override
+	public List<HousingContract> findHousingContractEntitiesByOccupantId(Integer occupantId) {
+		return housingContractRepository.findAllByOccupantId(occupantId);
+	}
+	
+	@Override
+	public Optional<HousingContract> findHousingContractByCondoIdAndOccupantId(Integer condoId, Integer occupantId) {
+		return housingContractRepository.findByCondoIdAndOccupantId(condoId, occupantId);
 	}
 	
 	@Override
