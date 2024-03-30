@@ -63,11 +63,6 @@ const EmployeeRequestDashboard: React.FC = () => {
         }
     }
 
-    function handleUpdateAssignment(assignmentId: number, status: AssignmentStatus, comment: string): void {
-        updateAssignments(assignmentId, status, comment);
-        
-    }
-
 
     function renderStatus(status: AssignmentStatus): JSX.Element {
         switch (status) {
@@ -241,7 +236,7 @@ const EmployeeRequestDashboard: React.FC = () => {
 
             </div>
 
-            {requestPopup && selectedAssignment && <CompanyRequestPopup closeModal={toggleRequestPopup} assignment={selectedAssignment} onClickEvent={(assignmentId: number, status: AssignmentStatus, comment: string) => handleUpdateAssignment(assignmentId, status, comment)} />}
+            {requestPopup && selectedAssignment && <CompanyRequestPopup closeModal={toggleRequestPopup} assignment={selectedAssignment} onClickEvent={(assignmentId: number, status: AssignmentStatus, comment: string) => updateAssignments(assignmentId, status, comment)} />}
         </DefaultLayout>
     );
 };

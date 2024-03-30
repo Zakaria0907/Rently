@@ -4,7 +4,7 @@ import { Assignment } from '../types/types';
 
 interface CompanyRequestPopupProps {
     closeModal: () => void;
-    onClickEvent: (assignmentId: number, status: AssignmentStatus, comment: string) => void;
+    onClickEvent: (assignmentId: number, status: AssignmentStatus, comment: string) => Promise<void>;
     assignment: Assignment | null;
 }
 
