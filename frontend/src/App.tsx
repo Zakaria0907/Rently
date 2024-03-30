@@ -40,6 +40,7 @@ import ManageOwners from "./pages/CompanyPages/ManageOwners";
 import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
 import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
+import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashboard";
 
 
 function App() {
@@ -428,7 +429,7 @@ function App() {
                 element={
                   <>
                     <PageTitle title="Request Dashboard | Rently Condo Management Employee" />
-                    <AdminBuildings />
+                    <EmployeeRequestDashboard />
                   </>
                 }
               />

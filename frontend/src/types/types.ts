@@ -1,4 +1,4 @@
-import { UnitStatus, UnitType, EmployeeType } from "./enums";
+import { UnitStatus, UnitType, EmployeeType, AssignmentStatus } from "./enums";
 
 export interface exampleInterface {
     string: string;
@@ -39,4 +39,21 @@ export interface Unit {
     status: UnitStatus;
     userId?: number;
     buildingId?: number;
+}
+
+export interface Assignment {
+    id: number;
+    company_id: number;
+    employee_id: number;
+    owner_request_id: number;
+    work_type: string;
+    status: AssignmentStatus;
+    assignment_updates: AssignmentUpdate[];
+}
+
+export interface AssignmentUpdate {
+    id: number;
+    change_date: string;
+    status: string;
+    comment: string;
 }
