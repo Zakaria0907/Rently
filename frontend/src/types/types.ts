@@ -29,17 +29,23 @@ export interface Building {
     userId?: number;
 }
 
+
+
 export interface Unit {
     id?: number;
     name: string;
     address: string;
-    condoNumber: string;
+    unit_number: number;
     condoType: UnitType;
-    description: string;
+    registration_key: string | null;
     status: UnitStatus;
     userId?: number;
-    buildingId?: number;
+    building_id?: number;
+    parking_id: number | null;
+    locker_id: number | null;
 }
+
+
 
 export interface Assignment {
     id: number;

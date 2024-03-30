@@ -11,12 +11,16 @@ interface AddPropertyPopupProps {
 
 const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId, buildingId }: AddPropertyPopupProps) => {
     const [unit, setUnit] = useState<Unit>({
-        name: '',
-        address: '',
-        condoNumber: '',
+        name: "",
+        address: "",
+        unit_number: 0,
         condoType: UnitType.APARTMENT,
-        description: '',
+        registration_key: null,
         status: UnitStatus.AVAILABLE_FOR_RENT,
+        userId: undefined,
+        building_id: undefined,
+        parking_id: null,
+        locker_id: null,
     });
 
     const axiosPrivate = useAxiosPrivate();
@@ -33,7 +37,7 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId, bui
     }
 
     const enableAddButton = () => {
-        return unit.name.length > 0 && unit.address.length > 0 && unit.condoNumber.length > 0 && unit.condoType.length > 0 && unit.description.length > 0;
+        return unit.name.length > 0 && unit.address.length > 0 && unit.condoType.length > 0;
     }
 
 
@@ -91,7 +95,7 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId, bui
                                     type="text"
                                     placeholder="Number of Units"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setUnit({ ...unit, condoNumber: e.target.value }) }}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => { setUnit({ ...unit, unit_number: parseInt(e.target.value) }) }}
                                 />
                             </div>
 
@@ -133,18 +137,6 @@ const AddUnitPopup: React.FC<AddPropertyPopupProps> = ({ closeModal, userId, bui
                                     </select>
                                 </div>
 
-                            </div>
-
-                            <div>
-                                <label className="mb-3 block text-black dark:text-white">
-                                    Description
-                                </label>
-                                <textarea
-                                    rows={3}
-                                    placeholder="Description of the Building"
-                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    onChange={(e: ChangeEvent<HTMLTextAreaElement>) => { setUnit({ ...unit, description: e.target.value }) }}
-                                ></textarea>
                             </div>
 
 

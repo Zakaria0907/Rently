@@ -24,8 +24,6 @@ const ManageUnits: React.FC = () => {
     const axiosPrivate = useAxiosPrivate();
 
 
-
-
     useEffect(() => {
         fetchUnits();
     }, [addUnitPopup]);
@@ -36,7 +34,7 @@ const ManageUnits: React.FC = () => {
 
     const fetchUnits = async () => {
         try {
-            const response = await axiosPrivate.get(`/company/building/${buildingId}/condos/all`);
+            const response = await axiosPrivate.get(`/company-admin/condos/all`);
             console.log("Units fetched: ", response.data);
             setUnits(response.data);
         } catch (error) {
@@ -136,7 +134,7 @@ const ManageUnits: React.FC = () => {
                                 <div className="flex justify-between mb-10">
                                     <div>
                                         <div className="flex items-center mb-1">
-                                            <div className="text-2xl font-semibold">{card.name}</div>
+                                            <div className="text-2xl font-semibold">{card.id}</div>
                                         </div>
                                         <div className="text-sm font-medium text-gray-400">{card.condoType}</div>
                                     </div>
