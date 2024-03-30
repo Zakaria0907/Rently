@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
+import { AssignmentStatus } from '../types/enums';
+import { Assignment } from '../types/types';
 
 interface CompanyRequestPopupProps {
     closeModal: () => void;
+    onClickEvent: (assignmentId: number, status: AssignmentStatus, comment: string) => Promise<void>;
+    assignment: Assignment | null;
 }
 
-const CompanyRequestPopup: React.FC<CompanyRequestPopupProps> = ({ closeModal }: CompanyRequestPopupProps) => {
+const CompanyRequestPopup: React.FC<CompanyRequestPopupProps> = ({ closeModal, onClickEvent, assignment }: CompanyRequestPopupProps) => {
+
+    const [status, setStatus] = React.useState<AssignmentStatus>(assignment?.status || AssignmentStatus.ASSIGNED);
+    const [comment, setComment] = React.useState<string>("");
 
     return (
         <div
@@ -20,7 +27,7 @@ const CompanyRequestPopup: React.FC<CompanyRequestPopupProps> = ({ closeModal }:
 
                 <div className="relative inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
                     <h3 className="text-lg font-medium leading-6 text-gray-800 capitalize" id="modal-title">
-                        Make a New Request
+                        Request Details
                     </h3>
                     <p className="mt-2 text-sm text-gray-500">
                         This will add a request to your request list
@@ -30,48 +37,29 @@ const CompanyRequestPopup: React.FC<CompanyRequestPopupProps> = ({ closeModal }:
                         <div className="flex flex-col gap-5.5 ">
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    Request Title
+                                    Request Status
                                 </label>
-                                <input
-                                    type="text"
-                                    placeholder="Request Title"
+                                <select
+                                    id="dropdown"
+                                    value={status}
+                                    onChange={(e: ChangeEvent<HTMLSelectElement>) => { setStatus(e.target.value as AssignmentStatus) }}
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                />
+                                >
+                                    {Object.keys(AssignmentStatus).map((status, index) => {
+                                        return <option key={index}>{status}</option>
+                                    })}
+                                </select>
                             </div>
 
                             <div>
                                 <label className="mb-3 block text-black dark:text-white">
-                                    Request Type
-                                </label>
-                                <input
-                                    type="text"
-                                    placeholder="Request Type"
-                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                />
-                            </div>
-
-                            {/* <div>
-                                <label className="mb-3 block text-black dark:text-white">
-                                    Unit Count
-                                </label>
-                                <input
-                                    type="number"
-                                    placeholder="Number of Units"
-                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        setBuilding({ ...building, unitCount: parseInt(e.target.value) })
-                                    }
-                                />
-                            </div> */}
-
-                            <div>
-                                <label className="mb-3 block text-black dark:text-white">
-                                    Description
+                                    Comment
                                 </label>
                                 <textarea
                                     rows={3}
                                     placeholder="Description of the request..."
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                                    onChange={(e) => setComment(e.target.value)}
                                 ></textarea>
                             </div>
 
@@ -89,6 +77,7 @@ const CompanyRequestPopup: React.FC<CompanyRequestPopupProps> = ({ closeModal }:
                             <button
                                 type="button"
                                 className={`w-full px-4 py-2 mt-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary hover:bg-indigo-500 rounded-md sm:mt-0 sm:w-1/2 sm:mx-2 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40`}
+                                onClick={() => { onClickEvent(assignment?.id || 0, status, comment) }}
                             >
                                 Submit
                             </button>

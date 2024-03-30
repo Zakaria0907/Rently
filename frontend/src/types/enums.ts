@@ -35,3 +35,11 @@ export enum EmployeeType {
     SECURITY = "SECURITY",
     GENERAL = "GENERAL",
 }
+
+export enum AssignmentStatus {
+    NOT_ASSIGNED = "NOT_ASSIGNED",
+    ASSIGNED = "ASSIGNED",
+    IN_PROGRESS = "IN_PROGRESS",
+    COMPLETED = "COMPLETED",
+    CANCELLED = "CANCELLED",
+}
