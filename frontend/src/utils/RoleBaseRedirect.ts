@@ -24,6 +24,9 @@ const RoleBasedRedirect = () => {
       case Roles.COMPANY:
         navigate('/company-profile');
         break;
+      case Roles.EMPLOYEE:
+        navigate('/employee-profile');
+        break;
       // Redirect to a default page if the role is unrecognized
       default:
         navigate('/'); // Adjust as needed

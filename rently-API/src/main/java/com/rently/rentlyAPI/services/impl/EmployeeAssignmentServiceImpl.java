@@ -115,5 +115,10 @@ public class EmployeeAssignmentServiceImpl implements EmployeeAssignmentService 
         return AssignmentUpdateDto.fromEntity(assignmentUpdate);
     }
 
+    @Override
+    public EmployeeAssignmentDto getEmployeeAssignmentByOwnerRequestId(Integer id) {
+        return EmployeeAssignmentDto.fromEntity(employeeAssignmentRepository.findByOwnerRequestId(id));
+    }
+
 
 }

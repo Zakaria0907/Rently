@@ -3,6 +3,9 @@ package com.rently.rentlyAPI.services.impl;
 import com.rently.rentlyAPI.dto.*;
 import com.rently.rentlyAPI.entity.Condo;
 import com.rently.rentlyAPI.entity.HousingContract;
+import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
+import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.user.Occupant;
 import com.rently.rentlyAPI.entity.user.Owner;
 import com.rently.rentlyAPI.entity.user.Renter;
@@ -106,6 +109,18 @@ public class OccupantServiceImpl implements OccupantService {
         }
     }
     
+    @Override
+    public List<EmployeeAssignmentDto> getAllOwnerRequestsStatus(String token) {
+        List<OwnerRequestDto> ownerRequests = getAllOwnerRequests(token);
+        return ownerService.getAssignmentStatuses(ownerRequests);
+    }
+
+    @Override
+    public EmployeeAssignmentDto getOwnerRequestStatusByRequestId(String token, Integer requestId) {
+        OwnerRequestDto ownerRequest = getOwnerRequestById(token, requestId);
+        return ownerService.getAssignmentStatus(ownerRequest.getId());
+    }
+
     @Override
     public Occupant findOccupantEntityById(Integer occupantId) {
         Optional<Owner> owner = ownerService.findOwnerEntityById(occupantId);

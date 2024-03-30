@@ -22,4 +22,5 @@ public interface EmployeeAssignmentService {
 
     AssignmentUpdateDto updateAssignmentStatus(Integer assignmentId, AssignmentUpdateDto assignmentUpdateDto);
 
+    EmployeeAssignmentDto getEmployeeAssignmentByOwnerRequestId(Integer id);
 }

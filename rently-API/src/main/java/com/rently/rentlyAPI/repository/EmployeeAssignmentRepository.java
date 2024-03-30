@@ -12,4 +12,6 @@ public interface EmployeeAssignmentRepository extends JpaRepository<EmployeeAssi
     List<EmployeeAssignment> findAllByEmployeeId(Integer id);
 
     Optional<EmployeeAssignment> findByEmployeeIdAndId(Integer employeeId, Integer assignmentId);
+
+    EmployeeAssignment findByOwnerRequestId(Integer id);
 }

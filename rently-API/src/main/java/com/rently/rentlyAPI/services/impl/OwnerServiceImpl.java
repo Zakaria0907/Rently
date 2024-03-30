@@ -1,5 +1,6 @@
 package com.rently.rentlyAPI.services.impl;
 
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.Building;
 import com.rently.rentlyAPI.entity.OwnerRequest;
@@ -54,5 +55,16 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public OwnerRequestDto getOwnerRequestById(Integer ownerId, Integer requestId) {
         return ownerRequestService.getOwnerRequestById(ownerId, requestId);
+    }
+
+    @Override
+    public List<EmployeeAssignmentDto> getAssignmentStatuses(List<OwnerRequestDto> ownerRequests) {
+
+        return ownerRequestService.getAssignmentStatuses(ownerRequests);
+    }
+
+    @Override
+    public EmployeeAssignmentDto getAssignmentStatus(Integer requestId) {
+        return ownerRequestService.getAssignmentStatusByRequestId(requestId);
     }
 }

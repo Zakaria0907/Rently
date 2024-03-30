@@ -3,6 +3,7 @@ package com.rently.rentlyAPI.services;
 import com.rently.rentlyAPI.dto.CommonFacilityReservationDto;
 import com.rently.rentlyAPI.dto.CondoDto;
 import com.rently.rentlyAPI.dto.HousingContractAndCondoDto;
+import com.rently.rentlyAPI.dto.EmployeeAssignmentDto;
 import com.rently.rentlyAPI.dto.OwnerRequestDto;
 import com.rently.rentlyAPI.entity.user.Occupant;
 
@@ -37,4 +38,8 @@ public interface OccupantService {
     List<CondoDto> getMyCondos(String token);
     
     HousingContractAndCondoDto getMyCondoInformationById(String token, Integer condoId);
+
+    List<EmployeeAssignmentDto> getAllOwnerRequestsStatus(String token);
+
+    EmployeeAssignmentDto getOwnerRequestStatusByRequestId(String token, Integer requestId);
 }
