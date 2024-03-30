@@ -75,6 +75,12 @@ public interface CompanyAdminService {
     CondoDto createCondoAndLinkToBuilding(CondoDto condoDto);
 
     Condo getCondoEntityByRegistrationKey(String registrationKey);
+    
+    String deleteCondoById(Integer condoId);
+    
+    List<CondoDto> getAllCondos();
+    
+    List<CondoDto> getAllCondosByBuildingId(Integer buildingId);
 
     String generateKeyForCondoAndCreateHousingContract(RegistrationKeyRequestDto registrationKeyRequestDto, HousingContractDto housingContractDto);
 

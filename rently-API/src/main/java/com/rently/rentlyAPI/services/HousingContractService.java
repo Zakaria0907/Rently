@@ -9,6 +9,7 @@ import com.rently.rentlyAPI.entity.HousingContract;
 import com.rently.rentlyAPI.entity.user.Occupant;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface HousingContractService {
 	HousingContract createHousingContractWithoutOccupant(Company company, Condo condo, HousingContractDto housingContractDto);
@@ -16,6 +17,10 @@ public interface HousingContractService {
 	HousingContractDto setOccupantToHousingContract(HousingContract housingContract, Occupant occupant);
 	
 	HousingContract findHousingContractEntityByCondoId(Integer condoId);
+	
+	List<HousingContract> findHousingContractEntitiesByOccupantId(Integer occupantId);
+	
+	Optional<HousingContract> findHousingContractByCondoIdAndOccupantId(Integer condoId, Integer occupantId);
 	
 	void deleteHousingContract(Integer housingContractId);
 }

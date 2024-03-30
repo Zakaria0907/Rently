@@ -109,6 +109,9 @@ public class CondoServiceImpl implements CondoService {
 
     @Override
     public List<CondoDto> getAllCondosByBuildingId(Integer buildingId) {
+        // just to throw an exception if building does not exist
+        Building building = buildingService.findBuildingEntityById(buildingId);
+        
         List<Condo> condos = condoRepository.findAllByBuildingId(buildingId);
         return condos.stream()
                 .map(CondoDto::fromEntity)
