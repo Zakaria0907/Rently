@@ -1,21 +1,140 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import DefaultLayout from '../DefaultLayout';
 import { Avatar } from '@chakra-ui/react';
-import { IoMdAddCircleOutline } from 'react-icons/io';
 import CompanyRequestPopup from '../../components/CompanyRequestPopup';
+import { Assignment } from '../../types/types';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import toast, { Toaster } from 'react-hot-toast';
+import { AssignmentStatus } from '../../types/enums';
+import useAuth from '../../hooks/useAuth';
+import EmployeeRequestPopup from '../../components/EmployeeRequestPopup';
 
 
 
-const CompanyRequests: React.FC = () => {
+const EmployeeRequestDashboard: React.FC = () => {
     const [requestPopup, setRequestPopup] = useState<boolean>(false);
+    const [assignments, setAssignments] = useState<Assignment[]>([]);
+    const [selectedAssignmentID, setSelectedAssignmentID] = useState<number>(0);
+
+    
+
+    const axiosPrivate = useAxiosPrivate();
+    const { auth } = useAuth();
+
+    useEffect(() => {
+        try {
+            fetchAssignments();
+        } catch (error) {
+            console.log(error);
+            toast.error("Network Error");
+        }
+    }, []);
+
+    useEffect(() => {    
+        fetchAssignments();
+    }, [requestPopup]);
+
+
+    async function fetchAssignments(): Promise<void> {
+        try {
+            const response = await axiosPrivate.get('/company-admin/assignments');
+            setAssignments(response.data);
+        } catch (error) {
+            console.log(error);
+            toast.error("Network Error");
+        }
+    }
 
     function toggleRequestPopup(): void {
         setRequestPopup(!requestPopup);
     }
 
+    async function updateAssignments(assignmentId: number, status: AssignmentStatus, comment: string): Promise<void> {
+        try {
+            await axiosPrivate.post(`/company-admin/assignments/id=${assignmentId}`,
+                {
+                    status: status,
+                    comment: comment
+                }
+            );
+            toast.success("Request Updated Successfully");
+            toggleRequestPopup();
+        } catch (error) {
+            console.log(error);
+            toast.error("Network Error!");
+        }
+    }
+
+
+    function renderStatus(status: AssignmentStatus): JSX.Element {
+        switch (status) {
+            case AssignmentStatus.ASSIGNED:
+                return (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-blue-500 bg-blue-100/60 dark:bg-gray-800">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.5 7L2 4.5M2 4.5L4.5 2M2 4.5H8C8.53043 4.5 9.03914 4.71071 9.41421 5.08579C9.78929 5.46086 10 5.96957 10 6.5V10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+
+                        <h2 className="text-sm font-normal">Assigned</h2>
+                    </div>
+                );
+            case AssignmentStatus.IN_PROGRESS:
+                return (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-yellow-500 bg-yellow-100/60 dark:bg-gray-800">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 2V10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M2 6H10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+
+                        <h2 className="text-sm font-normal">In Progress</h2>
+                    </div>
+                );
+            case AssignmentStatus.COMPLETED:
+                return (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://
+                        .org/2000/svg">
+                            <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <h2 className="text-sm font-normal">Completed</h2>
+                    </div>
+                )
+            case AssignmentStatus.CANCELLED:
+                return (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-red-500 bg-red-100/60 dark:bg-gray-800">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+
+                        <h2 className="text-sm font-normal">Cancelled</h2>
+                    </div>
+                );
+            case AssignmentStatus.NOT_ASSIGNED:
+                return (
+                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-gray-500 bg-gray-100/60 dark:bg-gray-800">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 2V10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M2 6H10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+
+                        <h2 className="text-sm font-normal">Not Assigned</h2>
+                    </div>
+                );
+            default:
+                return <></>;
+        }
+    }
+
+    function checkStatus(status: AssignmentStatus): boolean {
+        return status === AssignmentStatus.COMPLETED || status === AssignmentStatus.CANCELLED;
+    }
+    
+//assignEmployee(assignment.employee_id, assignment.id)
     return (
         <DefaultLayout>
+
+            <Toaster position="top-right" />
             <Breadcrumb pageName="Manage Requests" />
             <div className="h-full w-full">
 
@@ -58,221 +177,51 @@ const CompanyRequests: React.FC = () => {
                                                     Request Type
                                                 </th>
 
-                                                <th scope="col" className="relative py-3.5 ">
-                                                    <button
-                                                        onClick={() => toggleRequestPopup()}
-                                                        className="flex items-center bg-primary font-normal text-white text-sm rounded-md px-2 py-2 gap-2 hover:bg-indigo-500">
-                                                        <span className="mr-2">Submit Request</span>
-                                                        <IoMdAddCircleOutline className="text-xl" />
-                                                    </button>
+                                                <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                                            <tr>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                    <div className="inline-flex items-center gap-x-3">
-                                                        <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
+                                            {
+                                                assignments.map((assignment: Assignment) => (
+                                                    <tr key={assignment.id}>
+                                                        <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                                                            <div className="inline-flex items-center gap-x-3">
+                                                                <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
 
-                                                        <span>#3066</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 6, 2022</td>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
-                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-
-                                                        <h2 className="text-sm font-normal">Completed</h2>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-2">
-                                                        <Avatar size={'sm'} />
-                                                        <div>
-                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Arthur Melo</h2>
-                                                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">authurmelo@company.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Maintenance</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-6">
-                                                        <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                            Archive
+                                                                <span>#{assignment.id}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 6, 2022</td>
+                                                        <button onClick={() => {
+                                                                    setSelectedAssignmentID(assignment.id)
+                                                                    toggleRequestPopup();
+                                                                }
+                                                                } 
+                                                                className={`${checkStatus(assignment.status) ? 'text-gray-400' : 'text-primary transition-colors duration-200 hover:text-indigo-500'}  focus:outline-none`}
+                                                                disabled={checkStatus(assignment.status)}
+                                                        >
+                                                            <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                                                                {renderStatus(assignment.status)}
+                                                            </td>
+                                                            
                                                         </button>
-
-                                                        <button className="text-primary transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                    <div className="inline-flex items-center gap-x-3">
-                                                        <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
-
-                                                        <span>#3065</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 5, 2022</td>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                    <div className="inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
-                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M9 3L3 9M3 3L9 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-
-                                                        <h2 className="text-sm font-normal">Cancelled</h2>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-2">
-                                                        <Avatar size={'sm'} />
-                                                        <div>
-                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Andi Lane</h2>
-                                                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">andi@company.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Maintenance</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-6">
-                                                        <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                            Archive
-                                                        </button>
-
-                                                        <button className="text-primary transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                    <div className="inline-flex items-center gap-x-3">
-                                                        <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
-
-                                                        <span>#3064</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 5, 2022</td>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
-                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-
-                                                        <h2 className="text-sm font-normal">Completed</h2>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-2">
-                                                        <Avatar size={'sm'} />
-                                                        <div>
-                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Kate Morrison</h2>
-                                                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">kate@company.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Maintenance</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-6">
-                                                        <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                            Archive
-                                                        </button>
-
-                                                        <button className="text-primary transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                    <div className="inline-flex items-center gap-x-3">
-                                                        <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
-
-                                                        <span>#3063</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 4, 2022</td>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                    <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60 dark:bg-gray-800">
-                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M10 3L4.5 8.5L2 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-
-                                                        <h2 className="text-sm font-normal">Completed</h2>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-2">
-                                                        <Avatar size={'sm'} />
-                                                        <div>
-                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Candice Wu</h2>
-                                                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">candice@company.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Maintenance</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-6">
-                                                        <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                            Archive
-                                                        </button>
-
-                                                        <button className="text-primary transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                                    <div className="inline-flex items-center gap-x-3">
-                                                        <input type="checkbox" className="text-primary border-gray-300 rounded dark:bg-gray-900 dark:ring-offset-gray-900 dark:border-gray-700" />
-
-                                                        <span>#3062</span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Jan 4, 2022</td>
-                                                <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
-                                                    <div className="inline-flex items-center px-3 py-1 text-gray-500 rounded-full gap-x-2 bg-gray-100/60 dark:bg-gray-800">
-                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M4.5 7L2 4.5M2 4.5L4.5 2M2 4.5H8C8.53043 4.5 9.03914 4.71071 9.41421 5.08579C9.78929 5.46086 10 5.96957 10 6.5V10" stroke="#667085" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                        </svg>
-
-                                                        <h2 className="text-sm font-normal">Pending</h2>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-2">
-                                                        <Avatar size={'sm'} />
-                                                        <div>
-                                                            <h2 className="text-sm font-medium text-gray-800 dark:text-white ">Orlando Diggs</h2>
-                                                            <p className="text-xs font-normal text-gray-600 dark:text-gray-400">orlando@company.com</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">Maintenance</td>
-                                                <td className="px-4 py-4 text-sm whitespace-nowrap">
-                                                    <div className="flex items-center gap-x-6">
-                                                        <button className="text-gray-500 transition-colors duration-200 dark:hover:text-indigo-500 dark:text-gray-300 hover:text-indigo-500 focus:outline-none">
-                                                            Archive
-                                                        </button>
-
-                                                        <button className="text-primary transition-colors duration-200 hover:text-indigo-500 focus:outline-none">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">
+                                                            <div className="flex items-center gap-x-2">
+                                                                <Avatar size={'sm'} />
+                                                                <div>
+                                                                    <div>
+                                                                        {assignment.status == AssignmentStatus.ASSIGNED ? <h2 className="text-sm font-medium text-gray-800 dark:text-white "> {auth.firstname + ' ' + auth.lastname} </h2> : 'Not Assigned'}
+                                                                    </div>
+                                                                    {assignment.status == AssignmentStatus.ASSIGNED ? <p className="text-xs font-normal text-gray-600 dark:text-gray-400">{auth.email}</p> : 'No email'}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{assignment.work_type}</td>
+                                                    </tr>
+                                                ))
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -280,46 +229,15 @@ const CompanyRequests: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-6">
-                        <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                            </svg>
-
-                            <span>
-                                previous
-                            </span>
-                        </a>
-
-                        <div className="items-center hidden md:flex gap-x-3">
-                            <a href="#" className="px-2 py-1 text-sm text-primary rounded-md dark:bg-gray-800 bg-blue-100/60">1</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">2</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">3</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">...</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">12</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">13</a>
-                            <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">14</a>
-                        </div>
-
-                        <a href="#" className="flex items-center px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
-                            <span>
-                                Next
-                            </span>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 rtl:-scale-x-100">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
-                            </svg>
-                        </a>
-                    </div>
                 </section>
 
             </div>
 
-            {requestPopup && <CompanyRequestPopup closeModal={toggleRequestPopup} />}
+            {requestPopup && <EmployeeRequestPopup closeModal={toggleRequestPopup} assignmentID={selectedAssignmentID} />}
         </DefaultLayout>
     );
 };
 
-export default CompanyRequests;
+export default EmployeeRequestDashboard;
 
 

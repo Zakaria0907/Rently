@@ -63,3 +63,21 @@ export interface AssignmentUpdate {
     status: string;
     comment: string;
 }
+
+export interface Assignment {
+    id: number;
+    company_id: number;
+    employee_id: number;
+    owner_request_id: number;
+    work_type: string;
+    status: AssignmentStatus;
+    assignment_updates: AssignmentUpdate[];
+}
+
+export interface Request {
+    id: number;
+    owner_id: number;
+    building_id: number;
+    request_description: string;
+    work_type: string;
+}
