@@ -41,6 +41,7 @@ import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
 import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashboard";
+import CompanyEmployeeDetail from "./pages/CompanyPages/CompanyEmployeeDetail";
 
 
 function App() {
@@ -332,6 +333,8 @@ function App() {
                   </>
                 }
               />
+
+              <Route path="/employee-detail/:employeeId" element={<CompanyEmployeeDetail />} />
 
               <Route
                 path="/company-requests"
