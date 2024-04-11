@@ -42,7 +42,7 @@ import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashboard";
 import CompanyEmployeeDetail from "./pages/CompanyPages/CompanyEmployeeDetail";
-
+import OwnerRequestDashboard from "./pages/OwnerPages/OwnerRequestDashboard";
 
 function App() {
   return (
@@ -56,7 +56,6 @@ function App() {
 
           {/* protected routes */}
           <Route element={<PersistLogin />}>
-
             {/* route to allow role-based redirection*/}
             <Route path="/login-success" element={<RoleBasedRedirect />} />
 
@@ -76,7 +75,9 @@ function App() {
             </Route>
 
             {/* user routes */}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}>
+            <Route
+              element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.USER]} />}
+            >
               <Route path="welcome" element={<Welcome />} />
 
               <Route
@@ -108,11 +109,14 @@ function App() {
                   </>
                 }
               />
-
             </Route>
 
             {/* renter routes */}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.RENTER]} />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Roles.ADMIN, Roles.RENTER]} />
+              }
+            >
               <Route path="welcomeAdmin" element={<Welcome />} />
 
               <Route
@@ -157,7 +161,11 @@ function App() {
             </Route>
 
             {/* owner routes*/}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.OWNER]} />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Roles.ADMIN, Roles.OWNER]} />
+              }
+            >
               <Route path="welcomeOwner" element={<Welcome />} />
               <Route
                 path="/owner-dashboard"
@@ -198,10 +206,24 @@ function App() {
                   </>
                 }
               />
+
+              <Route
+                path="/owner-requests"
+                element={
+                  <>
+                    <PageTitle title="Request | Rently Condo Management SAAS" />
+                    <OwnerRequestDashboard />
+                  </>
+                }
+              />
             </Route>
 
             {/*management company routes, once it is in the backend, we can enforce the role*/}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />
+              }
+            >
               <Route path="welcome" element={<Welcome />} />
 
               <Route
@@ -253,7 +275,6 @@ function App() {
                   </>
                 }
               />
-
 
               <Route
                 path="/company-financial-report"
@@ -345,11 +366,14 @@ function App() {
                   </>
                 }
               />
-
             </Route>
 
             {/*Admin Routes*/}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Roles.ADMIN, Roles.COMPANY]} />
+              }
+            >
               <Route path="welcome" element={<Welcome />} />
 
               <Route
@@ -400,11 +424,14 @@ function App() {
                   </>
                 }
               />
-
             </Route>
 
             {/*Employee Routes*/}
-            <Route element={<RequireAuth allowedRoles={[Roles.ADMIN, Roles.EMPLOYEE]} />}>
+            <Route
+              element={
+                <RequireAuth allowedRoles={[Roles.ADMIN, Roles.EMPLOYEE]} />
+              }
+            >
               <Route path="welcome" element={<Welcome />} />
 
               <Route
@@ -436,7 +463,6 @@ function App() {
                   </>
                 }
               />
-            
             </Route>
           </Route>
 
@@ -454,7 +480,6 @@ function App() {
           {/* for testing/dev purposes */}
           <Route path="/temp" element={<Temp />} />
 
-
           <Route
             path="/fees"
             element={
@@ -468,10 +493,7 @@ function App() {
             }
           />
 
-          <Route
-            path="/createPropertyTest"
-            element={<CreatePropertyTest />}
-          />
+          <Route path="/createPropertyTest" element={<CreatePropertyTest />} />
           <Route
             path="/reservations"
             element={<Reservations reservations={[]} />}
