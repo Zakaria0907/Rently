@@ -41,6 +41,8 @@ import ManageEmployees from "./pages/CompanyPages/ManageEmployees";
 import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashboard";
+import GenerateKey from "./pages/CompanyPages/GenerateKey";
+import ViewUnit from "./pages/CompanyPages/ViewUnit";
 
 
 function App() {
@@ -339,6 +341,18 @@ function App() {
                   <>
                     <PageTitle title="Requests | Rently Condo Management SAAS" />
                     <CompanyRequests />
+                  </>
+                }
+              />
+
+            
+
+                <Route
+                path="/manage-unit/:id"
+                element={
+                  <>
+                    <PageTitle title="View Unit| Rently Condo Management SAAS" />
+                    <ViewUnit />
                   </>
                 }
               />
