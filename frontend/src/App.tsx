@@ -42,7 +42,7 @@ import CompanyRequests from "./pages/CompanyPages/CompanyRequests";
 import EmployeeDashboard from "./pages/EmployeePages/EmployeeDashboard";
 import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashboard";
 import OwnerRequestDashboard from "./pages/OwnerPages/OwnerRequestDashboard";
-
+import CreateCompanyForm from "./components/CreateCompanyForm";
 function App() {
   return (
     <ChakraProvider>
@@ -418,6 +418,15 @@ function App() {
                   <>
                     <PageTitle title="Owners Details | Rently Condo Management Administration" />
                     <AdminViewOwnerDetail />
+                  </>
+                }
+              />
+              <Route
+                path="/create-company"
+                element={
+                  <>
+                    <PageTitle title="Create Company | Rently Condo Management SAAS" />
+                    <CreateCompanyForm />
                   </>
                 }
               />
