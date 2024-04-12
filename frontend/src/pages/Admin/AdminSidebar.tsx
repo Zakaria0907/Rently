@@ -67,7 +67,7 @@ const CompanySidebar = () => {
       </li>
       {/* <!-- Menu Item Calendar --> */}
 
-      {/* <!-- Menu Item Settings --> */}
+      {/* <!-- Menu Item Create Company --> */}
       <li>
         <NavLink
           to="/create-company"
@@ -79,7 +79,21 @@ const CompanySidebar = () => {
           Create Company
         </NavLink>
       </li>
-      {/* <!-- Menu Item Settings --> */}
+      {/* <!-- Menu Item Create Company --> */}
+
+      {/* <!-- Menu Item Create Company Admin --> */}
+      <li>
+        <NavLink
+          to="/create-company-admin"
+          className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+            pathname.includes("settings") && "bg-graydark dark:bg-meta-4"
+          }`}
+        >
+          <FaRegUser />
+          Create Company Admin
+        </NavLink>
+      </li>
+      {/* <!-- Menu Item Create Company Admin --> */}
 
       {/* <!-- Menu Item Settings --> */}
       <li>
