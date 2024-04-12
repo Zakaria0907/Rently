@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DefaultLayout from '../DefaultLayout';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { IoIosCreate, IoIosTrash, IoMdAddCircleOutline } from "react-icons/io";
-import { Image } from '@chakra-ui/react';
+import { Avatar, Image } from '@chakra-ui/react';
 import OwnerPopup from '../../components/OwnerPopup'; // Popup for adding/editing an owner
 // import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import UserOne from '../../images/user/user-01.png';
 import UserTwo from '../../images/user/user-02.png';
 import UserThree from '../../images/user/user-03.png';
 import UserFour from '../../images/user/user-04.png';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { Employee } from '../../types/types';
+import toast from 'react-hot-toast';
 
 interface OwnerData {
     id?: number; // Make id optional for adding new owners where id might not be present
@@ -54,6 +57,33 @@ const initialOwners = [
 const ManageEmployees: React.FC = () => {
     const [owners, setOwners] = React.useState<any[]>(initialOwners);
     const [ownerPopup, setOwnerPopup] = React.useState({ isOpen: false, editMode: false, ownerData: undefined });
+    
+    const [employeeID, setEmployeeID] = useState<number>();
+    const [allEmployees, setAllEmployees] = useState<User[]>([]); // Initialized as an empty array
+    const navigate = useNavigate();
+
+    const axiosPrivate = useAxiosPrivate();
+    
+    useEffect(() => {
+        try {
+            fetchEmployees();
+        } catch (error) {
+            console.log(error);
+            toast.error("Network Error");
+        }
+    }, []);
+
+    async function fetchEmployees(): Promise<void> {
+        try {
+            const response = await axiosPrivate.get('/company-admin/employees');
+            setAllEmployees(response.data);
+            console.log("RIGHT HERE");
+            console.log(response.data)
+        } catch (error) {
+            console.error(error);
+            toast.error("Network Error");
+        }
+    }
 
     const toggleOwnerPopup = (editMode = false, ownerData = undefined) => {
         setOwnerPopup({ isOpen: !ownerPopup.isOpen, editMode, ownerData });
@@ -76,7 +106,8 @@ const ManageEmployees: React.FC = () => {
         if (isConfirmed) 
             setOwners(currentOwners => currentOwners.filter(owner => owner.id !== ownerId));
     };
-
+    console.log("HEY")
+    console.log(allEmployees);
     return (
         <DefaultLayout>
             <div className="flex justify-between items-center mb-4">
@@ -118,6 +149,25 @@ const ManageEmployees: React.FC = () => {
                         </div>
                     </div>
                 ))}
+                {allEmployees.map((employee: Employee) => (
+                    <div key={employee.id} className="bg-white rounded-md border border-gray-200 p-6 shadow-md">
+                        <div className="flex justify-center mb-4">
+                            <Avatar size={'lg'} />
+                        </div>
+                        <h3 className="text-lg font-semibold text-center mb-4">{employee.first_name} {employee.last_name}</h3>
+                        <h4 className="text-md text-center">{employee.email}</h4>
+                        <div className="flex justify-around mt-4">
+                            <Link to={`/employee-detail/${employee.id}`} state={{ employee }}>
+                                View Details
+                            </Link>
+                            <IoIosCreate className="text-primary cursor-pointer" onClick={() => toggleOwnerPopup(true, employee)} />
+                            <IoIosTrash className="text-red-500 cursor-pointer" onClick={() => deleteOwner(employee.id)} />
+                        </div>
+                    </div>
+                ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
             </div>
         </DefaultLayout>
     );

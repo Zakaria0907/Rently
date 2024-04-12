@@ -81,3 +81,15 @@ export interface Request {
     request_description: string;
     work_type: string;
 }
+
+export interface Employee {
+    id: number;
+    first_name: string;
+    last_name: string;
+    phoneNumber: string;
+    bio: string;
+    email: string;
+    roles: string;
+    company_id?: number;
+    employee_type?: EmployeeType;
+}
