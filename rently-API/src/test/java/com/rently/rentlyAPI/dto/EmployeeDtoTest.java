@@ -1,6 +1,7 @@
 package com.rently.rentlyAPI.dto;
 
 import com.rently.rentlyAPI.entity.Company;
+import com.rently.rentlyAPI.entity.enums.WorkType;
 import com.rently.rentlyAPI.entity.user.Employee;
 import com.rently.rentlyAPI.security.Role;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ public class EmployeeDtoTest {
                 .phoneNumber("1234567890")
                 .bio("Employee bio")
                 .companyId(1)
+                .employeeType(WorkType.GENERAL.name())
                 .build();
 
         Employee employee = EmployeeDto.toEntity(employeeDto);
@@ -44,6 +46,7 @@ public class EmployeeDtoTest {
         employee.setPhoneNumber("1234567890");
         employee.setBio("Employee bio");
         employee.setRole(Role.EMPLOYEE);
+        employee.setEmployeeType(WorkType.GENERAL);
 
         Company company = mock(Company.class);
         employee.setCompany(company);

@@ -3,6 +3,8 @@ package com.rently.rentlyAPI.entity;
 import com.rently.rentlyAPI.entity.enums.CondoStatus;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
@@ -13,11 +15,12 @@ public class CondoTest {
     Building mockedBuilding = mock(Building.class);
     Parking mockedParking = mock(Parking.class);
     Locker mockedLocker = mock(Locker.class);
+    List<CondoFile> nullList = null;
 
     @Test
     public void testAllArgsConstructor() {
 
-        Condo testCondo = new Condo("Concordia", 4, "123", "key", CondoStatus.AVAILABLE, mockedBuilding, mockedParking, mockedLocker);
+        Condo testCondo = new Condo("Concordia", 4, "123", "key", CondoStatus.AVAILABLE, mockedBuilding, nullList, mockedParking, mockedLocker);
 
         assertEquals("Concordia", testCondo.getAddress());
         assertEquals(4, testCondo.getUnitNumber());
