@@ -1,4 +1,6 @@
 ##DEV DATABASE CONFIGURATION, PLEASE KEEP IT AS IT IS
+server:
+  port: ${PORT}
 spring:
   datasource:
     url: ${DB_URL}
