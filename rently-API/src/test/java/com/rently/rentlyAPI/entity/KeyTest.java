@@ -1,64 +1,41 @@
-//package com.rently.rentlyAPI.entity;
-//
-//import com.rently.rentlyAPI.entity.user.User;
-//import com.rently.rentlyAPI.security.Role;
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.mock;
-//
-//public class KeyTest {
-//
-//    Role mockedRole = mock(Role.class);
-//    User mockedUser = mock(User.class);
-//    @Test
-//    public void testAllArgsConstructor() {
-//        // Arrange
-//
-//
-//        // Act
-//        Key testKey = new Key("key", true, true, 1, mockedRole, mockedUser);
-//
-//        // Assert
-//        assertEquals("key", testKey.getKey());
-//        assertTrue(testKey.isRevoked());
-//        assertTrue(testKey.isActive());
-//        assertEquals(1, testKey.getCompanyId());
-//        assertEquals(mockedRole, testKey.getRole());
-//        assertEquals(mockedUser, testKey.getUser());
-//    }
-//
-//    @Test
-//    public void testNoArgsConstructor() {
-//        // Arrange
-//
-//
-//        // Act
-//        Key testKey = new Key();
-//
-//        // Assert
-//        assertNull(testKey.getId());
-//        assertFalse(testKey.isRevoked());
-//        assertFalse(testKey.isActive());
-//        assertNull(testKey.getCompanyId());
-//        assertNull(testKey.getRole());
-//        assertNull(testKey.getUser());
-//    }
-//
-//    @Test
-//    public void testBuilder() {
-//        // Arrange
-//
-//
-//        // Act
-//        Key testKey = Key.builder().build();
-//
-//        // Assert
-//        assertNull(testKey.getId());
-//        assertFalse(testKey.isRevoked());
-//        assertFalse(testKey.isActive());
-//        assertNull(testKey.getCompanyId());
-//        assertNull(testKey.getRole());
-//        assertNull(testKey.getUser());
-//    }
-//}
+package com.rently.rentlyAPI.entity;
+
+import com.rently.rentlyAPI.entity.user.Owner;
+import com.rently.rentlyAPI.security.Role;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class KeyTest {
+
+    @Test
+    void testAllArgsConstructor() {
+        Key key = new Key("testKey", true, true, 1, Role.USER, new Owner());
+
+        assertEquals("testKey", key.getKey());
+        assertTrue(key.isRevoked());
+        assertTrue(key.isActive());
+        assertEquals(1, key.getCompanyId());
+        assertEquals(Role.USER, key.getRole());
+        assertNotNull(key.getUser());
+    }
+
+    @Test
+    void testSuperBuilder() {
+        Key key = Key.builder()
+                .key("testKey")
+                .revoked(true)
+                .isActive(true)
+                .companyId(1)
+                .role(Role.USER)
+                .user(new Owner())
+                .build();
+
+        assertEquals("testKey", key.getKey());
+        assertTrue(key.isRevoked());
+        assertTrue(key.isActive());
+        assertEquals(1, key.getCompanyId());
+        assertEquals(Role.USER, key.getRole());
+        assertNotNull(key.getUser());
+    }
+}
