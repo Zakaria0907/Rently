@@ -16,6 +16,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useAuth from '../../hooks/useAuth';
 import { Building } from '../../types/types';
 import EditPropertyPopup from '../../components/EditPropertyPopup';
+import { parse } from 'date-fns';
 
 
 const Buildings: React.FC = () => {
@@ -55,10 +56,9 @@ const Buildings: React.FC = () => {
         setEditBuildingPopup(true);
     }
 
-    const getRandomImage = () => {
+    const getRandomImage = (condoId: number) => {
         const images = [condo1, condo2, condo3, condo4, condo5, condo6];
-        const randomIndex = Math.floor(Math.random() * images.length);
-        return images[randomIndex];
+        return images[condoId % images.length];
     };
 
 
@@ -145,7 +145,7 @@ const Buildings: React.FC = () => {
                         return (
                             <div key={index} className="bg-white rounded-md border border-gray-200 p-6 shadow-default shadow-black/5 ">
                                 <Image
-                                    src={getRandomImage()}
+                                    src={getRandomImage(card?.id ?? 0)}
                                     alt='condo image'
                                     borderRadius='lg'
                                     objectFit='cover'

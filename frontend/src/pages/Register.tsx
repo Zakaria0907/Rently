@@ -14,7 +14,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 const NAME_REGEX =
     /^([a-zA-Z0-9]+|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{1,}|[a-zA-Z0-9]+\s{1}[a-zA-Z0-9]{3,}\s{1}[a-zA-Z0-9]{1,})$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/auth/register";
+const REGISTER_URL = "/public-user/create/public-user";
 const PHONE_REGEX = /^[0-9]{10}$/;
 
 const Register = (): JSX.Element => {
@@ -114,7 +114,7 @@ const Register = (): JSX.Element => {
         try {
             const response: any = await axios.post(
                 REGISTER_URL,
-                JSON.stringify({ firstname: firstName, lastname: lastName, email: email, phoneNumber: phoneNumber, password: pwd, role: "USER" }),
+                JSON.stringify({ first_name: firstName, last_name: lastName, email: email, phone_number: phoneNumber, password: pwd, role: "USER", bio: "public user" }),
                 {
                     headers: { "Content-Type": "application/json" },
                     withCredentials: true,
