@@ -44,7 +44,8 @@ import EmployeeRequestDashboard from "./pages/EmployeePages/EmployeeRequestDashb
 import CompanyEmployeeDetail from "./pages/CompanyPages/CompanyEmployeeDetail";
 import OwnerRequestDashboard from "./pages/OwnerPages/OwnerRequestDashboard";
 import CreateCompanyForm from "./components/CreateCompanyForm";
-import CreateCompanyAdminForm from "./components/CreateCompanyAdminForm";import GenerateKey from "./pages/CompanyPages/GenerateKey";
+import CreateCompanyAdminForm from "./components/CreateCompanyAdminForm";
+import GenerateKey from "./pages/CompanyPages/GenerateKey";
 import ViewUnit from "./pages/CompanyPages/ViewUnit";
 
 
