@@ -77,3 +77,6 @@ npm run dev
 4. Always under the ```rently-API folder```, run the command ```mvn clean install```
 5. Run the application
 6. For further documentation about the architecture, please visit the Confluence page
+
+
+test delete
